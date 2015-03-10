@@ -71,6 +71,10 @@ public class ViewFactory {
         {
             return new ClerkView(model);
         }
+        else if(viewName.equals("LoginView") == true)
+        {
+            return new LoginView(model);
+        }
         else if(viewName.equals("BookView") == true)
         {
             return new BookView(model);

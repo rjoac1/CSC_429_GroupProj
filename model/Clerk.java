@@ -41,9 +41,28 @@ public class Clerk implements IView, IModel, ISlideShow
         myRegistry = new ModelRegistry("Clerk");
 
 
-        createAndShowClerkView();
+        createAndShowLoginView();
     }
+    private void createAndShowLoginView()
+    {
+        View localView = (View)myViews.get("LoginView");
 
+        if(localView == null)
+        {
+            //create initial view
+            localView = ViewFactory.createView("LoginView", this); //Use View Factory
+
+            myViews.put("LoginView", localView);
+
+            //Make view visible by installing it into the frame
+            myFrame.getContentPane().add(localView);//just the main panel in this case
+            myFrame.pack();
+        }
+        else
+        {
+            swapToView(localView);
+        }
+    }
     private void createAndShowClerkView()
     {
         View localView = (View)myViews.get("ClerkView");
