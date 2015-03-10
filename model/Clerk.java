@@ -63,16 +63,16 @@ public class Clerk implements IView, IModel, ISlideShow
             swapToView(localView);
         }
     }
-    private void createAndShowClerkView()
+    private void createAndShowBikeTransactionChoiceView()
     {
-        View localView = (View)myViews.get("ClerkView");
+        View localView = (View)myViews.get("BikeTransactionChoiceView");
 
         if(localView == null)
         {
             //create initial view
-            localView = ViewFactory.createView("ClerkView", this); //Use View Factory
+            localView = ViewFactory.createView("BikeTransactionChoiceView", this); //Use View Factory
 
-            myViews.put("ClerkView", localView);
+            myViews.put("BikeTransactionChoiceView", localView);
 
             //Make view visible by installing it into the frame
             myFrame.getContentPane().add(localView);//just the main panel in this case
