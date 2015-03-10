@@ -7,7 +7,6 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
 import javax.swing.JFrame;
-//Van was here
 
 // project imports
 import exception.InvalidPrimaryKeyException;
