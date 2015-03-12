@@ -15,7 +15,7 @@ import userinterface.MainFrame;
 import userinterface.WindowPosition;
 
 
-public class BikeRentalSystemSystem
+public class BikeRentalSystem
 {
     private Clerk myClerk;
 
