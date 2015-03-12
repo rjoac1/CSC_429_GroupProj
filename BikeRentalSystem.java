@@ -10,12 +10,12 @@ java -cp mysql-connector-java-5.1.7-bin.jar;classes;. DatabaseAccessorTester
 */
 import java.util.*;
 //Project imports
-import model.Librarian;
+import model.Clerk;
 import userinterface.MainFrame;
 import userinterface.WindowPosition;
 
 
-public class BikeRentalSystemSystem
+public class BikeRentalSystem
 {
     private Clerk myClerk;
 
