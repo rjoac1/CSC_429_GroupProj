@@ -42,6 +42,9 @@ public class BikeRentalSystem
                 language = new String(args[0]);
                 country = new String(args[1]);
             }
+            //test for french
+            /*language = new String("fr");
+            country = new String("FR");*/
 
             myClerk = new Clerk(language, country);
         }
