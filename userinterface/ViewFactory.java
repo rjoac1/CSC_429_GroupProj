@@ -69,7 +69,8 @@ public class ViewFactory {
         }
         else if(viewName.equals("BikeTransactionChoiceView") == true)
         {
-            return new BikeTransactionChoiceView(model);
+            //return new BikeTransactionChoiceView(model);
+            return null;
         }
         else if(viewName.equals("LoginView") == true)
         {

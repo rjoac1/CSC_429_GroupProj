@@ -20,7 +20,7 @@ import impresario.IModel;
 
 /** The class containing the Transaction Choice View  for the ATM application */
 //==============================================================
-public class TransactionChoiceView extends View
+public class BikeTransactionChoiceView extends View
 {
 
     // other private data
@@ -41,7 +41,7 @@ public class TransactionChoiceView extends View
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public TransactionChoiceView(IModel teller)
+    public BikeTransactionChoiceView(IModel teller)
     {
         super(teller, "BikeTransactionChoiceView");
 
@@ -99,7 +99,7 @@ public class TransactionChoiceView extends View
     {
 
         JPanel temp = new JPanel();		// default BoxLayout is fine
-        BoxLayout f = new BoxLayout(temp, BoxLayout.Y_AXIS);
+        /*BoxLayout f = new BoxLayout(temp, BoxLayout.Y_AXIS);
         temp.setLayout(f);
 
         // create the buttons, listen for events, add them to the panel
@@ -170,7 +170,7 @@ public class TransactionChoiceView extends View
         cancelButton.addActionListener(this);
         temp_5.add(cancelButton);
 
-        temp.add(temp_5);
+        temp.add(temp_5);*/
 
         return temp;
     }
@@ -199,7 +199,7 @@ public class TransactionChoiceView extends View
 
         clearErrorMessage();
 
-        if(e.getSource() == depositButton)
+        /*if(e.getSource() == depositButton)
         {
             myModel.stateChangeRequest("Deposit", null);
         }
@@ -227,7 +227,7 @@ public class TransactionChoiceView extends View
         if(e.getSource() == cancelButton)
         {
             processCancel();
-        }
+        }*/
 
     }
 

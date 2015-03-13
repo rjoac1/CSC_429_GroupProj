@@ -176,6 +176,7 @@ public class Book extends EntityBase implements IView, IModel, ISlideShow
 			return updateStatusMessage;
 		}
 
+
 		return persistentState.getProperty(key);
 	}
     public void updateState(String key, Object value)

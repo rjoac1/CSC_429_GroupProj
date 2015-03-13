@@ -28,10 +28,22 @@ public class BikeRentalSystem
     public BikeRentalSystem(String[] args)
     {
         // Create the top-level container (main frame) and add contents to it.
-        mainFrame = MainFrame.getInstance("Library System v1.0");
+        mainFrame = MainFrame.getInstance("Bike Rental System v1.0");
         try
         {
-            myClerk = new Clerk();
+            //Test for putting locale here
+            String language;
+            String country;
+
+            if (args.length != 2) {
+                language = new String("en");
+                country = new String("US");
+            } else {
+                language = new String(args[0]);
+                country = new String(args[1]);
+            }
+
+            myClerk = new Clerk(language, country);
         }
         catch(Exception exc)
         {
