@@ -72,11 +72,33 @@ public class Clerk implements IView, IModel, ISlideShow
             return loginErrorMessage;
         }
         else
-        if (key.equals("Name") == true)
+        if (key.equals("TransactionError") == true)
+        {
+            return transactionErrorMessage;
+        }
+        else if (key.equals("Name") == true)
         {
             if (myWorker != null)
             {
                 return myWorker.getState("Name");
+            }
+            else
+                return "Undefined";
+        }
+        else if (key.equals("WorkerID") == true)
+        {
+            if (myWorker != null)
+            {
+                return myWorker.getState("workerId");
+            }
+            else
+                return "Undefined";
+        }
+        else if (key.equals("Credentials") == true)
+        {
+            if (myWorker != null)
+            {
+                return myWorker.getState("credentials");
             }
             else
                 return "Undefined";
@@ -140,11 +162,11 @@ public class Clerk implements IView, IModel, ISlideShow
      */
     public boolean loginWorker(Properties props)
     {
-        //try {
+        try {
             myWorker = new Worker(props);
             return true;
-        //}
-        /*catch (InvalidPrimaryKeyException ex)
+        }
+        catch (InvalidPrimaryKeyException ex)
         {
             loginErrorMessage = "ERROR: " + ex.getMessage();
             return false;
@@ -153,7 +175,7 @@ public class Clerk implements IView, IModel, ISlideShow
         {
             loginErrorMessage = "ERROR" + exec.getMessage();
             return false;
-        }*/
+        }
     }
     private void createAndShowLoginView()
     {

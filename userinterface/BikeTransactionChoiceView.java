@@ -6,14 +6,13 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.Properties;
-import java.util.EventObject;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.util.Vector;
+import java.util.*;
+import java.text.*;
 
 // project imports
 import impresario.IModel;
@@ -32,6 +31,14 @@ public class BikeTransactionChoiceView extends View
     private JButton addUserButton;
     private JButton addWorkerButton;
     private JButton addBikeButton;
+
+    private JButton fndmodUserButton;
+    private JButton fndmodWorkerButton;
+    private JButton fndmodBikeButton;
+
+    private JButton checkout;
+    private JButton checkin;
+
     //private JButton rentBikeButton;
     //private JButton returnBikeButton;
 
@@ -39,11 +46,18 @@ public class BikeTransactionChoiceView extends View
 
     private MessageView statusLog;
 
+    //resource bundle for internationalization
+    private ResourceBundle messages;
+
+    private Locale currentLocale;
+
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public BikeTransactionChoiceView(IModel teller)
+    public BikeTransactionChoiceView(IModel clerk)
     {
-        super(teller, "BikeTransactionChoiceView");
+        super(clerk, "BikeTransactionChoiceView");
+        currentLocale = (Locale)myModel.getState("CurrentLocale");
+        messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
@@ -72,23 +86,57 @@ public class BikeTransactionChoiceView extends View
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        String accountHolderGreetingName = (String)myModel.getState("Name");
-
-        JLabel lbl1 = new JLabel("Welcome, " + accountHolderGreetingName + "!");
+        JLabel lbl = new JLabel(messages.getString("brockportTitle"));
         Font myFont1 = new Font("Helvetica", Font.BOLD, 20);
-        lbl1.setFont(myFont1);
-        temp1.add(lbl1);
+        lbl.setFont(myFont1);
+        temp1.add(lbl);
 
         temp.add(temp1);
 
         JPanel temp2 = new JPanel();
-        temp2.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JLabel lbl2 = new JLabel("What do you wish to do today?");
-        Font myFont2 = new Font("Helvetica", Font.BOLD, 14);
-        lbl2.setFont(myFont2);
-        temp2.add(lbl2);
+        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel lbl1 = new JLabel(messages.getString("fastTracksTitle"));
+        Font myFont2 = new Font("Helvetica", Font.BOLD, 10);
+        lbl1.setFont(myFont2);
+        temp2.add(lbl1);
 
         temp.add(temp2);
+
+        JPanel temp3 = new JPanel();
+        temp3.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel lbl2 = new JLabel(messages.getString("transChoiceSubTitle"));
+        Font myFont3 = new Font("Helvetica", Font.BOLD, 15);
+        lbl2.setFont(myFont3);
+        temp3.add(lbl2);
+
+        temp.add(temp3);
+
+        JPanel temp4 = new JPanel();
+        temp4.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        String workerGreetingName = (String)myModel.getState("Name");
+        String workerGreetingId = (String)myModel.getState("WorkerId");
+        String workerGreetingCredentials = (String)myModel.getState("Credentials");
+
+        Object[] messageArguments = {
+                workerGreetingName,
+                workerGreetingId,
+                workerGreetingCredentials
+        };
+
+        MessageFormat formatter = new MessageFormat("");
+        formatter.setLocale(currentLocale);
+
+        formatter.applyPattern(messages.getString("greetingTemplate"));
+        String greeting = formatter.format(messageArguments);
+
+        JLabel lbl3 = new JLabel(greeting);
+        lbl3.setFont(myFont2);
+        temp4.add(lbl3);
+
+        temp.add(temp4);
 
         return temp;
     }
