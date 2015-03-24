@@ -149,7 +149,8 @@ public class BikeTransactionChoiceView extends View
     //-------------------------------------------------------------
     private JPanel createNavigationButtons()
     {
-
+        final JPanel value = new JPanel();
+        value.setLayout(new BoxLayout(value, BoxLayout.Y_AXIS));
         final JLabel lblLayout = new JLabel("Layout");
         lblLayout.setBounds(37, 80, 42, 16);
         value.add(lblLayout);
