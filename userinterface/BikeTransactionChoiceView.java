@@ -141,86 +141,66 @@ public class BikeTransactionChoiceView extends View
         return temp;
     }
 
-    // Create the navigation buttons
-    //-------------------------------------------------------------
-    private JPanel createNavigationButtons()
-    {
+    public JPanel createNivigationsButtons() {
+        setLayout(null);
 
-        JPanel temp = new JPanel();		// default BoxLayout is fine
-        /*BoxLayout f = new BoxLayout(temp, BoxLayout.Y_AXIS);
-        temp.setLayout(f);
+        final JLabel lblLayout = new JLabel("Layout");
+        lblLayout.setBounds(37, 80, 42, 16);
+        add(lblLayout);
 
-        // create the buttons, listen for events, add them to the panel
-        JPanel temp_1 = new JPanel();
-        FlowLayout f_1 = new FlowLayout(FlowLayout.CENTER);
-        temp_1.setLayout(f_1);
+        final JButton btnCheckin = new JButton("CheckIn");
+        btnCheckin.setBounds(177, 75, 95, 29);
+        add(btnCheckin);
 
-        depositButton = new JButton("Deposit");
-        depositButton.addActionListener(this);
-        temp_1.add(depositButton);
+        final JButton btnCheckout = new JButton("CheckOut");
+        btnCheckout.setBounds(284, 73, 106, 29);
+        add(btnCheckout);
 
-        temp.add(temp_1);
+        final JLabel lblAdd = new JLabel("Add");
+        lblAdd.setBounds(42, 124, 25, 16);
+        add(lblAdd);
 
-        temp.add(Box.createRigidArea(new Dimension(400, 25)));
+        final JButton btnUser = new JButton("User");
+        btnUser.setBounds(143, 119, 75, 29);
+        add(btnUser);
 
-        JPanel temp_2 = new JPanel();
-        FlowLayout f_2 = new FlowLayout(FlowLayout.CENTER);
-        temp_2.setLayout(f_2);
+        final JButton btnWorker = new JButton("Worker");
+        btnWorker.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+            }
+        });
+        btnWorker.setBounds(236, 119, 88, 29);
+        add(btnWorker);
 
-        withdrawButton = new JButton("Withdraw");
-        withdrawButton.addActionListener(this);
-        temp_2.add(withdrawButton);
+        final JButton btnNike = new JButton("Bike");
+        btnNike.setBounds(349, 114, 75, 29);
+        add(btnNike);
 
-        temp.add(temp_2);
+        final JLabel lblFindmodify = new JLabel("Find/Modify");
+        lblFindmodify.setBounds(37, 172, 77, 16);
+        add(lblFindmodify);
 
-        temp.add(Box.createRigidArea(new Dimension(400, 25)));
+        final JButton btnUser_1 = new JButton("User");
+        btnUser_1.setBounds(143, 167, 75, 29);
+        add(btnUser_1);
 
-        JPanel temp_3 = new JPanel();
-        FlowLayout f_3 = new FlowLayout(FlowLayout.CENTER);
-        temp_3.setLayout(f_3);
+        final JButton btnWorker_1 = new JButton("Worker");
+        btnWorker_1.setBounds(236, 167, 88, 29);
+        add(btnWorker_1);
 
-        transferButton = new JButton("Transfer");
-        transferButton.addActionListener(this);
-        temp_3.add(transferButton);
+        final JButton btnBike = new JButton("Bike");
+        btnBike.setBounds(349, 167, 75, 29);
+        add(btnBike);
 
-        temp.add(temp_3);
+        final JButton btnLogout = new JButton("Logout");
+        btnLogout.setBounds(190, 239, 88, 29);
+        add(btnLogout);
 
-        temp.add(Box.createRigidArea(new Dimension(400, 25)));
+        final JLabel lblBrockportBikeRental = new JLabel("Brockport Bike Rental System");
+        lblBrockportBikeRental.setBounds(121, 33, 213, 16);
+        add(lblBrockportBikeRental);
 
-        JPanel temp_4 = new JPanel();
-        FlowLayout f_4 = new FlowLayout(FlowLayout.CENTER);
-        temp_4.setLayout(f_4);
-
-        balanceInquiryButton = new JButton("Balance Inquiry");
-        balanceInquiryButton.addActionListener(this);
-        temp_4.add(balanceInquiryButton);
-
-        temp.add(temp_4);
-
-        temp.add(Box.createRigidArea(new Dimension(400, 50)));
-
-        JPanel temp_4_1 = new JPanel();
-        FlowLayout f_4_1 = new FlowLayout(FlowLayout.CENTER);
-        temp_4_1.setLayout(f_4_1);
-
-        imposeServiceChargeButton = new JButton("Impose Service Charge");
-        imposeServiceChargeButton.addActionListener(this);
-        temp_4_1.add(imposeServiceChargeButton);
-
-        temp.add(temp_4_1);
-
-        temp.add(Box.createRigidArea(new Dimension(400, 50)));
-
-        JPanel temp_5 = new JPanel();
-        FlowLayout f_5 = new FlowLayout(FlowLayout.CENTER);
-        temp_5.setLayout(f_5);
-        cancelButton = new JButton("Done");
-        cancelButton.addActionListener(this);
-        temp_5.add(cancelButton);
-
-        temp.add(temp_5);*/
-
-        return temp;
     }
 
     // Create the status log field
