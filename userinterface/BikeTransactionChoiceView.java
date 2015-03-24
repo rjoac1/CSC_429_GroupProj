@@ -141,66 +141,63 @@ public class BikeTransactionChoiceView extends View
         return temp;
     }
 
-    public JPanel createNivigationsButtons() {
-        setLayout(null);
+    public JPanel createNavigationButtons() {
+        JPanel value = new JPanel();
+        value.setLayout(null);
 
         final JLabel lblLayout = new JLabel("Layout");
         lblLayout.setBounds(37, 80, 42, 16);
-        add(lblLayout);
+        value.add(lblLayout);
 
         final JButton btnCheckin = new JButton("CheckIn");
         btnCheckin.setBounds(177, 75, 95, 29);
-        add(btnCheckin);
+        value.add(btnCheckin);
 
         final JButton btnCheckout = new JButton("CheckOut");
         btnCheckout.setBounds(284, 73, 106, 29);
-        add(btnCheckout);
+        value.add(btnCheckout);
 
         final JLabel lblAdd = new JLabel("Add");
         lblAdd.setBounds(42, 124, 25, 16);
-        add(lblAdd);
+        value.add(lblAdd);
 
         final JButton btnUser = new JButton("User");
         btnUser.setBounds(143, 119, 75, 29);
-        add(btnUser);
+        value.add(btnUser);
 
         final JButton btnWorker = new JButton("Worker");
-        btnWorker.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-            }
-        });
         btnWorker.setBounds(236, 119, 88, 29);
-        add(btnWorker);
+        value.add(btnWorker);
 
         final JButton btnNike = new JButton("Bike");
         btnNike.setBounds(349, 114, 75, 29);
-        add(btnNike);
+        value.add(btnNike);
 
         final JLabel lblFindmodify = new JLabel("Find/Modify");
         lblFindmodify.setBounds(37, 172, 77, 16);
-        add(lblFindmodify);
+        value.add(lblFindmodify);
 
         final JButton btnUser_1 = new JButton("User");
         btnUser_1.setBounds(143, 167, 75, 29);
-        add(btnUser_1);
+        value.add(btnUser_1);
 
         final JButton btnWorker_1 = new JButton("Worker");
         btnWorker_1.setBounds(236, 167, 88, 29);
-        add(btnWorker_1);
+        value.add(btnWorker_1);
 
         final JButton btnBike = new JButton("Bike");
         btnBike.setBounds(349, 167, 75, 29);
-        add(btnBike);
+        value.add(btnBike);
 
         final JButton btnLogout = new JButton("Logout");
         btnLogout.setBounds(190, 239, 88, 29);
-        add(btnLogout);
+        value.add(btnLogout);
 
         final JLabel lblBrockportBikeRental = new JLabel("Brockport Bike Rental System");
         lblBrockportBikeRental.setBounds(121, 33, 213, 16);
-        add(lblBrockportBikeRental);
+        value.add(lblBrockportBikeRental);
 
+        return value;
     }
 
     // Create the status log field
