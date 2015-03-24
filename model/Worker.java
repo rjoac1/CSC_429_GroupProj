@@ -86,7 +86,6 @@ public class Worker extends EntityBase implements IView, IModel, ISlideShow
         super(myTableName);
 
         String idToQuery = props.getProperty("ID");
-        System.out.println(idToQuery); //test
 
         String query = "SELECT * FROM " + myTableName + " WHERE (workerId = " + idToQuery + ")";
 

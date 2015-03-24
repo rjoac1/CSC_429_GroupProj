@@ -19,3 +19,4 @@
 [3/24/15 11:54 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
 [3/24/15 11:55 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
 [3/24/15 12:02 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
+[3/24/15 2:44 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column '800000000sqladmin' in 'where clause'>

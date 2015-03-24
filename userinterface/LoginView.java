@@ -74,7 +74,7 @@ public class LoginView extends View
     private JPanel createTitle()
     {
         JPanel temp = new JPanel();
-        temp.setLayout(new FlowLayout(FlowLayout.CENTER));
+        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -89,7 +89,7 @@ public class LoginView extends View
         temp2.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         JLabel lbl1 = new JLabel(messages.getString("fastTracksTitle"));
-        Font myFont2 = new Font("Helvetica", Font.BOLD, 10);
+        Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
         lbl1.setFont(myFont2);
         temp2.add(lbl1);
 

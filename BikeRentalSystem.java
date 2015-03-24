@@ -35,16 +35,16 @@ public class BikeRentalSystem
             String language;
             String country;
 
-            if (args.length != 2) {
+            /*if (args.length != 2) {
                 language = new String("en");
                 country = new String("US");
             } else {
                 language = new String(args[0]);
                 country = new String(args[1]);
-            }
+            }*/
             //test for french
-            /*language = new String("fr");
-            country = new String("FR");*/
+            language = new String("fr");
+            country = new String("FR");
 
             myClerk = new Clerk(language, country);
         }

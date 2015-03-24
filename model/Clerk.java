@@ -76,16 +76,25 @@ public class Clerk implements IView, IModel, ISlideShow
         {
             return transactionErrorMessage;
         }
-        else if (key.equals("Name") == true)
+        else if (key.equals("LastName") == true)
         {
             if (myWorker != null)
             {
-                return myWorker.getState("Name");
+                return myWorker.getState("lastName");
             }
             else
                 return "Undefined";
         }
-        else if (key.equals("WorkerID") == true)
+        else if (key.equals("FirstName") == true)
+        {
+            if (myWorker != null)
+            {
+                return myWorker.getState("firstName");
+            }
+            else
+                return "Undefined";
+        }
+        else if (key.equals("WorkerId") == true)
         {
             if (myWorker != null)
             {
@@ -94,11 +103,11 @@ public class Clerk implements IView, IModel, ISlideShow
             else
                 return "Undefined";
         }
-        else if (key.equals("Credentials") == true)
+        else if (key.equals("Credential") == true)
         {
             if (myWorker != null)
             {
-                return myWorker.getState("credentials");
+                return myWorker.getState("credential");
             }
             else
                 return "Undefined";

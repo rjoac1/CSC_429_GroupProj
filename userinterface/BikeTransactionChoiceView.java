@@ -36,8 +36,8 @@ public class BikeTransactionChoiceView extends View
     private JButton fndmodWorkerButton;
     private JButton fndmodBikeButton;
 
-    private JButton checkout;
-    private JButton checkin;
+    private JButton checkoutButton;
+    private JButton checkinButton;
 
     //private JButton rentBikeButton;
     //private JButton returnBikeButton;
@@ -97,7 +97,7 @@ public class BikeTransactionChoiceView extends View
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         JLabel lbl1 = new JLabel(messages.getString("fastTracksTitle"));
-        Font myFont2 = new Font("Helvetica", Font.BOLD, 10);
+        Font myFont2 = new Font("Helvetica", Font.BOLD, 14);
         lbl1.setFont(myFont2);
         temp2.add(lbl1);
 
@@ -116,12 +116,16 @@ public class BikeTransactionChoiceView extends View
         JPanel temp4 = new JPanel();
         temp4.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        String workerGreetingName = (String)myModel.getState("Name");
+        String workerGreetingLastName = (String)myModel.getState("LastName");
+        String workerGreetingFirstName = (String)myModel.getState("FirstName");
         String workerGreetingId = (String)myModel.getState("WorkerId");
-        String workerGreetingCredentials = (String)myModel.getState("Credentials");
+        String workerGreetingCredentials = (String)myModel.getState("Credential");
+
+
 
         Object[] messageArguments = {
-                workerGreetingName,
+                workerGreetingLastName,
+                workerGreetingFirstName,
                 workerGreetingId,
                 workerGreetingCredentials
         };
@@ -147,78 +151,26 @@ public class BikeTransactionChoiceView extends View
     {
 
         JPanel temp = new JPanel();		// default BoxLayout is fine
-        /*BoxLayout f = new BoxLayout(temp, BoxLayout.Y_AXIS);
+        BoxLayout f = new BoxLayout(temp, BoxLayout.Y_AXIS);
         temp.setLayout(f);
 
         // create the buttons, listen for events, add them to the panel
-        JPanel temp_1 = new JPanel();
-        FlowLayout f_1 = new FlowLayout(FlowLayout.CENTER);
-        temp_1.setLayout(f_1);
+        JPanel temp1 = new JPanel();
+        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+        checkinButton = new JButton(messages.getString("checkinButton"));
+        checkinButton.addActionListener(this);
+        temp1.add(checkinButton);
 
-        depositButton = new JButton("Deposit");
-        depositButton.addActionListener(this);
-        temp_1.add(depositButton);
+        checkoutButton = new JButton(messages.getString("checkoutButton"));
+        checkinButton.addActionListener(this);
+        temp1.add(checkoutButton);
+        temp.add(temp1);
 
-        temp.add(temp_1);
 
-        temp.add(Box.createRigidArea(new Dimension(400, 25)));
 
-        JPanel temp_2 = new JPanel();
-        FlowLayout f_2 = new FlowLayout(FlowLayout.CENTER);
-        temp_2.setLayout(f_2);
 
-        withdrawButton = new JButton("Withdraw");
-        withdrawButton.addActionListener(this);
-        temp_2.add(withdrawButton);
 
-        temp.add(temp_2);
 
-        temp.add(Box.createRigidArea(new Dimension(400, 25)));
-
-        JPanel temp_3 = new JPanel();
-        FlowLayout f_3 = new FlowLayout(FlowLayout.CENTER);
-        temp_3.setLayout(f_3);
-
-        transferButton = new JButton("Transfer");
-        transferButton.addActionListener(this);
-        temp_3.add(transferButton);
-
-        temp.add(temp_3);
-
-        temp.add(Box.createRigidArea(new Dimension(400, 25)));
-
-        JPanel temp_4 = new JPanel();
-        FlowLayout f_4 = new FlowLayout(FlowLayout.CENTER);
-        temp_4.setLayout(f_4);
-
-        balanceInquiryButton = new JButton("Balance Inquiry");
-        balanceInquiryButton.addActionListener(this);
-        temp_4.add(balanceInquiryButton);
-
-        temp.add(temp_4);
-
-        temp.add(Box.createRigidArea(new Dimension(400, 50)));
-
-        JPanel temp_4_1 = new JPanel();
-        FlowLayout f_4_1 = new FlowLayout(FlowLayout.CENTER);
-        temp_4_1.setLayout(f_4_1);
-
-        imposeServiceChargeButton = new JButton("Impose Service Charge");
-        imposeServiceChargeButton.addActionListener(this);
-        temp_4_1.add(imposeServiceChargeButton);
-
-        temp.add(temp_4_1);
-
-        temp.add(Box.createRigidArea(new Dimension(400, 50)));
-
-        JPanel temp_5 = new JPanel();
-        FlowLayout f_5 = new FlowLayout(FlowLayout.CENTER);
-        temp_5.setLayout(f_5);
-        cancelButton = new JButton("Done");
-        cancelButton.addActionListener(this);
-        temp_5.add(cancelButton);
-
-        temp.add(temp_5);*/
 
         return temp;
     }
