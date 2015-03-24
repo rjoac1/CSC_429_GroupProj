@@ -166,6 +166,10 @@ public class BikeTransactionChoiceView extends View
         temp1.add(checkoutButton);
         temp.add(temp1);
 
+        JPanel temp2 = new JPanel();
+        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+        temp1.
+
 
 
 
