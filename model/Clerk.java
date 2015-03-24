@@ -3,8 +3,7 @@ package model;
 
 //System imports
 import java.lang.Exception;
-import java.util.Hashtable;
-import java.util.Properties;
+import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +14,8 @@ import impresario.ISlideShow;
 import impresario.IView;
 import impresario.ModelRegistry;
 
+import exception.InvalidPrimaryKeyException;
+import exception.PasswordMismatchException;
 import event.Event;
 import userinterface.MainFrame;
 import userinterface.View;
@@ -29,19 +30,152 @@ public class Clerk implements IView, IModel, ISlideShow
     private Properties dependencies;
     private ModelRegistry myRegistry;
 
+    private Worker myWorker;
+
     //GUI Components
     private Hashtable myViews;
     private JFrame myFrame;
 
+    private String loginErrorMessage = "";
+    private String transactionErrorMessage = "";
 
-    public Clerk()
+    private Locale currentLocale;
+
+    public Clerk(String language, String country)
     {
         myFrame = MainFrame.getInstance();
         myViews = new Hashtable();
         myRegistry = new ModelRegistry("Clerk");
 
+        currentLocale = new Locale(language, country);
+
+        if(myRegistry == null)
+        {
+            new Event(Event.getLeafLevelClassName(this), "Teller",
+                    "Could not instantiate Registry", Event.ERROR);
+        }
+        setDependencies();
 
         createAndShowLoginView();
+    }
+    private void setDependencies()
+    {
+        dependencies = new Properties();
+        dependencies.setProperty("Login", "LoginError");
+
+        myRegistry.setDependencies(dependencies);
+    }
+    public Object getState(String key)
+    {
+        if (key.equals("LoginError") == true)
+        {
+            return loginErrorMessage;
+        }
+        else
+        if (key.equals("TransactionError") == true)
+        {
+            return transactionErrorMessage;
+        }
+        else if (key.equals("Name") == true)
+        {
+            if (myWorker != null)
+            {
+                return myWorker.getState("Name");
+            }
+            else
+                return "Undefined";
+        }
+        else if (key.equals("WorkerID") == true)
+        {
+            if (myWorker != null)
+            {
+                return myWorker.getState("workerId");
+            }
+            else
+                return "Undefined";
+        }
+        else if (key.equals("Credentials") == true)
+        {
+            if (myWorker != null)
+            {
+                return myWorker.getState("credentials");
+            }
+            else
+                return "Undefined";
+        }
+        else if (key.equals("CurrentLocale"))
+        {
+            return currentLocale;
+        }
+        else
+            return "";
+    }
+    public void stateChangeRequest(String key, Object value) {
+        // STEP 4: Write the sCR method component for the key you
+        // just set up dependencies for
+        // DEBUG System.out.println("Teller.sCR: key = " + key);
+        switch (key) {
+            case "Login":
+                if (value != null) {
+                    loginErrorMessage = "";
+
+                    boolean flag = loginWorker((Properties) value);
+                    if (flag == true) {
+                        createAndShowBikeTransactionChoiceView();
+                    }
+                }
+                break;
+            /*case "InsertNewBook":
+                createNewBook();
+                break;
+            case "InsertNewPatron":
+                createNewPatron();
+                break;
+            case "InsertNewTransaction":
+                createNewTransaction();
+                break;
+            case "SearchBook":
+                createAndShowSearchBooksView();
+                break;
+            case "ProcessSearchBook":
+                createNewBookCollection((String)value);
+                break;*/
+            case "CancelTransaction":
+                createAndShowBikeTransactionChoiceView();
+                break;
+            case "Logout":
+                myWorker = null;
+                createAndShowLoginView();
+                break;
+        }
+        myRegistry.updateSubscribers(key, this);
+    }
+    public void updateState(String key, Object value)
+    {
+        // DEBUG System.out.println("Teller.updateState: key: " + key);
+
+        stateChangeRequest(key, value);
+    }
+
+    /*
+    Login Worker corresponding to worker Id and password
+     */
+    public boolean loginWorker(Properties props)
+    {
+        try {
+            myWorker = new Worker(props);
+            return true;
+        }
+        catch (InvalidPrimaryKeyException ex)
+        {
+            loginErrorMessage = "ERROR: " + ex.getMessage();
+            return false;
+        }
+        catch (PasswordMismatchException exec)
+        {
+            loginErrorMessage = "ERROR" + exec.getMessage();
+            return false;
+        }
     }
     private void createAndShowLoginView()
     {
@@ -74,9 +208,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
             myViews.put("BikeTransactionChoiceView", localView);
 
-            //Make view visible by installing it into the frame
-            myFrame.getContentPane().add(localView);//just the main panel in this case
-            myFrame.pack();
+            swapToView(localView);
         }
         else
         {
@@ -127,43 +259,6 @@ public class Clerk implements IView, IModel, ISlideShow
         bc.stateChangeRequest("CreateAndShowView", "");
     }*/
     //Abstract Methods
-    public void updateState(String key, Object value)
-    {
-        // DEBUG System.out.println("Teller.updateState: key: " + key);
-
-        stateChangeRequest(key, value);
-    }
-    public void stateChangeRequest(String key, Object value) {
-        // STEP 4: Write the sCR method component for the key you
-        // just set up dependencies for
-        // DEBUG System.out.println("Teller.sCR: key = " + key);
-        /*switch (key) {
-            /*case "InsertNewBook":
-                createNewBook();
-                break;
-            case "InsertNewPatron":
-                createNewPatron();
-                break;
-            case "InsertNewTransaction":
-                createNewTransaction();
-                break;
-            case "SearchBook":
-                createAndShowSearchBooksView();
-                break;
-            case "ProcessSearchBook":
-                createNewBookCollection((String)value);
-                break;
-            case "End":
-                createAndShowLibrarianView();
-                break;
-        }*/
-        myRegistry.updateSubscribers(key, this);
-    }
-    public Object getState(String key)
-    {
-        return null;
-    }
-
     /** Unregister previously registered objects. */
     //----------------------------------------------------------
     public void unSubscribe(String key, IView subscriber)

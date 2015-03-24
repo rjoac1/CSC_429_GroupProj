@@ -10,3 +10,12 @@
 [2/17/15 4:07 PM]|Patron|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'status' at row 1>
 [2/17/15 4:10 PM]|Patron|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'status' at row 1>
 [2/25/15 2:55 PM]|Trans|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'a' in 'field list'>
+[3/24/15 11:40 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
+[3/24/15 11:44 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
+[3/24/15 11:47 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
+[3/24/15 11:47 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
+[3/24/15 11:48 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
+[3/24/15 11:53 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
+[3/24/15 11:54 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
+[3/24/15 11:55 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>
+[3/24/15 12:02 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: Table 'rjoac1_spring15_1.Worker' doesn't exist>

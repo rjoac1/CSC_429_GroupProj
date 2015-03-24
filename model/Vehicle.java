@@ -24,42 +24,42 @@ import userinterface.View;
 import userinterface.ViewFactory;
 //test
 //=========================================
-public class Book extends EntityBase implements IView, IModel, ISlideShow
+public class Vehicle extends EntityBase implements IView, IModel, ISlideShow
 {
 
-	private static final String myTableName = "Book";	//name of database table
+	private static final String myTableName = "Vehicle";	//name of database table
     protected Properties dependencies;
     private String updateStatusMessage = "";
 
 
 	//Constructor
 	//-----------------------------------------------------
-	public Book()
+	public Vehicle()
     {
         super(myTableName);
         setDependencies();
     }
-    public Book(String bookId) throws InvalidPrimaryKeyException
+    public Vehicle(String vehicleID) throws InvalidPrimaryKeyException
 	{
 		super(myTableName);
 
 
         setDependencies();
 
-		String query = "SELECT * FROM " + myTableName + " WHERE (bookId = " + bookId + ")";
+		String query = "SELECT * FROM " + myTableName + " WHERE (vehicleID = " + vehicleID + ")";
 
 		Vector allDataRetrieved = getSelectQueryResult(query);
 
-		//Must get at least one book
+		//Must get at least one bike
 		if (allDataRetrieved != null)
 		{
 			int size = allDataRetrieved.size();
 
-			//There should be EXACTLY one book retrieved, more than that is an error
+			//There should be EXACTLY one bike retrieved, more than that is an error
 			if (size != 1)
 			{
-				throw new InvalidPrimaryKeyException("Multiple books matching bookId: " + bookId + " found.");
-				//System.out.println("Multiple books matching bookId: " + bookId + " found.");
+				throw new InvalidPrimaryKeyException("Multiple vehicles matching vehicleID: " + vehicleID + " found.");
+				//System.out.println("Multiple books matching vehicleID: " + vehicleID + " found.");
 			}
 			else
 			{
@@ -82,13 +82,13 @@ public class Book extends EntityBase implements IView, IModel, ISlideShow
 		}
 		else
 		{
-			throw new InvalidPrimaryKeyException("No books matching bookId: " + bookId + " found.");
-			//System.out.println("No books matching bookId: " + bookId + " found.");
+			throw new InvalidPrimaryKeyException("No bikes matching vehicleID: " + vehicleID + " found.");
+			//System.out.println("No books matching vehicleID: " + vehicleID + " found.");
 		}
 
 	}
 	//----------------------------------------------------------------------
-	public Book(Properties props)
+	public Vehicle(Properties props)
 	{
 		super(myTableName);
 
@@ -108,7 +108,7 @@ public class Book extends EntityBase implements IView, IModel, ISlideShow
 			}
 		}
 	}
-    private void setBookValues(Properties props)
+    private void setVehicleValues(Properties props)
     {
         Enumeration allKeys = props.propertyNames();
         while(allKeys.hasMoreElements() == true)
@@ -124,13 +124,13 @@ public class Book extends EntityBase implements IView, IModel, ISlideShow
     }
     public void createAndShowDataEntryView()
     {
-        View localView = (View)myViews.get("BookView");
+        View localView = (View)myViews.get("VehicleView");
 
         if(localView == null)
         {
-            localView = ViewFactory.createView("BookView", this);
+            localView = ViewFactory.createView("VehicleView", this);
 
-            myViews.put("BookView", localView);
+            myViews.put("VehicleView", localView);
 
             swapToView(localView);
         }
@@ -143,22 +143,32 @@ public class Book extends EntityBase implements IView, IModel, ISlideShow
 	{
 		Vector v = new Vector();
 
-		v.addElement(persistentState.getProperty("bookId"));
-		v.addElement(persistentState.getProperty("author"));
-		v.addElement(persistentState.getProperty("title"));
-		v.addElement(persistentState.getProperty("pubYear"));
-		v.addElement(persistentState.getProperty("status"));
+		v.addElement(persistentState.getProperty("vehicleID"));
+		v.addElement(persistentState.getProperty("make"));
+		v.addElement(persistentState.getProperty("modelNumber"));
+		v.addElement(persistentState.getProperty("serialNumber"));
+		v.addElement(persistentState.getProperty("color"));
+        v.addElement(persistentState.getProperty("description"));
+        v.addElement(persistentState.getProperty("location"));
+        v.addElement(persistentState.getProperty("physicalCondition"));
+        v.addElement(persistentState.getProperty("status"));
+        v.addElement(persistentState.getProperty("dateStatusUpdated"));
 
 		return v;
 	}
     //Only used for initial pre-GUI-testing when connecting to database
 	public void printData()
 	{
-		System.out.println("bookId: " + persistentState.getProperty("bookId"));
-		System.out.println("author: " + persistentState.getProperty("author"));
-		System.out.println("title: " + persistentState.getProperty("title"));
-		System.out.println("pubYear: " + persistentState.getProperty("pubYear"));
-		System.out.println("status: " + persistentState.getProperty("status"));
+		System.out.println("vehicleID: " + persistentState.getProperty("vehicleID"));
+		System.out.println("make: " + persistentState.getProperty("make"));
+		System.out.println("modelNumber: " + persistentState.getProperty("modelNumber"));
+		System.out.println("serialNumber: " + persistentState.getProperty("serialNumber"));
+		System.out.println("color: " + persistentState.getProperty("color"));
+        System.out.println("description: " + persistentState.getProperty("description"));
+        System.out.println("location: " + persistentState.getProperty("location"));
+        System.out.println("physicalCondition: " + persistentState.getProperty("physicalCondition"));
+        System.out.println("status: " + persistentState.getProperty("status"));
+        System.out.println("dateStatusUpdated: " + persistentState.getProperty("dateStatusUpdated"));
 	}
 	protected void initializeSchema(String tableName)
 	{
@@ -200,14 +210,14 @@ public class Book extends EntityBase implements IView, IModel, ISlideShow
 	}
     private void processInsertion(Properties props)
     {
-        setBookValues(props);
+        setVehicleValues(props);
         update();
     }
     //-----------------------------------------------------------------------------------
-    public static int compare(Book a, Book b)
+    public static int compare(Vehicle a, Vehicle b)
     {
-        String aNum = (String)a.getState("author");
-        String bNum = (String)b.getState("author");
+        String aNum = (String)a.getState("vehicleID");
+        String bNum = (String)b.getState("vehicleID");
 
         return aNum.compareTo(bNum);
     }
@@ -219,25 +229,25 @@ public class Book extends EntityBase implements IView, IModel, ISlideShow
 	{
 		try
 		{
-			if(persistentState.getProperty("bookId") != null)
+			if(persistentState.getProperty("vehicleID") != null)
 			{
 				Properties whereClause = new Properties();
-				whereClause.setProperty("bookId", persistentState.getProperty("bookId"));
+				whereClause.setProperty("vehicleID", persistentState.getProperty("vehicleID"));
 				updatePersistentState(mySchema, persistentState, whereClause);
 				//System.out.println("Book data for bookId: " + persistentState.getProperty("bookID") + " updated successfully in database.");
-				updateStatusMessage = "Book data for bookId: " + persistentState.getProperty("bookID") + " updated successfully in database.";
+				updateStatusMessage = "Vehicle data for vehicleID: " + persistentState.getProperty("vehicleID") + " updated successfully in database.";
 			}
 			else
 			{
 				Integer bookId = insertAutoIncrementalPersistentState(mySchema, persistentState);
-				persistentState.setProperty("bookId", "" + bookId.intValue());
+				persistentState.setProperty("vehicleID", "" + bookId.intValue());
 				//System.out.println("Book data for new book: " + persistentState.getProperty("bookId") + " installed successfully in database.");
-				updateStatusMessage = "Book data for new book: " + persistentState.getProperty("bookId") + " installed successfully in database.";
+				updateStatusMessage = "Vehcicle data for new vehicle: " + persistentState.getProperty("vehicleID") + " installed successfully in database.";
 			}
 		}
 		catch (SQLException ex)
 		{
-			updateStatusMessage = "Error in installing account data in database!";
+			updateStatusMessage = "Error in installing vehicle data in database!";
 			//System.out.println("Error in installing book data in database!");
 		}
 	}
