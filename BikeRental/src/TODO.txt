@@ -1,0 +1,9 @@
+Donc, dans les choses a faire, je dois ajouter une classe qui 
+
+Context:
+    Status
+    State (page de la GUI a representer)
+    Nom
+    Prenom
+
+Vrais probleme de securite, le fait de stoquer les password de la DB
