@@ -24,7 +24,7 @@ import java.util.Vector;
 //project imports
 import impresario.IModel;
 
-/**Class containing Librarian View for Library System application*/
+/**Class containing Vehicle View for Bike System application*/
 //==============================================================
 public class VehicleView extends View
 {
@@ -241,14 +241,15 @@ public class VehicleView extends View
     }
     public void populateFields()
     {
-        name.setText("");
-        address.setText("");
-        city.setText("");
-        zip.setText("");
-        email.setText("");
-        dobYear.setText("yyyy");
-        dobMonth.setText("mm");
-        dobDay.setText("dd");
+        make.setText("");
+        modelNumber.setText("");
+        serialNumber.setText("");
+        color.setText("");
+        description.setText("");
+        location.setText("");
+        physicalCondition.setText("");
+        status.setText("");
+        dateStatusUpdated.setText("mm/dd/yyyy");
     }
 
     public void processAction(EventObject e)
@@ -262,7 +263,7 @@ public class VehicleView extends View
             String serialNumberText = serialNumber.getText();
             String colorText = color.getText();
             String descriptionText = description.getText();
-            String locationText = loaction.getText();
+            String locationText = location.getText();
             String physicalConditionText = physicalCondition.getText();
             //System.out.println("year: " + dobYearEntered);
             String statusText = status.getText();
@@ -272,27 +273,27 @@ public class VehicleView extends View
 
             if((makeText == null) || (makeText.length() == 0))
             {
-                displayErrorMessage("Please enter a make.");
+                displayErrorMessage("Please enter a make");
                 make.requestFocus();
             }
             else if((modelNumberText == null) || (modelNumberText.length() == 0))
             {
-                displayErrorMessage("Please enter a model number.");
+                displayErrorMessage("Please enter a model number");
                 modelNumber.requestFocus();
             }
             else if((serialNumberText == null) || (serialNumberText.length() == 0))
             {
-                displayErrorMessage("Please enter a serial number.");
+                displayErrorMessage("Please enter a serial number");
                 serialNumber.requestFocus();
             }
             else if((colorText == null) || (colorText.length() == 0))
             {
-                displayErrorMessage("Please select a color.");
+                displayErrorMessage("Please select a color");
                 color.requestFocus();
             }
             else if((descriptionText == null) || (descriptionText.length() == 0))
             {
-                displayErrorMessage("Please enter a description.");
+                displayErrorMessage("Please enter a description");
                 description.requestFocus();
             }
             else if((locationText == null) || (locationText.length() == 0))
@@ -307,7 +308,7 @@ public class VehicleView extends View
             }
             else if((statusText == null) || (statusText.length() == 0))
             {
-                displayErrorMessage("Please enter an email address.");
+                displayErrorMessage("Please enter a status");
                 status.requestFocus();
             }
             else if((dateStatusText == null) || (dateStatusText.length() == 0))
