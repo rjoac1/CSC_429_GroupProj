@@ -133,11 +133,11 @@ public class VehicleView extends View
         temp.add(temp3);
 
         //zip
-        JPanel temp5 = new JPanel();
-        temp5.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JPanel temp4 = new JPanel();
+        temp4.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel zipLabel = new JLabel(messages.getString("VehicleColor"));
-        temp5.add(zipLabel);
+        temp4.add(zipLabel);
 
         zip = new JTextField(4);
         zip.addActionListener(this);
