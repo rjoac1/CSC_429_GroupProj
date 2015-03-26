@@ -34,6 +34,7 @@ public class VehicleView extends View
     private JTextField serialNumber;
     private JTextField color;
     private JTextField description;
+    private JTextField location;
     private JTextField physicalCondition;
     private JTextField status;
     private JTextField dateStatusUpdated;
@@ -97,123 +98,118 @@ public class VehicleView extends View
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel nameLabel = new JLabel(messages.getString("VehicleMake"));
-        temp1.add(nameLabel);
+        JLabel makeLabel = new JLabel(messages.getString("VehicleMake"));
+        temp1.add(makeLabel);
 
-        name = new JTextField(35);
-        name.addActionListener(this);
-        temp1.add(name);
+        make = new JTextField(35);
+        make.addActionListener(this);
+        temp1.add(make);
 
         temp.add(temp1);
 
-        //address
+        //Model Number
         JPanel temp2 = new JPanel();
         temp2.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel addressLabel = new JLabel(messages.getString("VehicleModelNum"));
-        temp2.add(addressLabel);
+        JLabel modelNumLabel = new JLabel(messages.getString("VehicleModelNum"));
+        temp2.add(modelNumLabel);
 
-        address = new JTextField(35);
-        address.addActionListener(this);
-        temp2.add(address);
+        modelNumber = new JTextField(35);
+        modelNumber.addActionListener(this);
+        temp2.add(modelNumber);
 
         temp.add(temp2);
 
-        //city
+        //Serial Number
         JPanel temp3 = new JPanel();
         temp3.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel cityLabel = new JLabel(messages.getString("VehicleSerialNum"));
-        temp3.add(cityLabel);
+        JLabel serialNumLabel = new JLabel(messages.getString("VehicleSerialNum"));
+        temp3.add(serialNumLabel);
 
-        city = new JTextField(35);
-        city.addActionListener(this);
-        temp3.add(city);
+        serialNumber = new JTextField(35);
+        serialNumber.addActionListener(this);
+        temp3.add(serialNumber);
 
         temp.add(temp3);
 
-        //zip
+        //Color
         JPanel temp4 = new JPanel();
         temp4.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel zipLabel = new JLabel(messages.getString("VehicleColor"));
-        temp4.add(zipLabel);
+        JLabel colorLabel = new JLabel(messages.getString("VehicleColor"));
+        temp4.add(colorLabel);
 
-        zip = new JTextField(4);
-        zip.addActionListener(this);
-        temp5.add(zip);
+        color = new JTextField(4);
+        color.addActionListener(this);
+        temp5.add(color);
 
         temp.add(temp5);
 
-        //email
+        //Description
+        JPanel temp5 = new JPanel();
+        temp5.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        JLabel descriptionLabel = new JLabel(messages.getString("VehicleDescription"));
+        temp5.add(descriptionLabel);
+
+        description = new JTextField(35);
+        description.addActionListener(this);
+        temp5.add(description);
+
+        temp.add(temp5);
+
+        //Location
         JPanel temp6 = new JPanel();
         temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel emailLabel = new JLabel(messages.getString("VehicleDescription"));
-        temp6.add(emailLabel);
+        JLabel locationLabel = new JLabel(messages.getString("VehicleLocation"));
+        temp6.add(locationLabel);
 
-        email = new JTextField(35);
-        email.addActionListener(this);
-        temp6.add(email);
+        location = new JTextField(35);
+        location.addActionListener(this);
+        temp6.add(location);
 
         temp.add(temp6);
 
-        //Date of Birth
+        //Physical Condition
         JPanel temp7 = new JPanel();
         temp7.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel dobLabel = new JLabel(messages.getString("VehicleLocation"));
-        temp7.add(dobLabel);
+        JLabel conditionLabel = new JLabel(messages.getString("VehiclePhysicalCondition"));
+        temp7.add(conditionLabel);
 
-        //Date of Birth
-        JPanel temp7 = new JPanel();
-        temp7.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel dobLabel = new JLabel(messages.getString("VehiclePhysicalCondition"));
-        temp7.add(dobLabel);
-
-        //Date of Birth
-        JPanel temp8 = new JPanel();
-        temp7.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel dobLabel = new JLabel(messages.getString("VehicleStatus"));
-        temp8.add(dobLabel);
-
-        //Date of Birth
-        JPanel temp8 = new JPanel();
-        temp7.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel dobLabel = new JLabel(messages.getString("VehicleDateStatus"));
-        temp8.add(dobLabel);
-
-        dobYear = new JTextField(4);
-        dobYear.addActionListener(this);
-        temp7.add(dobYear);
-        temp7.add(dobSpacer);
-        dobMonth = new JTextField(2);
-        dobMonth.addActionListener(this);
-        temp7.add(dobMonth);
-        temp7.add(dobSpacer2);
-        dobDay = new JTextField(2);
-        dobDay.addActionListener(this);
-        temp7.add(dobDay);
+        physicalCondition = new JTextField(35);
+        physicalCondition.addActionListener(this);
+        temp7.add(physicalCondition);
 
         temp.add(temp7);
 
+        //Status
         JPanel temp8 = new JPanel();
         temp8.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel statusLabel = new JLabel("Status : ");
+        JLabel statusLabel = new JLabel(messages.getString("VehicleStatus"));
         temp8.add(statusLabel);
 
-        statusOptions = new Vector<String>();
-        statusOptions.add("Active");
-        statusOptions.add("Inactive");
-        status = new JComboBox(statusOptions);
+        status = new JTextField(35);
         status.addActionListener(this);
         temp8.add(status);
 
         temp.add(temp8);
+
+        //Date of Status Change
+        JPanel temp9 = new JPanel();
+        temp9.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        JLabel dateStatusLabel = new JLabel(messages.getString("VehicleDateStatus"));
+        temp9.add(dateStatusLabel);
+
+        dateStatusUpdated = new JTextField(4);
+        dateStatusUpdated.addActionListener(this);
+        temp9.add(dateStatusUpdated);
+
+        temp.add(temp9);
 
         return temp;
     }
