@@ -1,18 +1,19 @@
 // specify the package
 package userinterface;
 
-// system imports
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Dimension;
 import java.awt.Font;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.util.*;
 import java.text.*;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 // project imports
 import impresario.IModel;
@@ -149,7 +150,6 @@ public class BikeTransactionChoiceView extends View
     //-------------------------------------------------------------
     private JPanel createNavigationButtons()
     {
-        {
 
         final JPanel value = new JPanel();
         value.setLayout(new GridLayout(0, 1, 0, 0));
