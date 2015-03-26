@@ -134,24 +134,30 @@ public class Clerk implements IView, IModel, ISlideShow
                     }
                 }
                 break;
-            /*case "InsertNewBook":
-                createNewBook();
+            /*case "Checkin":
+                processCheckin();
                 break;
-            case "InsertNewPatron":
-                createNewPatron();
-                break;
-            case "InsertNewTransaction":
-                createNewTransaction();
-                break;
-            case "SearchBook":
-                createAndShowSearchBooksView();
-                break;
-            case "ProcessSearchBook":
-                createNewBookCollection((String)value);
+            case "Checkout":
+                processCheckout();
                 break;*/
-            case "CancelTransaction":
-                createAndShowBikeTransactionChoiceView();
+            case "AddUser":
+                createNewUser();
                 break;
+            case "AddWorker":
+                createNewWorker();
+                break;
+            case "AddBike":
+                createNewBike();
+                break;
+            /*case "FndModUser":
+                fndModUser();
+                break;
+            case "FndModWorker":
+                fndModWorker();
+                break;
+            case "FndModBike":
+                fndModBike();
+                break;*/
             case "Logout":
                 myWorker = null;
                 createAndShowLoginView();
