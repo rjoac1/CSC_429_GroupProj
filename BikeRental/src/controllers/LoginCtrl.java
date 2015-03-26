@@ -1,6 +1,6 @@
 package controllers;
 
-import views.Test;
+//import views.Test;
 
 import javax.swing.*;
 
@@ -10,21 +10,22 @@ import javax.swing.*;
 
 public class LoginCtrl extends CtrlBase {
 
-    private Test mView;
 
+//    private Test mView;
+//
     LoginCtrl(ViewController v) {
         super(v);
-        mView = new Test(this);
+//        mView = new Test(this);
     }
-
+//
     public JPanel getView() {
-        return mView;
+        return null;
     }
-
-    public boolean login(String login, String password) {
-        // Do the check here.
-        //  Think about encryption, salt
-        return false;
-    }
+//
+//    public boolean login(String login, String password) {
+//        // Do the check here.
+//        //  Think about encryption, salt
+//        return false;
+//    }
 
 }
