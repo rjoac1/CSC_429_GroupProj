@@ -7,100 +7,49 @@ public class ViewFactory {
 
 	public static View createView(String viewName, IModel model)
 	{
-		if(viewName.equals("TellerView") == true)
+		if(viewName.equals("LoginView") == true)
 		{
-			return new TellerView(model);
+			return new LoginView(model);
 		}
-		else if(viewName.equals("TransactionChoiceView") == true)
+		else if(viewName.equals("BikeTransactionChoiceView") == true)
 		{
-			return new TransactionChoiceView(model);
+			return new BikeTransactionChoiceView(model);
 		}
-		else if(viewName.equals("AccountCollectionView") == true)
+        /*
+		else if(viewName.equals("UserView") == true)
 		{
-			return new AccountCollectionView(model);
+			return new UserView(model);
 		}
-		else if(viewName.equals("AccountView") == true)
+		else if(viewName.equals("WorkerView") == true)
 		{
-			return new AccountView(model);
+			return new WorkerView(model);
 		}
-		else if(viewName.equals("AccountHolderIDEntryView") == true)
+		else if(viewName.equals("VehicleView") == true)
 		{
-			return new AccountHolderIDEntryView(model);
+			return new VehicleView(model);
 		}
-		else if(viewName.equals("DepositTransactionView") == true)
+		else if(viewName.equals("RentView") == true)
 		{
-			return new DepositTransactionView(model);
+			return new RentView(model);
 		}
-		else if(viewName.equals("DepositAmountView") == true)
+		else if(viewName.equals("ReturnView") == true)
 		{
-			return new DepositAmountView(model);
+			return new ReturnView(model);
 		}
-		else if(viewName.equals("WithdrawTransactionView") == true)
+		else if(viewName.equals("FindUser") == true)
 		{
-			return new WithdrawTransactionView(model);
+			return new FindUser(model);
 		}
-		else if(viewName.equals("TransferTransactionView") == true)
+		else if(viewName.equals("FindWorker") == true)
 		{
-			return new TransferTransactionView(model);
+			return new FindWorker(model);
 		}
-		else if(viewName.equals("BalanceInquiryTransactionView") == true)
+		else if(viewName.equals("FindVehicle") == true)
 		{
-			return new BalanceInquiryTransactionView(model);
+			return new FindVehicle(model);
 		}
-		else if(viewName.equals("BalanceInquiryReceipt") == true)
-		{
-			return new BalanceInquiryReceipt(model);
-		}
-		else if(viewName.equals("WithdrawReceipt") == true)
-		{
-			return new WithdrawReceipt(model);
-		}
-		else if(viewName.equals("DepositReceipt") == true)
-		{
-			return new DepositReceipt(model);
-		}
-		else if(viewName.equals("TransferReceipt") == true)
-		{
-			return new TransferReceipt(model);
-		}
-        else if(viewName.equals("LibrarianView") == true)
-        {
-            return new LibrarianView(model);
-        }
-        else if(viewName.equals("BikeTransactionChoiceView") == true)
-        {
-            //return new BikeTransactionChoiceView(model);
-            return null;
-        }
-        else if(viewName.equals("LoginView") == true)
-        {
-            return new LoginView(model);
-        }
-        else if(viewName.equals("BookView") == true)
-        {
-            return new BookView(model);
-        }
-        else if(viewName.equals("PatronView") == true)
-        {
-            return new PatronView(model);
-        }
-        else if(viewName.equals("TransView") == true)
-        {
-            return new TransView(model);
-        }
-        else if(viewName.equals("SearchBooksView") == true)
-        {
-            return new SearchBooksView(model);
-        }
-        else if(viewName.equals("BookCollectionView") == true)
-        {
-            return new BookCollectionView(model);
-        }
-        else if(viewName.equals("UserView") == true)
-        {
-            return new UserView(model);
-        }
-		else
+        */
+        else
 			return null;
 	}
 

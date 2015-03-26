@@ -72,11 +72,42 @@ public class Clerk implements IView, IModel, ISlideShow
             return loginErrorMessage;
         }
         else
-        if (key.equals("Name") == true)
+        if (key.equals("TransactionError") == true)
+        {
+            return transactionErrorMessage;
+        }
+        else if (key.equals("LastName") == true)
         {
             if (myWorker != null)
             {
-                return myWorker.getState("Name");
+                return myWorker.getState("lastName");
+            }
+            else
+                return "Undefined";
+        }
+        else if (key.equals("FirstName") == true)
+        {
+            if (myWorker != null)
+            {
+                return myWorker.getState("firstName");
+            }
+            else
+                return "Undefined";
+        }
+        else if (key.equals("WorkerId") == true)
+        {
+            if (myWorker != null)
+            {
+                return myWorker.getState("workerId");
+            }
+            else
+                return "Undefined";
+        }
+        else if (key.equals("Credential") == true)
+        {
+            if (myWorker != null)
+            {
+                return myWorker.getState("credential");
             }
             else
                 return "Undefined";
@@ -140,11 +171,11 @@ public class Clerk implements IView, IModel, ISlideShow
      */
     public boolean loginWorker(Properties props)
     {
-        //try {
+        try {
             myWorker = new Worker(props);
             return true;
-        //}
-        /*catch (InvalidPrimaryKeyException ex)
+        }
+        catch (InvalidPrimaryKeyException ex)
         {
             loginErrorMessage = "ERROR: " + ex.getMessage();
             return false;
@@ -153,7 +184,7 @@ public class Clerk implements IView, IModel, ISlideShow
         {
             loginErrorMessage = "ERROR" + exec.getMessage();
             return false;
-        }*/
+        }
     }
     private void createAndShowLoginView()
     {

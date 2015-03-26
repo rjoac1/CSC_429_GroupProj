@@ -1,19 +1,19 @@
 // specify the package
 package userinterface;
 
-// system imports
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.util.Properties;
-import java.util.EventObject;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.util.Vector;
+import java.util.*;
+import java.text.*;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 // project imports
 import impresario.IModel;
@@ -32,6 +32,14 @@ public class BikeTransactionChoiceView extends View
     private JButton addUserButton;
     private JButton addWorkerButton;
     private JButton addBikeButton;
+
+    private JButton fndmodUserButton;
+    private JButton fndmodWorkerButton;
+    private JButton fndmodBikeButton;
+
+    private JButton checkoutButton;
+    private JButton checkinButton;
+
     //private JButton rentBikeButton;
     //private JButton returnBikeButton;
 
@@ -39,11 +47,18 @@ public class BikeTransactionChoiceView extends View
 
     private MessageView statusLog;
 
+    //resource bundle for internationalization
+    private ResourceBundle messages;
+
+    private Locale currentLocale;
+
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public BikeTransactionChoiceView(IModel teller)
+    public BikeTransactionChoiceView(IModel clerk)
     {
-        super(teller, "BikeTransactionChoiceView");
+        super(clerk, "BikeTransactionChoiceView");
+        currentLocale = (Locale)myModel.getState("CurrentLocale");
+        messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
@@ -72,23 +87,61 @@ public class BikeTransactionChoiceView extends View
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        String accountHolderGreetingName = (String)myModel.getState("Name");
-
-        JLabel lbl1 = new JLabel("Welcome, " + accountHolderGreetingName + "!");
+        JLabel lbl = new JLabel(messages.getString("brockportTitle"));
         Font myFont1 = new Font("Helvetica", Font.BOLD, 20);
-        lbl1.setFont(myFont1);
-        temp1.add(lbl1);
+        lbl.setFont(myFont1);
+        temp1.add(lbl);
 
         temp.add(temp1);
 
         JPanel temp2 = new JPanel();
-        temp2.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JLabel lbl2 = new JLabel("What do you wish to do today?");
+        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel lbl1 = new JLabel(messages.getString("fastTracksTitle"));
         Font myFont2 = new Font("Helvetica", Font.BOLD, 14);
-        lbl2.setFont(myFont2);
-        temp2.add(lbl2);
+        lbl1.setFont(myFont2);
+        temp2.add(lbl1);
 
         temp.add(temp2);
+
+        JPanel temp3 = new JPanel();
+        temp3.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel lbl2 = new JLabel(messages.getString("transChoiceSubTitle"));
+        Font myFont3 = new Font("Helvetica", Font.BOLD, 15);
+        lbl2.setFont(myFont3);
+        temp3.add(lbl2);
+
+        temp.add(temp3);
+
+        JPanel temp4 = new JPanel();
+        temp4.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        String workerGreetingLastName = (String)myModel.getState("LastName");
+        String workerGreetingFirstName = (String)myModel.getState("FirstName");
+        String workerGreetingId = (String)myModel.getState("WorkerId");
+        String workerGreetingCredentials = (String)myModel.getState("Credential");
+
+
+
+        Object[] messageArguments = {
+                workerGreetingLastName,
+                workerGreetingFirstName,
+                workerGreetingId,
+                workerGreetingCredentials
+        };
+
+        MessageFormat formatter = new MessageFormat("");
+        formatter.setLocale(currentLocale);
+
+        formatter.applyPattern(messages.getString("greetingTemplate"));
+        String greeting = formatter.format(messageArguments);
+
+        JLabel lbl3 = new JLabel(greeting);
+        lbl3.setFont(myFont2);
+        temp4.add(lbl3);
+
+        temp.add(temp4);
 
         return temp;
     }
@@ -98,81 +151,132 @@ public class BikeTransactionChoiceView extends View
     private JPanel createNavigationButtons()
     {
 
-        JPanel temp = new JPanel();		// default BoxLayout is fine
-        /*BoxLayout f = new BoxLayout(temp, BoxLayout.Y_AXIS);
-        temp.setLayout(f);
+        final JPanel value = new JPanel();
+        value.setLayout(new GridLayout(0, 1, 0, 0));
 
-        // create the buttons, listen for events, add them to the panel
-        JPanel temp_1 = new JPanel();
-        FlowLayout f_1 = new FlowLayout(FlowLayout.CENTER);
-        temp_1.setLayout(f_1);
+        final JPanel panel = new JPanel();
+        value.add(panel);
+        final GridBagLayout gbl_panel = new GridBagLayout();
+        gbl_panel.columnWidths = new int[]{0, 213, 128, 253, 0};
+        gbl_panel.rowHeights = new int[]{16, 29, 0};
+        gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        panel.setLayout(gbl_panel);
 
-        depositButton = new JButton("Deposit");
-        depositButton.addActionListener(this);
-        temp_1.add(depositButton);
+        final JLabel lblLayout = new JLabel("Layout");
+        final GridBagConstraints gbc_lblLayout = new GridBagConstraints();
+        gbc_lblLayout.anchor = GridBagConstraints.WEST;
+        gbc_lblLayout.insets = new Insets(0, 0, 0, 5);
+        gbc_lblLayout.gridx = 1;
+        gbc_lblLayout.gridy = 1;
+        panel.add(lblLayout, gbc_lblLayout);
 
-        temp.add(temp_1);
+        final JButton btnCheckin = new JButton("CheckIn");
+        final GridBagConstraints gbc_btnCheckin = new GridBagConstraints();
+        gbc_btnCheckin.anchor = GridBagConstraints.NORTHWEST;
+        gbc_btnCheckin.insets = new Insets(0, 0, 0, 5);
+        gbc_btnCheckin.gridx = 2;
+        gbc_btnCheckin.gridy = 1;
+        panel.add(btnCheckin, gbc_btnCheckin);
 
-        temp.add(Box.createRigidArea(new Dimension(400, 25)));
+        final JButton btnCheckout = new JButton("CheckOut");
+        final GridBagConstraints gbc_btnCheckout = new GridBagConstraints();
+        gbc_btnCheckout.anchor = GridBagConstraints.NORTHWEST;
+        gbc_btnCheckout.gridx = 3;
+        gbc_btnCheckout.gridy = 1;
+        panel.add(btnCheckout, gbc_btnCheckout);
 
-        JPanel temp_2 = new JPanel();
-        FlowLayout f_2 = new FlowLayout(FlowLayout.CENTER);
-        temp_2.setLayout(f_2);
+        final JPanel panel_1 = new JPanel();
+        value.add(panel_1);
+        final GridBagLayout gbl_panel_1 = new GridBagLayout();
+        gbl_panel_1.columnWidths = new int[]{0, 93, 155, 165, 155, 0, 0};
+        gbl_panel_1.rowHeights = new int[]{0, 29, 0};
+        gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        panel_1.setLayout(gbl_panel_1);
 
-        withdrawButton = new JButton("Withdraw");
-        withdrawButton.addActionListener(this);
-        temp_2.add(withdrawButton);
+        final JLabel lblAdd = new JLabel("Add");
+        final GridBagConstraints gbc_lblAdd = new GridBagConstraints();
+        gbc_lblAdd.fill = GridBagConstraints.BOTH;
+        gbc_lblAdd.insets = new Insets(0, 0, 0, 5);
+        gbc_lblAdd.gridx = 1;
+        gbc_lblAdd.gridy = 1;
+        panel_1.add(lblAdd, gbc_lblAdd);
 
-        temp.add(temp_2);
+        final JButton btnUser = new JButton("User");
+        final GridBagConstraints gbc_btnUser = new GridBagConstraints();
+        gbc_btnUser.fill = GridBagConstraints.BOTH;
+        gbc_btnUser.insets = new Insets(0, 0, 0, 5);
+        gbc_btnUser.gridx = 2;
+        gbc_btnUser.gridy = 1;
+        panel_1.add(btnUser, gbc_btnUser);
 
-        temp.add(Box.createRigidArea(new Dimension(400, 25)));
+        final JButton btnWorker = new JButton("Worker");
+        final GridBagConstraints gbc_btnWorker = new GridBagConstraints();
+        gbc_btnWorker.fill = GridBagConstraints.BOTH;
+        gbc_btnWorker.insets = new Insets(0, 0, 0, 5);
+        gbc_btnWorker.gridx = 3;
+        gbc_btnWorker.gridy = 1;
+        panel_1.add(btnWorker, gbc_btnWorker);
 
-        JPanel temp_3 = new JPanel();
-        FlowLayout f_3 = new FlowLayout(FlowLayout.CENTER);
-        temp_3.setLayout(f_3);
+        final JButton btnNike = new JButton("Bike");
+        final GridBagConstraints gbc_btnNike = new GridBagConstraints();
+        gbc_btnNike.insets = new Insets(0, 0, 0, 5);
+        gbc_btnNike.fill = GridBagConstraints.BOTH;
+        gbc_btnNike.gridx = 4;
+        gbc_btnNike.gridy = 1;
+        panel_1.add(btnNike, gbc_btnNike);
 
-        transferButton = new JButton("Transfer");
-        transferButton.addActionListener(this);
-        temp_3.add(transferButton);
+        final JPanel panel_3 = new JPanel();
+        value.add(panel_3);
+        final GridBagLayout gbl_panel_3 = new GridBagLayout();
+        gbl_panel_3.columnWidths = new int[]{0, 93, 155, 165, 155, 0, 0};
+        gbl_panel_3.rowHeights = new int[]{0, 29, 0};
+        gbl_panel_3.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gbl_panel_3.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        panel_3.setLayout(gbl_panel_3);
 
-        temp.add(temp_3);
+        final JLabel label = new JLabel("Find/Modify");
+        final GridBagConstraints gbc_label = new GridBagConstraints();
+        gbc_label.fill = GridBagConstraints.BOTH;
+        gbc_label.insets = new Insets(0, 0, 0, 5);
+        gbc_label.gridx = 1;
+        gbc_label.gridy = 1;
+        panel_3.add(label, gbc_label);
 
-        temp.add(Box.createRigidArea(new Dimension(400, 25)));
+        final JButton button = new JButton("User");
+        final GridBagConstraints gbc_button = new GridBagConstraints();
+        gbc_button.fill = GridBagConstraints.BOTH;
+        gbc_button.insets = new Insets(0, 0, 0, 5);
+        gbc_button.gridx = 2;
+        gbc_button.gridy = 1;
+        panel_3.add(button, gbc_button);
 
-        JPanel temp_4 = new JPanel();
-        FlowLayout f_4 = new FlowLayout(FlowLayout.CENTER);
-        temp_4.setLayout(f_4);
+        final JButton button_1 = new JButton("Worker");
+        final GridBagConstraints gbc_button_1 = new GridBagConstraints();
+        gbc_button_1.fill = GridBagConstraints.BOTH;
+        gbc_button_1.insets = new Insets(0, 0, 0, 5);
+        gbc_button_1.gridx = 3;
+        gbc_button_1.gridy = 1;
+        panel_3.add(button_1, gbc_button_1);
 
-        balanceInquiryButton = new JButton("Balance Inquiry");
-        balanceInquiryButton.addActionListener(this);
-        temp_4.add(balanceInquiryButton);
+        final JButton button_2 = new JButton("Bike");
+        final GridBagConstraints gbc_button_2 = new GridBagConstraints();
+        gbc_button_2.fill = GridBagConstraints.BOTH;
+        gbc_button_2.insets = new Insets(0, 0, 0, 5);
+        gbc_button_2.gridx = 4;
+        gbc_button_2.gridy = 1;
+        panel_3.add(button_2, gbc_button_2);
 
-        temp.add(temp_4);
+        final JPanel panel_2 = new JPanel();
+        value.add(panel_2);
 
-        temp.add(Box.createRigidArea(new Dimension(400, 50)));
+        final JButton btnLogout = new JButton("Logout");
+        panel_2.add(btnLogout);
 
-        JPanel temp_4_1 = new JPanel();
-        FlowLayout f_4_1 = new FlowLayout(FlowLayout.CENTER);
-        temp_4_1.setLayout(f_4_1);
-
-        imposeServiceChargeButton = new JButton("Impose Service Charge");
-        imposeServiceChargeButton.addActionListener(this);
-        temp_4_1.add(imposeServiceChargeButton);
-
-        temp.add(temp_4_1);
-
-        temp.add(Box.createRigidArea(new Dimension(400, 50)));
-
-        JPanel temp_5 = new JPanel();
-        FlowLayout f_5 = new FlowLayout(FlowLayout.CENTER);
-        temp_5.setLayout(f_5);
-        cancelButton = new JButton("Done");
-        cancelButton.addActionListener(this);
-        temp_5.add(cancelButton);
-
-        temp.add(temp_5);*/
-
-        return temp;
+        final JPanel panel_4 = new JPanel();
+        value.add(panel_4);
+        return value;
     }
 
     // Create the status log field

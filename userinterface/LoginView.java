@@ -74,12 +74,26 @@ public class LoginView extends View
     private JPanel createTitle()
     {
         JPanel temp = new JPanel();
-        temp.setLayout(new FlowLayout(FlowLayout.CENTER));
+        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
-        JLabel lbl = new JLabel(messages.getString("loginTitle"));
+        JPanel temp1 = new JPanel();
+        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JLabel lbl = new JLabel(messages.getString("brockportTitle"));
         Font myFont = new Font("Helvetica", Font.BOLD, 20);
         lbl.setFont(myFont);
-        temp.add(lbl);
+        temp1.add(lbl);
+
+        temp.add(temp1);
+
+        JPanel temp2 = new JPanel();
+        temp2.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel lbl1 = new JLabel(messages.getString("fastTracksTitle"));
+        Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
+        lbl1.setFont(myFont2);
+        temp2.add(lbl1);
+
+        temp.add(temp2);
 
         return temp;
     }

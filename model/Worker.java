@@ -81,24 +81,69 @@ public class Worker extends EntityBase implements IView, IModel, ISlideShow
 
     }
     //----------------------------------------------------------------------
-    public Worker(Properties props)
+    public Worker(Properties props) throws InvalidPrimaryKeyException, PasswordMismatchException
     {
         super(myTableName);
 
-        setDependencies();
+        String idToQuery = props.getProperty("ID");
 
-        persistentState = new Properties();
+        String query = "SELECT * FROM " + myTableName + " WHERE (workerId = " + idToQuery + ")";
 
-        Enumeration allKeys = props.propertyNames();
-        while(allKeys.hasMoreElements() == true)
+        Vector allDataRetrieved =  getSelectQueryResult(query);
+
+        // You must get one account at least
+        if (allDataRetrieved != null)
         {
-            String nextKey = (String)allKeys.nextElement();
-            String nextValue = props.getProperty(nextKey);
+            int size = allDataRetrieved.size();
 
-            if(nextValue != null)
+            // There should be EXACTLY one account. More than that is an error
+            if (size != 1)
             {
-                persistentState.setProperty(nextKey, nextValue);
+                throw new InvalidPrimaryKeyException("Multiple accounts matching worker id : "
+                        + idToQuery + " found.");
             }
+            else
+            {
+                // copy all the retrieved data into persistent state
+                Properties retrievedWorkerData = (Properties)allDataRetrieved.elementAt(0);
+                persistentState = new Properties();
+
+                Enumeration allKeys = retrievedWorkerData.propertyNames();
+                while (allKeys.hasMoreElements() == true)
+                {
+                    String nextKey = (String)allKeys.nextElement();
+                    String nextValue = retrievedWorkerData.getProperty(nextKey);
+
+                    if (nextValue != null)
+                    {
+                        persistentState.setProperty(nextKey, nextValue);
+                    }
+                }
+
+            }
+        }
+        // If no account found for this user name, throw an exception
+        else
+        {
+            throw new InvalidPrimaryKeyException("No account matching worker id : "
+                    + idToQuery + " found.");
+        }
+
+        String password = props.getProperty("Password");
+
+        String accountPassword = persistentState.getProperty("password");
+
+        if (accountPassword != null)
+        {
+            boolean passwordCheck = accountPassword.equals(password);
+            if (passwordCheck == false)
+            {
+                throw new PasswordMismatchException("Password mismatch");
+            }
+        }
+        else
+        {
+            throw new PasswordMismatchException("Password missing for account");
         }
     }
     private void setWorkerValues(Properties props)
