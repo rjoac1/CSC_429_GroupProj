@@ -223,11 +223,11 @@ public class VehicleView extends View
         temp.setLayout(f1);
 
         // create the buttons, listen for events, add them to the panel
-        submitButton = new JButton("Submit");
+        submitButton = new JButton(messages.getString("submit");
         submitButton.addActionListener(this);
         temp.add(submitButton);
 
-        doneButton = new JButton("Done");
+        doneButton = new JButton(messages.getString("cancel");
         doneButton.addActionListener(this);
         temp.add(doneButton);
 
@@ -297,12 +297,12 @@ public class VehicleView extends View
             }
             else if((locationText == null) || (locationText.length() == 0))
             {
-                displayErrorMessage("Zip code cannot exceed 5 characters.");
+                displayErrorMessage("Please enter a location");
                 location.requestFocus();
             }
             else if((physicalConditionText == null) || (physicalConditionText.length() == 0))
             {
-                displayErrorMessage("Zip code must be a numerical value.");
+                displayErrorMessage("Please enter a physical condition");
                 zip.requestFocus();
             }
             else if((statusText == null) || (statusText.length() == 0))
@@ -312,7 +312,7 @@ public class VehicleView extends View
             }
             else if((dateStatusText == null) || (dateStatusText.length() == 0))
             {
-                displayErrorMessage("Please enter a date of birth.");
+                displayErrorMessage("Please enter a date of status update");
                 dateStatusUpdated.requestFocus();
             }
             else
@@ -327,7 +327,7 @@ public class VehicleView extends View
                 props.setProperty("physicalCondition", physicalConditionText);
                 props.setProperty("status", statusText);
                 props.setProperty("dateStatusUpdated", dateStatusText);
-                processInsertionOfNewPatron(props);
+                processInsertionOfNewVehicle(props);
             }
         }
         else
@@ -336,7 +336,7 @@ public class VehicleView extends View
             processDone();
         }
     }
-    private void processInsertionOfNewPatron(Properties props)
+    private void processInsertionOfNewVehicle(Properties props)
     {
         //String pubyear = String.valueOf(pubyearInt);
 
