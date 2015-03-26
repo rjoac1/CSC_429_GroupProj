@@ -93,7 +93,7 @@ public class VehicleView extends View
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
         //data entry Fields
-        //Name
+        //Make
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
 
