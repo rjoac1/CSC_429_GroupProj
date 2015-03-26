@@ -149,60 +149,133 @@ public class BikeTransactionChoiceView extends View
     //-------------------------------------------------------------
     private JPanel createNavigationButtons()
     {
+        {
+
         final JPanel value = new JPanel();
-        value.setLayout(new BoxLayout(value, BoxLayout.Y_AXIS));
+        value.setLayout(new GridLayout(0, 1, 0, 0));
+
+        final JPanel panel = new JPanel();
+        value.add(panel);
+        final GridBagLayout gbl_panel = new GridBagLayout();
+        gbl_panel.columnWidths = new int[]{0, 213, 128, 253, 0};
+        gbl_panel.rowHeights = new int[]{16, 29, 0};
+        gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        panel.setLayout(gbl_panel);
+
         final JLabel lblLayout = new JLabel("Layout");
-        lblLayout.setBounds(37, 80, 42, 16);
-        value.add(lblLayout);
+        final GridBagConstraints gbc_lblLayout = new GridBagConstraints();
+        gbc_lblLayout.anchor = GridBagConstraints.WEST;
+        gbc_lblLayout.insets = new Insets(0, 0, 0, 5);
+        gbc_lblLayout.gridx = 1;
+        gbc_lblLayout.gridy = 1;
+        panel.add(lblLayout, gbc_lblLayout);
 
         final JButton btnCheckin = new JButton("CheckIn");
-        btnCheckin.setBounds(177, 75, 95, 29);
-        value.add(btnCheckin);
+        final GridBagConstraints gbc_btnCheckin = new GridBagConstraints();
+        gbc_btnCheckin.anchor = GridBagConstraints.NORTHWEST;
+        gbc_btnCheckin.insets = new Insets(0, 0, 0, 5);
+        gbc_btnCheckin.gridx = 2;
+        gbc_btnCheckin.gridy = 1;
+        panel.add(btnCheckin, gbc_btnCheckin);
 
         final JButton btnCheckout = new JButton("CheckOut");
-        btnCheckout.setBounds(284, 73, 106, 29);
-        value.add(btnCheckout);
+        final GridBagConstraints gbc_btnCheckout = new GridBagConstraints();
+        gbc_btnCheckout.anchor = GridBagConstraints.NORTHWEST;
+        gbc_btnCheckout.gridx = 3;
+        gbc_btnCheckout.gridy = 1;
+        panel.add(btnCheckout, gbc_btnCheckout);
+
+        final JPanel panel_1 = new JPanel();
+        value.add(panel_1);
+        final GridBagLayout gbl_panel_1 = new GridBagLayout();
+        gbl_panel_1.columnWidths = new int[]{0, 93, 155, 165, 155, 0, 0};
+        gbl_panel_1.rowHeights = new int[]{0, 29, 0};
+        gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        panel_1.setLayout(gbl_panel_1);
 
         final JLabel lblAdd = new JLabel("Add");
-        lblAdd.setBounds(42, 124, 25, 16);
-        value.add(lblAdd);
+        final GridBagConstraints gbc_lblAdd = new GridBagConstraints();
+        gbc_lblAdd.fill = GridBagConstraints.BOTH;
+        gbc_lblAdd.insets = new Insets(0, 0, 0, 5);
+        gbc_lblAdd.gridx = 1;
+        gbc_lblAdd.gridy = 1;
+        panel_1.add(lblAdd, gbc_lblAdd);
 
         final JButton btnUser = new JButton("User");
-        btnUser.setBounds(143, 119, 75, 29);
-        value.add(btnUser);
+        final GridBagConstraints gbc_btnUser = new GridBagConstraints();
+        gbc_btnUser.fill = GridBagConstraints.BOTH;
+        gbc_btnUser.insets = new Insets(0, 0, 0, 5);
+        gbc_btnUser.gridx = 2;
+        gbc_btnUser.gridy = 1;
+        panel_1.add(btnUser, gbc_btnUser);
 
         final JButton btnWorker = new JButton("Worker");
-        btnWorker.setBounds(236, 119, 88, 29);
-        value.add(btnWorker);
+        final GridBagConstraints gbc_btnWorker = new GridBagConstraints();
+        gbc_btnWorker.fill = GridBagConstraints.BOTH;
+        gbc_btnWorker.insets = new Insets(0, 0, 0, 5);
+        gbc_btnWorker.gridx = 3;
+        gbc_btnWorker.gridy = 1;
+        panel_1.add(btnWorker, gbc_btnWorker);
 
         final JButton btnNike = new JButton("Bike");
-        btnNike.setBounds(349, 114, 75, 29);
-        value.add(btnNike);
+        final GridBagConstraints gbc_btnNike = new GridBagConstraints();
+        gbc_btnNike.insets = new Insets(0, 0, 0, 5);
+        gbc_btnNike.fill = GridBagConstraints.BOTH;
+        gbc_btnNike.gridx = 4;
+        gbc_btnNike.gridy = 1;
+        panel_1.add(btnNike, gbc_btnNike);
 
-        final JLabel lblFindmodify = new JLabel("Find/Modify");
-        lblFindmodify.setBounds(37, 172, 77, 16);
-        value.add(lblFindmodify);
+        final JPanel panel_3 = new JPanel();
+        value.add(panel_3);
+        final GridBagLayout gbl_panel_3 = new GridBagLayout();
+        gbl_panel_3.columnWidths = new int[]{0, 93, 155, 165, 155, 0, 0};
+        gbl_panel_3.rowHeights = new int[]{0, 29, 0};
+        gbl_panel_3.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gbl_panel_3.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        panel_3.setLayout(gbl_panel_3);
 
-        final JButton btnUser_1 = new JButton("User");
-        btnUser_1.setBounds(143, 167, 75, 29);
-        value.add(btnUser_1);
+        final JLabel label = new JLabel("Find/Modify");
+        final GridBagConstraints gbc_label = new GridBagConstraints();
+        gbc_label.fill = GridBagConstraints.BOTH;
+        gbc_label.insets = new Insets(0, 0, 0, 5);
+        gbc_label.gridx = 1;
+        gbc_label.gridy = 1;
+        panel_3.add(label, gbc_label);
 
-        final JButton btnWorker_1 = new JButton("Worker");
-        btnWorker_1.setBounds(236, 167, 88, 29);
-        value.add(btnWorker_1);
+        final JButton button = new JButton("User");
+        final GridBagConstraints gbc_button = new GridBagConstraints();
+        gbc_button.fill = GridBagConstraints.BOTH;
+        gbc_button.insets = new Insets(0, 0, 0, 5);
+        gbc_button.gridx = 2;
+        gbc_button.gridy = 1;
+        panel_3.add(button, gbc_button);
 
-        final JButton btnBike = new JButton("Bike");
-        btnBike.setBounds(349, 167, 75, 29);
-        value.add(btnBike);
+        final JButton button_1 = new JButton("Worker");
+        final GridBagConstraints gbc_button_1 = new GridBagConstraints();
+        gbc_button_1.fill = GridBagConstraints.BOTH;
+        gbc_button_1.insets = new Insets(0, 0, 0, 5);
+        gbc_button_1.gridx = 3;
+        gbc_button_1.gridy = 1;
+        panel_3.add(button_1, gbc_button_1);
+
+        final JButton button_2 = new JButton("Bike");
+        final GridBagConstraints gbc_button_2 = new GridBagConstraints();
+        gbc_button_2.fill = GridBagConstraints.BOTH;
+        gbc_button_2.insets = new Insets(0, 0, 0, 5);
+        gbc_button_2.gridx = 4;
+        gbc_button_2.gridy = 1;
+        panel_3.add(button_2, gbc_button_2);
+
+        final JPanel panel_2 = new JPanel();
+        value.add(panel_2);
 
         final JButton btnLogout = new JButton("Logout");
-        btnLogout.setBounds(190, 239, 88, 29);
-        value.add(btnLogout);
+        panel_2.add(btnLogout);
 
-        final JLabel lblBrockportBikeRental = new JLabel("Brockport Bike Rental System");
-        lblBrockportBikeRental.setBounds(121, 33, 213, 16);
-        value.add(lblBrockportBikeRental);
-
+        final JPanel panel_4 = new JPanel();
+        value.add(panel_4);
         return value;
     }
 
