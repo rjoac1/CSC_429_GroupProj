@@ -318,14 +318,15 @@ public class VehicleView extends View
             else
             {
                 Properties props = new Properties();
-                props.setProperty("name", nameString);
-                props.setProperty("address", addressString);
-                props.setProperty("city", cityString);
-                props.setProperty("stateCode", stateString);
-                props.setProperty("zip", zipString);
-                props.setProperty("email", emailString);
-                props.setProperty("dateOfBirth", dobString);
-                props.setProperty("status", statusString);
+                props.setProperty("make", makeText);
+                props.setProperty("modelNumber", modelNumberText);
+                props.setProperty("serialNumber", serialNumberText);
+                props.setProperty("color", colorText);
+                props.setProperty("description", descriptionText);
+                props.setProperty("location", locationText);
+                props.setProperty("physicalCondition", physicalConditionText);
+                props.setProperty("status", statusText);
+                props.setProperty("dateStatusUpdated", dateStatusText);
                 processInsertionOfNewPatron(props);
             }
         }
