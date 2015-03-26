@@ -96,6 +96,10 @@ public class ViewFactory {
         {
             return new BookCollectionView(model);
         }
+        else if(viewName.equals("UserView") == true)
+        {
+            return new UserView(model);
+        }
 		else
 			return null;
 	}
