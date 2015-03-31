@@ -13,11 +13,7 @@
 package views;
 
 // system imports
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
-import java.util.Vector;
-import java.util.EventObject;
+import java.util.*;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -31,6 +27,7 @@ import impres.impresario.IView;
 import impres.impresario.IModel;
 import impres.impresario.IControl;
 import impres.impresario.ControlRegistry;
+import models.LocaleStore;
 
 //==============================================================
 public abstract class View extends JPanel
@@ -39,6 +36,7 @@ public abstract class View extends JPanel
     // private data
     protected IModel myModel;
     protected ControlRegistry myRegistry;
+    protected ResourceBundle messages;
 
     // forward declaration
     protected abstract void processAction(EventObject evt);
@@ -52,6 +50,7 @@ public abstract class View extends JPanel
     {
         myModel = model;
 
+        messages = LocaleStore.getLocale().getRessourceBundle();
         myRegistry = new ControlRegistry(classname);
     }
 

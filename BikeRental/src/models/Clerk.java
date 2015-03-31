@@ -38,15 +38,11 @@ public class Clerk implements IView, IModel, ISlideShow
     private String loginErrorMessage = "";
     private String transactionErrorMessage = "";
 
-    private Locale currentLocale;
-
-    public Clerk(String language, String country)
+    public Clerk()
     {
         myFrame = MainFrame.getInstance();
         myViews = new Hashtable();
         myRegistry = new ModelRegistry("Clerk");
-
-        currentLocale = new Locale(language, country);
 
         if(myRegistry == null)
         {
@@ -110,10 +106,6 @@ public class Clerk implements IView, IModel, ISlideShow
             }
             else
                 return "Undefined";
-        }
-        else if (key.equals("CurrentLocale"))
-        {
-            return currentLocale;
         }
         else
             return "";

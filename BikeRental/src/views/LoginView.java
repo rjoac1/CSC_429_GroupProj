@@ -18,6 +18,7 @@ import java.text.NumberFormat;
 
 // project imports
 import impres.impresario.IModel;
+import models.LocaleStore;
 
 /** The class containing the Teller View  for the ATM application */
 //==============================================================
@@ -32,17 +33,13 @@ public class LoginView extends View
     // For showing error message
     private MessageView statusLog;
 
-    // resource bundle for internationalization
-    private ResourceBundle messages;
-
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public LoginView(IModel clerk)
     {
 
         super(clerk, "LoginView");
-        Locale currentLocale = (Locale)myModel.getState("CurrentLocale");
-        messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
+//        Locale currentLocale = (Locale)myModel.getState("CurrentLocale");
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

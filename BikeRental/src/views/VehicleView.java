@@ -38,8 +38,6 @@ public class VehicleView extends View
     private Vector<String> statusOptions;
     private Vector<String> stateCodeOptions;
 
-    private ResourceBundle messages;
-
     private JButton submitButton;
     private JButton doneButton;
 
@@ -49,9 +47,6 @@ public class VehicleView extends View
     public VehicleView(IModel patron)
     {
         super(patron, "VehicleView");
-
-        Locale currentLocale = (Locale)myModel.getState("CurrentLocale");
-        messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
