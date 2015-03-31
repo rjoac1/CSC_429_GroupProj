@@ -208,7 +208,7 @@ public class BikeTransactionChoiceView extends View
         gbc_btnWorker.gridy = 1;
         panel_1.add(addWorkerButton, gbc_btnWorker);
 
-        addBikeButton = new JButton(messages.getString("worker"));
+        addBikeButton = new JButton(messages.getString("bike"));
         final GridBagConstraints gbc_btnBike = new GridBagConstraints();
         gbc_btnBike.insets = new Insets(0, 0, 0, 5);
         gbc_btnBike.fill = GridBagConstraints.BOTH;
