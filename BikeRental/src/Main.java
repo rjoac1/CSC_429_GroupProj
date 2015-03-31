@@ -43,8 +43,10 @@ public class Main
                 country = new String(args[1]);
             }*/
             //test for french
-            language = new String("fr");
-            country = new String("FR");
+//            language = new String("fr");
+//            country = new String("FR");
+            language = new String("en");
+            country = new String("US");
 
             myClerk = new Clerk(language, country);
         }
