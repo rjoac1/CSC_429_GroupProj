@@ -48,6 +48,9 @@ public class Main
             language = new String("en");
             country = new String("US");
 
+            language = new String("en");
+            country = new String("US");
+
             myClerk = new Clerk(language, country);
         }
         catch(Exception exc)
