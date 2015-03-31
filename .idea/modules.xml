@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BikeRental/BikeRental.iml" filepath="$PROJECT_DIR$/BikeRental/BikeRental.iml" />
       <module fileurl="file://$PROJECT_DIR$/CSC_429_GroupProj.iml" filepath="$PROJECT_DIR$/CSC_429_GroupProj.iml" />
     </modules>
   </component>
