@@ -103,7 +103,7 @@ public class Vehicle extends EntityBase implements IView, IModel, ISlideShow
     private void setVehicleValues(Properties props)
     {
         Enumeration allKeys = props.propertyNames();
-        while(allKeys.hasMoreElements() == true)
+        while (allKeys.hasMoreElements() == true)
         {
             String nextKey = (String)allKeys.nextElement();
             String nextValue = props.getProperty(nextKey);
