@@ -79,7 +79,7 @@ public class JDBCBroker
 	protected JDBCBroker()
 	{
 		// DEBUG: System.out.println("JDBCBroker.JDBCBroker()");
-		props = new PropertyFile("dbConfig.ini");
+        props = new PropertyFile("dbConfig.ini");
 		if (props != null)
 		{
 			dbName = props.getProperty("dbName");

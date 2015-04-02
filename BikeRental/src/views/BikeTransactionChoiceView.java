@@ -16,6 +16,7 @@ import java.awt.Insets;
 
 // project imports
 import impres.impresario.IModel;
+import models.LocaleStore;
 
 /** The class containing the Transaction Choice View  for the ATM application */
 //==============================================================
@@ -44,17 +45,12 @@ public class BikeTransactionChoiceView extends View
     private MessageView statusLog;
 
     //resource bundle for internationalization
-    private ResourceBundle messages;
-
-    private Locale currentLocale;
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
     public BikeTransactionChoiceView(IModel clerk)
     {
         super(clerk, "BikeTransactionChoiceView");
-        currentLocale = (Locale)myModel.getState("CurrentLocale");
-        messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
@@ -128,7 +124,7 @@ public class BikeTransactionChoiceView extends View
         };
 
         MessageFormat formatter = new MessageFormat("");
-        formatter.setLocale(currentLocale);
+        formatter.setLocale(LocaleStore.getLocale().getLocaleObject());
 
         formatter.applyPattern(messages.getString("greetingTemplate"));
         String greeting = formatter.format(messageArguments);

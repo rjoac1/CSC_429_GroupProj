@@ -31,30 +31,11 @@ public class Main
         mainFrame = MainFrame.getInstance("Bike Rental System v1.0");
         try
         {
-            //Test for putting locale here
-            String language;
-            String country;
-
-            /*if (args.length != 2) {
-                language = new String("en");
-                country = new String("US");
-            } else {
-                language = new String(args[0]);
-                country = new String(args[1]);
-            }*/
-            //test for french
-//            language = new String("fr");
-//            country = new String("FR");
-            language = new String("en");
-            country = new String("US");
-
-            language = new String("en");
-            country = new String("US");
-
-            myClerk = new Clerk(language, country);
+            myClerk = new Clerk();
         }
         catch(Exception exc)
         {
+            exc.printStackTrace(System.err);
             System.out.println("Could not create Clerk." + exc.getMessage());
         }
         mainFrame.pack();
