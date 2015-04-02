@@ -56,7 +56,6 @@ public class User extends ModelBase implements IView {
         }
         if (key.equals("ProcessUser") == true)
         {
-            System.out.println("tarasse");
             persistentState = (Properties)value;
             update();
         }

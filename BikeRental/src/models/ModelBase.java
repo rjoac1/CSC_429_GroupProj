@@ -106,7 +106,6 @@ public abstract class ModelBase extends EntityBase
     }
 
     public void update() {
-        System.out.println("Mais heu");
         try {
             final Properties whereClause = new Properties();
             whereClause.setProperty(getIdFieldName(), getId());
