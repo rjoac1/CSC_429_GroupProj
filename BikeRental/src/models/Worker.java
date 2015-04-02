@@ -19,6 +19,7 @@ import views.ViewFactory;
 public class Worker extends ModelBase
 {
     private static final String myTableName = "Worker";	//name of database table
+
     //Constructor
     //-----------------------------------------------------
     public Worker()
@@ -31,6 +32,7 @@ public class Worker extends ModelBase
         super(myTableName);
         initFromQuery(workerId);
     }
+
     //Constructor for logging in worker.
     //----------------------------------------------------------------------
     public Worker(Properties props) throws InvalidPrimaryKeyException, PasswordMismatchException
@@ -48,16 +50,14 @@ public class Worker extends ModelBase
             boolean passwordCheck = accountPassword.equals(password);
             if (passwordCheck == false)
             {
-                throw new PasswordMismatchException("Password mismatch");
+                throw new PasswordMismatchException("passwordMismatch");
             }
         }
         else
         {
-            throw new PasswordMismatchException("Password missing for account");
+            throw new PasswordMismatchException("passwordMissing");
         }
     }
-
-
 
     public Vector getEntryListView()
     {

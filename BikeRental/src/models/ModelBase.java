@@ -38,17 +38,17 @@ public abstract class ModelBase extends EntityBase
         Vector allDataRetrieved = getSelectQueryResult(query);
 
         //Must get at least one book
-        if (allDataRetrieved != null)
+        if (allDataRetrieved != null && allDataRetrieved.size() != 0)
         {
             int size = allDataRetrieved.size();
 
             //There should be EXACTLY one book retrieved, more than that is an error
-            if (size != 1)
+            if (size > 1)
             {
                 //System.out.println("Multiple patrons matching patronId: " + patronId + " found.");
-                throw new InvalidPrimaryKeyException("Multiple" + myTableName + "'s matching " + idName + ": " + id + " found.");
+                throw new InvalidPrimaryKeyException("Multiple " + myTableName + "'s matching " + idName + ": " + id + " found.");
             }
-            else
+            else if (size == 1)
             {
                 //copy all the retrieved data into persistant state
                 Properties retrievedData = (Properties)allDataRetrieved.elementAt(0);
@@ -60,7 +60,7 @@ public abstract class ModelBase extends EntityBase
                     String nextKey = (String)allKeys.nextElement();
                     String nextValue = retrievedData.getProperty(nextKey);
 
-                    if(nextValue != null)
+                    if (nextValue != null)
                     {
                         persistentState.setProperty(nextKey, nextValue);
                     }
@@ -69,8 +69,7 @@ public abstract class ModelBase extends EntityBase
         }
         else
         {
-            //System.out.println("No patrons matching patronId: " + patronId + " found.");
-            throw new InvalidPrimaryKeyException("No " + myTableName + "'s matching " + idName + ": " + id + " found.");
+            throw new InvalidPrimaryKeyException("userNotFound");
         }
     }
 

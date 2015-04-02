@@ -173,17 +173,16 @@ public class Clerk implements IView, IModel, ISlideShow
             myWorker = new Worker(props);
             return true;
         }
-        catch (InvalidPrimaryKeyException ex)
-        {
-            loginErrorMessage = "ERROR: " + ex.getMessage();
+        catch (InvalidPrimaryKeyException ex) {
+            loginErrorMessage = ex.getMessage();
             return false;
         }
-        catch (PasswordMismatchException exec)
-        {
-            loginErrorMessage = "ERROR: " + exec.getMessage();
+        catch (PasswordMismatchException exec) {
+            loginErrorMessage = exec.getMessage();
             return false;
         }
     }
+
     public void createNewUser()
     {
         User user = new User();
