@@ -248,7 +248,7 @@ public class UserView extends View{
         if(evt.getSource() == done)
         {
             //Librarian librarian = new Librarian();
-            myModel.stateChangeRequest("BackToLibrary", null);
+            myModel.stateChangeRequest("Done", null);
         }
         else if(evt.getSource() == submit){
             if (values[0].length() == 0)

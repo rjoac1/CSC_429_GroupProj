@@ -74,55 +74,25 @@ public class WorkerView extends View{
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        temp.add(temp1);
+        JLabel firstNameLabel = new JLabel(messages.getString("firstName"));
+        temp1.add(firstNameLabel);
 
-        /*JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        firstNameBox = new JTextField(25);
+        firstNameBox.addActionListener(this);
+        temp1.add(firstNameBox);
 
-        temp.add(temp1);
+        JPanel temp2 = new JPanel();
+        temp2.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
+        temp2.add(lastNameLabel);
 
-        temp.add(temp1);
+        lastNameBox = new JTextField(4);
+        lastNameBox.addActionListener(this);
+        temp2.add(lastNameBox);
 
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp.add(temp2);
 
-        temp.add(temp1);
-
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        temp.add(temp1);
-
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        temp.add(temp1);
-
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        temp.add(temp1);
-
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        temp.add(temp1);
-
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        temp.add(temp1);
-
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        temp.add(temp1);
-
-
-*/
         return temp;
     }
     private JPanel createNavigationButtons()
