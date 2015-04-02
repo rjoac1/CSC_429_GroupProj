@@ -149,6 +149,9 @@ public class Clerk implements IView, IModel, ISlideShow
             case "FndModBike":
                 fndModBike();
                 break;*/
+            case "EndTransaction":
+                createAndShowBikeTransactionChoiceView();
+                break;
             case "Logout":
                 myWorker = null;
                 createAndShowLoginView();

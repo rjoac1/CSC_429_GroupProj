@@ -201,6 +201,10 @@ public class Vehicle extends EntityBase implements IView, IModel, ISlideShow
             case "ShowDataEntryView":
                 createAndShowDataEntryView();
                 break;
+            case "Done":
+                myRegistry.updateSubscribers("EndTransaction", this);
+                break;
+
         }
         myRegistry.updateSubscribers(key, this);
 

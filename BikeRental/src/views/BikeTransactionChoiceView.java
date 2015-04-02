@@ -1,18 +1,13 @@
 // specify the package
 package views;
 
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.*;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.util.*;
 import java.text.*;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 // project imports
 import impres.impresario.IModel;
@@ -54,7 +49,7 @@ public class BikeTransactionChoiceView extends View
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
-
+        this.setSize(new Dimension(300, 400));
         // Add a title for this panel
         add(createTitle());
 
