@@ -220,7 +220,7 @@ public class VehicleView extends View
         submitButton.addActionListener(this);
         temp.add(submitButton);
 
-        doneButton = new JButton(messages.getString("cancel"));
+        doneButton = new JButton(messages.getString("done"));
         doneButton.addActionListener(this);
         temp.add(doneButton);
 
