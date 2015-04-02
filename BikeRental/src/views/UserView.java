@@ -334,7 +334,7 @@ public class UserView extends View{
         for(int i = 0; i <values.length;i++){
             System.out.println(values[i]);
         }
-        System.out.println(statBox.getSelectedItem());
+        System.out.println("ici" + statBox.getSelectedItem());
 
         Properties props = new Properties();
         props.setProperty("firstName", values[0]);
@@ -348,6 +348,7 @@ public class UserView extends View{
         props.setProperty("dateStatusUpdated", values[7]);
         props.setProperty("notes", values[8]);
 
+        System.out.println("Model" + myModel);
 
         myModel.stateChangeRequest("ProcessUser", props);
     }

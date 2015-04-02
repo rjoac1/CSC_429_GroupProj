@@ -189,6 +189,7 @@ public class BikeTransactionChoiceView extends View
         panel_1.add(lblAdd, gbc_lblAdd);
 
         addUserButton = new JButton(messages.getString("user"));
+        addUserButton.addActionListener((e) -> myModel.stateChangeRequest("AddUser", null));
         final GridBagConstraints gbc_btnUser = new GridBagConstraints();
         gbc_btnUser.fill = GridBagConstraints.BOTH;
         gbc_btnUser.insets = new Insets(0, 0, 0, 5);
@@ -303,11 +304,10 @@ public class BikeTransactionChoiceView extends View
         }
     }
 
-        /**
-         * Cancel button hit.
-         * Action here is to ask the teller to switch to the main teller view.
-         */
-        //----------------------------------------------------------
+    /**
+     * Cancel button hit.
+     * Action here is to ask the teller to switch to the main teller view.
+     */
     private void processLogout()
     {
         myModel.stateChangeRequest("Logout", null);

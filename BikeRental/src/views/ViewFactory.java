@@ -15,12 +15,12 @@ public class ViewFactory {
         {
             return new BikeTransactionChoiceView(model);
         }
-		else if(viewName.equals("UserView") == true)
+		else if(viewName.equals("AddUser") == true)
 		{
 			return new UserView(model);
 		}
         else
-            return null;
+            throw new RuntimeException("Unknow view: " + viewName);
     }
 
 

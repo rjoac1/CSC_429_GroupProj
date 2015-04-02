@@ -2,6 +2,7 @@
 package models;
 
 //System imports
+import java.awt.*;
 import java.util.*;
 
 import javax.swing.JFrame;
@@ -53,6 +54,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
         createAndShowLoginView();
     }
+
     private void setDependencies()
     {
         dependencies = new Properties();
@@ -60,6 +62,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
         myRegistry.setDependencies(dependencies);
     }
+
     public Object getState(String key)
     {
         if (key.equals("LoginError") == true)
@@ -110,6 +113,7 @@ public class Clerk implements IView, IModel, ISlideShow
         else
             return "";
     }
+
     public void stateChangeRequest(String key, Object value) {
         // STEP 4: Write the sCR method component for the key you
         // just set up dependencies for
@@ -119,21 +123,21 @@ public class Clerk implements IView, IModel, ISlideShow
                 if (value != null) {
                     loginErrorMessage = "";
 
-                    boolean flag = loginWorker((Properties) value);
+                    boolean flag = loginWorker((Properties)value);
                     if (flag == true) {
                         createAndShowBikeTransactionChoiceView();
                     }
                 }
                 break;
-        //            case "AddUser":
-        //                createNewUser();
-        //                break;
-        //            case "AddWorker":
-        //                createNewWorker();
-        //                break;
-        //            case "AddBike":
-        //                createNewBike();
-        //                break;
+            case "AddUser":
+                createAndShowNewUser();
+                break;
+//            case "AddWorker":
+//                createAndShowNewWorker();
+//                break;
+//            case "AddBike":
+//                createAndShowNewBike();
+//                break;
             /*case "FndModUser":
                 fndModUser();
                 break;
@@ -167,15 +171,38 @@ public class Clerk implements IView, IModel, ISlideShow
             myWorker = new Worker(props);
             return true;
         }
-        catch (InvalidPrimaryKeyException ex)
-        {
+        catch (InvalidPrimaryKeyException ex) {
             loginErrorMessage = "ERROR: " + ex.getMessage();
             return false;
         }
-        catch (PasswordMismatchException exec)
-        {
+        catch (PasswordMismatchException exec) {
             loginErrorMessage = "ERROR" + exec.getMessage();
             return false;
+        }
+    }
+
+    private void createAndShowNewUser() {
+        View localView = (View)myViews.get("AddUser");
+
+        if(localView == null)
+        {
+            //create initial view
+            localView = ViewFactory.createView("AddUser", this);
+            myRegistry.subscribe("ProcessUser", new User());
+
+            myViews.put("AddUser", localView);
+
+            Container ctn = myFrame.getContentPane();
+            ctn.removeAll();
+            ctn.validate();
+            ctn.repaint();
+
+            ctn.add(localView);
+            myFrame.pack();
+        }
+        else
+        {
+            swapToView(localView);
         }
     }
 
