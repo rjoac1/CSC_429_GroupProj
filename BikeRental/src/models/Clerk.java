@@ -189,19 +189,19 @@ public class Clerk implements IView, IModel, ISlideShow
     public void createNewUser()
     {
         User user = new User();
-        user.subscribe("End", this);
+        user.subscribe("EndTransaction", this);
         user.stateChangeRequest("ShowDataEntryView", "");
     }
     public void createNewWorker()
     {
         Worker worker = new Worker();
-        worker.subscribe("End", this);
+        worker.subscribe("EndTransaction", this);
         worker.stateChangeRequest("ShowDataEntryView", "");
     }
     public void createNewBike()
     {
         Vehicle bike = new Vehicle();
-        bike.subscribe("End", this);
+        bike.subscribe("EndTransaction", this);
         bike.stateChangeRequest("ShowDataEntryView", "");
     }
 

@@ -260,7 +260,7 @@ public class Vehicle extends EntityBase implements IView, IModel, ISlideShow
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("Done", "End");
+        dependencies.setProperty("Done", "EndTransaction");
         dependencies.setProperty("ProcessInsertion", "UpdateStatusMessage");
 
 
