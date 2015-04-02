@@ -14,6 +14,8 @@ import models.Clerk;
 import views.MainFrame;
 import views.WindowPosition;
 
+import java.awt.*;
+
 
 public class Main
 {
@@ -46,15 +48,13 @@ public class Main
 
     public static void main(String[] args) throws Exception
     {
-        //crank up instance of this object
-        try
-        {
-            new Main(args);
-        }
-        catch (Exception e)
-        {
-            System.out.println("Error: " + e.getMessage());
-        }
+        EventQueue.invokeLater(() -> {
+            try {
+                new Main(args);
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
+        });
 
 
 		/*Scanner in2 = new Scanner(System.in);
