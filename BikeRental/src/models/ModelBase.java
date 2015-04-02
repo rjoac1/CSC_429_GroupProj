@@ -5,57 +5,190 @@ package models;
  */
 
 import impres.exception.InvalidPrimaryKeyException;
+import impres.impresario.IModel;
+import impres.impresario.ISlideShow;
 import impres.impresario.IView;
+import views.View;
+import views.ViewFactory;
 
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
 
 
 public abstract class ModelBase extends EntityBase
-    implements IView {
+    implements IView, IModel, ISlideShow {
 
-    private final String mTableName;
-    private final Properties mSchema;
+    protected final String myTableName;
+    protected String updateStatusMessage = "";
+    protected Properties dependencies;
 
     ModelBase(final String tableName) {
         super(tableName);
-        mTableName = tableName;
-        mSchema = getSchemaInfo(mTableName);
+        myTableName = tableName;
+        mySchema = getSchemaInfo(myTableName);
     }
 
-    void initFromQuery(final String query) throws InvalidPrimaryKeyException {
+    protected void initFromQuery(final String id) throws InvalidPrimaryKeyException {
 
-        final Vector<Properties> elem = getSelectQueryResult(query);
-        if (elem == null || elem.size() == 0) {
-            throw new InvalidPrimaryKeyException("No elem found");
+        String idName = getIdFieldName();
+        String query = "SELECT * FROM " + myTableName + " WHERE (" + idName + " = " + id + ")";
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        //Must get at least one book
+        if (allDataRetrieved != null)
+        {
+            int size = allDataRetrieved.size();
+
+            //There should be EXACTLY one book retrieved, more than that is an error
+            if (size != 1)
+            {
+                //System.out.println("Multiple patrons matching patronId: " + patronId + " found.");
+                throw new InvalidPrimaryKeyException("Multiple" + myTableName + "'s matching " + idName + ": " + id + " found.");
+            }
+            else
+            {
+                //copy all the retrieved data into persistant state
+                Properties retrievedData = (Properties)allDataRetrieved.elementAt(0);
+                persistentState = new Properties();
+
+                Enumeration allKeys = retrievedData.propertyNames();
+                while (allKeys.hasMoreElements() == true)
+                {
+                    String nextKey = (String)allKeys.nextElement();
+                    String nextValue = retrievedData.getProperty(nextKey);
+
+                    if(nextValue != null)
+                    {
+                        persistentState.setProperty(nextKey, nextValue);
+                    }
+                }
+            }
         }
-        if (elem.size() != 1) {
-            throw new InvalidPrimaryKeyException("Multiple entry matching id found.");
+        else
+        {
+            //System.out.println("No patrons matching patronId: " + patronId + " found.");
+            throw new InvalidPrimaryKeyException("No " + myTableName + "'s matching " + idName + ": " + id + " found.");
         }
-
-        persistentState = elem.get(0);
     }
 
-    abstract public int getId();
-
-    public void update() throws SQLException {
-        final Properties whereClause = new Properties();
-        whereClause.setProperty("id", Integer.toString(getId()));
-        updatePersistentState(mSchema, persistentState, whereClause);
+    protected void processInsertion(Properties props)
+    {
+        setValues(props);
+        update();
     }
 
-    public int insert() throws SQLException {
-        System.err.println(persistentState);
-        final int id = insertAutoIncrementalPersistentState(mSchema, persistentState);
-        persistentState.setProperty("bookId", Integer.toString(id));
-        return id;
+    private void setValues(Properties props)
+    {
+        Enumeration allKeys = props.propertyNames();
+        while(allKeys.hasMoreElements() == true)
+        {
+            String nextKey = (String)allKeys.nextElement();
+            String nextValue = props.getProperty(nextKey);
+
+            if(nextValue != null)
+            {
+                persistentState.setProperty(nextKey, nextValue);
+            }
+        }
     }
 
-    /** Called via the IView relationship */
-    //----------------------------------------------------------
+    protected void update()
+    {
+        updateStateInDatabase();
+    }
+
+    private void updateStateInDatabase()
+    {
+        try
+        {
+            String idField = getIdFieldName();
+            if(persistentState.getProperty(idField) != null)
+            {
+                Properties whereClause = new Properties();
+                whereClause.setProperty(idField, persistentState.getProperty(idField));
+                updatePersistentState(mySchema, persistentState, whereClause);
+                //System.out.println("Patron data for patronId: " + persistentState.getProperty("patronID") + " updated successfully in database.");
+                updateStatusMessage = myTableName + " data for " + idField + ": " + persistentState.getProperty(idField) + " updated successfully in database.";
+            }
+            else
+            {
+                Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
+                persistentState.setProperty(idField, "" + id.intValue());
+                updateStatusMessage = myTableName + " data for new " + myTableName + ": " + persistentState.getProperty(idField) + " installed successfully in database.";
+            }
+        }
+        catch (SQLException ex)
+        {
+            updateStatusMessage = "Error in installing " + myTableName + " data in database!";
+        }
+    }
+
+    public void stateChangeRequest(String key, Object value)
+    {
+        switch(key)
+        {
+            case "ProcessInsertion":
+                processInsertion((Properties) value);
+                break;
+            case "ShowDataEntryView":
+                createAndShowDataEntryView();
+                break;
+        }
+        myRegistry.updateSubscribers(key, this);
+    }
+
+    public void createAndShowDataEntryView()
+    {
+        String viewName = getViewName();
+        View localView = (View)myViews.get(viewName);
+
+        if(localView == null)
+        {
+            localView = ViewFactory.createView(viewName, this);
+
+            myViews.put(viewName, localView);
+
+            swapToView(localView);
+        }
+        else
+        {
+            swapToView(localView);
+        }
+    }
+
+    public Object getState(String key)
+    {
+        if (key.equals("UpdateStatusMessage") == true)
+        {
+            return updateStatusMessage;
+        }
+        return persistentState.getProperty(key);
+    }
+
+    protected void initializeSchema(String tableName)
+    {
+        if (mySchema == null)
+        {
+            mySchema = getSchemaInfo(tableName);
+        }
+    }
+
+    protected void setDependencies()
+    {
+        dependencies = new Properties();
+        dependencies.setProperty("Done", "End");
+        dependencies.setProperty("ProcessInsertion", "UpdateStatusMessage");
+
+        myRegistry.setDependencies(dependencies);
+    }
+
     public void updateState(String key, Object value) {
         stateChangeRequest(key, value);
     }
 
+    abstract public String getIdFieldName();
+    abstract public String getViewName();
 }

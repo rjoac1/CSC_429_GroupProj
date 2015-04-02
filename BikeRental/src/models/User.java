@@ -120,7 +120,7 @@ public class User extends EntityBase implements IView{
         //STEP 4: Write the sCR method component for the key you
         // just set up dependencies for
         // DEBUG System.out.println("Teller.sCR: key = " + key);
-        if (key.equals("ShowUser") == true)
+        if (key.equals("ShowDataEntryView") == true)
         {
             createAndShowUserView();
         }

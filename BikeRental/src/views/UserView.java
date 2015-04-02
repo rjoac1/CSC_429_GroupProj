@@ -35,8 +35,8 @@ public class UserView extends View{
     // For showing error message
     private MessageView statusLog;
 
-    public UserView(IModel librarian){
-        super(librarian, "UserView");
+    public UserView(IModel clerk){
+        super(clerk, "UserView");
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -47,7 +47,7 @@ public class UserView extends View{
         add(createNavigationButtons());
 
         // Error message area
-        //add(createStatusLog("                          "));
+        add(createStatusLog("                          "));
 
         populateFields();
 
@@ -66,7 +66,7 @@ public class UserView extends View{
 
     // Create the labels and fields
     //-------------------------------------------------------------
-    private JPanel createTitle()
+    protected JPanel createSubTitle()
     {
         JPanel temp = new JPanel();
         temp.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -213,17 +213,6 @@ public class UserView extends View{
         return temp;
 
     }
-
-    // Create the status log field
-    //-------------------------------------------------------------
-    private JPanel createStatusLog(String initialMessage)
-    {
-
-        statusLog = new MessageView(initialMessage);
-
-        return statusLog;
-    }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -357,31 +346,15 @@ public class UserView extends View{
     {
         // STEP 6: Be sure to finish the end of the 'perturbation'
         // by indicating how the view state gets updated.
-        if (key.equals("LoginError") == true)
-        {
-            // display the passed text
+        if (key.equals("UpdateStatusMessage") == true)
+        {            // display the passed text
             displayErrorMessage((String)value);
+        }
+        else
+        {
+            clearErrorMessage();
         }
 
     }
-
-    /**
-     * Display error message
-     */
-    //----------------------------------------------------------
-    public void displayErrorMessage(String message)
-    {
-        statusLog.displayErrorMessage(message);
-    }
-
-    /**
-     * Clear error message
-     */
-    //----------------------------------------------------------
-    public void clearErrorMessage()
-    {
-        statusLog.clearErrorMessage();
-    }
-
 }
 

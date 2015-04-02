@@ -125,15 +125,21 @@ public class Clerk implements IView, IModel, ISlideShow
                     }
                 }
                 break;
-        //            case "AddUser":
-        //                createNewUser();
-        //                break;
-        //            case "AddWorker":
-        //                createNewWorker();
-        //                break;
-        //            case "AddBike":
-        //                createNewBike();
-        //                break;
+            /*case "Checkin":
+                processCheckin();
+                break;
+            case "Checkout":
+                processCheckout();
+                break;*/
+            case "AddUser":
+                createNewUser();
+                break;
+            case "AddWorker":
+                createNewWorker();
+                break;
+            case "AddBike":
+                createNewBike();
+                break;
             /*case "FndModUser":
                 fndModUser();
                 break;
@@ -174,9 +180,27 @@ public class Clerk implements IView, IModel, ISlideShow
         }
         catch (PasswordMismatchException exec)
         {
-            loginErrorMessage = "ERROR" + exec.getMessage();
+            loginErrorMessage = "ERROR: " + exec.getMessage();
             return false;
         }
+    }
+    public void createNewUser()
+    {
+        User user = new User();
+        user.subscribe("End", this);
+        user.stateChangeRequest("ShowDataEntryView", "");
+    }
+    public void createNewWorker()
+    {
+        Worker worker = new Worker();
+        worker.subscribe("End", this);
+        worker.stateChangeRequest("ShowDataEntryView", "");
+    }
+    public void createNewBike()
+    {
+        Vehicle bike = new Vehicle();
+        bike.subscribe("End", this);
+        bike.stateChangeRequest("ShowDataEntryView", "");
     }
 
     private void createAndShowLoginView()

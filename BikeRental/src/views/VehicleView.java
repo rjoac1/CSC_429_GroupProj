@@ -67,7 +67,7 @@ public class VehicleView extends View
     }
 
     //create Title
-    private JPanel createTitle()
+    protected JPanel createSubTitle()
     {
         JPanel temp = new JPanel();
         temp.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -226,13 +226,6 @@ public class VehicleView extends View
 
         return temp;
     }
-    private JPanel createStatusLog(String initialMessage)
-    {
-        statusLog = new MessageView(initialMessage);
-
-        return statusLog;
-    }
-
     public void populateFields()
     {
 //        name.setText("");
@@ -357,19 +350,5 @@ public class VehicleView extends View
     {
         myModel.stateChangeRequest("Done", null);
     }
-
-    public void clearErrorMessage()
-    {
-        statusLog.clearErrorMessage();
-    }
-    public void displayErrorMessage(String message)
-    {
-        statusLog.displayErrorMessage(message);
-    }
-    public void displayMessage(String message)
-    {
-        statusLog.displayMessage(message);
-    }
-
 }
 

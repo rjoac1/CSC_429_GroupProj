@@ -68,31 +68,9 @@ public class LoginView extends View
 
     // Create the labels and fields
     //-------------------------------------------------------------
-    private JPanel createTitle()
+    protected JPanel createSubTitle()
     {
-        JPanel temp = new JPanel();
-        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
-
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JLabel lbl = new JLabel(messages.getString("brockportTitle"));
-        Font myFont = new Font("Helvetica", Font.BOLD, 20);
-        lbl.setFont(myFont);
-        temp1.add(lbl);
-
-        temp.add(temp1);
-
-        JPanel temp2 = new JPanel();
-        temp2.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        JLabel lbl1 = new JLabel(messages.getString("fastTracksTitle"));
-        Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
-        lbl1.setFont(myFont2);
-        temp2.add(lbl1);
-
-        temp.add(temp2);
-
-        return temp;
+        return null;
     }
 
     // Create the main data entry fields
@@ -148,17 +126,6 @@ public class LoginView extends View
 
         return temp;
     }
-
-    // Create the status log field
-    //-------------------------------------------------------------
-    private JPanel createStatusLog(String initialMessage)
-    {
-
-        statusLog = new MessageView(initialMessage);
-
-        return statusLog;
-    }
-
     //-------------------------------------------------------------
     public void populateFields()
     {
@@ -233,24 +200,5 @@ public class LoginView extends View
         }
 
     }
-
-    /**
-     * Display error message
-     */
-    //----------------------------------------------------------
-    public void displayErrorMessage(String message)
-    {
-        statusLog.displayErrorMessage(message);
-    }
-
-    /**
-     * Clear error message
-     */
-    //----------------------------------------------------------
-    public void clearErrorMessage()
-    {
-        statusLog.clearErrorMessage();
-    }
-
 }
 
