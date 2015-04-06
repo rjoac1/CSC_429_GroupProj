@@ -104,6 +104,7 @@ public abstract class ModelBase extends EntityBase
         try
         {
             String idField = getIdFieldName();
+            System.out.println(idField);//test
             if(persistentState.getProperty(idField) != null)
             {
                 Properties whereClause = new Properties();

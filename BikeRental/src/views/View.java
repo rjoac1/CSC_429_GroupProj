@@ -56,6 +56,8 @@ public abstract class View extends JPanel
 
         messages = LocaleStore.getLocale().getResourceBundle();
         myRegistry = new ControlRegistry(classname);
+
+        myModel.subscribe("UpdateStatusMessage", this);
     }
 
     protected JPanel createTitle()
