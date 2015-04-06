@@ -399,7 +399,7 @@ public class WorkerView extends View{
                 values[6] = regDateEntered;
                 values[7] = notesEntered;
                 values[8] = statusEntered;
-                
+
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = new Date();
                 String dateString = dateFormat.format(date);
@@ -419,9 +419,6 @@ public class WorkerView extends View{
     }
     public void processInsertion(String[] values)
     {
-        for(int i = 0; i <values.length;i++){
-            System.out.println(values[i]);
-        }
         Properties props = new Properties();
         props.setProperty("firstName", values[0]);
         props.setProperty("lastName", values[1]);

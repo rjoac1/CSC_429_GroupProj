@@ -80,6 +80,16 @@ public class Worker extends ModelBase
         return "workerId";
     }
     public String getViewName(){ return "WorkerView"; }
-    public boolean getAutoInc(){ return false; }
+    public boolean checkIfExists(String id)
+    {
+        try {
+            Worker worker = new Worker(id);
+            return false;
+        }
+        catch (InvalidPrimaryKeyException ex) {
+            System.out.println(ex.getMessage());
+            return true;
+        }
+    }
 }
 

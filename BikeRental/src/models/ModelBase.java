@@ -96,10 +96,10 @@ public abstract class ModelBase extends EntityBase
 
     protected void update()
     {
-        updateStateInDatabase(getAutoInc());
+        updateStateInDatabase();
     }
 
-    private void updateStateInDatabase(boolean autoInc)
+    private void updateStateInDatabase()
     {
         try
         {
@@ -107,8 +107,8 @@ public abstract class ModelBase extends EntityBase
             System.out.println(idField);//test
             if(persistentState.getProperty(idField) != null)
             {
-                System.out.println("test1");
-                if (autoInc == false)
+                boolean flag = checkIfExists(persistentState.getProperty(idField));
+                if (flag == true)
                 {
                     insertPersistentState(mySchema, persistentState);
                 }
@@ -187,7 +187,7 @@ public abstract class ModelBase extends EntityBase
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("Done", "End");
+        dependencies.setProperty("Done", "EndTransaction");
         dependencies.setProperty("ProcessInsertion", "UpdateStatusMessage");
 
         myRegistry.setDependencies(dependencies);
@@ -199,5 +199,5 @@ public abstract class ModelBase extends EntityBase
 
     abstract public String getIdFieldName();
     abstract public String getViewName();
-    abstract public boolean getAutoInc();
+    abstract public boolean checkIfExists(String idToQuery);
 }
