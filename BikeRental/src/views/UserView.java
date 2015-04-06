@@ -329,7 +329,7 @@ public class UserView extends View{
         props.setProperty("firstName", values[0]);
         props.setProperty("lastName", values[1]);
         props.setProperty("phoneNumber", values[2]);
-        props.setProperty("emailAdress", values[3]);
+        props.setProperty("emailAddress", values[3]);
         props.setProperty("userType", values[4]);
         props.setProperty("dateOfMembershipExpired", values[5]);
         props.setProperty("dateOfMembershipReg", values[6]);

@@ -7,6 +7,9 @@ package views;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.EventObject;
@@ -140,6 +143,7 @@ public class WorkerView extends View{
         credentialBox = new JComboBox<String>();
         credentialBox.addItem(messages.getString("administrator"));
         credentialBox.addItem(messages.getString("user"));
+        credentialBox.setSelectedIndex(1);
         credentialBox.addActionListener(this);
         temp5.add(credentialBox);
 
@@ -226,7 +230,9 @@ public class WorkerView extends View{
     //-------------------------------------------------------------
     public void populateFields()
     {
-        //userid.setText("");
+        //set date fields based on the locale*****
+
+        // userid.setText("");
         //password.setText("");
     }
     public void processAction(EventObject e) {
@@ -241,6 +247,7 @@ public class WorkerView extends View{
             String phone1Entered = phoneBox1.getText();
             String phone2Entered = phoneBox2.getText();
             String phone3Entered = phoneBox3.getText();
+            String phoneEntered = phone1Entered + "-" + phone2Entered + "-" + phone3Entered;
             String credEntered = (String)credentialBox.getSelectedItem();
 
             char[] passwordValueEntered = passwordBox.getPassword();
@@ -254,7 +261,7 @@ public class WorkerView extends View{
             String regDateMonthEntered = "";
             String regDateDayEntered = "";
 
-            if(LocaleStore.getLocale().equals(new Locale("fr","FR")))
+            if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
             {
                 regDateDayEntered = regDateBox1.getText();
                 regDateMonthEntered = regDateBox2.getText();
@@ -265,6 +272,8 @@ public class WorkerView extends View{
             }
 
             String regDateYearEntered = regDateBox3.getText();
+
+            String regDateEntered = regDateYearEntered + "-" + regDateMonthEntered + "-" + regDateDayEntered;
 
             String notesEntered = notesArea.getText();
             String statusEntered = (String)statusBox.getSelectedItem();
@@ -282,85 +291,121 @@ public class WorkerView extends View{
             else if((emailEntered == null) || (emailEntered.length() == 0))
             {
                 displayErrorMessage(messages.getString("enterEmailError"));
-                city.requestFocus();
+                emailBox.requestFocus();
             }
-            else if((stateCodeEntered == "--"))
+            else if((phone1Entered.length() == 0) || phone1Entered.length() > 3)
             {
-                displayErrorMessage("Please select a state.");
-                stateCode.requestFocus();
+                displayErrorMessage(messages.getString("phoneFormatError"));
+                phoneBox1.requestFocus();
             }
-            else if((zipEntered == null) || (zipEntered.length() == 0))
+            else if((phone2Entered.length() == 0) || phone2Entered.length() > 3)
             {
-                displayErrorMessage("Please enter a zip code.");
-                zip.requestFocus();
+                displayErrorMessage(messages.getString("phoneFormatError"));
+                phoneBox2.requestFocus();
             }
-            else if((zipEntered.length() > 5))
+            else if((phone3Entered.length() == 0) || phone3Entered.length() > 4)
             {
-                displayErrorMessage("Zip code cannot exceed 5 characters.");
-                zip.requestFocus();
+                displayErrorMessage(messages.getString("phoneFormatError"));
+                phoneBox3.requestFocus();
             }
-            else if((zipEntered.matches("^\\d+$") != true))
+            else if ((phone1Entered.matches("^\\d+$")!=true) || (phone2Entered.matches("^\\d+$")!=true) || (phone3Entered.matches("^\\d+$")!=true))
             {
-                displayErrorMessage("Zip code must be a numerical value.");
-                zip.requestFocus();
+                displayErrorMessage(messages.getString("phoneFormatError"));
+                phoneBox1.requestFocus();
             }
-            else if((emailEntered == null) || (emailEntered.length() == 0))
+            else if((passwordEntered == null) || (passwordEntered.length() == 0))
             {
-                displayErrorMessage("Please enter an email address.");
-                email.requestFocus();
+                displayErrorMessage(messages.getString("enterPasswordError"));
+                passwordBox.setText("");
+                passwordBox.requestFocus();
             }
-            else if((dobEntered.length() == 0))
+            else if((regDateEntered.length() == 0))
             {
-                displayErrorMessage("Please enter a date of birth.");
-                dobYear.requestFocus();
+                displayErrorMessage(messages.getString("regDateError"));
+                regDateBox1.requestFocus();
             }
-            else if((dobYearEntered.matches("^\\d+$") != true) || (dobMonthEntered.matches("^\\d+$") != true) || (dobDayEntered.matches("^\\d+$") != true))
+            else if((regDateYearEntered.matches("^\\d+$") != true) || (regDateMonthEntered.matches("^\\d+$") != true) || (regDateDayEntered.matches("^\\d+$") != true))
             {
-                displayErrorMessage("Date of birth must be a numerical value.");
-                dobYear.requestFocus();
+                displayErrorMessage(messages.getString("regDateNumericalError"));
+                regDateBox1.requestFocus();
             }
-            else if(dobYearEntered.length() > 4)
+            else if(regDateYearEntered.length() > 4)
             {
-                displayErrorMessage("'Year' field in date of birth cannot exceed 4 characters.");
-                dobYear.requestFocus();
+                displayErrorMessage(messages.getString("dateYearLengthError"));
+                regDateBox3.requestFocus();
             }
-            else if(dobMonthEntered.length() > 2)
+            else if(regDateMonthEntered.length() > 2)
             {
-                displayErrorMessage("'Month' field in date of birth cannot exceed 2 characters.");
-                dobMonth.requestFocus();
+                displayErrorMessage(messages.getString("dateMonthLengthError"));
+                regDateBox2.requestFocus();
             }
-            else if(dobDayEntered.length() > 2)
+            else if(regDateDayEntered.length() > 2)
             {
-                displayErrorMessage("'Day' field in date of birth cannot exceed 2 characters.");
-                dobDay.requestFocus();
+                displayErrorMessage(messages.getString("dateDayLengthError"));
+                regDateBox1.requestFocus();
             }
-            else if((Integer.parseInt(dobMonthEntered) < 1) || (Integer.parseInt(dobMonthEntered) > 12))
+            else if((Integer.parseInt(regDateMonthEntered) < 1) || (Integer.parseInt(regDateMonthEntered) > 12))
             {
-                displayErrorMessage("'Month' field in date of birth must be between 1 and 12.");
-                dobMonth.requestFocus();
+                displayErrorMessage(messages.getString("dateMonthRangeError"));
+                regDateBox2.requestFocus();
             }
-            else if((Integer.parseInt(dobDayEntered) < 1) || (Integer.parseInt(dobDayEntered) > 31))
+            else if((Integer.parseInt(regDateDayEntered) < 1) || (Integer.parseInt(regDateDayEntered) > 31))
             {
-                displayErrorMessage("'Day' field in date of birth must be between 1 - 31.");
-                dobDay.requestFocus();
-            }
-            else if ((Integer.parseInt(dobYearEntered) < 1913) || (Integer.parseInt(dobYearEntered) >= 1996))
-            {
-                displayErrorMessage("Please enter a date of birth between 1913-01-01 and 1996-01-01.");
-                dobYear.requestFocus();
+                displayErrorMessage(messages.getString("dateDayRangeError"));
+                regDateBox1.requestFocus();
             }
             else
             {
-                processInsertionOfNewPatron(nameEntered, addressEntered, cityEntered, stateCodeEntered, zipEntered, emailEntered, dobEntered, statusEntered);
+                String[] values = new String[10];
+                values[0] = firstNameEntered;
+                values[1] = lastNameEntered;
+                values[2] = emailEntered;
+                values[3] = phoneEntered;
+                values[4] = credEntered;
+                values[5] = passwordEntered;
+                values[6] = regDateEntered;
+                values[7] = notesEntered;
+                values[8] = statusEntered;
+                //add current date here
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                //get current date time with Date()
+                Date date = new Date();
+                String dateString = dateFormat.format(date);
+                values[9] = dateString;
+
+                processInsertion(values);
             }
         }
         else
-        if(e.getSource() == doneButton)
+        if(e.getSource() == done)
         {
             processDone();
         }
 
 
+    }
+    public void processInsertion(String[] values)
+    {
+        for(int i = 0; i <values.length;i++){
+            System.out.println(values[i]);
+        }
+        Properties props = new Properties();
+        props.setProperty("firstName", values[0]);
+        props.setProperty("lastName", values[1]);
+        props.setProperty("phoneNumber", values[2]);
+        props.setProperty("emailAddress", values[3]);
+        props.setProperty("credential", values[4]);
+        props.setProperty("password", values[5]);
+        props.setProperty("dateOfInitialReg", values[6]);
+        props.setProperty("notes", values[7]);
+        props.setProperty("notes", values[8]);
+        props.setProperty("dateStatusUpdated", values[9]);
+
+        myModel.stateChangeRequest("ProcessInsertion", props);
+    }
+    public void processDone()
+    {
+        myModel.stateChangeRequest("Done", null);
     }
     public void updateState(String key, Object value)
     {
