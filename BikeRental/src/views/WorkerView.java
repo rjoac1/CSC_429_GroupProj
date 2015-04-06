@@ -399,9 +399,8 @@ public class WorkerView extends View{
                 values[6] = regDateEntered;
                 values[7] = notesEntered;
                 values[8] = statusEntered;
-                //add current date here
+                
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                //get current date time with Date()
                 Date date = new Date();
                 String dateString = dateFormat.format(date);
                 values[9] = dateString;

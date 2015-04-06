@@ -96,10 +96,10 @@ public abstract class ModelBase extends EntityBase
 
     protected void update()
     {
-        updateStateInDatabase();
+        updateStateInDatabase(getAutoInc());
     }
 
-    private void updateStateInDatabase()
+    private void updateStateInDatabase(boolean autoInc)
     {
         try
         {
@@ -107,14 +107,22 @@ public abstract class ModelBase extends EntityBase
             System.out.println(idField);//test
             if(persistentState.getProperty(idField) != null)
             {
-                Properties whereClause = new Properties();
-                whereClause.setProperty(idField, persistentState.getProperty(idField));
-                updatePersistentState(mySchema, persistentState, whereClause);
-                //System.out.println("Patron data for patronId: " + persistentState.getProperty("patronID") + " updated successfully in database.");
+                System.out.println("test1");
+                if (autoInc == false)
+                {
+                    insertPersistentState(mySchema, persistentState);
+                }
+                else {
+                    Properties whereClause = new Properties();
+                    whereClause.setProperty(idField, persistentState.getProperty(idField));
+                    updatePersistentState(mySchema, persistentState, whereClause);
+                    //System.out.println("Patron data for patronId: " + persistentState.getProperty("patronID") + " updated successfully in database.");
+                }
                 updateStatusMessage = myTableName + " data for " + idField + ": " + persistentState.getProperty(idField) + " updated successfully in database.";
             }
             else
             {
+                System.out.println("test2");
                 Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty(idField, "" + id.intValue());
                 updateStatusMessage = myTableName + " data for new " + myTableName + ": " + persistentState.getProperty(idField) + " installed successfully in database.";
@@ -191,4 +199,5 @@ public abstract class ModelBase extends EntityBase
 
     abstract public String getIdFieldName();
     abstract public String getViewName();
+    abstract public boolean getAutoInc();
 }

@@ -80,5 +80,6 @@ public class Worker extends ModelBase
         return "workerId";
     }
     public String getViewName(){ return "WorkerView"; }
+    public boolean getAutoInc(){ return false; }
 }
 
