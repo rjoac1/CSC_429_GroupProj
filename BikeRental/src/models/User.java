@@ -16,7 +16,7 @@ import views.ViewFactory;
 
 
 public class User extends EntityBase implements IView{
-    private static final String myTableName = "Users";
+    private static final String myTableName = "User";
     private String updateStatusMessage = "";
     protected Properties dependencies;
     public User()
@@ -277,7 +277,7 @@ public class User extends EntityBase implements IView{
         v.addElement(persistentState.getProperty("firstName"));
         v.addElement(persistentState.getProperty("lastName"));
         v.addElement(persistentState.getProperty("phoneNumber"));
-        v.addElement(persistentState.getProperty("emailAdress"));
+        v.addElement(persistentState.getProperty("emailAddress"));
         v.addElement(persistentState.getProperty("userType"));
         v.addElement(persistentState.getProperty("dateOfMembershipExpired"));
         v.addElement(persistentState.getProperty("dateOfMembershipReg"));
