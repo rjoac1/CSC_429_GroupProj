@@ -231,13 +231,15 @@ public class UserView extends View{
     public void processAction(EventObject evt)
     {
         clearErrorMessage();
-        String firstName,lastName,phoneNumber,emailAdress,userType,
+        String firstName,lastName,phoneNumber,emailAddress,userType,
                 memExpireDate, memRegistrationDate,statusUpdateDate, notes;
         String[] values = new String[9];
         values[0] = firstNameBox.getText();
         values[1] = lastNameBox.getText();
         values[2] = phoneBox1.getText()+phoneBox2.getText()+phoneBox3.getText();
+        //System.out.println(""+ emailBox.getText());
         values[3] = emailBox.getText();
+        //System.out.println(""+ values[3]);
         values[4] = userTypeBox.getText();
         values[5] = memExpireBox.getText();
         values[6] = registrationDateBox.getText();
