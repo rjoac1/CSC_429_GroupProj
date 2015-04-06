@@ -54,7 +54,7 @@ public abstract class View extends JPanel
     {
         myModel = model;
 
-        messages = LocaleStore.getLocale().getRessourceBundle();
+        messages = LocaleStore.getLocale().getResourceBundle();
         myRegistry = new ControlRegistry(classname);
     }
 

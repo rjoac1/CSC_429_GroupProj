@@ -27,7 +27,7 @@ public class LocaleStore {
         return mLocale;
     }
 
-    public ResourceBundle getRessourceBundle() {
+    public ResourceBundle getResourceBundle() {
         return mResourceBundle;
     }
 
@@ -36,6 +36,10 @@ public class LocaleStore {
             mStaticInstance = new LocaleStore();
         }
         return mStaticInstance;
+    }
+    public boolean equals(Locale that)
+    {
+        if()
     }
 
 }
