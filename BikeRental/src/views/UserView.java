@@ -71,7 +71,7 @@ public class UserView extends View{
         JPanel temp = new JPanel();
         temp.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        JLabel lbl = new JLabel("        Insert Users        ");
+        JLabel lbl = new JLabel(messages.getString("InsertUsers"));
         Font myFont = new Font("Helvetica", Font.BOLD, 20);
         lbl.setFont(myFont);
         temp.add(lbl);
@@ -89,7 +89,7 @@ public class UserView extends View{
 
         JPanel temp2 = new JPanel();
         temp2.setLayout(new GridLayout(2,1,0,0));
-        JLabel firstName = new JLabel("First Name                      ");
+        JLabel firstName = new JLabel(messages.getString("firstName"));
         firstNameBox = new JTextField(20);
         temp2.add(firstName);
         temp2.add(firstNameBox);
@@ -97,7 +97,7 @@ public class UserView extends View{
 
         JPanel temp3 = new JPanel();
         temp3.setLayout(new GridLayout(2,1,0,0));
-        JLabel lastNameLabel = new JLabel("Last Name");
+        JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
         lastNameBox = new JTextField(20);
         temp3.add(lastNameLabel);
         temp3.add(lastNameBox);
@@ -105,7 +105,7 @@ public class UserView extends View{
 
         JPanel temp4 = new JPanel();
         temp4.setLayout(new GridLayout(1,4,0,0));
-        JLabel phoneLabel = new JLabel("Phone");
+        JLabel phoneLabel = new JLabel(messages.getString("phone"));
         phoneBox1 = new JTextField(3);
         //phoneBox1.setSize( new Dimension( 30,10 ) );
         phoneBox2 = new JTextField(3);
@@ -121,7 +121,7 @@ public class UserView extends View{
 
         JPanel temp5 = new JPanel();
         temp5.setLayout(new GridLayout(2,1,0,0));
-        JLabel emailLabel = new JLabel("Email");
+        JLabel emailLabel = new JLabel(messages.getString("email"));
         emailBox = new JTextField(20);
         temp5.add(emailLabel);
         temp5.add(emailBox);
@@ -130,7 +130,7 @@ public class UserView extends View{
 
         JPanel temp6 = new JPanel();
         temp6.setLayout(new GridLayout(2,1,0,0));
-        JLabel userTypeLabel = new JLabel("User Type");
+        JLabel userTypeLabel = new JLabel(messages.getString("userType"));
         userTypeBox = new JTextField(20);
         temp6.add(userTypeLabel);
         temp6.add(userTypeBox);
@@ -139,7 +139,7 @@ public class UserView extends View{
 
         JPanel temp7 = new JPanel();
         temp7.setLayout(new GridLayout(2,1,0,0));
-        JLabel memExpireLabel = new JLabel("Membership Expire Date");
+        JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
         memExpireBox = new JTextField(20);
         temp7.add(memExpireLabel);
         temp7.add(memExpireBox);
@@ -147,7 +147,7 @@ public class UserView extends View{
 
         JPanel temp8 = new JPanel();
         temp8.setLayout(new GridLayout(2,1,0,0));
-        JLabel registrationDateLabel = new JLabel("Registration Date");
+        JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
         registrationDateBox = new JTextField(20);
         temp8.add(registrationDateLabel);
         temp8.add(registrationDateBox);
@@ -156,10 +156,10 @@ public class UserView extends View{
 
         JPanel temp10 = new JPanel();
         temp10.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JLabel statLabel = new JLabel("Status");
+        JLabel statLabel = new JLabel(messages.getString("status"));
         String[] choices = new String[2];
-        choices[0] = "Active";
-        choices[1] = "Inactive";
+        choices[0] = messages.getString("active");
+        choices[1] = messages.getString("inactive");
         statBox = new JComboBox(choices);
         statBox.setSelectedIndex(1);
         temp10.add(statLabel);
@@ -169,7 +169,7 @@ public class UserView extends View{
 
         JPanel temp11 = new JPanel();
         temp11.setLayout(new GridLayout(2,1,0,0));
-        JLabel updateDateLabel = new JLabel("Updated Date");
+        JLabel updateDateLabel = new JLabel(messages.getString("dateStatusUpdated"));
         updateDateBox = new JTextField(20);
         temp11.add(updateDateLabel);
         temp11.add(updateDateBox);
@@ -178,7 +178,7 @@ public class UserView extends View{
 
         JPanel temp9 = new JPanel();
         temp9.setLayout(new GridLayout(2,1,0,0));
-        JLabel notesLabel = new JLabel("Notes");
+        JLabel notesLabel = new JLabel(messages.getString("notes"));
         notesArea = new JTextArea(null,5,10);
         temp9.add(notesLabel);
         temp9.add(notesArea);
@@ -196,9 +196,9 @@ public class UserView extends View{
 
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
-        submit = new JButton("Submit");
+        submit = new JButton(messages.getString("submit"));
         submit.addActionListener(this);
-        done = new JButton("Done");
+        done = new JButton(messages.getString("done"));
         done.addActionListener(this);
         temp1.add(submit);
         temp1.add(done);
@@ -253,37 +253,37 @@ public class UserView extends View{
         else if(evt.getSource() == submit){
             if (values[0].length() == 0)
             {
-                displayErrorMessage("Please enter an user");
+                displayErrorMessage(messages.getString("enterFirstNameError"));
                 firstNameBox.requestFocus();
             }
             else if (values[1].length() == 0)
             {
-                displayErrorMessage("Please enter a firstName");
+                displayErrorMessage(messages.getString("enterLastNameError"));
                 lastNameBox.requestFocus();
             }
             else if (values[2].length() == 0)
             {
-                displayErrorMessage("Please enter an user");
+                displayErrorMessage(messages.getString("phoneNumericalError"));
                 phoneBox1.requestFocus();
             }
             else if (values[3].length() == 0)
             {
-                displayErrorMessage("Please enter a firstName");
+                displayErrorMessage(messages.getString("enterEmailError"));
                 emailBox.requestFocus();
             }
             else if (values[4].length() == 0)
             {
-                displayErrorMessage("Please enter an user");
+                displayErrorMessage(messages.getString("userTypeError"));
                 userTypeBox.requestFocus();
             }
             else if (values[5].length() == 0)
             {
-                displayErrorMessage("Please enter a firstName");
+                displayErrorMessage(messages.getString("membershipExpireError"));
                 memExpireBox.requestFocus();
             }
             else if (values[6].length() == 0)
             {
-                displayErrorMessage("Please enter a firstName");
+                displayErrorMessage(messages.getString("regDateError"));// check bundle
                 registrationDateBox.requestFocus();
             }
             else if (values[7].length() == 0)
@@ -291,23 +291,17 @@ public class UserView extends View{
                 displayErrorMessage("Please enter an user");
                 updateDateBox.requestFocus();
             }
+            /* //wont need
             else if (values[8].length() == 0)
             {
-                displayErrorMessage("Please enter a firstName");
+                displayErrorMessage(messages.getString("regDateError"));
                 notesArea.requestFocus();
             }
-         /*
-         else if (1800 > Integer.parseInt(yearIn) || 2014 < Integer.parseInt(yearIn))
-   		{
-   			displayErrorMessage("Please enter a year between 1800-2014");
-   			lasttNameBox.requestFocus();
-   		}
-         */
+            */
             else
             {
                 processUser(values);
                 displayErrorMessage("User added Successfully");
-
             }
         }
     }
@@ -319,7 +313,6 @@ public class UserView extends View{
     //----------------------------------------------------------
     private void processUser(String[] values)
     {
-
         for(int i = 0; i <values.length;i++){
             System.out.println(values[i]);
         }
