@@ -135,12 +135,12 @@ public class VehicleView extends View
 
         color = new JTextField(4);
         color.addActionListener(this);
+        temp4.add(color);
+
+        temp.add(temp4);
 
         //Description
         JPanel temp5 = new JPanel();
-        temp5.add(color);
-
-        temp.add(temp5);
         temp5.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel descriptionLabel = new JLabel(messages.getString("VehicleDescription"));
