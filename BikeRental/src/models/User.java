@@ -104,7 +104,7 @@ public class User extends EntityBase implements IView{
     {
         dependencies = new Properties();
         dependencies.setProperty("Done", "EndTransaction");
-        dependencies.setProperty("ProcessInsertion", "UpdateStatusMessage");
+        dependencies.setProperty("ProcessUser", "UpdateStatusMessage");
 
         myRegistry.setDependencies(dependencies);
     }
