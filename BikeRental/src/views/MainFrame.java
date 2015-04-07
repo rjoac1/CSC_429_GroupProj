@@ -40,6 +40,7 @@ public class MainFrame extends JFrame
     private MainFrame (String title)
     {
         super(title);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         sizeSet = false;
         // addComponentListener(this);
     }

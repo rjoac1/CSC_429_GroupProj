@@ -11,6 +11,10 @@ public class ViewFactory {
         {
             return new LoginView(model);
         }
+        else if(viewName.equals("WorkerView") == true)
+        {
+            return new WorkerView(model);
+        }
         else if(viewName.equals("BikeTransactionChoiceView") == true)
         {
             return new BikeTransactionChoiceView(model);
@@ -19,6 +23,10 @@ public class ViewFactory {
 		{
 			return new UserView(model);
 		}
+        else if(viewName.equals("VehicleView") == true)
+        {
+            return new VehicleView(model);
+        }
         else
             return null;
     }

@@ -223,11 +223,11 @@ public class VehicleView extends View
         temp.setLayout(f1);
 
         // create the buttons, listen for events, add them to the panel
-        submitButton = new JButton(messages.getString("submit");
+        submitButton = new JButton(messages.getString("submit"));
         submitButton.addActionListener(this);
         temp.add(submitButton);
 
-        doneButton = new JButton(messages.getString("cancel");
+        doneButton = new JButton(messages.getString("cancel"));
         doneButton.addActionListener(this);
         temp.add(doneButton);
 

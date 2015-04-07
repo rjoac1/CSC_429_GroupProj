@@ -16,9 +16,10 @@ import views.ViewFactory;
 
 
 public class User extends EntityBase implements IView{
-    private static final String myTableName = "Users";
+    private static final String myTableName = "User";
     private String updateStatusMessage = "";
     protected Properties dependencies;
+
     public User()
     {
         super(myTableName);
@@ -102,6 +103,8 @@ public class User extends EntityBase implements IView{
     private void setDependencies()
     {
         dependencies = new Properties();
+        dependencies.setProperty("Done", "EndTransaction");
+        dependencies.setProperty("ProcessUser", "UpdateStatusMessage");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -120,7 +123,7 @@ public class User extends EntityBase implements IView{
         //STEP 4: Write the sCR method component for the key you
         // just set up dependencies for
         // DEBUG System.out.println("Teller.sCR: key = " + key);
-        if (key.equals("ShowUser") == true)
+        if (key.equals("ShowDataEntryView") == true)
         {
             createAndShowUserView();
         }
@@ -139,85 +142,6 @@ public class User extends EntityBase implements IView{
         stateChangeRequest(key, value);
     }
 
-    /**
-     * Verify ownership
-     */
-    //----------------------------------------------------------
-    public boolean verifyOwnership(AccountHolder cust)
-    {
-        if (cust == null)
-        {
-            return false;
-        }
-        else
-        {
-            String custid = (String)cust.getState("ID");
-            String myOwnerid = (String)getState("OwnerId");
-
-            return (custid.equals(myOwnerid));
-        }
-    }
-
-    /**
-     * Credit balance (Method is public because it may be invoked directly as it has no possibility of callback associated with it)
-     */
-    //----------------------------------------------------------
-    public void credit(String amount)
-    {
-        String myBalance = (String)getState("Balance");
-        double myBal = Double.parseDouble(myBalance);
-
-        double incrementAmount = Double.parseDouble(amount);
-        myBal += incrementAmount;
-
-        persistentState.setProperty("Balance", ""+myBal);
-    }
-
-    /**
-     * Debit balance (Method is public because it may be invoked directly as it has no possibility of callback associated with it)
-     */
-    //----------------------------------------------------------
-    public void debit(String amount)
-    {
-        String myBalance = (String)getState("Balance");
-        double myBal = Double.parseDouble(myBalance);
-
-        double incrementAmount = Double.parseDouble(amount);
-        myBal -= incrementAmount;
-
-        persistentState.setProperty("Balance", ""+myBal);
-    }
-
-    /**
-     * Check balance -- returns true/false depending on whether
-     * there is enough balance to cover withdrawalAmount or not
-     * (Method is public because it may be invoked directly as it has no possibility of callback associated with it)
-     *
-     */
-    //----------------------------------------------------------
-    public boolean checkBalance(String withdrawalAmount)
-    {
-        String myBalance = (String)getState("Balance");
-        double myBal = Double.parseDouble(myBalance);
-
-        double checkAmount = Double.parseDouble(withdrawalAmount);
-
-        if (myBal >= checkAmount)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    //----------------------------------------------------------
-    public void setServiceCharge(String value)
-    {
-        persistentState.setProperty("ServiceCharge", value);
-        updateStateInDatabase();
-    }
 
     //-----------------------------------------------------------------------------------
     public static int compare(User a, User b)
@@ -231,7 +155,7 @@ public class User extends EntityBase implements IView{
     //-----------------------------------------------------------------------------------
     public void update()
     {
-        System.out.println(getEntryListView());
+        //System.out.println(getEntryListView());
         updateStateInDatabase();
     }
 
@@ -266,7 +190,7 @@ public class User extends EntityBase implements IView{
 
 
     /**
-     * This method is needed solely to enable the Account information to be displayable in a table
+     * This method is needed solely to enable the User information to be displayable in a table
      *
      */
     //--------------------------------------------------------------------------
@@ -277,7 +201,7 @@ public class User extends EntityBase implements IView{
         v.addElement(persistentState.getProperty("firstName"));
         v.addElement(persistentState.getProperty("lastName"));
         v.addElement(persistentState.getProperty("phoneNumber"));
-        v.addElement(persistentState.getProperty("emailAdress"));
+        v.addElement(persistentState.getProperty("emailAddress"));
         v.addElement(persistentState.getProperty("userType"));
         v.addElement(persistentState.getProperty("dateOfMembershipExpired"));
         v.addElement(persistentState.getProperty("dateOfMembershipReg"));

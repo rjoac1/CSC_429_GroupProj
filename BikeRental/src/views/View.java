@@ -13,8 +13,9 @@
 package views;
 
 // system imports
+import java.awt.*;
 import java.util.*;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusListener;
@@ -37,9 +38,12 @@ public abstract class View extends JPanel
     protected IModel myModel;
     protected ControlRegistry myRegistry;
     protected ResourceBundle messages;
+    protected MessageView statusLog;
+
 
     // forward declaration
     protected abstract void processAction(EventObject evt);
+    protected abstract JPanel createSubTitle();
 
     // GUI components
 
@@ -50,10 +54,42 @@ public abstract class View extends JPanel
     {
         myModel = model;
 
-        messages = LocaleStore.getLocale().getRessourceBundle();
+        messages = LocaleStore.getLocale().getResourceBundle();
         myRegistry = new ControlRegistry(classname);
+
+        myModel.subscribe("UpdateStatusMessage", this);
     }
 
+    protected JPanel createTitle()
+    {
+        JPanel temp = new JPanel();
+        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
+
+        JPanel temp1 = new JPanel();
+        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JLabel lbl = new JLabel(messages.getString("brockportTitle"));
+        Font myFont = new Font("Helvetica", Font.BOLD, 20);
+        lbl.setFont(myFont);
+        temp1.add(lbl);
+
+        temp.add(temp1);
+
+        JPanel temp2 = new JPanel();
+        temp2.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel lbl1 = new JLabel(messages.getString("fastTracksTitle"));
+        Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
+        lbl1.setFont(myFont2);
+        temp2.add(lbl1);
+        temp.add(temp2);
+
+        JPanel subTitle = createSubTitle();
+        if(subTitle!=null) {
+            temp.add(createSubTitle());
+        }
+
+        return temp;
+    }
 
     // process events generated from our GUI components
     //-------------------------------------------------------------
@@ -299,6 +335,23 @@ public abstract class View extends JPanel
 
         return valToReturn;
 
+    }
+    protected JPanel createStatusLog(String initialMessage)
+    {
+        statusLog = new MessageView(initialMessage);
+        return statusLog;
+    }
+    public void clearErrorMessage()
+    {
+        statusLog.clearErrorMessage();
+    }
+    public void displayErrorMessage(String message)
+    {
+        statusLog.displayErrorMessage(message);
+    }
+    public void displayMessage(String message)
+    {
+        statusLog.displayMessage(message);
     }
 }
 

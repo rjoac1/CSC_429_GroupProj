@@ -1,19 +1,11 @@
 package views;
 
 //System imports
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.util.Properties;
-import java.util.EventObject;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.util.ResourceBundle;
-import java.util.Vector;
-import java.util.Locale;
+import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import javax.swing.*;
 
 //project imports
 import impres.impresario.IModel;
@@ -29,37 +21,27 @@ public class VehicleView extends View
     private JTextField color;
     private JTextField description;
     private JTextField location;
-    private JTextField physicalCondition;
-    private JTextField status;
-    private JTextField dateStatusUpdated;
-
-    //private JComboBox status;
-
-    private Vector<String> statusOptions;
-    private Vector<String> stateCodeOptions;
+    private JComboBox<String> physicalCondition;
+    private JComboBox<String> status;
 
     private JButton submitButton;
     private JButton doneButton;
 
-    // For showing error message
-    private MessageView statusLog;
-
-    public VehicleView(IModel patron)
+    public VehicleView(IModel vehicle)
     {
-        super(patron, "VehicleView");
-
+        super(vehicle, "VehicleView");
+        // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        // create our GUI components, add them to this panel
         add(createTitle());
         add(createDataEntryFields());
         add(createNavigationButtons());
 
         //error message area
-        add(createStatusLog("                                        "));
+        add(createStatusLog("                          "));
 
         populateFields();
-
-        myModel.subscribe("UpdateStatusMessage", this);
     }
     public void paint(Graphics g)
     {
@@ -67,7 +49,7 @@ public class VehicleView extends View
     }
 
     //create Title
-    private JPanel createTitle()
+    protected JPanel createSubTitle()
     {
         JPanel temp = new JPanel();
         temp.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -89,7 +71,7 @@ public class VehicleView extends View
         //data entry Fields
         //Make
         JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp1.setLayout(new GridLayout(2,1,0,0));
 
         JLabel makeLabel = new JLabel(messages.getString("VehicleMake"));
         temp1.add(makeLabel);
@@ -102,7 +84,7 @@ public class VehicleView extends View
 
         //Model Number
         JPanel temp2 = new JPanel();
-        temp2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp2.setLayout(new GridLayout(2,1,0,0));
 
         JLabel modelNumLabel = new JLabel(messages.getString("VehicleModelNum"));
         temp2.add(modelNumLabel);
@@ -115,7 +97,7 @@ public class VehicleView extends View
 
         //Serial Number
         JPanel temp3 = new JPanel();
-        temp3.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp3.setLayout(new GridLayout(2,1,0,0));
 
         JLabel serialNumLabel = new JLabel(messages.getString("VehicleSerialNum"));
         temp3.add(serialNumLabel);
@@ -128,20 +110,20 @@ public class VehicleView extends View
 
         //Color
         JPanel temp4 = new JPanel();
-        temp4.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp4.setLayout(new GridLayout(2,1,0,0));
 
         JLabel colorLabel = new JLabel(messages.getString("VehicleColor"));
         temp4.add(colorLabel);
 
         color = new JTextField(4);
         color.addActionListener(this);
+        temp4.add(color);
+
+        temp.add(temp4);
 
         //Description
         JPanel temp5 = new JPanel();
-        temp5.add(color);
-
-        temp.add(temp5);
-        temp5.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp5.setLayout(new GridLayout(2,1,0,0));
 
         JLabel descriptionLabel = new JLabel(messages.getString("VehicleDescription"));
         temp5.add(descriptionLabel);
@@ -154,7 +136,7 @@ public class VehicleView extends View
 
         //Location
         JPanel temp6 = new JPanel();
-        temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp6.setLayout(new GridLayout(2,1,0,0));
 
         JLabel locationLabel = new JLabel(messages.getString("VehicleLocation"));
         temp6.add(locationLabel);
@@ -167,12 +149,18 @@ public class VehicleView extends View
 
         //Physical Condition
         JPanel temp7 = new JPanel();
-        temp7.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp7.setLayout(new GridLayout(2,1,0,0));
 
         JLabel conditionLabel = new JLabel(messages.getString("VehiclePhysicalCondition"));
         temp7.add(conditionLabel);
 
-        physicalCondition = new JTextField(35);
+        String[] conditions = new String[4];
+        conditions[0] = "mint";
+        conditions[1] = "good";
+        conditions[2] = "satisfactory";
+        conditions[3] = "poor";
+        physicalCondition = new JComboBox(conditions);
+        physicalCondition.setSelectedIndex(0);
         physicalCondition.addActionListener(this);
         temp7.add(physicalCondition);
 
@@ -180,29 +168,19 @@ public class VehicleView extends View
 
         //Status
         JPanel temp8 = new JPanel();
-        temp8.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp8.setLayout(new GridLayout(2, 1, 0, 0));
 
         JLabel statusLabel = new JLabel(messages.getString("VehicleStatus"));
         temp8.add(statusLabel);
-
-        status = new JTextField(35);
+        String[] statusText = new String[2];
+        statusText[0] = messages.getString("active");
+        statusText[1] = messages.getString("inactive");
+        status = new JComboBox(statusText);
+        status.setSelectedIndex(0);
         status.addActionListener(this);
         temp8.add(status);
 
         temp.add(temp8);
-
-        //Date of Status Change
-        JPanel temp9 = new JPanel();
-        temp9.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel dateStatusLabel = new JLabel(messages.getString("VehicleDateStatus"));
-        temp9.add(dateStatusLabel);
-
-        dateStatusUpdated = new JTextField(4);
-        dateStatusUpdated.addActionListener(this);
-        temp9.add(dateStatusUpdated);
-
-        temp.add(temp9);
 
         return temp;
     }
@@ -216,33 +194,19 @@ public class VehicleView extends View
         temp.setLayout(f1);
 
         // create the buttons, listen for events, add them to the panel
+        doneButton = new JButton(messages.getString("done"));
+        doneButton.addActionListener(this);
+        temp.add(doneButton);
+
         submitButton = new JButton(messages.getString("submit"));
         submitButton.addActionListener(this);
         temp.add(submitButton);
 
-        doneButton = new JButton(messages.getString("cancel"));
-        doneButton.addActionListener(this);
-        temp.add(doneButton);
-
         return temp;
     }
-    private JPanel createStatusLog(String initialMessage)
-    {
-        statusLog = new MessageView(initialMessage);
-
-        return statusLog;
-    }
-
     public void populateFields()
     {
-//        name.setText("");
-//        address.setText("");
-//        city.setText("");
-//        zip.setText("");
-//        email.setText("");
-//        dobYear.setText("yyyy");
-//        dobMonth.setText("mm");
-//        dobDay.setText("dd");
+        //Not really needed for vehicles unless otherwise noted
     }
 
     public void processAction(EventObject e)
@@ -257,60 +221,56 @@ public class VehicleView extends View
             String colorText = color.getText();
             String descriptionText = description.getText();
             String locationText = location.getText();
-            String physicalConditionText = physicalCondition.getText();
-            //System.out.println("year: " + dobYearEntered);
-            String statusText = status.getText();
-            //System.out.println("month: " + dobMonthEntered);
-            String dateStatusText = dateStatusUpdated.getText();
-            //System.out.println("day: " + dobDayEntered);
+            String physicalConditionText = (String) physicalCondition.getSelectedItem();
+            String statusText = (String) status.getSelectedItem();
+
 
             if((makeText == null) || (makeText.length() == 0))
             {
-                displayErrorMessage("Please enter a make.");
+                displayErrorMessage(messages.getString("VehicleMakeError"));
                 make.requestFocus();
             }
             else if((modelNumberText == null) || (modelNumberText.length() == 0))
             {
-                displayErrorMessage("Please enter a model number.");
+                displayErrorMessage(messages.getString("VehicleModelNumError"));
                 modelNumber.requestFocus();
             }
             else if((serialNumberText == null) || (serialNumberText.length() == 0))
             {
-                displayErrorMessage("Please enter a serial number.");
+                displayErrorMessage(messages.getString("VehicleSerialNumError"));
                 serialNumber.requestFocus();
             }
             else if((colorText == null) || (colorText.length() == 0))
             {
-                displayErrorMessage("Please select a color.");
+                displayErrorMessage(messages.getString("VehicleColorError"));
                 color.requestFocus();
-            }
+            }/*
             else if((descriptionText == null) || (descriptionText.length() == 0))
             {
-                displayErrorMessage("Please enter a description.");
+                displayErrorMessage(messages.getString("VehicleDescriptionError"));
                 description.requestFocus();
-            }
+            }*/
             else if((locationText == null) || (locationText.length() == 0))
             {
-                displayErrorMessage("Please enter a location");
+                displayErrorMessage(messages.getString("VehicleLocationError"));
                 location.requestFocus();
-            }
+            }/*
             else if((physicalConditionText == null) || (physicalConditionText.length() == 0))
             {
+                displayErrorMessage(messages.getString("VehicleModelNumError"));
                 displayErrorMessage("Please enter a physical condition");
-//                zip.requestFocus();
             }
             else if((statusText == null) || (statusText.length() == 0))
             {
-                displayErrorMessage("Please enter an email address.");
+                displayErrorMessage(messages.getString("VehicleStatusError"));
                 status.requestFocus();
-            }
-            else if((dateStatusText == null) || (dateStatusText.length() == 0))
-            {
-                displayErrorMessage("Please enter a date of status update");
-                dateStatusUpdated.requestFocus();
-            }
+            }*/
             else
             {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = new Date();
+                String dateString = dateFormat.format(date);
+
                 Properties props = new Properties();
                 props.setProperty("make", makeText);
                 props.setProperty("modelNumber", modelNumberText);
@@ -320,7 +280,7 @@ public class VehicleView extends View
                 props.setProperty("location", locationText);
                 props.setProperty("physicalCondition", physicalConditionText);
                 props.setProperty("status", statusText);
-                props.setProperty("dateStatusUpdated", dateStatusText);
+                props.setProperty("dateStatusUpdated", dateString);
                 processInsertionOfNewVehicle(props);
             }
         }
@@ -332,14 +292,9 @@ public class VehicleView extends View
     }
     private void processInsertionOfNewVehicle(Properties props)
     {
-        //String pubyear = String.valueOf(pubyearInt);
-
         myModel.stateChangeRequest("ProcessInsertion", props);
-
-        //This should not be here, go through update state
-        //displayMessage((String) myModel.getState("UpdateStatusMessage"));
-
     }
+
     public void updateState(String key, Object value)
     {
         switch(key)
@@ -357,19 +312,5 @@ public class VehicleView extends View
     {
         myModel.stateChangeRequest("Done", null);
     }
-
-    public void clearErrorMessage()
-    {
-        statusLog.clearErrorMessage();
-    }
-    public void displayErrorMessage(String message)
-    {
-        statusLog.displayErrorMessage(message);
-    }
-    public void displayMessage(String message)
-    {
-        statusLog.displayMessage(message);
-    }
-
 }
 

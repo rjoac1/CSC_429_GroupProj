@@ -125,15 +125,21 @@ public class Clerk implements IView, IModel, ISlideShow
                     }
                 }
                 break;
-        //            case "AddUser":
-        //                createNewUser();
-        //                break;
-        //            case "AddWorker":
-        //                createNewWorker();
-        //                break;
-        //            case "AddBike":
-        //                createNewBike();
-        //                break;
+            /*case "Checkin":
+                processCheckin();
+                break;
+            case "Checkout":
+                processCheckout();
+                break;*/
+            case "AddUser":
+                createNewUser();
+                break;
+            case "AddWorker":
+                createNewWorker();
+                break;
+            case "AddBike":
+                createNewBike();
+                break;
             /*case "FndModUser":
                 fndModUser();
                 break;
@@ -143,6 +149,9 @@ public class Clerk implements IView, IModel, ISlideShow
             case "FndModBike":
                 fndModBike();
                 break;*/
+            case "EndTransaction":
+                createAndShowBikeTransactionChoiceView();
+                break;
             case "Logout":
                 myWorker = null;
                 createAndShowLoginView();
@@ -167,16 +176,33 @@ public class Clerk implements IView, IModel, ISlideShow
             myWorker = new Worker(props);
             return true;
         }
-        catch (InvalidPrimaryKeyException ex)
-        {
-            loginErrorMessage = "ERROR: " + ex.getMessage();
+        catch (InvalidPrimaryKeyException ex) {
+            loginErrorMessage = ex.getMessage();
             return false;
         }
-        catch (PasswordMismatchException exec)
-        {
-            loginErrorMessage = "ERROR" + exec.getMessage();
+        catch (PasswordMismatchException exec) {
+            loginErrorMessage = exec.getMessage();
             return false;
         }
+    }
+
+    public void createNewUser()
+    {
+        User user = new User();
+        user.subscribe("EndTransaction", this);
+        user.stateChangeRequest("ShowDataEntryView", "");
+    }
+    public void createNewWorker()
+    {
+        Worker worker = new Worker();
+        worker.subscribe("EndTransaction", this);
+        worker.stateChangeRequest("ShowDataEntryView", "");
+    }
+    public void createNewBike()
+    {
+        Vehicle bike = new Vehicle();
+        bike.subscribe("EndTransaction", this);
+        bike.stateChangeRequest("ShowDataEntryView", "");
     }
 
     private void createAndShowLoginView()

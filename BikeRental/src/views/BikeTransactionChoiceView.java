@@ -1,18 +1,13 @@
 // specify the package
 package views;
 
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.*;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.util.*;
 import java.text.*;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 // project imports
 import impres.impresario.IModel;
@@ -54,7 +49,7 @@ public class BikeTransactionChoiceView extends View
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
-
+        this.setSize(new Dimension(300, 400));
         // Add a title for this panel
         add(createTitle());
 
@@ -70,31 +65,10 @@ public class BikeTransactionChoiceView extends View
 
     // Create the labels and fields
     //-------------------------------------------------------------
-    private JPanel createTitle()
+    protected JPanel createSubTitle()
     {
         JPanel temp = new JPanel();
-        // set the layout for this panel
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
-
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        JLabel lbl = new JLabel(messages.getString("brockportTitle"));
-        Font myFont1 = new Font("Helvetica", Font.BOLD, 20);
-        lbl.setFont(myFont1);
-        temp1.add(lbl);
-
-        temp.add(temp1);
-
-        JPanel temp2 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        JLabel lbl1 = new JLabel(messages.getString("fastTracksTitle"));
-        Font myFont2 = new Font("Helvetica", Font.BOLD, 14);
-        lbl1.setFont(myFont2);
-        temp2.add(lbl1);
-
-        temp.add(temp2);
 
         JPanel temp3 = new JPanel();
         temp3.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -130,7 +104,7 @@ public class BikeTransactionChoiceView extends View
         String greeting = formatter.format(messageArguments);
 
         JLabel lbl3 = new JLabel(greeting);
-        lbl3.setFont(myFont2);
+        lbl3.setFont(myFont3);
         temp4.add(lbl3);
 
         temp.add(temp4);
@@ -165,6 +139,7 @@ public class BikeTransactionChoiceView extends View
         panel.add(checkinButton, gbc_btnCheckin);
 
         checkoutButton = new JButton(messages.getString("checkoutButton"));
+        checkoutButton.addActionListener(this);
         final GridBagConstraints gbc_btnCheckout = new GridBagConstraints();
         gbc_btnCheckout.anchor = GridBagConstraints.NORTHWEST;
         gbc_btnCheckout.gridx = 3;
@@ -189,6 +164,7 @@ public class BikeTransactionChoiceView extends View
         panel_1.add(lblAdd, gbc_lblAdd);
 
         addUserButton = new JButton(messages.getString("user"));
+        addUserButton.addActionListener(this);
         final GridBagConstraints gbc_btnUser = new GridBagConstraints();
         gbc_btnUser.fill = GridBagConstraints.BOTH;
         gbc_btnUser.insets = new Insets(0, 0, 0, 5);
@@ -197,6 +173,7 @@ public class BikeTransactionChoiceView extends View
         panel_1.add(addUserButton, gbc_btnUser);
 
         addWorkerButton = new JButton(messages.getString("worker"));
+        addWorkerButton.addActionListener(this);
         final GridBagConstraints gbc_btnWorker = new GridBagConstraints();
         gbc_btnWorker.fill = GridBagConstraints.BOTH;
         gbc_btnWorker.insets = new Insets(0, 0, 0, 5);
@@ -205,6 +182,7 @@ public class BikeTransactionChoiceView extends View
         panel_1.add(addWorkerButton, gbc_btnWorker);
 
         addBikeButton = new JButton(messages.getString("bike"));
+        addBikeButton.addActionListener(this);
         final GridBagConstraints gbc_btnBike = new GridBagConstraints();
         gbc_btnBike.insets = new Insets(0, 0, 0, 5);
         gbc_btnBike.fill = GridBagConstraints.BOTH;
@@ -230,6 +208,7 @@ public class BikeTransactionChoiceView extends View
         panel_3.add(label, gbc_label);
 
         fndmodUserButton = new JButton(messages.getString("user"));
+        fndmodUserButton.addActionListener(this);
         final GridBagConstraints gbc_button = new GridBagConstraints();
         gbc_button.fill = GridBagConstraints.BOTH;
         gbc_button.insets = new Insets(0, 0, 0, 5);
@@ -238,6 +217,7 @@ public class BikeTransactionChoiceView extends View
         panel_3.add(fndmodUserButton, gbc_button);
 
         fndmodWorkerButton = new JButton(messages.getString("worker"));
+        fndmodWorkerButton.addActionListener(this);
         final GridBagConstraints gbc_button_1 = new GridBagConstraints();
         gbc_button_1.fill = GridBagConstraints.BOTH;
         gbc_button_1.insets = new Insets(0, 0, 0, 5);
@@ -246,6 +226,7 @@ public class BikeTransactionChoiceView extends View
         panel_3.add(fndmodWorkerButton, gbc_button_1);
 
         fndmodBikeButton = new JButton(messages.getString("bike"));
+        fndmodBikeButton.addActionListener(this);
         final GridBagConstraints gbc_button_2 = new GridBagConstraints();
         gbc_button_2.fill = GridBagConstraints.BOTH;
         gbc_button_2.insets = new Insets(0, 0, 0, 5);
@@ -256,22 +237,13 @@ public class BikeTransactionChoiceView extends View
         final JPanel panel_2 = new JPanel();
         value.add(panel_2);
 
-        logoutButton = new JButton(messages.getString("checkoutButton"));
+        logoutButton = new JButton(messages.getString("logout"));
+        logoutButton.addActionListener(this);
         panel_2.add(logoutButton);
 
         final JPanel panel_4 = new JPanel();
         value.add(panel_4);
         return value;
-    }
-
-    // Create the status log field
-    //-------------------------------------------------------------
-    private JPanel createStatusLog(String initialMessage)
-    {
-
-        statusLog = new MessageView(initialMessage);
-
-        return statusLog;
     }
 
     //-------------------------------------------------------------
@@ -321,23 +293,5 @@ public class BikeTransactionChoiceView extends View
             // display the passed text
             displayErrorMessage((String)value);
         }
-    }
-
-    /**
-     * Display error message
-     */
-    //----------------------------------------------------------
-    public void displayErrorMessage(String message)
-    {
-        statusLog.displayErrorMessage(message);
-    }
-
-    /**
-     * Clear error message
-     */
-    //----------------------------------------------------------
-    public void clearErrorMessage()
-    {
-        statusLog.clearErrorMessage();
     }
 }

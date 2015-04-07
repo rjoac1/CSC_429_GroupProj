@@ -111,7 +111,7 @@ public class UserView extends View{
       temp.add(temp3);
 
       JPanel temp4 = new JPanel();
-		temp4.setLayout(new GridLayout(1,4,0,0));
+        temp4.setLayout(new GridLayout(1,4,0,0));
 		JLabel phoneLabel = new JLabel("Phone");  
       phoneBox1 = new JTextField(3);
       //phoneBox1.setSize( new Dimension( 30,10 ) );
@@ -283,7 +283,7 @@ public class UserView extends View{
    		{
    			displayErrorMessage("Please enter an user");
    			phoneBox1.requestFocus();
-   		}
+   		}z
          else if (values[3].length() == 0)
    		{
    			displayErrorMessage("Please enter a firstName");
