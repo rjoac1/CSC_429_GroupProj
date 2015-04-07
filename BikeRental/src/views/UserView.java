@@ -200,15 +200,15 @@ public class UserView extends View{
         submit.addActionListener(this);
         done = new JButton(messages.getString("done"));
         done.addActionListener(this);
-        temp1.add(submit);
         temp1.add(done);
+        temp1.add(submit);
         temp.add(temp1);
 
         //JPanel temp6 = new JPanel();
         //temp6.setLayout(new FlowLayout(FlowLayout.CENTER));
         //statusLog = new MessageView("");
         //temp6.add(statusLog);
-        temp.add(createStatusLog("     "));
+        //temp.add(createStatusLog("     "));
 
         return temp;
 

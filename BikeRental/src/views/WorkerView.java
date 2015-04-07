@@ -236,9 +236,9 @@ public class WorkerView extends View{
     {
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
-        done = new JButton("Done");
+        done = new JButton(messages.getString("done"));
         done.addActionListener(this);
-        submit = new JButton("Submit");
+        submit = new JButton(messages.getString("submit"));
         submit.addActionListener(this);
         temp1.add(done);
         temp1.add(submit);
@@ -248,6 +248,16 @@ public class WorkerView extends View{
     public void populateFields()
     {
         //set date fields based on the locale*****
+        if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
+        {
+            regDateBox1.setText("dd");
+            regDateBox2.setText("mm");
+        }
+        else{
+            regDateBox1.setText("mm");
+            regDateBox2.setText("dd");
+        }
+        regDateBox3.setText("yyyy");
 
         // userid.setText("");
         //password.setText("");
