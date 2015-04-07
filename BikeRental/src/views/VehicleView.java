@@ -1,9 +1,7 @@
 package views;
 
 //System imports
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.Properties;
 import java.util.EventObject;
 import javax.swing.BoxLayout;
@@ -89,7 +87,7 @@ public class VehicleView extends View
         //data entry Fields
         //Make
         JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp1.setLayout(new GridLayout(2,1,0,0));
 
         JLabel makeLabel = new JLabel(messages.getString("VehicleMake"));
         temp1.add(makeLabel);
@@ -102,7 +100,7 @@ public class VehicleView extends View
 
         //Model Number
         JPanel temp2 = new JPanel();
-        temp2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp2.setLayout(new GridLayout(2,1,0,0));
 
         JLabel modelNumLabel = new JLabel(messages.getString("VehicleModelNum"));
         temp2.add(modelNumLabel);
@@ -115,7 +113,7 @@ public class VehicleView extends View
 
         //Serial Number
         JPanel temp3 = new JPanel();
-        temp3.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp3.setLayout(new GridLayout(2,1,0,0));
 
         JLabel serialNumLabel = new JLabel(messages.getString("VehicleSerialNum"));
         temp3.add(serialNumLabel);
@@ -128,7 +126,7 @@ public class VehicleView extends View
 
         //Color
         JPanel temp4 = new JPanel();
-        temp4.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp4.setLayout(new GridLayout(2,1,0,0));
 
         JLabel colorLabel = new JLabel(messages.getString("VehicleColor"));
         temp4.add(colorLabel);
@@ -141,7 +139,7 @@ public class VehicleView extends View
 
         //Description
         JPanel temp5 = new JPanel();
-        temp5.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp5.setLayout(new GridLayout(2,1,0,0));
 
         JLabel descriptionLabel = new JLabel(messages.getString("VehicleDescription"));
         temp5.add(descriptionLabel);
@@ -154,7 +152,7 @@ public class VehicleView extends View
 
         //Location
         JPanel temp6 = new JPanel();
-        temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp6.setLayout(new GridLayout(2,1,0,0));
 
         JLabel locationLabel = new JLabel(messages.getString("VehicleLocation"));
         temp6.add(locationLabel);
@@ -167,7 +165,7 @@ public class VehicleView extends View
 
         //Physical Condition
         JPanel temp7 = new JPanel();
-        temp7.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp7.setLayout(new GridLayout(2,1,0,0));
 
         JLabel conditionLabel = new JLabel(messages.getString("VehiclePhysicalCondition"));
         temp7.add(conditionLabel);
@@ -180,7 +178,7 @@ public class VehicleView extends View
 
         //Status
         JPanel temp8 = new JPanel();
-        temp8.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp8.setLayout(new GridLayout(2, 1, 0, 0));
 
         JLabel statusLabel = new JLabel(messages.getString("VehicleStatus"));
         temp8.add(statusLabel);
