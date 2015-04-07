@@ -77,10 +77,9 @@ public class WorkerView extends View{
         JPanel temp = new JPanel();
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
-        /*  We do not enter this in for manual insertions, commented out until we do view/modify workers -mw
         //WorkerId Field
         JPanel temp0 = new JPanel();
-        temp0.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp0.setLayout(new GridLayout(2,1,0,0));   // changed layout style to be more like userview -mw
 
         JLabel workerIdLabel = new JLabel(messages.getString("workerId"));
         temp0.add(workerIdLabel);
@@ -90,7 +89,6 @@ public class WorkerView extends View{
         temp0.add(workerIdBox);
 
         temp.add(temp0);
-        */
 
         //First Name Field
         JPanel temp1 = new JPanel();
