@@ -362,7 +362,7 @@ public class WorkerView extends View{
                 passwordBox.setText("");
                 passwordBox.requestFocus();
             }
-            else if((regDateEntered.length() == 0))
+            else if((regDateDayEntered.length() == 0) || (regDateMonthEntered.length() == 0) || (regDateYearEntered.length() == 0))
             {
                 displayErrorMessage(messages.getString("regDateError"));
                 regDateBox1.requestFocus();
@@ -374,27 +374,27 @@ public class WorkerView extends View{
             }
             else if(regDateYearEntered.length() > 4)
             {
-                displayErrorMessage(messages.getString("dateYearLengthError"));
+                displayErrorMessage(messages.getString("regDateYearLengthError"));
                 regDateBox3.requestFocus();
             }
             else if(regDateMonthEntered.length() > 2)
             {
-                displayErrorMessage(messages.getString("dateMonthLengthError"));
+                displayErrorMessage(messages.getString("regDateMonthLengthError"));
                 regDateBox2.requestFocus();
             }
             else if(regDateDayEntered.length() > 2)
             {
-                displayErrorMessage(messages.getString("dateDayLengthError"));
+                displayErrorMessage(messages.getString("regDateDayLengthError"));
                 regDateBox1.requestFocus();
             }
             else if((Integer.parseInt(regDateMonthEntered) < 1) || (Integer.parseInt(regDateMonthEntered) > 12))
             {
-                displayErrorMessage(messages.getString("dateMonthRangeError"));
+                displayErrorMessage(messages.getString("regDateMonthRangeError"));
                 regDateBox2.requestFocus();
             }
             else if((Integer.parseInt(regDateDayEntered) < 1) || (Integer.parseInt(regDateDayEntered) > 31))
             {
-                displayErrorMessage(messages.getString("dateDayRangeError"));
+                displayErrorMessage(messages.getString("regDateDayRangeError"));
                 regDateBox1.requestFocus();
             }
             else

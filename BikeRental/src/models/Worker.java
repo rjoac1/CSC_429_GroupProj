@@ -50,12 +50,12 @@ public class Worker extends ModelBase
             boolean passwordCheck = accountPassword.equals(password);
             if (passwordCheck == false)
             {
-                throw new PasswordMismatchException("passwordMismatch");
+                throw new PasswordMismatchException(messages.getString("passwordMismatchError"));
             }
         }
         else
         {
-            throw new PasswordMismatchException("passwordMissing");
+            throw new PasswordMismatchException(messages.getString("passwordMissing"));
         }
     }
 
@@ -87,7 +87,7 @@ public class Worker extends ModelBase
             return true;
         }
         catch (InvalidPrimaryKeyException ex) {
-            System.out.println(ex.getMessage());
+            //System.out.println(ex.getMessage()); //test
             return false;
         }
     }

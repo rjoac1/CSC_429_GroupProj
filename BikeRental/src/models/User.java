@@ -141,24 +141,6 @@ public class User extends EntityBase implements IView{
         stateChangeRequest(key, value);
     }
 
-
-
-
-    /**
-     * Debit balance (Method is public because it may be invoked directly as it has no possibility of callback associated with it)
-     */
-    //----------------------------------------------------------
-    public void debit(String amount)
-    {
-        String myBalance = (String)getState("Balance");
-        double myBal = Double.parseDouble(myBalance);
-
-        double incrementAmount = Double.parseDouble(amount);
-        myBal -= incrementAmount;
-
-        persistentState.setProperty("Balance", ""+myBal);
-    }
-
     //-----------------------------------------------------------------------------------
     public static int compare(User a, User b)
     {
