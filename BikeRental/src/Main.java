@@ -48,6 +48,7 @@ public class Main
 
     public static void main(String[] args) throws Exception
     {
+//        System.setProperty("file.encoding", "UTF-8");
         EventQueue.invokeLater(() -> {
             try {
                 new Main(args);

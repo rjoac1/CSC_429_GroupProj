@@ -252,8 +252,8 @@ public class WorkerView extends View{
         done.addActionListener(this);
         submit = new JButton(messages.getString("submit"));
         submit.addActionListener(this);
-        temp1.add(submit);
         temp1.add(done);
+        temp1.add(submit);
         return temp1;
     }
     //-------------------------------------------------------------
