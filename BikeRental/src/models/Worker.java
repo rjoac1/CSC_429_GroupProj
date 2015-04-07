@@ -84,11 +84,11 @@ public class Worker extends ModelBase
     {
         try {
             Worker worker = new Worker(id);
-            return false;
+            return true;
         }
         catch (InvalidPrimaryKeyException ex) {
             System.out.println(ex.getMessage());
-            return true;
+            return false;
         }
     }
 }

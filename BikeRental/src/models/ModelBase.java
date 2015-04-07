@@ -108,7 +108,7 @@ public abstract class ModelBase extends EntityBase
             if(persistentState.getProperty(idField) != null)
             {
                 boolean flag = checkIfExists(persistentState.getProperty(idField));
-                if (flag == true)
+                if (flag == false)
                 {
                     insertPersistentState(mySchema, persistentState);
                 }
@@ -122,7 +122,6 @@ public abstract class ModelBase extends EntityBase
             }
             else
             {
-                System.out.println("test2");
                 Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty(idField, "" + id.intValue());
                 updateStatusMessage = myTableName + " data for new " + myTableName + ": " + persistentState.getProperty(idField) + " installed successfully in database.";

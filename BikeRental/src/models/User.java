@@ -171,7 +171,7 @@ public class User extends EntityBase implements IView{
     //-----------------------------------------------------------------------------------
     public void update()
     {
-        System.out.println(getEntryListView());
+        //System.out.println(getEntryListView());
         updateStateInDatabase();
     }
 
