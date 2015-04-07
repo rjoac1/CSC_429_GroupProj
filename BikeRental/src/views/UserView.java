@@ -110,7 +110,7 @@ public class UserView extends View{
         temp.add(temp3);
 
         JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(1,4,0,0));
+        temp4.setLayout(new GridLayout(2,3,10,10));
         JLabel phoneLabel = new JLabel(messages.getString("phone"));
         phoneBox1 = new JTextField(3);
         phoneBox2 = new JTextField(3);
@@ -122,7 +122,7 @@ public class UserView extends View{
         temp.add(temp4);
 
         JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(2,1,0,0));
+        temp5.setLayout(new GridLayout(1,0,0,0));
         JLabel emailLabel = new JLabel(messages.getString("email"));
         emailBox = new JTextField(20);
         temp5.add(emailLabel);
@@ -140,25 +140,7 @@ public class UserView extends View{
         temp6.add(userTypeLabel);
         temp6.add(userTypeBox);
         temp.add(temp6);
-/*
-        JPanel temp6 = new JPanel();
-        temp6.setLayout(new GridLayout(2,1,0,0));
-        JLabel userTypeLabel = new JLabel(messages.getString("userType"));
-        userTypeBox = new JTextField(20);
-        temp6.add(userTypeLabel);
-        temp6.add(userTypeBox);
-        temp.add(temp6);
 
-
-
-        JPanel temp7 = new JPanel();
-        temp7.setLayout(new GridLayout(2,1,0,0));
-        JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
-        memExpireBox = new JTextField(20);
-        temp7.add(memExpireLabel);
-        temp7.add(memExpireBox);
-        temp.add(temp7);
-*/
         JPanel temp7 = new JPanel();
         JPanel temp7a = new JPanel();
         temp7.setLayout(new GridLayout(2, 1, 0, 0));
