@@ -19,6 +19,7 @@ public class User extends EntityBase implements IView{
     private static final String myTableName = "User";
     private String updateStatusMessage = "";
     protected Properties dependencies;
+
     public User()
     {
         super(myTableName);
@@ -141,6 +142,7 @@ public class User extends EntityBase implements IView{
         stateChangeRequest(key, value);
     }
 
+
     //-----------------------------------------------------------------------------------
     public static int compare(User a, User b)
     {
@@ -188,7 +190,7 @@ public class User extends EntityBase implements IView{
 
 
     /**
-     * This method is needed solely to enable the Account information to be displayable in a table
+     * This method is needed solely to enable the User information to be displayable in a table
      *
      */
     //--------------------------------------------------------------------------
