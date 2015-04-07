@@ -1,0 +1,2 @@
+[4/6/15 5:49 PM]|Worker|updatePersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'phoneNumber' at row 1>
+[4/6/15 6:06 PM]|Worker|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'phoneNumber' at row 1>

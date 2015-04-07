@@ -4,6 +4,9 @@ package views;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.EventObject;
 import javax.swing.BoxLayout;
@@ -14,6 +17,7 @@ import javax.swing.*;
 
 // project imports
 import impres.impresario.IModel;
+import models.LocaleStore;
 
 public class UserView extends View{
 
@@ -22,11 +26,13 @@ public class UserView extends View{
     private JTextField lastNameBox;
     private JTextField phoneBox1,phoneBox2,phoneBox3;
     private JTextField emailBox;
-    private JTextField userTypeBox;
+   // private JTextField userTypeBox;
     private JTextField memExpireBox;
-    private JTextField registrationDateBox;
-    private JTextField updateDateBox;
+    private JTextField memDateBox1, memDateBox2, memDateBox3;
+    private JTextField regDateBox1, regDateBox2, regDateBox3;
+  //  private JTextField updateDateBox;
     private JTextArea notesArea;
+    private JComboBox userTypeBox;
     private JComboBox statBox;
     private JButton submit;
     private JButton done;
@@ -52,7 +58,7 @@ public class UserView extends View{
         populateFields();
 
         // STEP 0: Be sure you tell your model what keys you are interested in
-        //myModel.subscribe("BackToLibrary", this);
+        myModel.subscribe("UpdateStatusMessage", this);
 
     }
 
@@ -107,17 +113,13 @@ public class UserView extends View{
         temp4.setLayout(new GridLayout(1,4,0,0));
         JLabel phoneLabel = new JLabel(messages.getString("phone"));
         phoneBox1 = new JTextField(3);
-        //phoneBox1.setSize( new Dimension( 30,10 ) );
         phoneBox2 = new JTextField(3);
-        // phoneBox2.setSize( new Dimension( 30, 10) );
         phoneBox3 = new JTextField(4);
-        // phoneBox3.setSize( new Dimension( 30, 10 ) );
         temp4.add(phoneLabel);
         temp4.add(phoneBox1);
         temp4.add(phoneBox2);
         temp4.add(phoneBox3);
         temp.add(temp4);
-
 
         JPanel temp5 = new JPanel();
         temp5.setLayout(new GridLayout(2,1,0,0));
@@ -127,7 +129,18 @@ public class UserView extends View{
         temp5.add(emailBox);
         temp.add(temp5);
 
-
+        JPanel temp6 = new JPanel();
+        temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JLabel userTypeLabel = new JLabel(messages.getString("userType"));
+        String[] userTypeChoices = new String[2];
+        userTypeChoices[0] = messages.getString("student");
+        userTypeChoices[1] = messages.getString("faculty");
+        userTypeBox = new JComboBox(userTypeChoices);
+        userTypeBox.setSelectedIndex(1);
+        temp6.add(userTypeLabel);
+        temp6.add(userTypeBox);
+        temp.add(temp6);
+/*
         JPanel temp6 = new JPanel();
         temp6.setLayout(new GridLayout(2,1,0,0));
         JLabel userTypeLabel = new JLabel(messages.getString("userType"));
@@ -137,6 +150,7 @@ public class UserView extends View{
         temp.add(temp6);
 
 
+
         JPanel temp7 = new JPanel();
         temp7.setLayout(new GridLayout(2,1,0,0));
         JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
@@ -144,18 +158,40 @@ public class UserView extends View{
         temp7.add(memExpireLabel);
         temp7.add(memExpireBox);
         temp.add(temp7);
+*/
+        JPanel temp7 = new JPanel();
+        JPanel temp7a = new JPanel();
+        temp7.setLayout(new GridLayout(2, 1, 0, 0));
+        temp7a.setLayout(new GridLayout(1,3,0,0));
+        JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
+        memDateBox1 = new JTextField(2);
+        memDateBox2 = new JTextField(2);
+        memDateBox3 = new JTextField(4);
+        temp7.add(memExpireLabel);
+        temp7a.add(memDateBox1);
+        temp7a.add(memDateBox2);
+        temp7a.add(memDateBox3);
+        temp7.add(temp7a);
+        temp.add(temp7);
 
         JPanel temp8 = new JPanel();
+        JPanel temp8a = new JPanel();
         temp8.setLayout(new GridLayout(2,1,0,0));
+        temp8a.setLayout(new GridLayout(1,3,0,0));
         JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
-        registrationDateBox = new JTextField(20);
+        regDateBox1 = new JTextField(2);
+        regDateBox2 = new JTextField(2);
+        regDateBox3 = new JTextField(4);
         temp8.add(registrationDateLabel);
-        temp8.add(registrationDateBox);
+        temp8a.add(regDateBox1);
+        temp8a.add(regDateBox2);
+        temp8a.add(regDateBox3);
+        temp8.add(temp8a);
         temp.add(temp8);
 
 
         JPanel temp10 = new JPanel();
-        temp10.setLayout(new FlowLayout(FlowLayout.CENTER));
+        temp10.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel statLabel = new JLabel(messages.getString("status"));
         String[] choices = new String[2];
         choices[0] = messages.getString("active");
@@ -165,8 +201,7 @@ public class UserView extends View{
         temp10.add(statLabel);
         temp10.add(statBox);
         temp.add(temp10);
-
-
+/*
         JPanel temp11 = new JPanel();
         temp11.setLayout(new GridLayout(2,1,0,0));
         JLabel updateDateLabel = new JLabel(messages.getString("dateStatusUpdated"));
@@ -174,8 +209,7 @@ public class UserView extends View{
         temp11.add(updateDateLabel);
         temp11.add(updateDateBox);
         temp.add(temp11);
-
-
+*/
         JPanel temp9 = new JPanel();
         temp9.setLayout(new GridLayout(2,1,0,0));
         JLabel notesLabel = new JLabel(messages.getString("notes"));
@@ -216,6 +250,17 @@ public class UserView extends View{
     //-------------------------------------------------------------
     public void populateFields()
     {
+        //set date fields based on the locale*****
+        if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
+        {
+            regDateBox1.setText("dd");
+            regDateBox2.setText("mm");
+        }
+        else{
+            regDateBox1.setText("mm");
+            regDateBox2.setText("dd");
+        }
+        regDateBox3.setText("yyyy");
         //userid.setText("");
         //password.setText("");
     }
@@ -230,21 +275,46 @@ public class UserView extends View{
     //-------------------------------------------------------------
     public void processAction(EventObject evt)
     {
+        String memDateDayEntered = "";
+        String memDateMonthEntered = "";
+        String memDateYearEntered = "";
+        String regDateDayEntered = "";
+        String regDateMonthEntered = "";
+        String regDateYearEntered = "";
+
+        if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
+        {
+            memDateMonthEntered = regDateBox1.getText();
+            memDateDayEntered = regDateBox2.getText();
+            regDateMonthEntered = regDateBox1.getText();
+            regDateDayEntered = regDateBox2.getText();
+        }
+        else{
+            memDateDayEntered = regDateBox1.getText();
+            memDateMonthEntered = regDateBox2.getText();
+            regDateDayEntered = regDateBox1.getText();
+            regDateMonthEntered = regDateBox2.getText();
+
+        }
+        memDateYearEntered = regDateBox3.getText();
+        regDateYearEntered = regDateBox3.getText();
         clearErrorMessage();
         String firstName,lastName,phoneNumber,emailAddress,userType,
-                memExpireDate, memRegistrationDate,statusUpdateDate, notes;
-        String[] values = new String[9];
+                memExpireDate, memRegistrationDateDay,memRegistrationDateMonth,memRegistrationDateYear,statusUpdateDate, notes;
+        String[] values = new String[12];
         values[0] = firstNameBox.getText();
         values[1] = lastNameBox.getText();
         values[2] = phoneBox1.getText()+phoneBox2.getText()+phoneBox3.getText();
-        //System.out.println(""+ emailBox.getText());
         values[3] = emailBox.getText();
-        //System.out.println(""+ values[3]);
-        values[4] = userTypeBox.getText();
-        values[5] = memExpireBox.getText();
-        values[6] = registrationDateBox.getText();
-        values[7] = updateDateBox.getText();
-        values[8] = notesArea.getText();
+        values[4] = ""+userTypeBox.getSelectedItem();
+       // values[5] = memExpireBox.getText();
+        values[5] = memDateDayEntered;
+        values[6] = memDateMonthEntered;
+        values[7] = memDateYearEntered;
+        values[8] = regDateDayEntered;//6
+        values[9] = regDateMonthEntered;//7
+        values[10] = regDateYearEntered;//8
+        values[11] = notesArea.getText();//9
 
         // DEBUG: System.out.println("UserView.actionPerformed()");
         if(evt.getSource() == done)
@@ -263,7 +333,13 @@ public class UserView extends View{
                 displayErrorMessage(messages.getString("enterLastNameError"));
                 lastNameBox.requestFocus();
             }
-            else if (values[2].length() == 0)
+            else if (values[2].length() == 0 || phoneBox1.getText().length() != 3
+                        || phoneBox2.getText().length() != 3 ||  phoneBox3.getText().length() != 4)
+            {
+                displayErrorMessage(messages.getString("phoneFormatError"));
+                phoneBox1.requestFocus();
+            }
+            else if ((phoneBox1.getText().matches("^\\d+$")!=true) || (phoneBox2.getText().matches("^\\d+$")!=true) || (phoneBox3.getText().matches("^\\d+$") != true))
             {
                 displayErrorMessage(messages.getString("phoneNumericalError"));
                 phoneBox1.requestFocus();
@@ -278,32 +354,110 @@ public class UserView extends View{
                 displayErrorMessage(messages.getString("userTypeError"));
                 userTypeBox.requestFocus();
             }
+           // else if (values[5].length() == 0)
+            //{
+            //    displayErrorMessage(messages.getString("membershipExpireError"));
+            //    memExpireBox.requestFocus();
+           // }
+
+
+         //***************************************************
             else if (values[5].length() == 0)
             {
-                displayErrorMessage(messages.getString("membershipExpireError"));
-                memExpireBox.requestFocus();
+                displayErrorMessage(messages.getString("memExpireDateError"));// check bundle
+                memDateBox1.requestFocus();
             }
             else if (values[6].length() == 0)
             {
-                displayErrorMessage(messages.getString("regDateError"));// check bundle
-                registrationDateBox.requestFocus();
+                displayErrorMessage(messages.getString("memExpireDateError"));// check bundle
+                memDateBox2.requestFocus();
             }
             else if (values[7].length() == 0)
             {
-                displayErrorMessage("Please enter an user");
-                updateDateBox.requestFocus();
+                displayErrorMessage(messages.getString("memExpireDateError"));// check bundle
+                memDateBox3.requestFocus();
             }
-            /* //wont need
+
+            else if((values[5].matches("^\\d+$") != true) || (values[6].matches("^\\d+$") != true) || (values[7].matches("^\\d+$") != true))
+            {
+                displayErrorMessage(messages.getString("memExpireDateNumericalError"));
+                memDateBox1.requestFocus();
+            }
+            else if(values[7].length() > 4)
+            {
+                displayErrorMessage(messages.getString("memExpireDateYearLengthError"));
+                memDateBox3.requestFocus();
+            }
+            else if(values[6].length() > 2)
+            {
+                displayErrorMessage(messages.getString("memExpireMonthLengthError"));
+                memDateBox2.requestFocus();
+            }
+            else if(values[5].length() > 2)
+            {
+                displayErrorMessage(messages.getString("memExpireDayLengthError"));
+                memDateBox1.requestFocus();
+            }
+            else if((Integer.parseInt(values[6]) < 1) || (Integer.parseInt(values[6]) > 12))
+            {
+                displayErrorMessage(messages.getString("memExpireMonthRangeError"));
+                regDateBox2.requestFocus();
+            }
+            else if((Integer.parseInt(values[5]) < 1) || (Integer.parseInt(values[5]) > 31))
+            {
+                displayErrorMessage(messages.getString("memExpireDayRangeError"));
+                regDateBox1.requestFocus();
+            }
+         //****************************************************
             else if (values[8].length() == 0)
             {
-                displayErrorMessage(messages.getString("regDateError"));
-                notesArea.requestFocus();
+                displayErrorMessage(messages.getString("regDateError"));// check bundle
+                regDateBox1.requestFocus();
             }
-            */
+            else if (values[9].length() == 0)
+            {
+                displayErrorMessage(messages.getString("regDateError"));// check bundle
+                regDateBox2.requestFocus();
+            }
+            else if (values[10].length() == 0)
+            {
+                displayErrorMessage(messages.getString("regDateError"));// check bundle
+                regDateBox3.requestFocus();
+            }
+
+            else if((values[8].matches("^\\d+$") != true) || (values[9].matches("^\\d+$") != true) || (values[10].matches("^\\d+$") != true))
+            {
+                displayErrorMessage(messages.getString("regDateNumericalError"));
+                regDateBox1.requestFocus();
+            }
+            else if(values[10].length() > 4)
+            {
+                displayErrorMessage(messages.getString("regDateYearLengthError"));
+                regDateBox3.requestFocus();
+            }
+            else if(values[9].length() > 2)
+            {
+                displayErrorMessage(messages.getString("regDateMonthLengthError"));
+                regDateBox2.requestFocus();
+            }
+            else if(values[8].length() > 2)
+            {
+                displayErrorMessage(messages.getString("regDateDayLengthError"));
+                regDateBox1.requestFocus();
+            }
+            else if((Integer.parseInt(values[9]) < 1) || (Integer.parseInt(values[9]) > 12))
+            {
+                displayErrorMessage(messages.getString("regDateMonthRangeError"));
+                regDateBox2.requestFocus();
+            }
+            else if((Integer.parseInt(values[8]) < 1) || (Integer.parseInt(values[8]) > 31))
+            {
+                displayErrorMessage(messages.getString("regDateDayRangeError"));
+                regDateBox1.requestFocus();
+            }
             else
             {
                 processUser(values);
-                displayErrorMessage("User added Successfully");
             }
         }
     }
@@ -326,12 +480,16 @@ public class UserView extends View{
         props.setProperty("phoneNumber", values[2]);
         props.setProperty("emailAddress", values[3]);
         props.setProperty("userType", values[4]);
-        props.setProperty("dateOfMembershipExpired", values[5]);
-        props.setProperty("dateOfMembershipReg", values[6]);
+        props.setProperty("dateOfMembershipExpired", values[7] + "-" +  values[6] + "-" +  values[5] );
+        props.setProperty("dateOfMembershipReg", values[10] + "-" +  values[9] + "-" +  values[8] );
         props.setProperty("status",""+statBox.getSelectedItem());
-        props.setProperty("dateStatusUpdated", values[7]);
-        props.setProperty("notes", values[8]);
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String dateString = dateFormat.format(date);
+
+        props.setProperty("dateStatusUpdated",dateString);
+        props.setProperty("notes", values[9]);
 
         myModel.stateChangeRequest("ProcessUser", props);
     }
