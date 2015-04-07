@@ -471,11 +471,6 @@ public class UserView extends View{
     //----------------------------------------------------------
     private void processUser(String[] values)
     {
-        for(int i = 0; i <values.length;i++){
-            System.out.println(values[i]);
-        }
-        System.out.println(statBox.getSelectedItem());
-
         Properties props = new Properties();
         props.setProperty("firstName", values[0]);
         props.setProperty("lastName", values[1]);

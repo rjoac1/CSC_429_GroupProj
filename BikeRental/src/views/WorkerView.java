@@ -413,7 +413,6 @@ public class WorkerView extends View{
                 values[0] = firstNameEntered;
                 values[1] = lastNameEntered;
                 values[2] = emailEntered;
-                System.out.println("Phone number" + values[3]);
                 values[3] = phoneEntered;
                 values[4] = credEntered;
                 values[5] = passwordEntered;

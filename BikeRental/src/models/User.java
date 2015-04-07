@@ -121,7 +121,6 @@ public class User extends ModelBase{
             return true;
         }
         catch (InvalidPrimaryKeyException ex) {
-            //System.out.println(ex.getMessage()); //test
             return false;
         }
     }
