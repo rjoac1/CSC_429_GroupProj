@@ -120,7 +120,7 @@ public class WorkerView extends View{
 
         //add email field
         JPanel temp3 = new JPanel();
-        temp3.setLayout(new GridLayout(2,1,0,0));
+        temp3.setLayout(new GridLayout(2, 1, 0, 0));
         //temp3.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel emailLabel = new JLabel(messages.getString("email"));
@@ -156,7 +156,7 @@ public class WorkerView extends View{
 
         //Add credential field
         JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(2,1,0,0));
+        temp5.setLayout(new GridLayout(2, 1, 0, 0));
         //temp5.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel credentialPanel = new JLabel(messages.getString("credential"));
@@ -174,7 +174,7 @@ public class WorkerView extends View{
 
         //Add password Field
         JPanel temp6 = new JPanel();
-        temp6.setLayout(new GridLayout(2,1,0,0));
+        temp6.setLayout(new GridLayout(2, 1, 0, 0));
         //temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel passwordPanel = new JLabel(messages.getString("password"));
@@ -189,7 +189,7 @@ public class WorkerView extends View{
 
         //Add Date of initial registration field
         JPanel temp7 = new JPanel();
-        temp7.setLayout(new GridLayout(1,4,0,0));
+        temp7.setLayout(new GridLayout(1, 4, 0, 0));
         //temp7.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel dateOfInitialRegPanel = new JLabel(messages.getString("dateOfInitialReg"));
@@ -413,6 +413,7 @@ public class WorkerView extends View{
                 values[0] = firstNameEntered;
                 values[1] = lastNameEntered;
                 values[2] = emailEntered;
+                System.out.println("Phone number" + values[3]);
                 values[3] = phoneEntered;
                 values[4] = credEntered;
                 values[5] = passwordEntered;

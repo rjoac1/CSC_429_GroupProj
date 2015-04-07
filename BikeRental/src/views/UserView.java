@@ -400,12 +400,12 @@ public class UserView extends View{
                 displayErrorMessage(messages.getString("memExpireDayLengthError"));
                 memExpireDateBox1.requestFocus();
             }
-            else if((Integer.parseInt(values[6]) < 1) && (Integer.parseInt(values[6]) > 12))
+            else if((Integer.parseInt(values[6]) < 1) || (Integer.parseInt(values[6]) > 12))
             {
                 displayErrorMessage(messages.getString("memExpireMonthRangeError"));
                 regDateBox2.requestFocus();
             }
-            else if((Integer.parseInt(values[5]) < 1) && (Integer.parseInt(values[5]) > 31))
+            else if((Integer.parseInt(values[5]) < 1) || (Integer.parseInt(values[5]) > 31))
             {
                 displayErrorMessage(messages.getString("memExpireDayRangeError"));
                 regDateBox1.requestFocus();
