@@ -19,6 +19,7 @@ public class User extends EntityBase implements IView{
     private static final String myTableName = "User";
     private String updateStatusMessage = "";
     protected Properties dependencies;
+
     public User()
     {
         super(myTableName);
@@ -142,23 +143,6 @@ public class User extends EntityBase implements IView{
     }
 
 
-
-
-    /**
-     * Debit balance (Method is public because it may be invoked directly as it has no possibility of callback associated with it)
-     */
-    //----------------------------------------------------------
-    public void debit(String amount)
-    {
-        String myBalance = (String)getState("Balance");
-        double myBal = Double.parseDouble(myBalance);
-
-        double incrementAmount = Double.parseDouble(amount);
-        myBal -= incrementAmount;
-
-        persistentState.setProperty("Balance", ""+myBal);
-    }
-
     //-----------------------------------------------------------------------------------
     public static int compare(User a, User b)
     {
@@ -206,7 +190,7 @@ public class User extends EntityBase implements IView{
 
 
     /**
-     * This method is needed solely to enable the Account information to be displayable in a table
+     * This method is needed solely to enable the User information to be displayable in a table
      *
      */
     //--------------------------------------------------------------------------
