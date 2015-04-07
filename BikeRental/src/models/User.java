@@ -14,7 +14,7 @@ import impres.impresario.IView;
 import views.View;
 import views.ViewFactory;
 
-
+//Remove this comment if you see TEST
 public class User extends ModelBase{
     private static final String myTableName = "User";
     private String updateStatusMessage = "";
