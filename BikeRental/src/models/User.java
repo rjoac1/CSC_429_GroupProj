@@ -53,6 +53,22 @@ public class User extends ModelBase{
         }
     }
 
+    public Vector getEntryListView()
+    {
+        Vector v = new Vector();
+        v.addElement(persistentState.getProperty("userID"));
+        v.addElement(persistentState.getProperty("firstName"));
+        v.addElement(persistentState.getProperty("lastName"));
+        v.addElement(persistentState.getProperty("phoneNumber"));
+        v.addElement(persistentState.getProperty("emailAdress"));
+        v.addElement(persistentState.getProperty("userType"));
+        v.addElement(persistentState.getProperty("dateOfMembershipExpired"));
+        v.addElement(persistentState.getProperty("dateOfMembershipReg"));
+        v.addElement(persistentState.getProperty("status"));
+        v.addElement(persistentState.getProperty("dateStatusUpdated"));
+        v.addElement(persistentState.getProperty("notes"));
+        return v;
+    }
 
     public String getIdFieldName()
     {
