@@ -17,7 +17,7 @@ public class ViewController extends ObservableMixin implements Observable {
     private final HashMap<String, CtrlBase> mCtrls = new HashMap<>();
 
     public ViewController() {
-        mCtrls.put("login", new LoginCtrl(this));
+//        mCtrls.put("login", new LoginCtrl(this));
 //        mCtrls.put("new_book", new InsertBookCtrl(this));
 //        mCtrls.put("new_transaction", new InsertTransactionCtrl(this));
 //        mCtrls.put("new_patron", new InsertPatronCtrl(this));

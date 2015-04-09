@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../jgoodies-common-1.8.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../controlsfx-8.20.8.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../jgoodies-forms-1.9.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../flatter-0.7.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

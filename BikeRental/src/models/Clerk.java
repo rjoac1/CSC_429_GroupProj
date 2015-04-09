@@ -16,10 +16,7 @@ import impres.impresario.ModelRegistry;
 import impres.exception.InvalidPrimaryKeyException;
 import impres.exception.PasswordMismatchException;
 import impres.event.Event;
-import views.MainFrame;
-import views.View;
-import views.ViewFactory;
-import views.WindowPosition;
+import views.*;
 
 public class Clerk implements IView, IModel, ISlideShow
 {
@@ -37,6 +34,11 @@ public class Clerk implements IView, IModel, ISlideShow
 
     private String loginErrorMessage = "";
     private String transactionErrorMessage = "";
+    private static Clerk mInstance = new Clerk();
+
+    static public Clerk getInstance() {
+        return mInstance;
+    }
 
     public Clerk()
     {
@@ -121,7 +123,8 @@ public class Clerk implements IView, IModel, ISlideShow
 
                     boolean flag = loginWorker((Properties) value);
                     if (flag == true) {
-                        createAndShowBikeTransactionChoiceView();
+                        Main.getInstance().replaceScene("/views/menu.fxml");
+//                        createAndShowBikeTransactionChoiceView();
                     }
                 }
                 break;

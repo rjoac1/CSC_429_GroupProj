@@ -31,12 +31,10 @@ public class Main
     {
         // Create the top-level container (main frame) and add contents to it.
         mainFrame = MainFrame.getInstance("Bike Rental System v1.0");
-        try
-        {
+        try {
             myClerk = new Clerk();
         }
-        catch(Exception exc)
-        {
+        catch (Exception exc) {
             exc.printStackTrace(System.err);
             System.out.println("Could not create Clerk." + exc.getMessage());
         }
