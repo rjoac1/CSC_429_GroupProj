@@ -159,7 +159,7 @@ public abstract class ModelBase extends EntityBase
             }
             else
             {
-
+                System.out.println("OK");
                 Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty(idField, "" + id.intValue());
 

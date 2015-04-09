@@ -28,7 +28,7 @@ public class UserView extends View{
     private JTextField emailBox;
    // private JTextField userTypeBox;
     private JTextField memExpireBox;
-    private JTextField memDateBox1, memDateBox2, memDateBox3;
+    private JTextField memExpireDateBox1, memExpireDateBox2, memExpireDateBox3;
     private JTextField regDateBox1, regDateBox2, regDateBox3;
   //  private JTextField updateDateBox;
     private JTextArea notesArea;
@@ -110,7 +110,7 @@ public class UserView extends View{
         temp.add(temp3);
 
         JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(1,4,0,0));
+        temp4.setLayout(new GridLayout(2,3,10,10));
         JLabel phoneLabel = new JLabel(messages.getString("phone"));
         phoneBox1 = new JTextField(3);
         phoneBox2 = new JTextField(3);
@@ -122,7 +122,7 @@ public class UserView extends View{
         temp.add(temp4);
 
         JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(2,1,0,0));
+        temp5.setLayout(new GridLayout(1,0,0,0));
         JLabel emailLabel = new JLabel(messages.getString("email"));
         emailBox = new JTextField(20);
         temp5.add(emailLabel);
@@ -140,37 +140,19 @@ public class UserView extends View{
         temp6.add(userTypeLabel);
         temp6.add(userTypeBox);
         temp.add(temp6);
-/*
-        JPanel temp6 = new JPanel();
-        temp6.setLayout(new GridLayout(2,1,0,0));
-        JLabel userTypeLabel = new JLabel(messages.getString("userType"));
-        userTypeBox = new JTextField(20);
-        temp6.add(userTypeLabel);
-        temp6.add(userTypeBox);
-        temp.add(temp6);
 
-
-
-        JPanel temp7 = new JPanel();
-        temp7.setLayout(new GridLayout(2,1,0,0));
-        JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
-        memExpireBox = new JTextField(20);
-        temp7.add(memExpireLabel);
-        temp7.add(memExpireBox);
-        temp.add(temp7);
-*/
         JPanel temp7 = new JPanel();
         JPanel temp7a = new JPanel();
         temp7.setLayout(new GridLayout(2, 1, 0, 0));
         temp7a.setLayout(new GridLayout(1,3,0,0));
         JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
-        memDateBox1 = new JTextField(2);
-        memDateBox2 = new JTextField(2);
-        memDateBox3 = new JTextField(4);
+        memExpireDateBox1 = new JTextField(2);
+        memExpireDateBox2 = new JTextField(2);
+        memExpireDateBox3 = new JTextField(4);
         temp7.add(memExpireLabel);
-        temp7a.add(memDateBox1);
-        temp7a.add(memDateBox2);
-        temp7a.add(memDateBox3);
+        temp7a.add(memExpireDateBox1);
+        temp7a.add(memExpireDateBox2);
+        temp7a.add(memExpireDateBox3);
         temp7.add(temp7a);
         temp.add(temp7);
 
@@ -219,8 +201,6 @@ public class UserView extends View{
         temp.add(temp9);
 
         return temp;
-
-
     }
 
     // Create the navigation buttons
@@ -253,13 +233,18 @@ public class UserView extends View{
         //set date fields based on the locale*****
         if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
         {
+            memExpireDateBox1.setText("dd");
+            memExpireDateBox2.setText("mm");
             regDateBox1.setText("dd");
             regDateBox2.setText("mm");
         }
         else{
+            memExpireDateBox1.setText("mm");
+            memExpireDateBox2.setText("dd");
             regDateBox1.setText("mm");
             regDateBox2.setText("dd");
         }
+        memExpireDateBox3.setText("yyyy");
         regDateBox3.setText("yyyy");
         //userid.setText("");
         //password.setText("");
@@ -275,28 +260,28 @@ public class UserView extends View{
     //-------------------------------------------------------------
     public void processAction(EventObject evt)
     {
-        String memDateDayEntered = "";
-        String memDateMonthEntered = "";
-        String memDateYearEntered = "";
+        String memExpireDateDayEntered = "";
+        String memExpireDateMonthEntered = "";
+        String memExpireDateYearEntered = "";
         String regDateDayEntered = "";
         String regDateMonthEntered = "";
         String regDateYearEntered = "";
 
         if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
         {
-            memDateMonthEntered = regDateBox1.getText();
-            memDateDayEntered = regDateBox2.getText();
+            memExpireDateMonthEntered = memExpireDateBox1.getText();
+            memExpireDateDayEntered = memExpireDateBox2.getText();
             regDateMonthEntered = regDateBox1.getText();
             regDateDayEntered = regDateBox2.getText();
         }
         else{
-            memDateDayEntered = regDateBox1.getText();
-            memDateMonthEntered = regDateBox2.getText();
+            memExpireDateDayEntered = memExpireDateBox1.getText();
+            memExpireDateMonthEntered = memExpireDateBox2.getText();
             regDateDayEntered = regDateBox1.getText();
             regDateMonthEntered = regDateBox2.getText();
 
         }
-        memDateYearEntered = regDateBox3.getText();
+        memExpireDateYearEntered = memExpireDateBox3.getText();
         regDateYearEntered = regDateBox3.getText();
         clearErrorMessage();
         String firstName,lastName,phoneNumber,emailAddress,userType,
@@ -307,14 +292,13 @@ public class UserView extends View{
         values[2] = phoneBox1.getText()+phoneBox2.getText()+phoneBox3.getText();
         values[3] = emailBox.getText();
         values[4] = ""+userTypeBox.getSelectedItem();
-       // values[5] = memExpireBox.getText();
-        values[5] = memDateDayEntered;
-        values[6] = memDateMonthEntered;
-        values[7] = memDateYearEntered;
-        values[8] = regDateDayEntered;//6
-        values[9] = regDateMonthEntered;//7
-        values[10] = regDateYearEntered;//8
-        values[11] = notesArea.getText();//9
+        values[5] = memExpireDateDayEntered;
+        values[6] = memExpireDateMonthEntered;
+        values[7] = memExpireDateYearEntered;
+        values[8] = regDateDayEntered;
+        values[9] = regDateMonthEntered;
+        values[10] = regDateYearEntered;
+        values[11] = notesArea.getText();
 
         // DEBUG: System.out.println("UserView.actionPerformed()");
         if(evt.getSource() == done)
@@ -365,38 +349,38 @@ public class UserView extends View{
             else if (values[5].length() == 0)
             {
                 displayErrorMessage(messages.getString("memExpireDateError"));// check bundle
-                memDateBox1.requestFocus();
+                memExpireDateBox1.requestFocus();
             }
             else if (values[6].length() == 0)
             {
                 displayErrorMessage(messages.getString("memExpireDateError"));// check bundle
-                memDateBox2.requestFocus();
+                memExpireDateBox2.requestFocus();
             }
             else if (values[7].length() == 0)
             {
                 displayErrorMessage(messages.getString("memExpireDateError"));// check bundle
-                memDateBox3.requestFocus();
+                memExpireDateBox3.requestFocus();
             }
 
             else if((values[5].matches("^\\d+$") != true) || (values[6].matches("^\\d+$") != true) || (values[7].matches("^\\d+$") != true))
             {
                 displayErrorMessage(messages.getString("memExpireDateNumericalError"));
-                memDateBox1.requestFocus();
+                memExpireDateBox1.requestFocus();
             }
             else if(values[7].length() > 4)
             {
                 displayErrorMessage(messages.getString("memExpireDateYearLengthError"));
-                memDateBox3.requestFocus();
+                memExpireDateBox3.requestFocus();
             }
             else if(values[6].length() > 2)
             {
                 displayErrorMessage(messages.getString("memExpireMonthLengthError"));
-                memDateBox2.requestFocus();
+                memExpireDateBox2.requestFocus();
             }
             else if(values[5].length() > 2)
             {
                 displayErrorMessage(messages.getString("memExpireDayLengthError"));
-                memDateBox1.requestFocus();
+                memExpireDateBox1.requestFocus();
             }
             else if((Integer.parseInt(values[6]) < 1) || (Integer.parseInt(values[6]) > 12))
             {
@@ -445,12 +429,12 @@ public class UserView extends View{
                 displayErrorMessage(messages.getString("regDateDayLengthError"));
                 regDateBox1.requestFocus();
             }
-            else if((Integer.parseInt(values[9]) < 1) || (Integer.parseInt(values[9]) > 12))
+            else if((Integer.parseInt(values[9]) < 1) && (Integer.parseInt(values[9]) > 12))
             {
                 displayErrorMessage(messages.getString("regDateMonthRangeError"));
                 regDateBox2.requestFocus();
             }
-            else if((Integer.parseInt(values[8]) < 1) || (Integer.parseInt(values[8]) > 31))
+            else if((Integer.parseInt(values[8]) < 1) && (Integer.parseInt(values[8]) > 31))
             {
                 displayErrorMessage(messages.getString("regDateDayRangeError"));
                 regDateBox1.requestFocus();
@@ -469,11 +453,6 @@ public class UserView extends View{
     //----------------------------------------------------------
     private void processUser(String[] values)
     {
-        for(int i = 0; i <values.length;i++){
-            System.out.println(values[i]);
-        }
-        System.out.println(statBox.getSelectedItem());
-
         Properties props = new Properties();
         props.setProperty("firstName", values[0]);
         props.setProperty("lastName", values[1]);
@@ -491,7 +470,7 @@ public class UserView extends View{
         props.setProperty("dateStatusUpdated",dateString);
         props.setProperty("notes", values[9]);
 
-        myModel.stateChangeRequest("ProcessUser", props);
+        myModel.stateChangeRequest("ProcessInsertion", props);
     }
 
     //---------------------------------------------------------
