@@ -79,7 +79,7 @@ public class WorkerView extends View{
 
         //WorkerId Field
         JPanel temp0 = new JPanel();
-        temp0.setLayout(new GridLayout(2,1,0,0));   // changed layout style to be more like userview -mw
+        temp0.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));   // changed layout style to be more like userview -mw
 
         JLabel workerIdLabel = new JLabel(messages.getString("workerId"));
         temp0.add(workerIdLabel);
@@ -92,7 +92,7 @@ public class WorkerView extends View{
 
         //First Name Field
         JPanel temp1 = new JPanel();
-        temp1.setLayout(new GridLayout(2,1,0,0));   // changed layout style to be more like userview -mw
+        temp1.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));   // changed layout style to be more like userview -mw
 
 
         JLabel firstNameLabel = new JLabel(messages.getString("firstName"));
@@ -106,7 +106,7 @@ public class WorkerView extends View{
 
         //Last Name Field
         JPanel temp2 = new JPanel();
-        temp2.setLayout(new GridLayout(2,1,0,0));
+        temp2.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
         //temp2.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
@@ -120,7 +120,7 @@ public class WorkerView extends View{
 
         //add email field
         JPanel temp3 = new JPanel();
-        temp3.setLayout(new GridLayout(2, 1, 0, 0));
+        temp3.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
         //temp3.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel emailLabel = new JLabel(messages.getString("email"));
@@ -134,7 +134,7 @@ public class WorkerView extends View{
 
         //add phone field
         JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(1,4,0,0));
+        temp4.setLayout(new GridLayout(1,4,gridBuffer1,gridBuffer2));
         //temp4.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel phoneLabel = new JLabel(messages.getString("phone"));
@@ -156,7 +156,7 @@ public class WorkerView extends View{
 
         //Add credential field
         JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(2, 1, 0, 0));
+        temp5.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
         //temp5.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel credentialPanel = new JLabel(messages.getString("credential"));
@@ -174,7 +174,7 @@ public class WorkerView extends View{
 
         //Add password Field
         JPanel temp6 = new JPanel();
-        temp6.setLayout(new GridLayout(2, 1, 0, 0));
+        temp6.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
         //temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel passwordPanel = new JLabel(messages.getString("password"));
@@ -189,7 +189,7 @@ public class WorkerView extends View{
 
         //Add Date of initial registration field
         JPanel temp7 = new JPanel();
-        temp7.setLayout(new GridLayout(1, 4, 0, 0));
+        temp7.setLayout(new GridLayout(1, 4, gridBuffer1, gridBuffer2));
         //temp7.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel dateOfInitialRegPanel = new JLabel(messages.getString("dateOfInitialReg"));
@@ -211,7 +211,7 @@ public class WorkerView extends View{
 
         //Add notes field
         JPanel temp8 = new JPanel();
-        temp8.setLayout(new GridLayout(2,1,0,0));
+        temp8.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
         //temp8.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel notesLabel = new JLabel(messages.getString("notes"));
@@ -224,7 +224,7 @@ public class WorkerView extends View{
 
         //add Status box
         JPanel temp9 = new JPanel();
-        temp9.setLayout(new GridLayout(2,1,0,0));
+        temp9.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
         //temp9.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel statusLabel = new JLabel(messages.getString("status"));
