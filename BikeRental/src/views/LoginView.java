@@ -91,6 +91,7 @@ public class LoginView extends View
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
+        c.insets = new Insets(2,2,2,2);
         temp1.add(useridLabel, c);
 
 
@@ -99,12 +100,14 @@ public class LoginView extends View
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 0;
+        c.insets = new Insets(2,2,2,2);
         temp1.add(userid,c);
 
         JLabel passwordLabel = new JLabel(messages.getString("password"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
+        c.insets = new Insets(2,2,2,2);
         temp1.add(passwordLabel, c);
 
 
@@ -113,6 +116,7 @@ public class LoginView extends View
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 1;
+        c.insets = new Insets(2,2,2,2);
         temp1.add(password, c);
 
         temp.add(temp1);
@@ -131,7 +135,7 @@ public class LoginView extends View
         temp.setLayout(f1);
 
         // create the buttons, listen for events, add them to the panel
-        submitButton = new JButton(messages.getString("submit"));
+        submitButton = new JButton(messages.getString("login"));
         submitButton.addActionListener(this);
         temp.add(submitButton);
 
