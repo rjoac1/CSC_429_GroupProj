@@ -18,7 +18,7 @@ public class VehicleView extends View
     private JTextField make;
     private JTextField modelNumber;
     private JTextField serialNumber;
-    private JTextField color;
+    private JComboBox color;
     private JTextField description;
     private JTextField location;
     private JComboBox<String> physicalCondition;
@@ -110,12 +110,23 @@ public class VehicleView extends View
 
         //Color
         JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(2,1,0,0));
+        temp4.setLayout(new GridLayout(2, 1, 0, 0));
 
         JLabel colorLabel = new JLabel(messages.getString("VehicleColor"));
         temp4.add(colorLabel);
 
-        color = new JTextField(4);
+        String colorArr [] = new String[10];
+        colorArr[0] = messages.getString("red");
+        colorArr[1] = messages.getString("blue");
+        colorArr[2] = messages.getString("green");
+        colorArr[3] = messages.getString("yellow");
+        colorArr[4] = messages.getString("black");
+        colorArr[5] = messages.getString("white");
+        colorArr[6] = messages.getString("gray");
+        colorArr[7] = messages.getString("pink");
+        colorArr[8] = messages.getString("purple");
+        colorArr[9] = messages.getString("orange");
+        color = new JComboBox(colorArr);
         color.addActionListener(this);
         temp4.add(color);
 
@@ -194,13 +205,13 @@ public class VehicleView extends View
         temp.setLayout(f1);
 
         // create the buttons, listen for events, add them to the panel
-        doneButton = new JButton(messages.getString("done"));
-        doneButton.addActionListener(this);
-        temp.add(doneButton);
-
         submitButton = new JButton(messages.getString("submit"));
         submitButton.addActionListener(this);
         temp.add(submitButton);
+
+        doneButton = new JButton(messages.getString("cancel"));
+        doneButton.addActionListener(this);
+        temp.add(doneButton);
 
         return temp;
     }
@@ -218,7 +229,7 @@ public class VehicleView extends View
             String makeText = make.getText();
             String modelNumberText = modelNumber.getText();
             String serialNumberText = serialNumber.getText();
-            String colorText = color.getText();
+            String colorText = (String)color.getSelectedItem();
             String descriptionText = description.getText();
             String locationText = location.getText();
             String physicalConditionText = (String) physicalCondition.getSelectedItem();

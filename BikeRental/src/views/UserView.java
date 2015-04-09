@@ -210,12 +210,15 @@ public class UserView extends View{
 
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+
         submit = new JButton(messages.getString("submit"));
         submit.addActionListener(this);
-        done = new JButton(messages.getString("done"));
+
+        done = new JButton(messages.getString("cancel"));
         done.addActionListener(this);
-        temp1.add(done);
+
         temp1.add(submit);
+        temp1.add(done);
         temp.add(temp1);
 
         //JPanel temp6 = new JPanel();

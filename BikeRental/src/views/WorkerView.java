@@ -246,12 +246,15 @@ public class WorkerView extends View{
     {
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
-        done = new JButton(messages.getString("done"));
+
+        done = new JButton(messages.getString("cancel"));
         done.addActionListener(this);
+
         submit = new JButton(messages.getString("submit"));
         submit.addActionListener(this);
-        temp1.add(done);
+
         temp1.add(submit);
+        temp1.add(done);
         return temp1;
     }
     //-------------------------------------------------------------

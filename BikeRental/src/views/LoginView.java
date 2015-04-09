@@ -2,7 +2,7 @@
 package views;
 
 // system imports
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.*;
@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.NumberFormat;
@@ -24,7 +25,7 @@ import models.LocaleStore;
 //==============================================================
 public class LoginView extends View
 {
-
+    private MainFrame mainFrame;
     // GUI stuff
     private JTextField userid;
     private JPasswordField password;
@@ -83,28 +84,38 @@ public class LoginView extends View
 
         // data entry fields
         JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp1.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
         JLabel useridLabel = new JLabel(messages.getString("userId"));
-        temp1.add(useridLabel);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        temp1.add(useridLabel, c);
+
 
         userid = new JTextField(20);
         userid.addActionListener(this);
-        temp1.add(userid);
-
-        temp.add(temp1);
-
-        JPanel temp2 = new JPanel();
-        temp2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 0;
+        temp1.add(userid,c);
 
         JLabel passwordLabel = new JLabel(messages.getString("password"));
-        temp2.add(passwordLabel);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        temp1.add(passwordLabel, c);
+
 
         password = new JPasswordField(20);
         password.addActionListener(this); 		//Adds listener for when you hit the enter key
-        temp2.add(password);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        temp1.add(password, c);
 
-        temp.add(temp2);
+        temp.add(temp1);
 
         return temp;
     }
