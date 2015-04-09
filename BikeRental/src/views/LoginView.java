@@ -91,32 +91,32 @@ public class LoginView extends View
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(4, 4, 4, 4);
+        c.insets = new Insets(4, 6, 0, 4);
         temp1.add(useridLabel, c);
 
 
         userid = new JTextField(20);
         userid.addActionListener(this);
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
-        c.gridy = 0;
-        c.insets = new Insets(4, 4, 4, 4);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.insets = new Insets(0, 4, 4, 4);
         temp1.add(userid,c);
 
         JLabel passwordLabel = new JLabel(messages.getString("password"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 1;
-        c.insets = new Insets(4, 4, 4, 4);
+        c.gridy = 2;
+        c.insets = new Insets(4, 6, 0, 4);
         temp1.add(passwordLabel, c);
 
 
         password = new JPasswordField(20);
         password.addActionListener(this); 		//Adds listener for when you hit the enter key
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
-        c.gridy = 1;
-        c.insets = new Insets(4, 4, 4, 4);
+        c.gridx = 0;
+        c.gridy = 3;
+        c.insets = new Insets(0, 4, 4, 4);
         temp1.add(password, c);
 
         temp.add(temp1);
