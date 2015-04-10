@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginCtrl">
+    <columnConstraints>
+        <ColumnConstraints maxWidth="91.0" minWidth="10.0" prefWidth="59.0" />
+        <ColumnConstraints maxWidth="273.0" minWidth="186.0" prefWidth="257.0" />
+        <ColumnConstraints maxWidth="96.0" minWidth="10.0" prefWidth="66.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="14.0" />
+        <RowConstraints maxHeight="25.0" minHeight="8.0" prefHeight="25.0" />
+        <RowConstraints maxHeight="38.0" minHeight="30.0" prefHeight="37.0" />
+        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    </rowConstraints>
+    <children>
+        <Label text="%brockportTitle" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <font>
+                <Font name="Helvetica Neue" size="16.0" />
+            </font>
+        </Label>
+        <TextField fx:id="mBannerIdText" text="%userId" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <PasswordField fx:id="mPasswordField" promptText="%password" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button fx:id="mLoginBtn" mnemonicParsing="false" onAction="#loginHit" text="%login" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+    </children>
+</GridPane>

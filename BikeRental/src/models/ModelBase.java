@@ -60,7 +60,7 @@ public abstract class ModelBase extends EntityBase
 
                 formatter.applyPattern(messages.getString("multipleEntitiesFoundError"));
                 String error = formatter.format(messageArguments);
-                throw new InvalidPrimaryKeyException(error);
+                throw new InvalidPrimaryKeyException("multipleEntitiesFoundError");
             }
             else if (size == 1)
             {
@@ -91,7 +91,7 @@ public abstract class ModelBase extends EntityBase
 
             formatter.applyPattern(messages.getString("entityNotFoundError"));
             String error = formatter.format(messageArguments);
-            throw new InvalidPrimaryKeyException(error);
+            throw new InvalidPrimaryKeyException("entityNotFoundError");
         }
     }
 
