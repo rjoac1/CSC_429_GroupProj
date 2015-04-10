@@ -40,6 +40,8 @@ public abstract class View extends JPanel
     protected ResourceBundle messages;
     protected MessageView statusLog;
 
+    final protected int gridBuffer1 = 5;
+    final protected int gridBuffer2 = 5;
 
     // forward declaration
     protected abstract void processAction(EventObject evt);

@@ -18,7 +18,7 @@ public class VehicleView extends View
     private JTextField make;
     private JTextField modelNumber;
     private JTextField serialNumber;
-    private JTextField color;
+    private JComboBox color;
     private JTextField description;
     private JTextField location;
     private JComboBox<String> physicalCondition;
@@ -71,7 +71,7 @@ public class VehicleView extends View
         //data entry Fields
         //Make
         JPanel temp1 = new JPanel();
-        temp1.setLayout(new GridLayout(2,1,0,0));
+        temp1.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
 
         JLabel makeLabel = new JLabel(messages.getString("VehicleMake"));
         temp1.add(makeLabel);
@@ -84,7 +84,7 @@ public class VehicleView extends View
 
         //Model Number
         JPanel temp2 = new JPanel();
-        temp2.setLayout(new GridLayout(2,1,0,0));
+        temp2.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
 
         JLabel modelNumLabel = new JLabel(messages.getString("VehicleModelNum"));
         temp2.add(modelNumLabel);
@@ -97,7 +97,7 @@ public class VehicleView extends View
 
         //Serial Number
         JPanel temp3 = new JPanel();
-        temp3.setLayout(new GridLayout(2,1,0,0));
+        temp3.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
 
         JLabel serialNumLabel = new JLabel(messages.getString("VehicleSerialNum"));
         temp3.add(serialNumLabel);
@@ -110,12 +110,23 @@ public class VehicleView extends View
 
         //Color
         JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(2,1,0,0));
+        temp4.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
 
         JLabel colorLabel = new JLabel(messages.getString("VehicleColor"));
         temp4.add(colorLabel);
 
-        color = new JTextField(4);
+        String colorArr [] = new String[10];
+        colorArr[0] = messages.getString("red");
+        colorArr[1] = messages.getString("blue");
+        colorArr[2] = messages.getString("green");
+        colorArr[3] = messages.getString("yellow");
+        colorArr[4] = messages.getString("black");
+        colorArr[5] = messages.getString("white");
+        colorArr[6] = messages.getString("gray");
+        colorArr[7] = messages.getString("pink");
+        colorArr[8] = messages.getString("purple");
+        colorArr[9] = messages.getString("orange");
+        color = new JComboBox(colorArr);
         color.addActionListener(this);
         temp4.add(color);
 
@@ -123,7 +134,7 @@ public class VehicleView extends View
 
         //Description
         JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(2,1,0,0));
+        temp5.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
 
         JLabel descriptionLabel = new JLabel(messages.getString("VehicleDescription"));
         temp5.add(descriptionLabel);
@@ -136,7 +147,7 @@ public class VehicleView extends View
 
         //Location
         JPanel temp6 = new JPanel();
-        temp6.setLayout(new GridLayout(2,1,0,0));
+        temp6.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
 
         JLabel locationLabel = new JLabel(messages.getString("VehicleLocation"));
         temp6.add(locationLabel);
@@ -149,16 +160,16 @@ public class VehicleView extends View
 
         //Physical Condition
         JPanel temp7 = new JPanel();
-        temp7.setLayout(new GridLayout(2,1,0,0));
+        temp7.setLayout(new GridLayout(1,2,gridBuffer1,gridBuffer2));
 
         JLabel conditionLabel = new JLabel(messages.getString("VehiclePhysicalCondition"));
         temp7.add(conditionLabel);
 
         String[] conditions = new String[4];
-        conditions[0] = "mint";
-        conditions[1] = "good";
-        conditions[2] = "satisfactory";
-        conditions[3] = "poor";
+        conditions[0] = messages.getString("mint");
+        conditions[1] = messages.getString("good");
+        conditions[2] = messages.getString("satisfactory");
+        conditions[3] = messages.getString("poor");
         physicalCondition = new JComboBox(conditions);
         physicalCondition.setSelectedIndex(0);
         physicalCondition.addActionListener(this);
@@ -168,7 +179,7 @@ public class VehicleView extends View
 
         //Status
         JPanel temp8 = new JPanel();
-        temp8.setLayout(new GridLayout(2, 1, 0, 0));
+        temp8.setLayout(new GridLayout(1, 2, gridBuffer1, gridBuffer2));
 
         JLabel statusLabel = new JLabel(messages.getString("VehicleStatus"));
         temp8.add(statusLabel);
@@ -194,13 +205,13 @@ public class VehicleView extends View
         temp.setLayout(f1);
 
         // create the buttons, listen for events, add them to the panel
-        doneButton = new JButton(messages.getString("done"));
-        doneButton.addActionListener(this);
-        temp.add(doneButton);
-
         submitButton = new JButton(messages.getString("submit"));
         submitButton.addActionListener(this);
         temp.add(submitButton);
+
+        doneButton = new JButton(messages.getString("cancel"));
+        doneButton.addActionListener(this);
+        temp.add(doneButton);
 
         return temp;
     }
@@ -218,7 +229,7 @@ public class VehicleView extends View
             String makeText = make.getText();
             String modelNumberText = modelNumber.getText();
             String serialNumberText = serialNumber.getText();
-            String colorText = color.getText();
+            String colorText = (String)color.getSelectedItem();
             String descriptionText = description.getText();
             String locationText = location.getText();
             String physicalConditionText = (String) physicalCondition.getSelectedItem();

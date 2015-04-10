@@ -7,3 +7,5 @@
 [4/7/15 1:00 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'phoneNumber' at row 1>
 [4/7/15 1:00 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'phoneNumber' at row 1>
 [4/7/15 1:01 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'phoneNumber' at row 1>
+[4/9/15 12:40 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'sdf' in 'where clause'>
+[4/9/15 4:15 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column '111222333a' in 'where clause'>

@@ -13,6 +13,7 @@ java -cp mysql-connector-java-5.1.7-bin.jar;classes;. DatabaseAccessorTester
 import models.Clerk;
 import views.MainFrame;
 import views.WindowPosition;
+import java.awt.Dimension;
 
 import java.awt.*;
 
@@ -39,6 +40,7 @@ public class Main
             System.out.println("Could not create Clerk." + exc.getMessage());
         }
         mainFrame.pack();
+		mainFrame.setMinimumSize(new Dimension(350,200));
         WindowPosition.placeCenter(mainFrame);
 
         mainFrame.setVisible(true);

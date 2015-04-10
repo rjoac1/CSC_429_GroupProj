@@ -94,7 +94,7 @@ public class UserView extends View{
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
         JPanel temp2 = new JPanel();
-        temp2.setLayout(new GridLayout(2,1,0,0));
+        temp2.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
         JLabel firstName = new JLabel(messages.getString("firstName"));
         firstNameBox = new JTextField(20);
         temp2.add(firstName);
@@ -102,7 +102,7 @@ public class UserView extends View{
         temp.add(temp2);
 
         JPanel temp3 = new JPanel();
-        temp3.setLayout(new GridLayout(2,1,0,0));
+        temp3.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
         JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
         lastNameBox = new JTextField(20);
         temp3.add(lastNameLabel);
@@ -110,7 +110,7 @@ public class UserView extends View{
         temp.add(temp3);
 
         JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(2,3,10,10));
+        temp4.setLayout(new GridLayout(1,4,gridBuffer1,gridBuffer2));
         JLabel phoneLabel = new JLabel(messages.getString("phone"));
         phoneBox1 = new JTextField(3);
         phoneBox2 = new JTextField(3);
@@ -122,13 +122,14 @@ public class UserView extends View{
         temp.add(temp4);
 
         JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(1,0,0,0));
+        temp5.setLayout(new GridLayout(1,0,gridBuffer1,gridBuffer2));
         JLabel emailLabel = new JLabel(messages.getString("email"));
         emailBox = new JTextField(20);
         temp5.add(emailLabel);
         temp5.add(emailBox);
         temp.add(temp5);
 
+        //NOT GRINDBAG LAYOUT!!! -mw
         JPanel temp6 = new JPanel();
         temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel userTypeLabel = new JLabel(messages.getString("userType"));
@@ -143,8 +144,8 @@ public class UserView extends View{
 
         JPanel temp7 = new JPanel();
         JPanel temp7a = new JPanel();
-        temp7.setLayout(new GridLayout(2, 1, 0, 0));
-        temp7a.setLayout(new GridLayout(1,3,0,0));
+        temp7.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
+        temp7a.setLayout(new GridLayout(1,3,gridBuffer1,gridBuffer2));
         JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
         memExpireDateBox1 = new JTextField(2);
         memExpireDateBox2 = new JTextField(2);
@@ -158,8 +159,8 @@ public class UserView extends View{
 
         JPanel temp8 = new JPanel();
         JPanel temp8a = new JPanel();
-        temp8.setLayout(new GridLayout(2,1,0,0));
-        temp8a.setLayout(new GridLayout(1,3,0,0));
+        temp8.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp8a.setLayout(new GridLayout(1,3,gridBuffer1,gridBuffer2));
         JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
         regDateBox1 = new JTextField(2);
         regDateBox2 = new JTextField(2);
@@ -185,7 +186,7 @@ public class UserView extends View{
         temp.add(temp10);
 /*
         JPanel temp11 = new JPanel();
-        temp11.setLayout(new GridLayout(2,1,0,0));
+        temp11.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
         JLabel updateDateLabel = new JLabel(messages.getString("dateStatusUpdated"));
         updateDateBox = new JTextField(20);
         temp11.add(updateDateLabel);
@@ -193,7 +194,7 @@ public class UserView extends View{
         temp.add(temp11);
 */
         JPanel temp9 = new JPanel();
-        temp9.setLayout(new GridLayout(2,1,0,0));
+        temp9.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
         JLabel notesLabel = new JLabel(messages.getString("notes"));
         notesArea = new JTextArea(null,5,10);
         temp9.add(notesLabel);
@@ -210,12 +211,15 @@ public class UserView extends View{
 
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+
         submit = new JButton(messages.getString("submit"));
         submit.addActionListener(this);
-        done = new JButton(messages.getString("done"));
+
+        done = new JButton(messages.getString("cancel"));
         done.addActionListener(this);
-        temp1.add(done);
+
         temp1.add(submit);
+        temp1.add(done);
         temp.add(temp1);
 
         //JPanel temp6 = new JPanel();

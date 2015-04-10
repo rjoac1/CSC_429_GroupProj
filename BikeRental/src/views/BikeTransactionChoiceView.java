@@ -17,7 +17,7 @@ import models.LocaleStore;
 //==============================================================
 public class BikeTransactionChoiceView extends View
 {
-
+    private MainFrame mainFrame;
     // other private data
     private final int labelWidth = 120;
     private final int labelHeight = 25;
@@ -49,7 +49,7 @@ public class BikeTransactionChoiceView extends View
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
-        this.setSize(new Dimension(300, 400));
+        //this.setSize(new Dimension(300, 400));
         // Add a title for this panel
         add(createTitle());
 
@@ -57,6 +57,9 @@ public class BikeTransactionChoiceView extends View
         add(createNavigationButtons());
 
         add(createStatusLog("             "));
+
+        mainFrame = MainFrame.getInstance("Bike Rental System v1.0");
+        //mainFrame.setMinimumSize(new Dimension(550, 320));
 
         populateFields();
 
