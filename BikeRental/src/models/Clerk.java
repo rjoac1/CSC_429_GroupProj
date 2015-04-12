@@ -38,6 +38,9 @@ public class Clerk implements IView, IModel, ISlideShow
     private String loginErrorMessage = "";
     private String transactionErrorMessage = "";
 
+    //Used in log out process
+    private boolean loginChange = false;
+
     public Clerk()
     {
         myFrame = MainFrame.getInstance();
@@ -154,6 +157,7 @@ public class Clerk implements IView, IModel, ISlideShow
                 break;
             case "Logout":
                 myWorker = null;
+                loginChange = true;
                 createAndShowLoginView();
                 break;
         }
@@ -230,7 +234,7 @@ public class Clerk implements IView, IModel, ISlideShow
     {
         View localView = (View)myViews.get("BikeTransactionChoiceView");
 
-        if(localView == null)
+        if(localView == null || loginChange == true)
         {
             //create initial view
             localView = ViewFactory.createView("BikeTransactionChoiceView", this); //Use View Factory
@@ -299,6 +303,5 @@ public class Clerk implements IView, IModel, ISlideShow
                     "Non-displayable view object sent ", Event.ERROR);
         }
     }
-
 
 }

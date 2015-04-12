@@ -46,7 +46,6 @@ public class BikeTransactionChoiceView extends View
     public BikeTransactionChoiceView(IModel clerk)
     {
         super(clerk, "BikeTransactionChoiceView");
-
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
         //this.setSize(new Dimension(300, 400));
@@ -58,7 +57,7 @@ public class BikeTransactionChoiceView extends View
 
         add(createStatusLog("             "));
 
-        mainFrame = MainFrame.getInstance("Bike Rental System v1.0");
+        mainFrame = MainFrame.getInstance(messages.getString("titleLine"));
         //mainFrame.setMinimumSize(new Dimension(550, 320));
 
         populateFields();
@@ -119,6 +118,12 @@ public class BikeTransactionChoiceView extends View
     //-------------------------------------------------------------
     private JPanel createNavigationButtons()
     {
+        String workerCred = (String) myModel.getState("Credential");
+        String workerTest = "Administrator";
+        workerCred = workerCred.trim();
+        //System.out.print(workerCred);
+
+
 
         final JPanel value = new JPanel();
         value.setLayout(new GridLayout(0, 1, 0, 0));
@@ -158,6 +163,8 @@ public class BikeTransactionChoiceView extends View
         gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
         panel_1.setLayout(gbl_panel_1);
 
+
+
         final JLabel lblAdd = new JLabel(messages.getString("add"));
         final GridBagConstraints gbc_lblAdd = new GridBagConstraints();
         gbc_lblAdd.fill = GridBagConstraints.BOTH;
@@ -182,7 +189,7 @@ public class BikeTransactionChoiceView extends View
         gbc_btnWorker.insets = new Insets(0, 0, 0, 5);
         gbc_btnWorker.gridx = 3;
         gbc_btnWorker.gridy = 1;
-        panel_1.add(addWorkerButton, gbc_btnWorker);
+        if(workerCred.equals("Administrator")){ panel_1.add(addWorkerButton, gbc_btnWorker); }
 
         addBikeButton = new JButton(messages.getString("bike"));
         addBikeButton.addActionListener(this);
@@ -191,7 +198,8 @@ public class BikeTransactionChoiceView extends View
         gbc_btnBike.fill = GridBagConstraints.BOTH;
         gbc_btnBike.gridx = 4;
         gbc_btnBike.gridy = 1;
-        panel_1.add(addBikeButton, gbc_btnBike);
+        if(workerCred.equals("Administrator")){ panel_1.add(addBikeButton, gbc_btnBike); }
+
 
         final JPanel panel_3 = new JPanel();
         value.add(panel_3);
@@ -226,7 +234,7 @@ public class BikeTransactionChoiceView extends View
         gbc_button_1.insets = new Insets(0, 0, 0, 5);
         gbc_button_1.gridx = 3;
         gbc_button_1.gridy = 1;
-        panel_3.add(fndmodWorkerButton, gbc_button_1);
+        if(workerCred.equals("Administrator")){ panel_3.add(fndmodWorkerButton, gbc_button_1); }
 
         fndmodBikeButton = new JButton(messages.getString("bike"));
         fndmodBikeButton.addActionListener(this);
@@ -235,7 +243,7 @@ public class BikeTransactionChoiceView extends View
         gbc_button_2.insets = new Insets(0, 0, 0, 5);
         gbc_button_2.gridx = 4;
         gbc_button_2.gridy = 1;
-        panel_3.add(fndmodBikeButton, gbc_button_2);
+        if(workerCred.equals("Administrator")){ panel_3.add(fndmodBikeButton, gbc_button_2); }
 
         final JPanel panel_2 = new JPanel();
         value.add(panel_2);
