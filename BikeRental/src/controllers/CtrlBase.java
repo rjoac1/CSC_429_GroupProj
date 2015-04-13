@@ -159,7 +159,7 @@ public abstract class CtrlBase implements IView, IControl {
         Dialogs.create()
                 .masthead("FastTRAX")
                 .message(message)
-                .showConfirm();
+                .showInformation();
     }
 
     public void setRegistry(ControlRegistry registry) {

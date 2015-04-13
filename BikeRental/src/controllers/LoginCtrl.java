@@ -30,7 +30,7 @@ public class LoginCtrl extends CtrlBase {
 
     public void updateState(String key, Object value) {
         if (key.equals("LoginError") == true && !value.equals("")) {
-            displayErrorMessage(mMessages.getString((String) value));
+            displayErrorMessage((String)value);
         }
     }
 

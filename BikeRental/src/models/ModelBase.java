@@ -91,8 +91,7 @@ public abstract class ModelBase extends EntityBase
 
             formatter.applyPattern(messages.getString("entityNotFoundError"));
             String error = formatter.format(messageArguments);
-            // FIXME: use the errror message.
-            throw new InvalidPrimaryKeyException("entityNotFoundError");
+            throw new InvalidPrimaryKeyException(error);
         }
     }
 
