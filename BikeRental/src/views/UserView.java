@@ -20,7 +20,7 @@ import impres.impresario.IModel;
 import models.LocaleStore;
 
 public class UserView extends View{
-
+//
     // GUI stuff
     private JTextField firstNameBox;
     private JTextField lastNameBox;
