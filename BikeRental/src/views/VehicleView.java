@@ -316,9 +316,9 @@ public class VehicleView extends View
             default:
                 clearErrorMessage();
                 break;
-
         }
     }
+
     private void processDone()
     {
         myModel.stateChangeRequest("Done", null);

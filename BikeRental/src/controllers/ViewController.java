@@ -30,9 +30,9 @@ public class ViewController extends ObservableMixin implements Observable {
     }
 
     public JPanel getView() {
-        final JPanel value = mCtrls.get(mPath).getView();
-        System.err.println(value);
-        return value;
+//        final JPanel value = mCtrls.get(mPath).getView();
+//        System.err.println(value); return value;
+        return null;
     }
 
     public void showDialog(final String message) {

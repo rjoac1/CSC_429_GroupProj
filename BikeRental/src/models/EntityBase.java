@@ -37,7 +37,7 @@ import views.WindowPosition;
  *  Persistable */
 //==============================================================
 public abstract class EntityBase extends Persistable
-        implements IModel, ISlideShow
+        implements IModel
 {
     protected ModelRegistry myRegistry;	// registry for entities interested in our events
     private int referenceCount;		// the number of others using us
@@ -46,7 +46,6 @@ public abstract class EntityBase extends Persistable
     private String myTableName;				// the name of our database table
 
     protected Hashtable myViews;
-    protected JFrame myFrame;
 
     protected Properties mySchema;
 
@@ -59,7 +58,6 @@ public abstract class EntityBase extends Persistable
     //----------------------------------------------------------
     protected EntityBase(String tablename)
     {
-        myFrame = MainFrame.getInstance();
         myViews = new Hashtable();
 
         // save our table name for later
@@ -206,37 +204,6 @@ public abstract class EntityBase extends Persistable
                     }
                 }
             }
-        }
-    }
-
-
-    //-----------------------------------------------------------------------------
-    public void swapToView(IView otherView)
-    {
-
-        if (otherView == null)
-        {
-            new Event(Event.getLeafLevelClassName(this), "swapToView",
-                    "Missing view for display ", Event.ERROR);
-            return;
-        }
-
-        if (otherView instanceof JPanel)
-        {
-            JPanel currentView = (JPanel)myFrame.getContentPane().getComponent(0);
-            // and remove it
-            myFrame.getContentPane().remove(currentView);
-            // add our view
-            myFrame.getContentPane().add((JPanel)otherView);
-            //pack the frame and show it
-            myFrame.pack();
-            //Place in center
-            WindowPosition.placeCenter(myFrame);
-        }//end of SwapToView
-        else
-        {
-            new Event(Event.getLeafLevelClassName(this), "swapToView",
-                    "Non-displayable view object sent ", Event.ERROR);
         }
     }
 

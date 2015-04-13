@@ -4,12 +4,8 @@ package models;
 //System imports
 import java.util.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 //project imports
 import impres.impresario.IModel;
-import impres.impresario.ISlideShow;
 import impres.impresario.IView;
 import impres.impresario.ModelRegistry;
 
@@ -18,7 +14,7 @@ import impres.exception.PasswordMismatchException;
 import impres.event.Event;
 import views.*;
 
-public class Clerk implements IView, IModel, ISlideShow
+public class Clerk implements IView, IModel
 {
     // This class implements all these interfaces (and does NOT extend 'EntityBase')
 // because it does NOT play the role of accessing the back-end database tables.
@@ -30,7 +26,6 @@ public class Clerk implements IView, IModel, ISlideShow
 
     //GUI Components
     private Hashtable myViews;
-    private JFrame myFrame;
 
     private String loginErrorMessage = "";
     private String transactionErrorMessage = "";
@@ -42,19 +37,16 @@ public class Clerk implements IView, IModel, ISlideShow
 
     public Clerk()
     {
-        myFrame = MainFrame.getInstance();
         myViews = new Hashtable();
         myRegistry = new ModelRegistry("Clerk");
 
-        if(myRegistry == null)
-        {
+        if(myRegistry == null) {
             new Event(Event.getLeafLevelClassName(this), "Teller",
                     "Could not instantiate Registry", Event.ERROR);
         }
         setDependencies();
-
-        createAndShowLoginView();
     }
+
     private void setDependencies()
     {
         dependencies = new Properties();
@@ -62,6 +54,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
         myRegistry.setDependencies(dependencies);
     }
+
     public Object getState(String key)
     {
         if (key.equals("LoginError") == true)
@@ -122,9 +115,11 @@ public class Clerk implements IView, IModel, ISlideShow
                     loginErrorMessage = "";
 
                     boolean flag = loginWorker((Properties) value);
+                    System.err.println("flag: " + flag);
                     if (flag == true) {
-                        Main.getInstance().replaceScene("/views/menu.fxml");
-//                        createAndShowBikeTransactionChoiceView();
+                        System.err.println("poruquoi");
+                        System.err.println(MainFrame.getInstance());
+                        MainFrame.getInstance().replaceScene("/views/menu.fxml");
                     }
                 }
                 break;
@@ -134,14 +129,18 @@ public class Clerk implements IView, IModel, ISlideShow
             case "Checkout":
                 processCheckout();
                 break;*/
+            case "Done":
+                MainFrame.getInstance().replaceScene("/views/menu.fxml");
+                break;
             case "AddUser":
+                MainFrame.getInstance().replaceScene("/views/addUser.fxml");
                 createNewUser();
                 break;
             case "AddWorker":
-                createNewWorker();
+                MainFrame.getInstance().replaceScene("/views/addWorker.fxml");
                 break;
             case "AddBike":
-                createNewBike();
+                MainFrame.getInstance().replaceScene("/views/addBike.fxml");
                 break;
             /*case "FndModUser":
                 fndModUser();
@@ -152,12 +151,13 @@ public class Clerk implements IView, IModel, ISlideShow
             case "FndModBike":
                 fndModBike();
                 break;*/
-            case "EndTransaction":
-                createAndShowBikeTransactionChoiceView();
-                break;
+//            case "EndTransaction":
+//                createAndShowBikeTransactionChoiceView();
+//                break;
             case "Logout":
                 myWorker = null;
-                createAndShowLoginView();
+                MainFrame.getInstance().replaceScene("/views/Login.fxml");
+//                createAndShowLoginView();
                 break;
         }
         myRegistry.updateSubscribers(key, this);
@@ -176,6 +176,7 @@ public class Clerk implements IView, IModel, ISlideShow
     public boolean loginWorker(Properties props)
     {
         try {
+            System.err.println(props);
             myWorker = new Worker(props);
             return true;
         }
@@ -195,57 +196,19 @@ public class Clerk implements IView, IModel, ISlideShow
         user.subscribe("EndTransaction", this);
         user.stateChangeRequest("ShowDataEntryView", "");
     }
+
     public void createNewWorker()
     {
         Worker worker = new Worker();
         worker.subscribe("EndTransaction", this);
         worker.stateChangeRequest("ShowDataEntryView", "");
     }
+
     public void createNewBike()
     {
         Vehicle bike = new Vehicle();
         bike.subscribe("EndTransaction", this);
         bike.stateChangeRequest("ShowDataEntryView", "");
-    }
-
-    private void createAndShowLoginView()
-    {
-        View localView = (View)myViews.get("LoginView");
-
-        if(localView == null)
-        {
-            //create initial view
-            localView = ViewFactory.createView("LoginView", this); //Use View Factory
-
-            myViews.put("LoginView", localView);
-
-            //Make view visible by installing it into the frame
-            myFrame.getContentPane().add(localView);//just the main panel in this case
-            myFrame.pack();
-        }
-        else
-        {
-            swapToView(localView);
-        }
-    }
-
-    private void createAndShowBikeTransactionChoiceView()
-    {
-        View localView = (View)myViews.get("BikeTransactionChoiceView");
-
-        if(localView == null)
-        {
-            //create initial view
-            localView = ViewFactory.createView("BikeTransactionChoiceView", this); //Use View Factory
-
-            myViews.put("BikeTransactionChoiceView", localView);
-
-            swapToView(localView);
-        }
-        else
-        {
-            swapToView(localView);
-        }
     }
 
     //Abstract Methods
@@ -266,42 +229,5 @@ public class Clerk implements IView, IModel, ISlideShow
         // forward to our registry
         myRegistry.subscribe(key, subscriber);
     }
-
-    //----------------------------------------------------------------------------
-    protected void swapToPanelView(JPanel otherView)
-    {
-        JPanel currentView = (JPanel)myFrame.getContentPane().getComponent(0);
-        // and remove it
-        myFrame.getContentPane().remove(currentView);
-        // add our view
-        myFrame.getContentPane().add(otherView);
-        //pack the frame and show it
-        myFrame.pack();
-        //Place in center
-        WindowPosition.placeCenter(myFrame);
-    }
-
-    //-----------------------------------------------------------------------------
-    public void swapToView(IView otherView)
-    {
-
-        if (otherView == null)
-        {
-            new Event(Event.getLeafLevelClassName(this), "swapToView",
-                    "Missing view for display ", Event.ERROR);
-            return;
-        }
-
-        if (otherView instanceof JPanel)
-        {
-            swapToPanelView((JPanel)otherView);
-        }//end of SwapToView
-        else
-        {
-            new Event(Event.getLeafLevelClassName(this), "swapToView",
-                    "Non-displayable view object sent ", Event.ERROR);
-        }
-    }
-
 
 }

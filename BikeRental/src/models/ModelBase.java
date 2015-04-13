@@ -20,7 +20,7 @@ import java.util.Vector;
 
 
 public abstract class ModelBase extends EntityBase
-    implements IView, IModel, ISlideShow {
+    implements IView, IModel {
 
     protected final String myTableName;
     protected String updateStatusMessage = "";
@@ -91,6 +91,7 @@ public abstract class ModelBase extends EntityBase
 
             formatter.applyPattern(messages.getString("entityNotFoundError"));
             String error = formatter.format(messageArguments);
+            // FIXME: use the errror message.
             throw new InvalidPrimaryKeyException("entityNotFoundError");
         }
     }
@@ -98,7 +99,7 @@ public abstract class ModelBase extends EntityBase
     protected void processInsertion(Properties props)
     {
         setValues(props);
-        update();
+        updateStateInDatabase();
     }
 
     private void setValues(Properties props)
@@ -114,11 +115,6 @@ public abstract class ModelBase extends EntityBase
                 persistentState.setProperty(nextKey, nextValue);
             }
         }
-    }
-
-    protected void update()
-    {
-        updateStateInDatabase();
     }
 
     private void updateStateInDatabase()
@@ -159,7 +155,6 @@ public abstract class ModelBase extends EntityBase
             }
             else
             {
-                System.out.println("OK");
                 Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty(idField, "" + id.intValue());
 
@@ -174,6 +169,7 @@ public abstract class ModelBase extends EntityBase
         }
         catch (SQLException ex)
         {
+            System.err.println(ex);
             Object[] messageArguments = {
                     myTableName
             };
@@ -193,30 +189,31 @@ public abstract class ModelBase extends EntityBase
                 processInsertion((Properties) value);
                 break;
             case "ShowDataEntryView":
-                createAndShowDataEntryView();
+//                createAndShowDataEntryView();
                 break;
         }
         myRegistry.updateSubscribers(key, this);
     }
 
-    public void createAndShowDataEntryView()
-    {
-        String viewName = getViewName();
-        View localView = (View)myViews.get(viewName);
-
-        if(localView == null)
-        {
-            localView = ViewFactory.createView(viewName, this);
-
-            myViews.put(viewName, localView);
-
-            swapToView(localView);
-        }
-        else
-        {
-            swapToView(localView);
-        }
-    }
+//
+//    public void createAndShowDataEntryView()
+//    {
+//        String viewName = getViewName();
+//        View localView = (View)myViews.get(viewName);
+//
+//        if(localView == null)
+//        {
+//            localView = ViewFactory.createView(viewName, this);
+//
+//            myViews.put(viewName, localView);
+//
+//            swapToView(localView);
+//        }
+//        else
+//        {
+//            swapToView(localView);
+//        }
+//    }
 
     public Object getState(String key)
     {

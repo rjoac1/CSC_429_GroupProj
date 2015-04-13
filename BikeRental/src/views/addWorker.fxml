@@ -12,7 +12,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: F2F1EF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuCtrl">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: F2F1EF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddWorkerCtrl">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="0.0" prefWidth="0.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="550.0" />
@@ -44,7 +44,7 @@
                 <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label text="%name">
@@ -52,12 +52,12 @@
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </Label>
-                <TextField prefHeight="26.0" prefWidth="205.0" promptText="%firstName" GridPane.rowIndex="1">
+                <TextField fx:id="mFirstName" prefHeight="26.0" prefWidth="205.0" promptText="%firstName" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </TextField>
-                <TextField prefHeight="26.0" prefWidth="205.0" promptText="%lastName" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                <TextField fx:id="mLastName" prefHeight="26.0" prefWidth="205.0" promptText="%lastName" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets right="10.0" />
                     </GridPane.margin>
@@ -72,16 +72,7 @@
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </Label>
-                <TextArea prefHeight="200.0" prefWidth="200.0" promptText="%country" GridPane.rowIndex="3">
-                    <GridPane.margin>
-                        <Insets left="10.0" />
-                    </GridPane.margin>
-                </TextArea>
-                <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin></TextArea>
-                <DatePicker prefHeight="26.0" prefWidth="279.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                <DatePicker fx:id="mDate" prefHeight="26.0" prefWidth="279.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
@@ -99,12 +90,12 @@
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </Label>
-                <ComboBox prefHeight="26.0" prefWidth="248.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                <ComboBox fx:id="mStatus" prefHeight="26.0" prefWidth="248.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3">
                     <GridPane.margin>
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </ComboBox>
-                <TextArea prefHeight="30.0" prefWidth="528.0" GridPane.columnSpan="6" GridPane.rowIndex="8">
+                <TextArea fx:id="mNotes" prefHeight="30.0" prefWidth="528.0" promptText="\%notes" GridPane.columnSpan="3" GridPane.rowIndex="8">
                     <GridPane.margin>
                         <Insets left="10.0" right="10.0" />
                     </GridPane.margin>
@@ -114,14 +105,14 @@
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </Label>
-                <Button mnemonicParsing="false" text="%submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-                <Button mnemonicParsing="false" text="%back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+                <Button mnemonicParsing="false" onAction="#onSubmitClick" text="%submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+                <Button mnemonicParsing="false" onAction="#onBackClick" text="%back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
             <Label text="%email" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField promptText="email@domain.com" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <TextField fx:id="mEmail" promptText="email@domain.com" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
@@ -131,19 +122,35 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <PasswordField GridPane.columnSpan="3" GridPane.rowIndex="5">
+            <PasswordField fx:id="mPassword" promptText="\%password" GridPane.columnSpan="3" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
             </PasswordField>
-            <ComboBox prefHeight="7.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5">
+            <ComboBox fx:id="mCredentials" prefHeight="7.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </ComboBox>
+            <TextField fx:id="mCountryCode" promptText="%country" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="mPhoneNumber" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Label text="%workerId" GridPane.columnIndex="3" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="mWorkerId" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
             </children>
         </GridPane>
-        <Label text="%brockportTitle" GridPane.halignment="CENTER">
+        <Label text="%brockportTitle" GridPane.columnIndex="1" GridPane.halignment="CENTER">
             <font>
                 <Font name="Helvetica Neue Light" size="18.0" />
             </font>

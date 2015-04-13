@@ -58,7 +58,7 @@ public class BikeTransactionChoiceView extends View
 
         add(createStatusLog("             "));
 
-        mainFrame = MainFrame.getInstance("Bike Rental System v1.0");
+        mainFrame = MainFrame.getInstance();
         //mainFrame.setMinimumSize(new Dimension(550, 320));
 
         populateFields();
