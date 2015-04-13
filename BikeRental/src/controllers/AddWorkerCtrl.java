@@ -88,6 +88,7 @@ public class AddWorkerCtrl extends CtrlBase {
                         loadWorker(mWorkerId.getText());
                     }
                 });
+        setupDateFormat(mDate);
     }
 
     public void loadWorker(String workerId) {

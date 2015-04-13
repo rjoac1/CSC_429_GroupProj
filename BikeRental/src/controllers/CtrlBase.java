@@ -5,6 +5,7 @@ import impres.impresario.IControl;
 import impres.impresario.IModel;
 import impres.impresario.IView;
 import javafx.scene.control.*;
+import javafx.util.StringConverter;
 import models.Clerk;
 import models.LocaleStore;
 import org.controlsfx.dialog.Dialogs;
@@ -98,6 +99,27 @@ public abstract class CtrlBase implements IView, IControl {
             value.setProperty(i.propertyName, s);
         }
         return value;
+    }
+
+    protected void setupDateFormat(final DatePicker p) {
+        p.setConverter(new StringConverter<LocalDate>() {
+            private DateTimeFormatter dateTimeFormatter =
+                    DateTimeFormatter.ofPattern(mMessages.getString("dateFormat"));
+
+            @Override
+            public String toString(final LocalDate localDate) {
+                if (localDate==null) return "";
+                return dateTimeFormatter.format(localDate);
+            }
+
+
+            @Override
+            public LocalDate fromString(final String dateString) {
+                if (dateString == null || dateString.trim().isEmpty())
+                    return null;
+                return LocalDate.parse(dateString,dateTimeFormatter);
+            }
+        });
     }
 
     protected void populateComboBox(final ComboBox cb, final String[] values) {

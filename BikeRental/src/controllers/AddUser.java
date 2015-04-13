@@ -73,6 +73,8 @@ public class AddUser extends CtrlBase {
         populateComboBox(mUserType, new String[] {
                 "student", "faculty"
         });
+        setupDateFormat(mInitialRegistrationDate);
+        setupDateFormat(mMembershipExpireDate);
     }
 
     public void onSubmitClick() {

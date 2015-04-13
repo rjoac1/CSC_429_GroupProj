@@ -24,6 +24,7 @@ public class LocaleStore {
 
         mLocale = new Locale(lang, country);
         mResourceBundle = ResourceBundle.getBundle("MessagesBundle", mLocale);
+        Locale.setDefault(mLocale);
     }
 
     public Locale getLocaleObject() {
