@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 // project imports
 import impres.impresario.IModel;
@@ -24,7 +26,7 @@ public class UserView extends View{
     // GUI stuff
     private JTextField firstNameBox;
     private JTextField lastNameBox;
-    private JTextField phoneBox1,phoneBox2,phoneBox3;
+    private JTextField phoneBox1,phoneBox2;
     private JTextField emailBox;
    // private JTextField userTypeBox;
     private JTextField memExpireBox;
@@ -93,56 +95,48 @@ public class UserView extends View{
         // set the layout for this panel
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
-        JPanel temp2 = new JPanel();
-        temp2.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        JLabel firstName = new JLabel(messages.getString("firstName"));
-        c.insets = new Insets(0,50,0,5);
-        c.gridx = 0;
-        c.gridy = 0;
-        temp2.add(firstName,c);
-        JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
-        c.insets = new Insets(0,5,0,50);
-        c.gridx = 1;
-        c.gridy = 0;
-        temp2.add(lastNameLabel,c);
-        firstNameBox = new JTextField(15);
-        c.insets = new Insets(0,55,0,5);
-        //firstNameBox.setSize(5,5);
-        c.gridx = 0;
-        c.gridy = 1;
-        temp2.add(firstNameBox,c);
-        lastNameBox = new JTextField(15);
-        c.insets = new Insets(0,5,0,55);
-        c.gridx = 1;
-        c.gridy = 1;
-        temp2.add(lastNameBox,c);
-        temp.add(temp2);
-/*
-        JPanel temp3 = new JPanel();
-        temp3.setLayout(new GridLayout(2,1,0,0));
-        JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
-        lastNameBox = new JTextField(20);
-        temp3.add(lastNameLabel);
-        temp3.add(lastNameBox);
-        temp.add(temp3);
-*/
-        JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridBagLayout());
-        JLabel emailLabel = new JLabel(messages.getString("email"));
-        c.insets = new Insets(0,0,0,2);
-        c.gridx = 0;
-        c.gridy = 0;
-        temp5.add(emailLabel,c);
-        emailBox = new JTextField(31);
-        c.gridx = 0;
-        c.gridy = 1;
-        temp5.add(emailBox,c);
-        temp.add(temp5);
+        JPanel tempMain = new JPanel();
+        tempMain.setLayout(new BorderLayout());
 
-        JPanel temp6 = new JPanel();
-        temp6.setLayout(new GridBagLayout());
+        JPanel tempSetup = new JPanel();
+        tempSetup.setLayout(new BoxLayout(tempSetup, BoxLayout.Y_AXIS));
+       // tempSetup.setBorder(new EmptyBorder(0, 0, 0, 0) );
+        JPanel empty = new JPanel();
+        empty.setPreferredSize(new Dimension(60, 0));
+
+        JPanel empty1 = new JPanel();
+        empty1.setPreferredSize(new Dimension(60, 0));
+        tempMain.add(empty,BorderLayout.WEST);
+
+        //add first name
+        JPanel namePanel = new JPanel();
+        namePanel.setLayout(new GridLayout(2,2,10,0));
+       // namePanel.setBorder(new EmptyBorder(80, 0,80, 0) );
+        JLabel firstName = new JLabel(messages.getString("firstName"));
+        namePanel.add(firstName);
+        //add last name
+        JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
+        namePanel.add(lastNameLabel);
+        firstNameBox = new JTextField(15);
+        namePanel.add(firstNameBox);
+        lastNameBox = new JTextField(15);
+        namePanel.add(lastNameBox);
+        tempSetup.add(namePanel);
+
+        //add email
+        JPanel emailPanel = new JPanel();
+        emailPanel.setLayout(new GridLayout(2,0,0,0));
+        //emailPanel.setBorder(new EmptyBorder(80, 0, 80, 0) );
+        JLabel emailLabel = new JLabel(messages.getString("email"));
+        emailPanel.add(emailLabel);
+        emailBox = new JTextField(31);
+        emailPanel.add(emailBox);
+        tempSetup.add(emailPanel);
+
+        //add userType and status
+        JPanel dropPanel = new JPanel();
+        dropPanel.setLayout(new GridLayout(2,2,0,0));
+        //dropPanel.setBorder(new EmptyBorder(80, 0, 80, 0) );
         JLabel userTypeLabel = new JLabel(messages.getString("userType"));
         String[] userTypeChoices = new String[2];
         userTypeChoices[0] = messages.getString("student");
@@ -157,98 +151,62 @@ public class UserView extends View{
         statBox = new JComboBox(choices);
         statBox.setPreferredSize(new Dimension(167,25));
         statBox.setSelectedIndex(1);
-        c.insets = new Insets(0,0,0,0);
-        c.gridx = 0;
-        c.gridy = 0;
-        temp6.add(statLabel,c);
-        c.insets = new Insets(0,0,0,0);
-        c.gridx = 1;
-        c.gridy = 0;
-        temp6.add(userTypeLabel,c);
-        c.insets = new Insets(0,0,0,12);
-        c.gridx = 0;
-        c.gridy = 1;
-        temp6.add(statBox,c);
-        c.insets = new Insets(0,0,0,0);
-        c.gridx = 1;
-        c.gridy = 1;
-        temp6.add(userTypeBox,c);
-        temp.add(temp6);
 
-        JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(2, 3, 0, 0));
+        dropPanel.add(userTypeLabel);
+        dropPanel.add(statLabel);
+        dropPanel.add(userTypeBox);
+        dropPanel.add(statBox);
+        tempSetup.add(dropPanel);
+
+
+        //add phone
+        JPanel phonePanel = new JPanel();
+        phonePanel.setLayout(new GridLayout(2,0,0,0));
+       // phonePanel.setBorder(new EmptyBorder(80, 0, 80, 0) );
         JLabel phoneLabel = new JLabel(messages.getString("phone"));
+        phonePanel.add(phoneLabel);
+
+        tempSetup.add(phonePanel);
+
+        JPanel phoneInputPanel = new JPanel();
+        phoneInputPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+       //phonePanel.add(new JLabel());
+        //phonePanel.add(new JLabel());
+        JLabel phonePlus = new JLabel("+");
+
+        phoneInputPanel.add(phonePlus);
         phoneBox1 = new JTextField(3);
-        phoneBox2 = new JTextField(3);
-        phoneBox3 = new JTextField(4);
-        temp4.add(phoneLabel);
-        temp4.add(new JLabel());
-        temp4.add(new JLabel());
-        temp4.add(phoneBox1);
-        temp4.add(phoneBox2);
-        temp4.add(phoneBox3);
-        temp.add(temp4);
+        phoneBox1.setSize(new Dimension(0,0));
 
-        JPanel temp7 = new JPanel();
-        JPanel temp7a = new JPanel();
-        temp7.setLayout(new GridLayout(2, 1, 0, 0));
-        temp7a.setLayout(new GridLayout(1,3,0,0));
-        JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
-        memExpireDateBox1 = new JTextField(2);
-        memExpireDateBox2 = new JTextField(2);
-        memExpireDateBox3 = new JTextField(4);
-        temp7.add(memExpireLabel);
-        temp7a.add(memExpireDateBox1);
-        temp7a.add(memExpireDateBox2);
-        temp7a.add(memExpireDateBox3);
-        temp7.add(temp7a);
-        temp.add(temp7);
+        phoneInputPanel.add(phoneBox1);
+        phoneBox2 = new JTextField(20);
+        //phoneBox2.setPreferredSize(new Dimension(800,20));
+        phoneInputPanel.add(phoneBox2);
+        phonePanel.add(phoneInputPanel);
+        tempSetup.add(phonePanel);
 
-        JPanel temp8 = new JPanel();
-        JPanel temp8a = new JPanel();
-        temp8.setLayout(new GridLayout(2,1,0,0));
-        temp8a.setLayout(new GridLayout(1,3,0,0));
-        JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
-        regDateBox1 = new JTextField(2);
-        regDateBox2 = new JTextField(2);
-        regDateBox3 = new JTextField(4);
-        temp8.add(registrationDateLabel);
-        temp8a.add(regDateBox1);
-        temp8a.add(regDateBox2);
-        temp8a.add(regDateBox3);
-        temp8.add(temp8a);
-        temp.add(temp8);
-/*
 
-        JPanel temp10 = new JPanel();
-        temp10.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel statLabel = new JLabel(messages.getString("status"));
-        String[] choices = new String[2];
-        choices[0] = messages.getString("active");
-        choices[1] = messages.getString("inactive");
-        statBox = new JComboBox(choices);
-        statBox.setSelectedIndex(1);
-        temp10.add(statLabel);
-        temp10.add(statBox);
-        temp.add(temp10);
-        */
-/*
-        JPanel temp11 = new JPanel();
-        temp11.setLayout(new GridLayout(2,1,0,0));
-        JLabel updateDateLabel = new JLabel(messages.getString("dateStatusUpdated"));
-        updateDateBox = new JTextField(20);
-        temp11.add(updateDateLabel);
-        temp11.add(updateDateBox);
-        temp.add(temp11);
-*/
-        JPanel temp9 = new JPanel();
-        temp9.setLayout(new GridLayout(2,1,0,0));
+
+
+
+        JPanel noteLabelPanel = new JPanel();
+        noteLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel notesLabel = new JLabel(messages.getString("notes"));
-        notesArea = new JTextArea(null,5,10);
-        temp9.add(notesLabel);
-        temp9.add(notesArea);
-        temp.add(temp9);
+        noteLabelPanel.add(notesLabel);
 
+        JPanel notePanel = new JPanel();
+        notePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        notesArea = new JTextArea(null,5,35);
+        noteLabelPanel.add(notesLabel);
+        notePanel.add(notesArea);
+        tempSetup.add(noteLabelPanel);
+        tempSetup.add(notePanel);
+
+
+        tempMain.add(tempSetup, BorderLayout.CENTER);
+        //tempMain.add(new JLabel());
+        tempMain.add(empty1,BorderLayout.EAST);
+        temp.add(tempMain);
         return temp;
     }
 
@@ -341,7 +299,7 @@ public class UserView extends View{
         String[] values = new String[12];
         values[0] = firstNameBox.getText();
         values[1] = lastNameBox.getText();
-        values[2] = phoneBox1.getText()+phoneBox2.getText()+phoneBox3.getText();
+        values[2] = phoneBox1.getText()+phoneBox2.getText();
         values[3] = emailBox.getText();
         values[4] = ""+userTypeBox.getSelectedItem();
         values[5] = memExpireDateDayEntered;
@@ -370,12 +328,12 @@ public class UserView extends View{
                 lastNameBox.requestFocus();
             }
             else if (values[2].length() == 0 || phoneBox1.getText().length() != 3
-                        || phoneBox2.getText().length() != 3 ||  phoneBox3.getText().length() != 4)
+                        || phoneBox2.getText().length() != 3 )
             {
                 displayErrorMessage(messages.getString("phoneFormatError"));
                 phoneBox1.requestFocus();
             }
-            else if ((phoneBox1.getText().matches("^\\d+$")!=true) || (phoneBox2.getText().matches("^\\d+$")!=true) || (phoneBox3.getText().matches("^\\d+$") != true))
+            else if ((phoneBox1.getText().matches("^\\d+$")!=true) || (phoneBox2.getText().matches("^\\d+$")!=true))
             {
                 displayErrorMessage(messages.getString("phoneNumericalError"));
                 phoneBox1.requestFocus();
