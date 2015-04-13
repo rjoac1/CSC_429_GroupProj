@@ -39,13 +39,17 @@ public abstract class View extends JPanel
     protected ControlRegistry myRegistry;
     protected ResourceBundle messages;
     protected MessageView statusLog;
+    protected String subTitleText = "";
 
     final protected int gridBuffer1 = 5;
     final protected int gridBuffer2 = 5;
 
+    protected Font myFont = new Font("Helvetica", Font.BOLD, 20);
+    protected Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
+
     // forward declaration
     protected abstract void processAction(EventObject evt);
-    protected abstract JPanel createSubTitle();
+    //protected abstract JPanel createSubTitle();
 
     // GUI components
 
@@ -70,7 +74,6 @@ public abstract class View extends JPanel
         JPanel temp1 = new JPanel();
         temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
         JLabel lbl = new JLabel(messages.getString("brockportTitle"));
-        Font myFont = new Font("Helvetica", Font.BOLD, 20);
         lbl.setFont(myFont);
         temp1.add(lbl);
 
@@ -80,7 +83,6 @@ public abstract class View extends JPanel
         temp2.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         JLabel lbl1 = new JLabel(messages.getString("fastTracksTitle"));
-        Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
         lbl1.setFont(myFont2);
         temp2.add(lbl1);
         temp.add(temp2);
@@ -89,6 +91,20 @@ public abstract class View extends JPanel
         if(subTitle!=null) {
             temp.add(createSubTitle());
         }
+
+        return temp;
+    }
+
+    //Create SubTitle
+    //-------------------------------------------------------------
+    protected JPanel createSubTitle()
+    {
+        JPanel temp = new JPanel();
+        temp.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JLabel lbl = new JLabel(messages.getString(subTitleText));
+        lbl.setFont(myFont2);
+        temp.add(lbl);
 
         return temp;
     }
