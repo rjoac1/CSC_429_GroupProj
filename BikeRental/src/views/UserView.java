@@ -53,7 +53,7 @@ public class UserView extends View{
         add(createNavigationButtons());
 
         // Error message area
-        //add(createStatusLog("                          "));
+       // add(createStatusLog("                          "));
 
         populateFields();
 
@@ -94,58 +94,105 @@ public class UserView extends View{
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
         JPanel temp2 = new JPanel();
-        temp2.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp2.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
         JLabel firstName = new JLabel(messages.getString("firstName"));
-        firstNameBox = new JTextField(20);
-        temp2.add(firstName);
-        temp2.add(firstNameBox);
+        c.insets = new Insets(0,50,0,5);
+        c.gridx = 0;
+        c.gridy = 0;
+        temp2.add(firstName,c);
+        JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
+        c.insets = new Insets(0,5,0,50);
+        c.gridx = 1;
+        c.gridy = 0;
+        temp2.add(lastNameLabel,c);
+        firstNameBox = new JTextField(15);
+        c.insets = new Insets(0,55,0,5);
+        //firstNameBox.setSize(5,5);
+        c.gridx = 0;
+        c.gridy = 1;
+        temp2.add(firstNameBox,c);
+        lastNameBox = new JTextField(15);
+        c.insets = new Insets(0,5,0,55);
+        c.gridx = 1;
+        c.gridy = 1;
+        temp2.add(lastNameBox,c);
         temp.add(temp2);
-
+/*
         JPanel temp3 = new JPanel();
-        temp3.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp3.setLayout(new GridLayout(2,1,0,0));
         JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
         lastNameBox = new JTextField(20);
         temp3.add(lastNameLabel);
         temp3.add(lastNameBox);
         temp.add(temp3);
-
-        JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(1,4,gridBuffer1,gridBuffer2));
-        JLabel phoneLabel = new JLabel(messages.getString("phone"));
-        phoneBox1 = new JTextField(3);
-        phoneBox2 = new JTextField(3);
-        phoneBox3 = new JTextField(4);
-        temp4.add(phoneLabel);
-        temp4.add(phoneBox1);
-        temp4.add(phoneBox2);
-        temp4.add(phoneBox3);
-        temp.add(temp4);
-
+*/
         JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(1,0,gridBuffer1,gridBuffer2));
+        temp5.setLayout(new GridBagLayout());
         JLabel emailLabel = new JLabel(messages.getString("email"));
-        emailBox = new JTextField(20);
-        temp5.add(emailLabel);
-        temp5.add(emailBox);
+        c.insets = new Insets(0,0,0,2);
+        c.gridx = 0;
+        c.gridy = 0;
+        temp5.add(emailLabel,c);
+        emailBox = new JTextField(31);
+        c.gridx = 0;
+        c.gridy = 1;
+        temp5.add(emailBox,c);
         temp.add(temp5);
 
-        //NOT GRINDBAG LAYOUT!!! -mw
         JPanel temp6 = new JPanel();
-        temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
+        temp6.setLayout(new GridBagLayout());
         JLabel userTypeLabel = new JLabel(messages.getString("userType"));
         String[] userTypeChoices = new String[2];
         userTypeChoices[0] = messages.getString("student");
         userTypeChoices[1] = messages.getString("faculty");
         userTypeBox = new JComboBox(userTypeChoices);
+        userTypeBox.setPreferredSize(new Dimension(167,25));
         userTypeBox.setSelectedIndex(1);
-        temp6.add(userTypeLabel);
-        temp6.add(userTypeBox);
+        JLabel statLabel = new JLabel(messages.getString("status"));
+        String[] choices = new String[2];
+        choices[0] = messages.getString("active");
+        choices[1] = messages.getString("inactive");
+        statBox = new JComboBox(choices);
+        statBox.setPreferredSize(new Dimension(167,25));
+        statBox.setSelectedIndex(1);
+        c.insets = new Insets(0,0,0,0);
+        c.gridx = 0;
+        c.gridy = 0;
+        temp6.add(statLabel,c);
+        c.insets = new Insets(0,0,0,0);
+        c.gridx = 1;
+        c.gridy = 0;
+        temp6.add(userTypeLabel,c);
+        c.insets = new Insets(0,0,0,12);
+        c.gridx = 0;
+        c.gridy = 1;
+        temp6.add(statBox,c);
+        c.insets = new Insets(0,0,0,0);
+        c.gridx = 1;
+        c.gridy = 1;
+        temp6.add(userTypeBox,c);
         temp.add(temp6);
+
+        JPanel temp4 = new JPanel();
+        temp4.setLayout(new GridLayout(2, 3, 0, 0));
+        JLabel phoneLabel = new JLabel(messages.getString("phone"));
+        phoneBox1 = new JTextField(3);
+        phoneBox2 = new JTextField(3);
+        phoneBox3 = new JTextField(4);
+        temp4.add(phoneLabel);
+        temp4.add(new JLabel());
+        temp4.add(new JLabel());
+        temp4.add(phoneBox1);
+        temp4.add(phoneBox2);
+        temp4.add(phoneBox3);
+        temp.add(temp4);
 
         JPanel temp7 = new JPanel();
         JPanel temp7a = new JPanel();
-        temp7.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
-        temp7a.setLayout(new GridLayout(1,3,gridBuffer1,gridBuffer2));
+        temp7.setLayout(new GridLayout(2, 1, 0, 0));
+        temp7a.setLayout(new GridLayout(1,3,0,0));
         JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
         memExpireDateBox1 = new JTextField(2);
         memExpireDateBox2 = new JTextField(2);
@@ -159,8 +206,8 @@ public class UserView extends View{
 
         JPanel temp8 = new JPanel();
         JPanel temp8a = new JPanel();
-        temp8.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
-        temp8a.setLayout(new GridLayout(1,3,gridBuffer1,gridBuffer2));
+        temp8.setLayout(new GridLayout(2,1,0,0));
+        temp8a.setLayout(new GridLayout(1,3,0,0));
         JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
         regDateBox1 = new JTextField(2);
         regDateBox2 = new JTextField(2);
@@ -171,7 +218,7 @@ public class UserView extends View{
         temp8a.add(regDateBox3);
         temp8.add(temp8a);
         temp.add(temp8);
-
+/*
 
         JPanel temp10 = new JPanel();
         temp10.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -184,9 +231,10 @@ public class UserView extends View{
         temp10.add(statLabel);
         temp10.add(statBox);
         temp.add(temp10);
+        */
 /*
         JPanel temp11 = new JPanel();
-        temp11.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp11.setLayout(new GridLayout(2,1,0,0));
         JLabel updateDateLabel = new JLabel(messages.getString("dateStatusUpdated"));
         updateDateBox = new JTextField(20);
         temp11.add(updateDateLabel);
@@ -194,7 +242,7 @@ public class UserView extends View{
         temp.add(temp11);
 */
         JPanel temp9 = new JPanel();
-        temp9.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp9.setLayout(new GridLayout(2,1,0,0));
         JLabel notesLabel = new JLabel(messages.getString("notes"));
         notesArea = new JTextArea(null,5,10);
         temp9.add(notesLabel);
@@ -488,7 +536,7 @@ public class UserView extends View{
         }
         else
         {
-            //clearErrorMessage();
+           // clearErrorMessage();
         }
 
     }
