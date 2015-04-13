@@ -11,6 +11,7 @@ import org.controlsfx.dialog.Dialogs;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Stream;
@@ -87,7 +88,7 @@ public abstract class CtrlBase implements IView, IControl {
     }
 
     protected Properties getProperties() {
-        Properties value = new Properties();
+        final Properties value = new Properties();
         for (SubmitWrapper i : mSubmitWrapper) {
             final String s = i.getter.get(i.control);
             if (!i.validator.validate(s)) {
@@ -99,13 +100,36 @@ public abstract class CtrlBase implements IView, IControl {
         return value;
     }
 
-    protected void populateComboBox(ComboBox cb, String[] values) {
+    protected void populateComboBox(final ComboBox cb, final String[] values) {
         cb.getItems().clear();
         cb.getItems().addAll(
                 Stream.of(values).map(
                         (s) -> mMessages.getString(s)
                 ).toArray(String[]::new)
         );
+    }
+
+    protected LocalDate dateFromString(final String s) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        final LocalDate date = LocalDate.parse(s, formatter);
+        return date;
+    }
+
+    protected void loadProperties(final Properties p) {
+        for (SubmitWrapper i : mSubmitWrapper) {
+            final String content = p.getProperty(i.propertyName);
+            if (i.control instanceof TextArea)
+                ((TextArea)(i.control)).setText(content);
+            else if (i.control instanceof  TextField)
+                ((TextField)(i.control)).setText(content);
+            else if (i.control instanceof ComboBox)
+                ((ComboBox)(i.control)).getSelectionModel().select(content);
+            else if (i.control instanceof DatePicker) {
+                final LocalDate d = dateFromString(content);
+                if (d != null)
+                    ((DatePicker)(i.control)).setValue(d);
+            }
+        }
     }
 
     protected void displayErrorMessage(String message) {

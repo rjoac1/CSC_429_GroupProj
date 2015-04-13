@@ -21,8 +21,8 @@
     <rowConstraints>
         <RowConstraints maxHeight="190.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="190.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="360.0" minHeight="10.0" prefHeight="309.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="351.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="360.0" minHeight="10.0" prefHeight="323.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="351.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
         <GridPane hgap="10.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -35,31 +35,32 @@
             <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="75.0" minHeight="4.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="75.0" minHeight="4.0" prefHeight="28.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="146.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="158.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="%name">
+                <Label text="%name" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="mFirstName" prefHeight="26.0" prefWidth="205.0" promptText="%firstName" GridPane.rowIndex="1">
+                <TextField fx:id="mFirstName" prefHeight="26.0" prefWidth="205.0" promptText="%firstName" GridPane.rowIndex="3">
                     <GridPane.margin>
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </TextField>
-                <TextField fx:id="mLastName" prefHeight="26.0" prefWidth="205.0" promptText="%lastName" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                <TextField fx:id="mLastName" prefHeight="26.0" prefWidth="205.0" promptText="%lastName" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
                     <GridPane.margin>
-                        <Insets right="10.0" />
+                        <Insets />
                     </GridPane.margin>
                 </TextField>
             <Label text="%credential" GridPane.columnIndex="3" GridPane.rowIndex="4">
@@ -67,12 +68,12 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-                <Label text="%phoneNumber" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                <Label text="%phoneNumber" GridPane.columnSpan="2" GridPane.rowIndex="4">
                     <GridPane.margin>
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </Label>
-                <DatePicker fx:id="mDate" prefHeight="26.0" prefWidth="279.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                <DatePicker fx:id="mDate" prefHeight="26.0" prefWidth="301.0" GridPane.columnSpan="3" GridPane.rowIndex="7">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
@@ -95,18 +96,18 @@
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </ComboBox>
-                <TextArea fx:id="mNotes" prefHeight="30.0" prefWidth="528.0" promptText="\%notes" GridPane.columnSpan="3" GridPane.rowIndex="8">
+                <TextArea fx:id="mNotes" prefHeight="30.0" prefWidth="528.0" promptText="\%notes" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="7" GridPane.rowSpan="3">
                     <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets bottom="2.0" left="10.0" right="10.0" />
                     </GridPane.margin>
                 </TextArea>
-                <Label text="%notes" GridPane.rowIndex="7">
+                <Label text="%notes" GridPane.columnIndex="3" GridPane.rowIndex="6">
                     <GridPane.margin>
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </Label>
-                <Button mnemonicParsing="false" onAction="#onSubmitClick" text="%submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-                <Button mnemonicParsing="false" onAction="#onBackClick" text="%back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+                <Button mnemonicParsing="false" onAction="#onSubmitClick" text="%submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+                <Button mnemonicParsing="false" onAction="#onBackClick" text="%back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
             <Label text="%email" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
@@ -117,14 +118,14 @@
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
             </TextField>
-            <Label text="%password" GridPane.rowIndex="4">
+            <Label text="%password" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <PasswordField fx:id="mPassword" promptText="\%password" GridPane.columnSpan="3" GridPane.rowIndex="5">
+            <PasswordField fx:id="mPassword" promptText="\%password" GridPane.columnSpan="3" GridPane.rowIndex="9">
                <GridPane.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
             </PasswordField>
             <ComboBox fx:id="mCredentials" prefHeight="7.0" prefWidth="204.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5">
@@ -132,20 +133,20 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </ComboBox>
-            <TextField fx:id="mCountryCode" promptText="%country" GridPane.rowIndex="3">
+            <TextField fx:id="mCountryCode" promptText="%country" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="mPhoneNumber" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <Label text="%workerId" GridPane.columnIndex="3" GridPane.rowIndex="7">
+            <TextField fx:id="mPhoneNumber" promptText="\%phoneNumber" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+            <Label text="%workerId">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="mWorkerId" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="8">
+            <TextField fx:id="mWorkerId" promptText="\%workerId" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets left="10.0" top="5.0" />
                </GridPane.margin>
             </TextField>
             </children>

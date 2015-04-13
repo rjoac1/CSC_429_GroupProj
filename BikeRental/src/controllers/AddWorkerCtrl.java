@@ -1,5 +1,6 @@
 package controllers;
 
+import impres.exception.InvalidPrimaryKeyException;
 import impres.impresario.IModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -67,7 +68,7 @@ public class AddWorkerCtrl extends CtrlBase {
     @FXML
     public void initialize() {
         populateComboBox(mStatus, new String[] {"active", "inactive"});
-        populateComboBox(mCredentials, new String[] {"administrator", "user"});
+        populateComboBox(mCredentials, new String[]{"administrator", "user"});
         mSubmitWrapper.addAll(Arrays.asList(
                 new SubmitWrapper("firstName", mFirstName, textGetter, empty),
                 new SubmitWrapper("workerId", mWorkerId, textGetter, empty),
@@ -81,6 +82,22 @@ public class AddWorkerCtrl extends CtrlBase {
                 new SubmitWrapper("dateOfInitialReg", mDate, dateGetter, empty),
                 new SubmitWrapper("notes", mNotes, textAreaGetter, ok),
                 new SubmitWrapper("dateStatusUpdated", null, dateNowGetter, ok)));
+        mWorkerId.focusedProperty().addListener(
+                (arg0, oldPropertyValue, newPropertyValue) -> {
+                    if (!newPropertyValue) {
+                        loadWorker(mWorkerId.getText());
+                    }
+                });
+    }
+
+    public void loadWorker(String workerId) {
+        try {
+            Worker w = new Worker(workerId);
+            loadProperties(w.getProperties());
+        } catch (InvalidPrimaryKeyException e) {
+            // DO Nothing
+            System.err.println("The user does not exist " + e.toString());
+        }
     }
 
     public void onSubmitClick() {

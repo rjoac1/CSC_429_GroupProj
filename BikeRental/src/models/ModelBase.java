@@ -96,6 +96,10 @@ public abstract class ModelBase extends EntityBase
         }
     }
 
+    public Properties getProperties() {
+        return persistentState;
+    }
+
     protected void processInsertion(Properties props)
     {
         setValues(props);
