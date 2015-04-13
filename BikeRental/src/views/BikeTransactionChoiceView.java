@@ -55,7 +55,7 @@ public class BikeTransactionChoiceView extends View
         // create our GUI components, add them to this panel
         add(createNavigationButtons());
 
-        add(createStatusLog("             "));
+        //add(createStatusLog("             "));
 
         mainFrame = MainFrame.getInstance(messages.getString("titleLine"));
         //mainFrame.setMinimumSize(new Dimension(550, 320));
@@ -268,7 +268,7 @@ public class BikeTransactionChoiceView extends View
     public void processAction(EventObject e) {
         // DEBUG: System.out.println("TransactionChoiceView.actionPerformed()");
 
-        clearErrorMessage();
+        //clearErrorMessage();
 
         if (e.getSource() == checkinButton) {
             //myModel.stateChangeRequest("Checkin", null);

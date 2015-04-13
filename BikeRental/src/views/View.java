@@ -338,22 +338,13 @@ public abstract class View extends JPanel
         return valToReturn;
 
     }
-    protected JPanel createStatusLog(String initialMessage)
-    {
-        statusLog = new MessageView(initialMessage);
-        return statusLog;
-    }
-    public void clearErrorMessage()
-    {
-        statusLog.clearErrorMessage();
-    }
     public void displayErrorMessage(String message)
     {
-        statusLog.displayErrorMessage(message);
+        JOptionPane.showMessageDialog(this, message, "Fast Trax", JOptionPane.ERROR_MESSAGE);
     }
     public void displayMessage(String message)
     {
-        statusLog.displayMessage(message);
+        JOptionPane.showMessageDialog(this, message, "Fast Trax", JOptionPane.PLAIN_MESSAGE);
     }
 }
 

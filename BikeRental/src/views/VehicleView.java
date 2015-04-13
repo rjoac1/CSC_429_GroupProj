@@ -39,7 +39,7 @@ public class VehicleView extends View
         add(createNavigationButtons());
 
         //error message area
-        add(createStatusLog("                          "));
+        //add(createStatusLog("                          "));
 
         populateFields();
     }
@@ -222,7 +222,7 @@ public class VehicleView extends View
 
     public void processAction(EventObject e)
     {
-        clearErrorMessage();
+        //clearErrorMessage();
 
         if(e.getSource() == submitButton)
         {
@@ -314,7 +314,7 @@ public class VehicleView extends View
                 displayErrorMessage((String)value);
                 break;
             default:
-                clearErrorMessage();
+                //clearErrorMessage();
                 break;
 
         }

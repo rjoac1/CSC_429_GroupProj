@@ -53,7 +53,7 @@ public class UserView extends View{
         add(createNavigationButtons());
 
         // Error message area
-        add(createStatusLog("                          "));
+        //add(createStatusLog("                          "));
 
         populateFields();
 
@@ -287,7 +287,7 @@ public class UserView extends View{
         }
         memExpireDateYearEntered = memExpireDateBox3.getText();
         regDateYearEntered = regDateBox3.getText();
-        clearErrorMessage();
+        //clearErrorMessage();
         String firstName,lastName,phoneNumber,emailAddress,userType,
                 memExpireDate, memRegistrationDateDay,memRegistrationDateMonth,memRegistrationDateYear,statusUpdateDate, notes;
         String[] values = new String[12];
@@ -488,7 +488,7 @@ public class UserView extends View{
         }
         else
         {
-            clearErrorMessage();
+            //clearErrorMessage();
         }
 
     }

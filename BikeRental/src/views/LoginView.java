@@ -32,7 +32,7 @@ public class LoginView extends View
     private JButton submitButton;
 
     // For showing error message
-    private MessageView statusLog;
+    //private MessageView statusLog;
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
@@ -51,7 +51,7 @@ public class LoginView extends View
         add(createNavigationButtons());
 
         // Error message area
-        add(createStatusLog("                          "));
+        //add(createStatusLog("                          "));
 
         populateFields();
 
@@ -160,7 +160,7 @@ public class LoginView extends View
     {
         // DEBUG: System.out.println("TellerView.actionPerformed()");
 
-        clearErrorMessage();
+        //clearErrorMessage();
 
         String useridEntered = userid.getText();
 
@@ -211,7 +211,7 @@ public class LoginView extends View
         if (key.equals("LoginError") == true && !value.equals(""))
         {
             // display the passed text
-            displayErrorMessage(messages.getString((String)value));
+            displayErrorMessage((String)value);
         }
 
     }

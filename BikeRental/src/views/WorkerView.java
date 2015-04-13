@@ -50,7 +50,7 @@ public class WorkerView extends View{
         add(createDataEntryFields());
         add(createNavigationButtons());
 
-        add(createStatusLog("                          "));
+        //add(createStatusLog("                          "));
 
         populateFields();
 
@@ -277,7 +277,7 @@ public class WorkerView extends View{
     }
     public void processAction(EventObject e) {
 
-        clearErrorMessage();
+        //clearErrorMessage();
 
         if(e.getSource() == submit)
         {
@@ -285,9 +285,9 @@ public class WorkerView extends View{
             String firstNameEntered = firstNameBox.getText();
             String lastNameEntered = lastNameBox.getText();
             String emailEntered = emailBox.getText();
-            String phone1Entered = phoneBox1.getText().trim();
-            String phone2Entered = phoneBox2.getText().trim();
-            String phone3Entered = phoneBox3.getText().trim();
+            String phone1Entered = phoneBox1.getText();
+            String phone2Entered = phoneBox2.getText();
+            String phone3Entered = phoneBox3.getText();
             String phoneEntered = phone1Entered + "-" + phone2Entered + "-" + phone3Entered;
             String credEntered = (String)credentialBox.getSelectedItem();
 
@@ -469,7 +469,7 @@ public class WorkerView extends View{
                 displayErrorMessage((String)value);
                 break;
             default:
-                clearErrorMessage();
+                //clearErrorMessage();
                 break;
         }
     }
