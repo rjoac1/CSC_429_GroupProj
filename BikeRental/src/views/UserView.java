@@ -121,7 +121,7 @@ public class UserView extends View{
 
         //add userType and status
         JPanel dropPanel = new JPanel();
-        dropPanel.setLayout(new GridLayout(2,2,40,0));
+        dropPanel.setLayout(new GridLayout(2,2,10,0));
         //dropPanel.setBorder(new EmptyBorder(80, 0, 80, 0) );
         JLabel userTypeLabel = new JLabel(messages.getString("userType"));
         String[] userTypeChoices = new String[2];
@@ -356,8 +356,8 @@ public class UserView extends View{
                 displayErrorMessage(messages.getString("enterLastNameError"));
                 lastNameBox.requestFocus();
             }
-            else if (values[2].length() == 0 || phoneBox1.getText().length() <  5
-                        || phoneBox2.getText().length() < 11 )
+            else if (values[2].length() == 0 || phoneBox1.getText().length() >  5
+                        || phoneBox2.getText().length() > 11 )
             {
                 displayErrorMessage(messages.getString("phoneFormatError"));
                 phoneBox1.requestFocus();
