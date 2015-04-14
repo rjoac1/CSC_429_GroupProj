@@ -305,6 +305,7 @@ public class BikeTransactionChoiceView extends View
     }
 
     private boolean checkWorkerAdminStatus(){
-        return workerCred.equals("Administrator");
+        //return workerCred.equals("Administrator");
+        return workerCred.equals("administrator");
     }
 }

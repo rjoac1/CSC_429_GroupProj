@@ -9,6 +9,7 @@ import javax.swing.*;
 
 //project imports
 import impres.impresario.IModel;
+import models.DBContentStrategy;
 
 //==============================================================
 public class VehicleView extends View
@@ -108,12 +109,45 @@ public class VehicleView extends View
 
         temp.add(temp3);
 
-        //Color -mw move?
+
+
+        //Description
         JPanel temp4 = new JPanel();
         temp4.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
+        JLabel descriptionLabel = new JLabel(messages.getString("VehicleDescription"));
+        temp4.add(descriptionLabel);
+
+        description = new JTextField(35);
+        description.addActionListener(this);
+        temp4.add(description);
+
+        temp.add(temp4);
+
+        //Location
+        JPanel temp5 = new JPanel();
+        temp5.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
+
+        JLabel locationLabel = new JLabel(messages.getString("VehicleLocation"));
+        temp5.add(locationLabel);
+
+        location = new JTextField(35);
+        location.addActionListener(this);
+        temp5.add(location);
+
+        temp.add(temp5);
+
+        //Color -mw move?
+        JPanel temp6 = new JPanel();
+        temp6.setLayout(new GridLayout(gridBuffer1, 3, gridBuffer3, gridBuffer4));
+
         JLabel colorLabel = new JLabel(messages.getString("VehicleColor"));
-        temp4.add(colorLabel);
+        JLabel conditionLabel = new JLabel(messages.getString("VehiclePhysicalCondition"));
+        JLabel statusLabel = new JLabel(messages.getString("VehicleStatus"));
+
+        temp6.add(colorLabel);
+        temp6.add(conditionLabel);
+        temp6.add(statusLabel);
 
         String colorArr [] = new String[10];
         colorArr[0] = messages.getString("red");
@@ -128,42 +162,33 @@ public class VehicleView extends View
         colorArr[9] = messages.getString("orange");
         color = new JComboBox(colorArr);
         color.addActionListener(this);
-        temp4.add(color);
+        temp6.add(color);
 
-        temp.add(temp4);
+        String[] conditions = new String[4];
+        conditions[0] = messages.getString("mint");
+        conditions[1] = messages.getString("good");
+        conditions[2] = messages.getString("satisfactory");
+        conditions[3] = messages.getString("poor");
+        physicalCondition = new JComboBox(conditions);
+        physicalCondition.setSelectedIndex(0);
+        physicalCondition.addActionListener(this);
+        temp6.add(physicalCondition);
 
-        //Description
-        JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
-
-        JLabel descriptionLabel = new JLabel(messages.getString("VehicleDescription"));
-        temp5.add(descriptionLabel);
-
-        description = new JTextField(35);
-        description.addActionListener(this);
-        temp5.add(description);
-
-        temp.add(temp5);
-
-        //Location
-        JPanel temp6 = new JPanel();
-        temp6.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
-
-        JLabel locationLabel = new JLabel(messages.getString("VehicleLocation"));
-        temp6.add(locationLabel);
-
-        location = new JTextField(35);
-        location.addActionListener(this);
-        temp6.add(location);
+        String[] statusText = new String[2];
+        statusText[0] = messages.getString("active");
+        statusText[1] = messages.getString("inactive");
+        status = new JComboBox(statusText);
+        status.setSelectedIndex(0);
+        status.addActionListener(this);
+        temp6.add(status);
 
         temp.add(temp6);
-
+        /*
         //Physical Condition
         JPanel temp7 = new JPanel();
         temp7.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
-        JLabel conditionLabel = new JLabel(messages.getString("VehiclePhysicalCondition"));
-        temp7.add(conditionLabel);
+
 
         String[] conditions = new String[4];
         conditions[0] = messages.getString("mint");
@@ -181,8 +206,7 @@ public class VehicleView extends View
         JPanel temp8 = new JPanel();
         temp8.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
-        JLabel statusLabel = new JLabel(messages.getString("VehicleStatus"));
-        temp8.add(statusLabel);
+
         String[] statusText = new String[2];
         statusText[0] = messages.getString("active");
         statusText[1] = messages.getString("inactive");
@@ -192,6 +216,7 @@ public class VehicleView extends View
         temp8.add(status);
 
         temp.add(temp8);
+        */
         tempMain.add(temp, BorderLayout.CENTER);
         tempMain.add(empty1,BorderLayout.EAST);
         return tempMain;
@@ -230,11 +255,11 @@ public class VehicleView extends View
             String makeText = make.getText();
             String modelNumberText = modelNumber.getText();
             String serialNumberText = serialNumber.getText();
-            String colorText = (String)color.getSelectedItem();
+            String colorText = DBContentStrategy.getVehicleColorValue(color.getSelectedIndex());
             String descriptionText = description.getText();
             String locationText = location.getText();
-            String physicalConditionText = (String) physicalCondition.getSelectedItem();
-            String statusText = (String) status.getSelectedItem();
+            String physicalConditionText = DBContentStrategy.getPhysicalConditionValue(physicalCondition.getSelectedIndex());
+            String statusText = DBContentStrategy.getStatusValue(status.getSelectedIndex());
 
 
             if((makeText == null) || (makeText.length() == 0))
