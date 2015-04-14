@@ -50,6 +50,9 @@ public class LoginView extends View
         add(createDataEntryFields());
         add(createNavigationButtons());
 
+        //setMinimumSize(new Dimension(350, 250));
+        //setMaximumSize(new Dimension(450, 350));
+
         // Error message area
         //add(createStatusLog("                          "));
 
