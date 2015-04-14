@@ -64,7 +64,7 @@ public class UserView extends View{
         populateFields();
 
         // STEP 0: Be sure you tell your model what keys you are interested in
-        myModel.subscribe("UpdateStatusMessage", this);
+        //myModel.subscribe("UpdateStatusMessage", this);
 
     }
 
@@ -149,27 +149,44 @@ public class UserView extends View{
         dropPanel.add(statBox);
         tempSetup.add(dropPanel);
 
-
-
         JPanel temp7 = new JPanel();
-        JPanel temp7a = new JPanel();
-        temp7.setLayout(new GridLayout(2, 1, 0, 0));
+        //JPanel temp7a = new JPanel();
+        temp7.setLayout(new GridLayout(2,2, 10, 0));
+
+
+        JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
+        temp7.add(registrationDateLabel);
         JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
         temp7.add(memExpireLabel);
+
+        JPanel dateTemp2 = new JPanel();
+        dateTemp2.setLayout(new FlowLayout((FlowLayout.LEFT)));
+        regDatePicker = getDatePicker();
+        dateTemp2.add(regDatePicker);
+        temp7.add(dateTemp2);
+
+        JPanel dateTemp1 = new JPanel();
+        dateTemp1.setLayout(new FlowLayout(FlowLayout.LEFT));
         memExpireDatePicker = getDatePicker();
-        temp7.add(memExpireDatePicker);
+        dateTemp1.add(memExpireDatePicker);
+        temp7.add(dateTemp1);
         tempSetup.add(temp7);
 
 
-        JPanel temp8 = new JPanel();
-        temp8.setLayout(new GridLayout(2,1,0,0));
+        //JPanel temp8 = new JPanel();
+       // temp8.setLayout(new GridLayout(2,1,0,0));
+        //JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
+        //temp7.add(registrationDateLabel);
 
-        JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
-        regDatePicker = getDatePicker();
-        temp8.add(registrationDateLabel);
+       // JPanel dateTemp2 = new JPanel();
+        //dateTemp2.setLayout(new FlowLayout((FlowLayout.LEFT)));
+        //regDatePicker = getDatePicker();
+        //dateTemp2.add(regDatePicker);
+        //temp7.add(dateTemp2);
+        //temp8.add(registrationDateLabel);
 
-        temp8.add(regDatePicker);
-        tempSetup.add(temp8);
+        //temp8.add(regDatePicker);
+        tempSetup.add(temp7);
 
 
         //add phone

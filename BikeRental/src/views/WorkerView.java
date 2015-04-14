@@ -195,8 +195,6 @@ public class WorkerView extends View{
         temp.add(credPanel);
 
 
-
-
         //Add date Field
         JPanel dateTemp = new JPanel();
         dateTemp.setLayout(new GridLayout(2,0,0,0));

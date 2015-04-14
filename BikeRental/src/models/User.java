@@ -25,7 +25,7 @@ public class User extends ModelBase{
         super(myTableName);
 
         setDependencies();
-        persistentState = new Properties();
+         persistentState = new Properties();
     }
 
     public User(String userID)throws InvalidPrimaryKeyException{

@@ -129,7 +129,6 @@ public abstract class ModelBase extends EntityBase
             MessageFormat formatter = new MessageFormat("");
             formatter.setLocale(LocaleStore.getLocale().getLocaleObject());
             String message = "";
-
             if(persistentState.getProperty(idField) != null)
             {
                 boolean flag = checkIfExists(persistentState.getProperty(idField));
@@ -142,7 +141,6 @@ public abstract class ModelBase extends EntityBase
                 if (flag == false)
                 {
                     insertPersistentState(mySchema, persistentState);
-
                     formatter.applyPattern(messages.getString("entityInsertedSuccessfully"));
                     message = formatter.format(messageArguments);
                 }
@@ -150,7 +148,6 @@ public abstract class ModelBase extends EntityBase
                     Properties whereClause = new Properties();
                     whereClause.setProperty(idField, persistentState.getProperty(idField));
                     updatePersistentState(mySchema, persistentState, whereClause);
-
                     formatter.applyPattern(messages.getString("entityUpdatedSuccessfully"));
                     message = formatter.format(messageArguments);
                     //System.out.println("Patron data for patronId: " + persistentState.getProperty("patronID") + " updated successfully in database.");
@@ -160,7 +157,6 @@ public abstract class ModelBase extends EntityBase
             }
             else
             {
-                System.out.println("OK");
                 Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty(idField, "" + id.intValue());
 
