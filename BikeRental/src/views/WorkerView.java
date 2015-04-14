@@ -124,7 +124,7 @@ public class WorkerView extends View{
         emailBox.addActionListener(this);
         emailPanel.add(emailBox);
         temp.add(emailPanel);
-
+/*
         //add phone
         JPanel phonePanel = new JPanel();
         phonePanel.setLayout(new GridLayout(2,0,0,0));
@@ -149,7 +149,7 @@ public class WorkerView extends View{
         phoneInputPanel.add(phoneBox2);
         phonePanel.add(phoneInputPanel);
         temp.add(phonePanel);
-
+*/
         //Add password Field
         JPanel temp6 = new JPanel();
         temp6.setLayout(new GridLayout(2,0,0,0));
@@ -165,22 +165,7 @@ public class WorkerView extends View{
 
         temp.add(temp6);
 
-        //Add date Field
-        JPanel dateTemp = new JPanel();
-        dateTemp.setLayout(new GridLayout(2,0,0,0));
-        //temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel datePanel = new JLabel(messages.getString("dateOfInitialReg"));
-        dateTemp.add(datePanel);
-
-        JPanel dateTemp1 = new JPanel();
-        dateTemp1.setLayout(new FlowLayout(FlowLayout.LEFT));
-        regDatePicker = getDatePicker();
-        dateTemp1.add(regDatePicker);
-
-        dateTemp.add(dateTemp1);
-
-        temp.add(dateTemp);
 
         //add credential field and status field
 
@@ -210,6 +195,79 @@ public class WorkerView extends View{
         temp.add(credPanel);
 
 
+
+
+        //Add date Field
+        JPanel dateTemp = new JPanel();
+        dateTemp.setLayout(new GridLayout(2,0,0,0));
+        //temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        JLabel datePanel = new JLabel(messages.getString("dateOfInitialReg"));
+        dateTemp.add(datePanel);
+
+        JPanel dateTemp1 = new JPanel();
+        dateTemp1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        regDatePicker = getDatePicker();
+        dateTemp1.add(regDatePicker);
+
+        dateTemp.add(dateTemp1);
+
+        temp.add(dateTemp);
+
+        //add phone
+        JPanel phonePanel = new JPanel();
+        phonePanel.setLayout(new GridLayout(2,0,0,0));
+        // phonePanel.setBorder(new EmptyBorder(80, 0, 80, 0) );
+        JLabel phoneLabel = new JLabel(messages.getString("phone"));
+        phonePanel.add(phoneLabel);
+
+        JPanel phoneInputPanel = new JPanel();
+        phoneInputPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        //phonePanel.add(new JLabel());
+        //phonePanel.add(new JLabel());
+        JLabel phonePlus = new JLabel("+");
+
+        phoneInputPanel.add(phonePlus);
+        phoneBox1 = new JTextField(3);
+        phoneBox1.addActionListener(this);
+        phoneBox1.setSize(new Dimension(0,0));
+
+        phoneInputPanel.add(phoneBox1);
+        phoneBox2 = new JTextField(20);
+        //phoneBox2.setPreferredSize(new Dimension(800,20));
+        phoneInputPanel.add(phoneBox2);
+        phonePanel.add(phoneInputPanel);
+        temp.add(phonePanel);
+
+/*
+        //add credential field and status field
+
+        JPanel credPanel = new JPanel();
+        credPanel.setLayout(new GridLayout(2,2,10,0));
+        JLabel credentialLabel = new JLabel(messages.getString("credential"));
+        credPanel.add(credentialLabel);
+        JLabel statusLabel = new JLabel(messages.getString("status"));
+        credPanel.add(statusLabel);
+
+        String[] creds = new String[2];
+        creds[0] = messages.getString("administrator");
+        creds[1] = messages.getString("user");
+        credentialBox = new JComboBox(creds);
+        credentialBox.setSelectedIndex(0);
+        credentialBox.addActionListener(this);
+        credPanel.add(credentialBox);
+
+        String[] choices = new String[2];
+        choices[0] = messages.getString("active");
+        choices[1] = messages.getString("inactive");
+        statusBox = new JComboBox(choices);
+        statusBox.setSelectedIndex(0);
+        statusBox.addActionListener(this);
+        credPanel.add(statusBox);
+
+        temp.add(credPanel);
+
+*/
         //add notes section
         JPanel noteLabelPanel = new JPanel();
         noteLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
