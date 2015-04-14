@@ -145,6 +145,39 @@ public class UserView extends View{
         tempSetup.add(dropPanel);
 
 
+
+        JPanel temp7 = new JPanel();
+        JPanel temp7a = new JPanel();
+        temp7.setLayout(new GridLayout(2, 1, 0, 0));
+        temp7a.setLayout(new GridLayout(1,3,0,0));
+        JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
+        memExpireDateBox1 = new JTextField(2);
+        memExpireDateBox2 = new JTextField(2);
+        memExpireDateBox3 = new JTextField(4);
+        temp7.add(memExpireLabel);
+        temp7a.add(memExpireDateBox1);
+        temp7a.add(memExpireDateBox2);
+        temp7a.add(memExpireDateBox3);
+        temp7.add(temp7a);
+        tempSetup.add(temp7);
+
+
+        JPanel temp8 = new JPanel();
+        JPanel temp8a = new JPanel();
+        temp8.setLayout(new GridLayout(2,1,0,0));
+        temp8a.setLayout(new GridLayout(1,3,0,0));
+        JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
+        regDateBox1 = new JTextField(2);
+        regDateBox2 = new JTextField(2);
+        regDateBox3 = new JTextField(4);
+        temp8.add(registrationDateLabel);
+        temp8a.add(regDateBox1);
+        temp8a.add(regDateBox2);
+        temp8a.add(regDateBox3);
+        temp8.add(temp8a);
+        tempSetup.add(temp8);
+
+
         //add phone
         JPanel phonePanel = new JPanel();
         phonePanel.setLayout(new GridLayout(2,0,0,0));
@@ -170,10 +203,6 @@ public class UserView extends View{
         phoneInputPanel.add(phoneBox2);
         phonePanel.add(phoneInputPanel);
         tempSetup.add(phonePanel);
-
-
-
-
 
         JPanel noteLabelPanel = new JPanel();
         noteLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -206,13 +235,27 @@ public class UserView extends View{
 
         submit = new JButton(messages.getString("submit"));
         submit.addActionListener(this);
-
-        done = new JButton(messages.getString("cancel"));
-        done.addActionListener(this);
-
         temp1.add(submit);
-        temp1.add(done);
+        //temp1.add(submit);
+        //temp1.add(done);
         temp.add(temp1);
+
+        JPanel temp2 = new JPanel();
+        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JLabel empty = new JLabel();
+        temp2.add(empty);
+        temp.add(temp2);
+
+
+        JPanel temp3 = new JPanel();
+        temp3.setLayout(new FlowLayout(FlowLayout.LEFT));
+        done = new JButton(messages.getString("back"));
+        done.addActionListener(this);
+        temp3.add(done);
+        temp.add(temp3);
+        //temp1.add(submit);
+        //temp1.add(done);
+        //temp.add(temp1);
 
         //JPanel temp6 = new JPanel();
         //temp6.setLayout(new FlowLayout(FlowLayout.CENTER));
