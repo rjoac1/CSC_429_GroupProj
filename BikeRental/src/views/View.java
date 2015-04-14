@@ -41,6 +41,7 @@ public abstract class View extends JPanel
         implements IView, IControl, ActionListener, FocusListener
 {
     // private data
+    protected MainFrame mainFrame;
     protected IModel myModel;
     protected ControlRegistry myRegistry;
     protected ResourceBundle messages;
@@ -78,7 +79,6 @@ public abstract class View extends JPanel
     public View(IModel model, String classname)
     {
         myModel = model;
-
         messages = LocaleStore.getLocale().getResourceBundle();
         myRegistry = new ControlRegistry(classname);
 

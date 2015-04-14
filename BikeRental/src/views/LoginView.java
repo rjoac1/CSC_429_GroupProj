@@ -25,7 +25,7 @@ import models.LocaleStore;
 //==============================================================
 public class LoginView extends View
 {
-    private MainFrame mainFrame;
+    //private MainFrame mainFrame;
     // GUI stuff
     private JTextField userid;
     private JPasswordField password;
