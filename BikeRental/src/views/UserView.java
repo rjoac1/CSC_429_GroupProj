@@ -100,7 +100,7 @@ public class UserView extends View{
 
         //add first name
         JPanel namePanel = new JPanel();
-        namePanel.setLayout(new GridLayout(2,2,10,0));
+        namePanel.setLayout(new GridLayout(2,2,8,0));
        // namePanel.setBorder(new EmptyBorder(80, 0,80, 0) );
         JLabel firstName = new JLabel(messages.getString("firstName"));
         namePanel.add(firstName);
@@ -151,7 +151,7 @@ public class UserView extends View{
 
         JPanel temp7 = new JPanel();
         //JPanel temp7a = new JPanel();
-        temp7.setLayout(new GridLayout(2,2, 0, 0));
+        temp7.setLayout(new GridLayout(2,2, 10, 0));
 
 
         JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
@@ -159,17 +159,17 @@ public class UserView extends View{
         JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
         temp7.add(memExpireLabel);
 
-        JPanel dateTemp1 = new JPanel();
-        dateTemp1.setLayout(new FlowLayout((FlowLayout.LEFT)));
+        //JPanel dateTemp1 = new JPanel();
+        //dateTemp1.setLayout(new FlowLayout((FlowLayout.LEFT)));
         regDatePicker = getDatePicker();
-        dateTemp1.add(regDatePicker);
-        temp7.add(dateTemp1);
+        //dateTemp1.add(regDatePicker);
+        temp7.add(regDatePicker);
 
-        JPanel dateTemp2 = new JPanel();
-        dateTemp2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        //JPanel dateTemp2 = new JPanel();
+        //dateTemp2.setLayout(new FlowLayout(FlowLayout.LEFT));
         memExpireDatePicker = getDatePicker();
-        dateTemp2.add(memExpireDatePicker);
-        temp7.add(dateTemp2);
+        //dateTemp2.add(memExpireDatePicker);
+        temp7.add(memExpireDatePicker);
         tempSetup.add(temp7);
 
 
@@ -191,7 +191,7 @@ public class UserView extends View{
 
         //add phone
         JPanel phonePanel = new JPanel();
-        phonePanel.setLayout(new GridLayout(2,0,0,0));
+        phonePanel.setLayout(new GridLayout(2,1,0,0));
        // phonePanel.setBorder(new EmptyBorder(80, 0, 80, 0) );
         JLabel phoneLabel = new JLabel(messages.getString("phone"));
         phonePanel.add(phoneLabel);
@@ -200,13 +200,13 @@ public class UserView extends View{
 
         JPanel phoneInputPanel = new JPanel();
         phoneInputPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-       //phonePanel.add(new JLabel());
+        //phonePanel.add(new JLabel());
         //phonePanel.add(new JLabel());
         JLabel phonePlus = new JLabel("+");
 
         phoneInputPanel.add(phonePlus);
         phoneBox1 = new JTextField(3);
-        phoneBox1.setSize(new Dimension(0,0));
+        phoneBox1.setSize(new Dimension(0, 0));
 
         phoneInputPanel.add(phoneBox1);
         phoneBox2 = new JTextField(20);
@@ -216,17 +216,20 @@ public class UserView extends View{
         tempSetup.add(phonePanel);
 
         JPanel noteLabelPanel = new JPanel();
-        noteLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        noteLabelPanel.setLayout(new BorderLayout());
         JLabel notesLabel = new JLabel(messages.getString("notes"));
-        noteLabelPanel.add(notesLabel);
+        noteLabelPanel.add(notesLabel, BorderLayout.NORTH);
 
-        JPanel notePanel = new JPanel();
-        notePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        notesArea = new JTextArea(null,5,40);
-        noteLabelPanel.add(notesLabel);
-        notePanel.add(notesArea);
+        //JPanel notePanel = new JPanel();
+        //notePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        notesArea = new JTextArea(null,5,42);
+
+
+        //notePanel.add(notesArea);
+        //noteLabelPanel.add(notesLabel);
+        noteLabelPanel.add(notesArea,BorderLayout.CENTER);
         tempSetup.add(noteLabelPanel);
-        tempSetup.add(notePanel);
+        //tempSetup.add(notePanel);
 
 
         tempMain.add(tempSetup, BorderLayout.CENTER);
