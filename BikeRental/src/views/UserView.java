@@ -270,14 +270,17 @@ public class UserView extends View{
     public void populateFields()
     {
         //set date fields based on the locale*****
+        System.out.println("In pop");
         if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
         {
+            System.out.println("in IF");
             memExpireDateBox1.setText("dd");
             memExpireDateBox2.setText("mm");
             regDateBox1.setText("dd");
             regDateBox2.setText("mm");
         }
         else{
+            System.out.println("in else");
             memExpireDateBox1.setText("mm");
             memExpireDateBox2.setText("dd");
             regDateBox1.setText("mm");
@@ -287,6 +290,7 @@ public class UserView extends View{
         regDateBox3.setText("yyyy");
         //userid.setText("");
         //password.setText("");
+        System.out.println("end pop");
     }
 
     // IMPRESARIO: Note how we use this method name instead of 'actionPerformed()'

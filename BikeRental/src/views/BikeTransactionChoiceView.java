@@ -38,6 +38,7 @@ public class BikeTransactionChoiceView extends View
     private JButton logoutButton = null;
 
     private MessageView statusLog;
+    private String workerCred = "";
 
     //resource bundle for internationalization
 
@@ -47,6 +48,10 @@ public class BikeTransactionChoiceView extends View
     {
         super(clerk, "BikeTransactionChoiceView");
         subTitleText = "transChoiceSubTitle";
+        //Get and store the current workers credential status
+        workerCred = (String) myModel.getState("Credential");
+        workerCred = workerCred.trim();
+
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
         //this.setSize(new Dimension(300, 400));
@@ -101,13 +106,6 @@ public class BikeTransactionChoiceView extends View
     //-------------------------------------------------------------
     private JPanel createNavigationButtons()
     {
-        String workerCred = (String) myModel.getState("Credential");
-        String workerTest = "Administrator";
-        workerCred = workerCred.trim();
-        //System.out.print(workerCred);
-
-
-
         final JPanel value = new JPanel();
         value.setLayout(new GridLayout(0, 1, 0, 0));
 
@@ -137,6 +135,7 @@ public class BikeTransactionChoiceView extends View
         gbc_btnCheckout.gridy = 1;
         panel.add(checkoutButton, gbc_btnCheckout);
 
+        //declare adding panel
         final JPanel panel_1 = new JPanel();
         value.add(panel_1);
         final GridBagLayout gbl_panel_1 = new GridBagLayout();
@@ -148,6 +147,7 @@ public class BikeTransactionChoiceView extends View
 
 
 
+        //add string
         final JLabel lblAdd = new JLabel(messages.getString("add"));
         final GridBagConstraints gbc_lblAdd = new GridBagConstraints();
         gbc_lblAdd.fill = GridBagConstraints.BOTH;
@@ -172,7 +172,7 @@ public class BikeTransactionChoiceView extends View
         gbc_btnWorker.insets = new Insets(0, 0, 0, 5);
         gbc_btnWorker.gridx = 3;
         gbc_btnWorker.gridy = 1;
-        if(workerCred.equals("Administrator")){ panel_1.add(addWorkerButton, gbc_btnWorker); }
+        panel_1.add(addWorkerButton, gbc_btnWorker);
 
         addBikeButton = new JButton(messages.getString("bike"));
         addBikeButton.addActionListener(this);
@@ -181,7 +181,7 @@ public class BikeTransactionChoiceView extends View
         gbc_btnBike.fill = GridBagConstraints.BOTH;
         gbc_btnBike.gridx = 4;
         gbc_btnBike.gridy = 1;
-        if(workerCred.equals("Administrator")){ panel_1.add(addBikeButton, gbc_btnBike); }
+        panel_1.add(addBikeButton, gbc_btnBike);
 
 
         final JPanel panel_3 = new JPanel();
@@ -217,7 +217,7 @@ public class BikeTransactionChoiceView extends View
         gbc_button_1.insets = new Insets(0, 0, 0, 5);
         gbc_button_1.gridx = 3;
         gbc_button_1.gridy = 1;
-        if(workerCred.equals("Administrator")){ panel_3.add(fndmodWorkerButton, gbc_button_1); }
+        panel_3.add(fndmodWorkerButton, gbc_button_1);
 
         fndmodBikeButton = new JButton(messages.getString("bike"));
         fndmodBikeButton.addActionListener(this);
@@ -226,7 +226,7 @@ public class BikeTransactionChoiceView extends View
         gbc_button_2.insets = new Insets(0, 0, 0, 5);
         gbc_button_2.gridx = 4;
         gbc_button_2.gridy = 1;
-        if(workerCred.equals("Administrator")){ panel_3.add(fndmodBikeButton, gbc_button_2); }
+        panel_3.add(fndmodBikeButton, gbc_button_2);
 
         final JPanel panel_2 = new JPanel();
         value.add(panel_2);
@@ -260,9 +260,11 @@ public class BikeTransactionChoiceView extends View
         } else if (e.getSource() == addUserButton) {
             myModel.stateChangeRequest("AddUser", null);
         } else if (e.getSource() == addWorkerButton) {
-            myModel.stateChangeRequest("AddWorker", null);
+            if(workerCred.equals("Administrator")){ myModel.stateChangeRequest("AddWorker", null); }
+            else{displayErrorMessage(messages.getString("requireAdminCred"));}
         } else if (e.getSource() == addBikeButton) {
-            myModel.stateChangeRequest("AddBike", null);
+            if(workerCred.equals("Administrator")){ myModel.stateChangeRequest("AddBike", null); }
+            else{displayErrorMessage(messages.getString("requireAdminCred"));}
         }
         else if (e.getSource() == logoutButton) {
             processLogout();
