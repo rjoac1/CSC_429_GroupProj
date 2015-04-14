@@ -17,8 +17,10 @@
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="14.0" />
-        <RowConstraints maxHeight="25.0" minHeight="8.0" prefHeight="25.0" />
-        <RowConstraints maxHeight="38.0" minHeight="30.0" prefHeight="37.0" />
+        <RowConstraints maxHeight="49.0" minHeight="8.0" prefHeight="48.0" />
+      <RowConstraints maxHeight="38.0" minHeight="18.0" prefHeight="20.0" />
+        <RowConstraints maxHeight="57.0" minHeight="30.0" prefHeight="40.0" />
+      <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="21.0" />
         <RowConstraints />
         <RowConstraints minHeight="10.0" prefHeight="30.0" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" />
@@ -29,8 +31,10 @@
                 <Font name="Helvetica Neue" size="16.0" />
             </font>
         </Label>
-        <TextField fx:id="mBannerIdText" promptText="%userId" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <PasswordField fx:id="mPasswordField" promptText="%password" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Button fx:id="mLoginBtn" mnemonicParsing="false" onAction="#loginHit" text="%login" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+        <TextField fx:id="mBannerIdText" promptText="%userId" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <PasswordField fx:id="mPasswordField" promptText="%password" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Button fx:id="mLoginBtn" mnemonicParsing="false" onAction="#loginHit" text="%login" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+      <Label text="%userId" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="%password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
     </children>
 </GridPane>

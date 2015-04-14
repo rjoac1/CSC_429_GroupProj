@@ -11,7 +11,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: F2F1EF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuCtrl">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="0.0" prefWidth="0.0" />
@@ -43,17 +42,35 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#onAddBike" text="Bike" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#onAddWorker" text="Worker" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#onAddUser" text="User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#onAddBike" prefHeight="26.0" prefWidth="132.0" text="Bike" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin></Button>
+            <Button mnemonicParsing="false" onAction="#onAddWorker" prefHeight="26.0" prefWidth="138.0" text="Worker" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin></Button>
+            <Button mnemonicParsing="false" onAction="#onAddUser" prefHeight="26.0" prefWidth="216.0" text="User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin></Button>
             <Label text="Search/Update :" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#onSearchUser" text="User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" onAction="#onSearchWorker" text="Worker" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" onAction="#onSearchBike" text="Bike" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#onSearchUser" prefHeight="26.0" prefWidth="219.0" text="User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin></Button>
+            <Button mnemonicParsing="false" onAction="#onSearchWorker" prefHeight="26.0" prefWidth="140.0" text="Worker" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin></Button>
+            <Button mnemonicParsing="false" onAction="#onSearchBike" prefHeight="26.0" prefWidth="124.0" text="Bike" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin></Button>
             <Button mnemonicParsing="false" onAction="#onLogout" style="-fx-background-color: D64541;" text="Logout" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          </children>
       </GridPane>

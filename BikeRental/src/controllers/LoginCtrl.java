@@ -14,9 +14,7 @@ import java.util.Properties;
 /**
  * Created by Hippolyte on 3/17/15.
  */
-
 public class LoginCtrl extends CtrlBase {
-
     @FXML
     private TextField mBannerIdText;
 

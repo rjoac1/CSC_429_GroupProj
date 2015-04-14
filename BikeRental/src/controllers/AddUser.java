@@ -57,9 +57,9 @@ public class AddUser extends CtrlBase {
         mSubmitWrapper.addAll(Arrays.asList(
                 new SubmitWrapper("firstName", mFirstName, textGetter, empty),
                 new SubmitWrapper("lastName", mLastName, textGetter, empty),
-                new SubmitWrapper("phoneNumber", mPhoneNumber, textGetter, empty),
-                new SubmitWrapper("countryCode", mCountryCode, textGetter, empty),
-                new SubmitWrapper("emailAddress", mEmail, textGetter, empty),
+                new SubmitWrapper("phoneNumber", mPhoneNumber, textGetter, phoneNumber),
+                new SubmitWrapper("countryCode", mCountryCode, textGetter, countryCode),
+                new SubmitWrapper("emailAddress", mEmail, textGetter, emailValidator),
                 new SubmitWrapper("status", mStatus, comboGetter, empty),
                 new SubmitWrapper("userType", mUserType, comboGetter, empty),
                 new SubmitWrapper("dateOfMembershipExpired", mMembershipExpireDate, dateGetter, empty),
@@ -70,7 +70,7 @@ public class AddUser extends CtrlBase {
         populateComboBox(mStatus, new String[]{
                 "active", "inactive"
         });
-        populateComboBox(mUserType, new String[] {
+        populateComboBox(mUserType, new String[]{
                 "student", "faculty"
         });
         setupDateFormat(mInitialRegistrationDate);

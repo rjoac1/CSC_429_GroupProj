@@ -67,21 +67,22 @@ public class AddWorkerCtrl extends CtrlBase {
 
     @FXML
     public void initialize() {
-        populateComboBox(mStatus, new String[] {"active", "inactive"});
+        populateComboBox(mStatus, new String[]{"active", "inactive"});
         populateComboBox(mCredentials, new String[]{"administrator", "user"});
         mSubmitWrapper.addAll(Arrays.asList(
                 new SubmitWrapper("firstName", mFirstName, textGetter, empty),
                 new SubmitWrapper("workerId", mWorkerId, textGetter, empty),
                 new SubmitWrapper("lastName", mLastName, textGetter, empty),
-                new SubmitWrapper("phoneNumber", mPhoneNumber, textGetter, empty),
-                new SubmitWrapper("countryCode", mCountryCode, textGetter, empty),
-                new SubmitWrapper("emailAddress", mEmail, textGetter, empty),
+                new SubmitWrapper("phoneNumber", mPhoneNumber, textGetter, phoneNumber),
+                new SubmitWrapper("countryCode", mCountryCode, textGetter, countryCode),
+                new SubmitWrapper("emailAddress", mEmail, textGetter, emailValidator),
                 new SubmitWrapper("status", mStatus, comboGetter, empty),
                 new SubmitWrapper("credential", mCredentials, comboGetter, empty),
                 new SubmitWrapper("password", mPassword, textGetter, empty),
                 new SubmitWrapper("dateOfInitialReg", mDate, dateGetter, empty),
                 new SubmitWrapper("notes", mNotes, textAreaGetter, ok),
                 new SubmitWrapper("dateStatusUpdated", null, dateNowGetter, ok)));
+
         mWorkerId.focusedProperty().addListener(
                 (arg0, oldPropertyValue, newPropertyValue) -> {
                     if (!newPropertyValue) {

@@ -9,6 +9,7 @@ import javafx.util.StringConverter;
 import models.Clerk;
 import models.LocaleStore;
 import org.controlsfx.dialog.Dialogs;
+import utils.EmailValidator;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -35,29 +36,41 @@ public abstract class CtrlBase implements IView, IControl {
 
     @FunctionalInterface
     protected interface InvalidParameterHandler {
-        void handle(Control c, String s);
+        void handle(Control c, String s, Boolean focus);
     }
 
-    protected InvalidParameterHandler focusHandler = (control, string) -> {
-        control.requestFocus();
+    protected InvalidParameterHandler focusHandler = (control, string, focus) -> {
         control.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+        if (focus)
+            control.requestFocus();
     };
 
     protected Getter textGetter = (v) -> ((TextField)v).getText();
     protected Getter comboGetter = (v) -> {
-        final String value = ((ComboBox<String>) v).getValue();
+        final String value = ((ComboBox<String>)v).getValue();
         return value == null ? "" : value;
     };
     protected  Getter textAreaGetter = (v) -> ((TextArea)v).getText();
     protected Getter dateNowGetter = (v) ->
             new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     protected Getter dateGetter = (v) -> {
-        // TODO: check if it works
+        // TODO: ajouter la gestion des dates fr (conversion vers une date us)
         final LocalDate date = ((DatePicker)v).getValue();
-        return date.toString();
+        return date != null ? date.toString() : "";
     };
 
-    protected Validator empty = (s) -> (s != null && s.length() > 0);
+
+    protected Validator empty = (s) ->
+            (s != null && s.length() > 0);
+    protected Validator phoneNumber = (s) ->
+            (s != null && s.length() >= 9 && s.length() <= 11
+                    && s.matches("[0-9]+")
+        );
+    protected Validator countryCode = (s) ->
+            (s != null && s.length() >= 1 && s.length() <= 4
+                    && s.matches("[0-9]+"));
+    protected Validator emailValidator = (s) ->
+            (s != null && EmailValidator.validate(s));
     protected Validator ok = (s) -> true;
 
     protected class SubmitWrapper {
@@ -70,10 +83,25 @@ public abstract class CtrlBase implements IView, IControl {
         public SubmitWrapper(String name, Control ctl, Getter get,
                              Validator v) {
             propertyName = name;
+            validator = v;
             control = ctl;
             getter = get;
-            validator = v;
             handler = focusHandler;
+            setupOnTheFlyValidation();
+        }
+
+        public void setupOnTheFlyValidation() {
+            if (control != null)
+                control.focusedProperty().addListener(
+                        (arg0, oldPropertyValue, newPropertyValue) -> {
+                            if (!newPropertyValue) {
+                                final String content = getter.get(control);
+                                if (!validator.validate(content))
+                                    handler.handle(control, content, false);
+                                else
+                                    control.setStyle("-fx-border-width: 0px;");
+                            }
+                        });
         }
     }
 
@@ -93,7 +121,7 @@ public abstract class CtrlBase implements IView, IControl {
         for (SubmitWrapper i : mSubmitWrapper) {
             final String s = i.getter.get(i.control);
             if (!i.validator.validate(s)) {
-                i.handler.handle(i.control, s);
+                i.handler.handle(i.control, s, true);
                 return null;
             }
             value.setProperty(i.propertyName, s);
@@ -157,6 +185,7 @@ public abstract class CtrlBase implements IView, IControl {
     protected void displayErrorMessage(String message) {
         System.err.println(message);
         Dialogs.create()
+                .title("FastTrax")
                 .masthead("FastTRAX")
                 .message(message)
                 .showInformation();

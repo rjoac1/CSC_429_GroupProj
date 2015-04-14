@@ -78,11 +78,9 @@ public class User extends ModelBase{
     public boolean checkIfExists(String id)
     {
         try {
-            User user = new User(id);
+            new User(id);
             return true;
         }
-
-
         catch (InvalidPrimaryKeyException ex) {
             //System.out.println(ex.getMessage()); //test
             return false;

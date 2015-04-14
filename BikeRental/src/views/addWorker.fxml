@@ -51,8 +51,7 @@
                 <Label text="%name" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets left="10.0" />
-                    </GridPane.margin>
-                </Label>
+                    </GridPane.margin> </Label>
                 <TextField fx:id="mFirstName" prefHeight="26.0" prefWidth="205.0" promptText="%firstName" GridPane.rowIndex="3">
                     <GridPane.margin>
                         <Insets left="10.0" />

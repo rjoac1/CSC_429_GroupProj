@@ -84,7 +84,7 @@ public abstract class ModelBase extends EntityBase
         else
         {
             Object[] messageArguments = {
-                    myTableName
+                    messages.getString(myTableName)
             };
             MessageFormat formatter = new MessageFormat("");
             formatter.setLocale(LocaleStore.getLocale().getLocaleObject());
