@@ -300,8 +300,8 @@ public class UserView extends View{
                 } else if (values[1].length() == 0) {
                     displayErrorMessage(messages.getString("enterLastNameError"));
                     lastNameBox.requestFocus();
-                } else if (values[2].length() == 0 || phoneBox1.getText().length() != 3
-                        || phoneBox2.getText().length() != 3) {
+                } else if (values[2].length() == 0 || phoneBox1.getText().length() > 5
+                        || phoneBox2.getText().length() > 11 ) {
                     displayErrorMessage(messages.getString("phoneFormatError"));
                     phoneBox1.requestFocus();
                 } else if ((phoneBox1.getText().matches("^\\d+$") != true) || (phoneBox2.getText().matches("^\\d+$") != true)) {
