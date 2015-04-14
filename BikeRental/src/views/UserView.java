@@ -91,6 +91,7 @@ public class UserView extends View{
     //-------------------------------------------------------------
     private JPanel createDataEntryFields()
     {
+        //
         temp = new JPanel();
         // set the layout for this panel
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
