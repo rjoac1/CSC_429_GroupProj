@@ -23,6 +23,7 @@ import java.util.stream.Stream;
  */
 
 public abstract class CtrlBase implements IView, IControl {
+    protected ResourceBundle mMessages;
 
     @FunctionalInterface
     protected interface Getter {
@@ -47,18 +48,33 @@ public abstract class CtrlBase implements IView, IControl {
 
     protected Getter textGetter = (v) -> ((TextField)v).getText();
     protected Getter comboGetter = (v) -> {
-        final String value = ((ComboBox<String>)v).getValue();
-        return value == null ? "" : value;
+        String value = ((ComboBox<String>)v).getValue();
+
+        // (!) Worse complexity is O(n log n), but it should be on very small list
+        if (value == null) return null;
+        for (String key : Collections.list(mMessages.getKeys())) {
+            final String s = mMessages.getString(key);
+            if (s.equals(value)) {
+                System.err.println("value\t" + s + "\t" + key);
+                return key;
+            }
+        }
+        return "";
     };
+
     protected  Getter textAreaGetter = (v) -> ((TextArea)v).getText();
+
+    static private final String mDbDateFormat = "yyyy-MM-dd";
     protected Getter dateNowGetter = (v) ->
-            new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            new SimpleDateFormat(mDbDateFormat).format(new Date());
     protected Getter dateGetter = (v) -> {
         // TODO: ajouter la gestion des dates fr (conversion vers une date us)
         final LocalDate date = ((DatePicker)v).getValue();
-        return date != null ? date.toString() : "";
+        if (date == null) return "";
+        String value = date.toString();
+        System.err.println("Date value\t" + value);
+        return value;
     };
-
 
     protected Validator empty = (s) ->
             (s != null && s.length() > 0);
@@ -106,7 +122,6 @@ public abstract class CtrlBase implements IView, IControl {
     }
 
     protected IModel mClerk;
-    protected ResourceBundle mMessages;
     protected ControlRegistry myRegistry;
     protected List<SubmitWrapper> mSubmitWrapper = new ArrayList<>();
 
@@ -117,14 +132,16 @@ public abstract class CtrlBase implements IView, IControl {
     }
 
     protected Properties getProperties() {
-        final Properties value = new Properties();
+        Properties value = new Properties();
         for (SubmitWrapper i : mSubmitWrapper) {
             final String s = i.getter.get(i.control);
             if (!i.validator.validate(s)) {
                 i.handler.handle(i.control, s, true);
-                return null;
+                value = null;
             }
-            value.setProperty(i.propertyName, s);
+            if (value != null && s != null) {
+                value.setProperty(i.propertyName, s);
+            }
         }
         return value;
     }
@@ -136,7 +153,7 @@ public abstract class CtrlBase implements IView, IControl {
 
             @Override
             public String toString(final LocalDate localDate) {
-                if (localDate==null) return "";
+                if (localDate == null) return "";
                 return dateTimeFormatter.format(localDate);
             }
 
@@ -145,13 +162,12 @@ public abstract class CtrlBase implements IView, IControl {
             public LocalDate fromString(final String dateString) {
                 if (dateString == null || dateString.trim().isEmpty())
                     return null;
-                return LocalDate.parse(dateString,dateTimeFormatter);
+                return LocalDate.parse(dateString, dateTimeFormatter);
             }
         });
     }
 
     protected void populateComboBox(final ComboBox cb, final String[] values) {
-        cb.getItems().clear();
         cb.getItems().addAll(
                 Stream.of(values).map(
                         (s) -> mMessages.getString(s)
@@ -172,8 +188,11 @@ public abstract class CtrlBase implements IView, IControl {
                 ((TextArea)(i.control)).setText(content);
             else if (i.control instanceof  TextField)
                 ((TextField)(i.control)).setText(content);
-            else if (i.control instanceof ComboBox)
-                ((ComboBox)(i.control)).getSelectionModel().select(content);
+            else if (i.control instanceof ComboBox){
+                ((ComboBox)(i.control)).getSelectionModel().select(
+                        mMessages.getString(content)
+                );
+            }
             else if (i.control instanceof DatePicker) {
                 final LocalDate d = dateFromString(content);
                 if (d != null)

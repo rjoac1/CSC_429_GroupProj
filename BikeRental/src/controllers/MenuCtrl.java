@@ -1,23 +1,36 @@
 package controllers;
 
+import models.LoggedWorker;
+import views.MainFrame;
+
 /**
  * Created by Hippolyte on 4/9/15.
  */
 public class MenuCtrl extends CtrlBase {
+
+    public void displayIfAdmin(String scene) {
+        if (LoggedWorker.getInstance().isAdmin())
+            MainFrame.getInstance().replaceScene(scene);
+        else {
+            displayErrorMessage(mMessages.getString("needAdmin"));
+        }
+    }
+
     public void onAddBike() {
         mClerk.stateChangeRequest("AddBike", null);
     }
 
     public void onAddUser() {
-        mClerk.stateChangeRequest("AddUser", null);
+        //  FIXME: should pass by the Clerk
+        displayIfAdmin("/views/addWorker.fxml");
     }
 
     public void onAddWorker() {
-        mClerk.stateChangeRequest("AddWorker", null);
+        //  FIXME: should pass by the Clerk
+        displayIfAdmin("/views/addWorker.fxml");
     }
 
     public void onLogout() {
-        System.err.println("logout");
         mClerk.stateChangeRequest("Logout", null);
     }
 

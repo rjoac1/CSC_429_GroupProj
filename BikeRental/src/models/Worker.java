@@ -1,19 +1,13 @@
 package models;
 
 //system imports
-import java.sql.SQLException;
 import java.util.Vector;
 import java.util.Properties;
-import java.util.Enumeration;
 
 //project imports
 import impres.exception.InvalidPrimaryKeyException;
 import impres.exception.PasswordMismatchException;
 
-import impres.impresario.*;
-
-import views.View;
-import views.ViewFactory;
 
 //=========================================
 public class Worker extends ModelBase
@@ -45,23 +39,23 @@ public class Worker extends ModelBase
         //Verify Password for login
         String password = props.getProperty("Password");
         String accountPassword = persistentState.getProperty("password");
-        if (accountPassword != null)
-        {
+        if (accountPassword != null) {
             boolean passwordCheck = accountPassword.equals(password);
-            if (passwordCheck == false)
-            {
+            if (!passwordCheck) {
                 throw new PasswordMismatchException(messages.getString("passwordMismatchError"));
             }
         }
-        else
-        {
+        else {
             throw new PasswordMismatchException(messages.getString("passwordMissing"));
         }
     }
 
-    public Vector getEntryListView()
-    {
-        Vector v = new Vector();
+    public Boolean isAdmin() {
+        return persistentState.getProperty("credential").equals("administrator");
+    }
+
+    public Vector getEntryListView() {
+        Vector<String> v = new Vector<>();
 
         v.addElement(persistentState.getProperty("workerId"));
         v.addElement(persistentState.getProperty("firstName"));
@@ -80,10 +74,9 @@ public class Worker extends ModelBase
         return "workerId";
     }
     public String getViewName(){ return "WorkerView"; }
-    public boolean checkIfExists(String id)
-    {
+    public boolean checkIfExists(String id) {
         try {
-            Worker worker = new Worker(id);
+            new Worker(id);
             return true;
         }
         catch (InvalidPrimaryKeyException ex) {

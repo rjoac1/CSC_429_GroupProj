@@ -105,6 +105,15 @@ public class Clerk implements IView, IModel
         else
             return "";
     }
+
+    public void displayIfAdmin(final String scene) {
+        if (LoggedWorker.getInstance().isAdmin())
+            MainFrame.getInstance().replaceScene(scene);
+        else {
+            throw new RuntimeException("needAdmin");
+        }
+    }
+
     public void stateChangeRequest(String key, Object value) {
         // STEP 4: Write the sCR method component for the key you
         // just set up dependencies for
@@ -115,10 +124,7 @@ public class Clerk implements IView, IModel
                     loginErrorMessage = "";
 
                     boolean flag = loginWorker((Properties) value);
-                    System.err.println("flag: " + flag);
                     if (flag == true) {
-                        System.err.println("poruquoi");
-                        System.err.println(MainFrame.getInstance());
                         MainFrame.getInstance().replaceScene("/views/menu.fxml");
                     }
                 }
@@ -133,11 +139,10 @@ public class Clerk implements IView, IModel
                 MainFrame.getInstance().replaceScene("/views/menu.fxml");
                 break;
             case "AddUser":
-                MainFrame.getInstance().replaceScene("/views/addUser.fxml");
-                createNewUser();
+                displayIfAdmin("/views/addUser.fxml");
                 break;
             case "AddWorker":
-                MainFrame.getInstance().replaceScene("/views/addWorker.fxml");
+                displayIfAdmin("/views/addWorker.fxml");
                 break;
             case "AddBike":
                 MainFrame.getInstance().replaceScene("/views/addBike.fxml");
@@ -155,12 +160,16 @@ public class Clerk implements IView, IModel
 //                createAndShowBikeTransactionChoiceView();
 //                break;
             case "Logout":
-                myWorker = null;
+                logout();
                 MainFrame.getInstance().replaceScene("/views/Login.fxml");
-//                createAndShowLoginView();
                 break;
         }
         myRegistry.updateSubscribers(key, this);
+    }
+
+    public void logout() {
+        myWorker = null;
+        LoggedWorker.getInstance().setCurrentLoggedUser(myWorker);
     }
 
     public void updateState(String key, Object value)
@@ -178,6 +187,7 @@ public class Clerk implements IView, IModel
         try {
             System.err.println(props);
             myWorker = new Worker(props);
+            LoggedWorker.getInstance().setCurrentLoggedUser(myWorker);
             return true;
         }
         catch (InvalidPrimaryKeyException ex) {

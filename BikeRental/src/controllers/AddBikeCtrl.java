@@ -64,7 +64,7 @@ public class AddBikeCtrl extends CtrlBase {
                 new SubmitWrapper("location", mVehicleLocation, textGetter, empty),
                 new SubmitWrapper("description", mVehicleDescription, textGetter, ok),
                 new SubmitWrapper("physicalCondition", mVehiclePhysicalCondition, comboGetter, empty),
-                new SubmitWrapper("status", mVehicleStatus, comboGetter, ok),
+                new SubmitWrapper("status", mVehicleStatus, comboGetter, empty),
                 new SubmitWrapper("dateStatusUpdated", null, dateNowGetter, ok)
         ));
     }

@@ -71,7 +71,7 @@
                <GridPane.margin>
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin></Button>
-            <Button mnemonicParsing="false" onAction="#onLogout" style="-fx-background-color: D64541;" text="Logout" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#onLogout" text="Logout" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Label text="The College At Brockport Bike Rental" GridPane.columnIndex="1" GridPane.halignment="CENTER">
