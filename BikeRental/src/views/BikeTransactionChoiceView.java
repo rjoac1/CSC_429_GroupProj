@@ -2,6 +2,8 @@
 package views;
 
 import java.awt.*;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -49,8 +51,8 @@ public class BikeTransactionChoiceView extends View
         super(clerk, "BikeTransactionChoiceView");
         subTitleText = "transChoiceSubTitle";
         //Get and store the current workers credential status
-        getWorkerAdminStatus();
-
+        workerCred = (String) myModel.getState("Credential");
+        workerCred = workerCred.trim();
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
@@ -65,7 +67,7 @@ public class BikeTransactionChoiceView extends View
         //add(createStatusLog("             "));
 
         mainFrame = MainFrame.getInstance(messages.getString("titleLine"));
-        //mainFrame.setMinimumSize(new Dimension(550, 320));
+
 
         populateFields();
 
@@ -106,15 +108,83 @@ public class BikeTransactionChoiceView extends View
     //-------------------------------------------------------------
     protected JPanel createNavigationButtons()
     {
-        String workerCred = (String) myModel.getState("Credential");
-        String workerTest = "Administrator";
-        workerCred = workerCred.trim();
-        //System.out.print(workerCred);
+        final JPanel choicePanel = new JPanel();
+        choicePanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        final JPanel rr = new JPanel();
+
+        checkoutButton = new JButton(messages.getString("checkoutButton"));
+        checkoutButton.addActionListener(this);
+
+        checkinButton = new JButton(messages.getString("checkinButton"));
+        checkinButton.addActionListener(this);
+
+        rr.add(checkoutButton);
+        rr.add(checkinButton);
+
+        choicePanel.add(new JSeparator(SwingConstants.VERTICAL));
+
+        c.gridx=0;
+        c.gridy=0;
+        c.insets = new Insets(10, 10, 0, 0);
+        choicePanel.add(rr, c);
+
+        final JPanel addButtons = new JPanel();
+        addUserButton = new JButton(messages.getString("add")+" "+messages.getString("user"));
+        addUserButton.addActionListener(this);
+
+        addWorkerButton = new JButton(messages.getString("add")+" "+messages.getString("worker"));
+        addWorkerButton.addActionListener(this);
+
+        addBikeButton = new JButton(messages.getString("add")+" "+messages.getString("bike"));
+        addBikeButton.addActionListener(this);
+
+        addButtons.add(addUserButton);
+        addButtons.add(addWorkerButton);
+        addButtons.add(addBikeButton);
+
+        c.gridx=0;
+        c.gridy=1;
+        choicePanel.add(addButtons, c);
+
+        final JPanel modButtons = new JPanel();
+        fndmodUserButton = new JButton(messages.getString("Find/Modify")+" "+messages.getString("user"));
+        fndmodUserButton.addActionListener(this);
+
+        fndmodWorkerButton = new JButton(messages.getString("Find/Modify")+" "+messages.getString("worker"));
+        fndmodWorkerButton.addActionListener(this);
+
+        fndmodBikeButton = new JButton(messages.getString("Find/Modify")+" "+messages.getString("bike"));
+        fndmodBikeButton.addActionListener(this);
+
+        modButtons.add(fndmodUserButton);
+        modButtons.add(fndmodWorkerButton);
+        modButtons.add(fndmodBikeButton);
+
+        c.gridx=0;
+        c.gridy=2;
+        choicePanel.add(modButtons, c);
+
+        logoutButton = new JButton(messages.getString("logout"));
+        logoutButton.addActionListener(this);
+        c.gridx=0;
+        c.gridy=3;
+        choicePanel.add(logoutButton, c);
 
 
+        JLabel space = new JLabel();
+        c.gridx=0;
+        c.gridy=4;
+        c.insets = new Insets(25, 20, 0, 0);
+        choicePanel.add(space, c);
 
+
+        return choicePanel;
+
+        /*
         final JPanel value = new JPanel();
-        value.setLayout(new GridLayout(0, 1, 0, 30));
+        value.setLayout(new GridLayout(0, 1, 0, 0));
 
         final JPanel panel = new JPanel();
         value.add(panel);
@@ -124,7 +194,7 @@ public class BikeTransactionChoiceView extends View
         gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
         panel.setLayout(gbl_panel);
-/*
+
         checkinButton = new JButton(messages.getString("checkinButton"));
         checkinButton.addActionListener(this);
         final GridBagConstraints gbc_btnCheckin = new GridBagConstraints();
@@ -133,26 +203,14 @@ public class BikeTransactionChoiceView extends View
         gbc_btnCheckin.gridx = 2;
         gbc_btnCheckin.gridy = 1;
         panel.add(checkinButton, gbc_btnCheckin);
-*/
+
         checkoutButton = new JButton(messages.getString("checkoutButton"));
         checkoutButton.addActionListener(this);
         final GridBagConstraints gbc_btnCheckout = new GridBagConstraints();
         gbc_btnCheckout.anchor = GridBagConstraints.NORTHWEST;
-        gbc_btnCheckout.gridx = 2;
+        gbc_btnCheckout.gridx = 3;
         gbc_btnCheckout.gridy = 1;
         panel.add(checkoutButton, gbc_btnCheckout);
-
-        checkinButton = new JButton(messages.getString("checkinButton"));
-        checkinButton.addActionListener(this);
-        final GridBagConstraints gbc_btnCheckin = new GridBagConstraints();
-        gbc_btnCheckin.anchor = GridBagConstraints.NORTHWEST;
-        gbc_btnCheckin.insets = new Insets(0, 0, 0, 5);
-        gbc_btnCheckin.gridx = 3;
-        gbc_btnCheckin.gridy = 1;
-        panel.add(checkinButton, gbc_btnCheckin);
-
-        JPanel empty1 = new JPanel();//space out the height of the boxes
-
 
         //declare adding panel
         final JPanel panel_1 = new JPanel();
@@ -179,7 +237,7 @@ public class BikeTransactionChoiceView extends View
         addUserButton.addActionListener(this);
         final GridBagConstraints gbc_btnUser = new GridBagConstraints();
         gbc_btnUser.fill = GridBagConstraints.BOTH;
-        gbc_btnUser.insets = new Insets(0, 0, 0, 25);
+        gbc_btnUser.insets = new Insets(0, 0, 0, 5);
         gbc_btnUser.gridx = 2;
         gbc_btnUser.gridy = 1;
         panel_1.add(addUserButton, gbc_btnUser);
@@ -188,7 +246,7 @@ public class BikeTransactionChoiceView extends View
         addWorkerButton.addActionListener(this);
         final GridBagConstraints gbc_btnWorker = new GridBagConstraints();
         gbc_btnWorker.fill = GridBagConstraints.BOTH;
-        gbc_btnWorker.insets = new Insets(0, 0, 0, 25);
+        gbc_btnWorker.insets = new Insets(0, 0, 0, 5);
         gbc_btnWorker.gridx = 3;
         gbc_btnWorker.gridy = 1;
         panel_1.add(addWorkerButton, gbc_btnWorker);
@@ -196,7 +254,7 @@ public class BikeTransactionChoiceView extends View
         addBikeButton = new JButton(messages.getString("bike"));
         addBikeButton.addActionListener(this);
         final GridBagConstraints gbc_btnBike = new GridBagConstraints();
-        gbc_btnBike.insets = new Insets(0, 0, 0, 25);
+        gbc_btnBike.insets = new Insets(0, 0, 0, 5);
         gbc_btnBike.fill = GridBagConstraints.BOTH;
         gbc_btnBike.gridx = 4;
         gbc_btnBike.gridy = 1;
@@ -224,7 +282,7 @@ public class BikeTransactionChoiceView extends View
         fndmodUserButton.addActionListener(this);
         final GridBagConstraints gbc_button = new GridBagConstraints();
         gbc_button.fill = GridBagConstraints.BOTH;
-        gbc_button.insets = new Insets(0, 0, 0, 25);
+        gbc_button.insets = new Insets(0, 0, 0, 5);
         gbc_button.gridx = 2;
         gbc_button.gridy = 1;
         panel_3.add(fndmodUserButton, gbc_button);
@@ -233,7 +291,7 @@ public class BikeTransactionChoiceView extends View
         fndmodWorkerButton.addActionListener(this);
         final GridBagConstraints gbc_button_1 = new GridBagConstraints();
         gbc_button_1.fill = GridBagConstraints.BOTH;
-        gbc_button_1.insets = new Insets(0, 0, 0, 25);
+        gbc_button_1.insets = new Insets(0, 0, 0, 5);
         gbc_button_1.gridx = 3;
         gbc_button_1.gridy = 1;
         panel_3.add(fndmodWorkerButton, gbc_button_1);
@@ -242,7 +300,7 @@ public class BikeTransactionChoiceView extends View
         fndmodBikeButton.addActionListener(this);
         final GridBagConstraints gbc_button_2 = new GridBagConstraints();
         gbc_button_2.fill = GridBagConstraints.BOTH;
-        gbc_button_2.insets = new Insets(0, 0, 0, 25);
+        gbc_button_2.insets = new Insets(0, 0, 0, 5);
         gbc_button_2.gridx = 4;
         gbc_button_2.gridy = 1;
         panel_3.add(fndmodBikeButton, gbc_button_2);
@@ -256,7 +314,7 @@ public class BikeTransactionChoiceView extends View
 
         final JPanel panel_4 = new JPanel();
         value.add(panel_4);
-        return value;
+        return value;*/
     }
 
     //-------------------------------------------------------------
@@ -271,7 +329,6 @@ public class BikeTransactionChoiceView extends View
         // DEBUG: System.out.println("TransactionChoiceView.actionPerformed()");
 
         //clearErrorMessage();
-        getWorkerAdminStatus();
 
         if (e.getSource() == checkinButton) {
             //myModel.stateChangeRequest("Checkin", null);
@@ -280,10 +337,10 @@ public class BikeTransactionChoiceView extends View
         } else if (e.getSource() == addUserButton) {
             myModel.stateChangeRequest("AddUser", null);
         } else if (e.getSource() == addWorkerButton) {
-            if(checkWorkerAdminStatus()){ myModel.stateChangeRequest("AddWorker", null); }
+            if(workerCred.equals("Administrator")){ myModel.stateChangeRequest("AddWorker", null); }
             else{displayErrorMessage(messages.getString("requireAdminCred"));}
         } else if (e.getSource() == addBikeButton) {
-            if(checkWorkerAdminStatus()){ myModel.stateChangeRequest("AddBike", null); }
+            if(workerCred.equals("Administrator")){ myModel.stateChangeRequest("AddBike", null); }
             else{displayErrorMessage(messages.getString("requireAdminCred"));}
         }
         else if (e.getSource() == logoutButton) {
@@ -291,11 +348,11 @@ public class BikeTransactionChoiceView extends View
         }
     }
 
-        /**
-         * Cancel button hit.
-         * Action here is to ask the teller to switch to the main teller view.
-         */
-        //----------------------------------------------------------
+    /**
+     * Cancel button hit.
+     * Action here is to ask the teller to switch to the main teller view.
+     */
+    //----------------------------------------------------------
     private void processLogout()
     {
         myModel.stateChangeRequest("Logout", null);
@@ -309,15 +366,5 @@ public class BikeTransactionChoiceView extends View
             // display the passed text
             displayErrorMessage((String)value);
         }
-    }
-
-    private void getWorkerAdminStatus(){
-        workerCred = (String) myModel.getState("Credential");
-        workerCred = workerCred.trim();
-    }
-
-    private boolean checkWorkerAdminStatus(){
-        //return workerCred.equals("Administrator");
-        return workerCred.equals("administrator");
     }
 }

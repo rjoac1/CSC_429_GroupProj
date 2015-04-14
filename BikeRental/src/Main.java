@@ -42,7 +42,7 @@ public class Main
             System.out.println("Could not create Clerk." + exc.getMessage());
         }
         mainFrame.pack();
-		mainFrame.setMinimumSize(new Dimension(350,200));
+		mainFrame.setMinimumSize(new Dimension(350,250));
         WindowPosition.placeCenter(mainFrame);
 
         mainFrame.setVisible(true);
