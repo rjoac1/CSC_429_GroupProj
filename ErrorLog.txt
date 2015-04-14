@@ -17,3 +17,4 @@
 [4/13/15 9:42 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdf' in 'where clause'>
 [4/13/15 10:13 AM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'asdf' in 'where clause'>
 [4/13/15 1:03 PM]|Worker|insertPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'phoneNumber' at row 1>
+[4/14/15 10:46 AM]|User|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Data too long for column 'phoneNumber' at row 1>
