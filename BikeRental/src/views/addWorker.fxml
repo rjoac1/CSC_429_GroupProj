@@ -126,7 +126,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <PasswordField fx:id="mPassword" promptText="\%password" GridPane.columnSpan="3" GridPane.rowIndex="9">
+            <PasswordField fx:id="mPassword" promptText="%password" GridPane.columnSpan="3" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
