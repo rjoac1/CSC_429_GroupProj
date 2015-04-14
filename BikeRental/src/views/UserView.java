@@ -151,7 +151,7 @@ public class UserView extends View{
 
         JPanel temp7 = new JPanel();
         //JPanel temp7a = new JPanel();
-        temp7.setLayout(new GridLayout(2,2, 10, 0));
+        temp7.setLayout(new GridLayout(2,2, 0, 0));
 
 
         JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
@@ -159,17 +159,17 @@ public class UserView extends View{
         JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
         temp7.add(memExpireLabel);
 
-        JPanel dateTemp2 = new JPanel();
-        dateTemp2.setLayout(new FlowLayout((FlowLayout.LEFT)));
-        regDatePicker = getDatePicker();
-        dateTemp2.add(regDatePicker);
-        temp7.add(dateTemp2);
-
         JPanel dateTemp1 = new JPanel();
-        dateTemp1.setLayout(new FlowLayout(FlowLayout.LEFT));
-        memExpireDatePicker = getDatePicker();
-        dateTemp1.add(memExpireDatePicker);
+        dateTemp1.setLayout(new FlowLayout((FlowLayout.LEFT)));
+        regDatePicker = getDatePicker();
+        dateTemp1.add(regDatePicker);
         temp7.add(dateTemp1);
+
+        JPanel dateTemp2 = new JPanel();
+        dateTemp2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        memExpireDatePicker = getDatePicker();
+        dateTemp2.add(memExpireDatePicker);
+        temp7.add(dateTemp2);
         tempSetup.add(temp7);
 
 
@@ -222,7 +222,7 @@ public class UserView extends View{
 
         JPanel notePanel = new JPanel();
         notePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        notesArea = new JTextArea(null,5,35);
+        notesArea = new JTextArea(null,5,40);
         noteLabelPanel.add(notesLabel);
         notePanel.add(notesArea);
         tempSetup.add(noteLabelPanel);

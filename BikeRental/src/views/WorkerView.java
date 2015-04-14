@@ -274,7 +274,7 @@ public class WorkerView extends View{
 
         JPanel notePanel = new JPanel();
         notePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        notesArea = new JTextArea(null,5,35);
+        notesArea = new JTextArea(null,5,40);
         notePanel.add(notesArea);
 
         temp.add(noteLabelPanel);
