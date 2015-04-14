@@ -21,8 +21,9 @@ public class MenuCtrl extends CtrlBase {
     }
 
     public void onAddUser() {
-        //  FIXME: should pass by the Clerk
-        displayIfAdmin("/views/addWorker.fxml");
+        mClerk.stateChangeRequest("AddUser", null);
+//        mClerk.stateChangeRequest("Add""/views/addUser.fxml");
+//        displayIfAdmin("/views/addUser.fxml");
     }
 
     public void onAddWorker() {

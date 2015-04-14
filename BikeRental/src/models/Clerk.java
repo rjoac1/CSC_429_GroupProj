@@ -12,6 +12,7 @@ import impres.impresario.ModelRegistry;
 import impres.exception.InvalidPrimaryKeyException;
 import impres.exception.PasswordMismatchException;
 import impres.event.Event;
+import sun.applet.Main;
 import views.*;
 
 public class Clerk implements IView, IModel
@@ -139,7 +140,7 @@ public class Clerk implements IView, IModel
                 MainFrame.getInstance().replaceScene("/views/menu.fxml");
                 break;
             case "AddUser":
-                displayIfAdmin("/views/addUser.fxml");
+                MainFrame.getInstance().replaceScene("/views/addUser.fxml");
                 break;
             case "AddWorker":
                 displayIfAdmin("/views/addWorker.fxml");
