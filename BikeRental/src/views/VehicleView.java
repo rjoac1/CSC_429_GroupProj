@@ -30,6 +30,7 @@ public class VehicleView extends View
     public VehicleView(IModel vehicle)
     {
         super(vehicle, "VehicleView");
+        subTitleText = "AddVehicleTitle";
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -48,19 +49,6 @@ public class VehicleView extends View
         super.paint(g);
     }
 
-    //create Title
-    protected JPanel createSubTitle()
-    {
-        JPanel temp = new JPanel();
-        temp.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        JLabel lbl = new JLabel(messages.getString("AddVehicleTitle"));
-        Font myFont = new Font("Helvetica", Font.BOLD, 20);
-        lbl.setFont(myFont);
-        temp.add(lbl);
-
-        return temp;
-    }
 
     private JPanel createDataEntryFields()
     {

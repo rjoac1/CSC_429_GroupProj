@@ -45,7 +45,7 @@ public class UserView extends View{
 
     public UserView(IModel clerk){
         super(clerk, "UserView");
-
+        subTitleText = "InsertUsers";
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -70,21 +70,6 @@ public class UserView extends View{
     {
         super.paint(g);
         //userid.requestFocus();
-    }
-
-    // Create the labels and fields
-    //-------------------------------------------------------------
-    protected JPanel createSubTitle()
-    {
-        JPanel temp = new JPanel();
-        temp.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        JLabel lbl = new JLabel(messages.getString("InsertUsers"));
-        Font myFont = new Font("Helvetica", Font.BOLD, 20);
-        lbl.setFont(myFont);
-        temp.add(lbl);
-
-        return temp;
     }
 
     // Create the main data entry fields

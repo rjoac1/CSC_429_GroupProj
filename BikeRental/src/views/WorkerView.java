@@ -41,6 +41,7 @@ public class WorkerView extends View{
     public WorkerView(IModel clerk)
     {
         super(clerk, "WorkerView");
+        subTitleText = "AddWorkerTitle";
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -60,18 +61,8 @@ public class WorkerView extends View{
     {
         super.paint(g);
     }
-    protected JPanel createSubTitle()
-    {
-        JPanel temp = new JPanel();
-        temp.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        JLabel lbl = new JLabel(messages.getString("AddWorkerTitle"));
-        Font myFont = new Font("Helvetica", Font.BOLD, 15);
-        lbl.setFont(myFont);
-        temp.add(lbl);
 
-        return temp;
-    }
     private JPanel createDataEntryFields()
     {
         JPanel temp = new JPanel();

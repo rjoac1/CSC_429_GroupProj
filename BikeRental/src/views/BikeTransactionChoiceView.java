@@ -46,12 +46,14 @@ public class BikeTransactionChoiceView extends View
     public BikeTransactionChoiceView(IModel clerk)
     {
         super(clerk, "BikeTransactionChoiceView");
+        subTitleText = "transChoiceSubTitle";
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
         //this.setSize(new Dimension(300, 400));
         // Add a title for this panel
         add(createTitle());
-
+        // Add the welcome message string
+        add(createWelcomeMessage());
         // create our GUI components, add them to this panel
         add(createNavigationButtons());
 
@@ -65,31 +67,14 @@ public class BikeTransactionChoiceView extends View
         myModel.subscribe("TransactionError", this);
     }
 
-    // Create the labels and fields
-    //-------------------------------------------------------------
-    protected JPanel createSubTitle()
-    {
+    protected JPanel createWelcomeMessage() {
         JPanel temp = new JPanel();
-        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
+        temp.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        JPanel temp3 = new JPanel();
-        temp3.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        JLabel lbl2 = new JLabel(messages.getString("transChoiceSubTitle"));
-        Font myFont3 = new Font("Helvetica", Font.BOLD, 15);
-        lbl2.setFont(myFont3);
-        temp3.add(lbl2);
-
-        temp.add(temp3);
-
-        JPanel temp4 = new JPanel();
-        temp4.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        String workerGreetingLastName = (String)myModel.getState("LastName");
-        String workerGreetingFirstName = (String)myModel.getState("FirstName");
-        String workerGreetingId = (String)myModel.getState("WorkerId");
-        String workerGreetingCredentials = (String)myModel.getState("Credential");
-
+        String workerGreetingLastName = (String) myModel.getState("LastName");
+        String workerGreetingFirstName = (String) myModel.getState("FirstName");
+        String workerGreetingId = (String) myModel.getState("WorkerId");
+        String workerGreetingCredentials = (String) myModel.getState("Credential");
 
 
         Object[] messageArguments = {
@@ -106,13 +91,11 @@ public class BikeTransactionChoiceView extends View
         String greeting = formatter.format(messageArguments);
 
         JLabel lbl3 = new JLabel(greeting);
-        lbl3.setFont(myFont3);
-        temp4.add(lbl3);
-
-        temp.add(temp4);
-
+        lbl3.setFont(myFont2);
+        temp.add(lbl3);
         return temp;
-    }
+    };
+
 
     // Create the navigation buttons
     //-------------------------------------------------------------
