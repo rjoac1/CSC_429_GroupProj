@@ -121,7 +121,7 @@ public class UserView extends View{
 
         //add userType and status
         JPanel dropPanel = new JPanel();
-        dropPanel.setLayout(new GridLayout(2,2,0,0));
+        dropPanel.setLayout(new GridLayout(2,2,10,0));
         //dropPanel.setBorder(new EmptyBorder(80, 0, 80, 0) );
         JLabel userTypeLabel = new JLabel(messages.getString("userType"));
         String[] userTypeChoices = new String[2];

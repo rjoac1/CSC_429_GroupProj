@@ -29,6 +29,10 @@ import impres.impresario.IModel;
 import impres.impresario.IControl;
 import impres.impresario.ControlRegistry;
 import models.LocaleStore;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 
 //==============================================================
 public abstract class View extends JPanel
@@ -40,6 +44,7 @@ public abstract class View extends JPanel
     protected ResourceBundle messages;
     protected MessageView statusLog;
     protected String subTitleText = "";
+    protected JDatePickerImpl datePicker;
 
     final protected int gridBuffer1 = 5;
     final protected int gridBuffer2 = 5;
@@ -105,6 +110,26 @@ public abstract class View extends JPanel
         JLabel lbl = new JLabel(messages.getString(subTitleText));
         lbl.setFont(myFont2);
         temp.add(lbl);
+
+        return temp;
+    }
+
+    protected JPanel getDatePicker()
+    {
+        JPanel temp = new JPanel();
+
+        UtilDateModel model = new UtilDateModel();
+        //model.setDate(20,04,2014);
+        // Need this...
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+        // Don't know about the formatter, but there it is...
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+
+        temp.add(datePicker);
 
         return temp;
     }

@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.*;
 
 import impres.impresario.IModel;
+import models.DBContentStrategy;
 import models.LocaleStore;
 
 public class WorkerView extends View{
@@ -65,12 +66,25 @@ public class WorkerView extends View{
 
     private JPanel createDataEntryFields()
     {
+        JPanel main = new JPanel();
+        main.setLayout(new BorderLayout());
+
+        //Create blank JPanels for side bars
+        JPanel empty = new JPanel();
+        empty.setPreferredSize(new Dimension(60, 0));
+
+        JPanel empty1 = new JPanel();
+        empty1.setPreferredSize(new Dimension(60, 0));
+
+        main.add(empty,BorderLayout.WEST);
+
         JPanel temp = new JPanel();
+        //temp.setLayout(new GridBagLayout());
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
         //WorkerId Field
         JPanel temp0 = new JPanel();
-        temp0.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));   // changed layout style to be more like userview -mw
+        temp0.setLayout(new GridLayout(2,0,0,0));
 
         JLabel workerIdLabel = new JLabel(messages.getString("workerId"));
         temp0.add(workerIdLabel);
@@ -83,89 +97,63 @@ public class WorkerView extends View{
 
         //First Name Field
         JPanel temp1 = new JPanel();
-        temp1.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));   // changed layout style to be more like userview -mw
+        temp1.setLayout(new GridLayout(2,2,10,0));   // changed layout style to be more like userview -mw
 
 
         JLabel firstNameLabel = new JLabel(messages.getString("firstName"));
         temp1.add(firstNameLabel);
 
-        firstNameBox = new JTextField(25);
+        JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
+        temp1.add(lastNameLabel);
+
+        firstNameBox = new JTextField(15);
         firstNameBox.addActionListener(this);
         temp1.add(firstNameBox);
 
+        lastNameBox = new JTextField(15);
+        lastNameBox.addActionListener(this);
+        temp1.add(lastNameBox);
+
         temp.add(temp1);
 
-        //Last Name Field
-        JPanel temp2 = new JPanel();
-        temp2.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
-        //temp2.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
-        temp2.add(lastNameLabel);
-
-        lastNameBox = new JTextField(30);
-        lastNameBox.addActionListener(this);
-        temp2.add(lastNameBox);
-
-        temp.add(temp2);
-
-        //add email field
-        JPanel temp3 = new JPanel();
-        temp3.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
-        //temp3.setLayout(new FlowLayout(FlowLayout.LEFT));
-
+        JPanel emailPanel = new JPanel();
+        emailPanel.setLayout(new GridLayout(2,0,0,0));
+        //emailPanel.setBorder(new EmptyBorder(80, 0, 80, 0) );
         JLabel emailLabel = new JLabel(messages.getString("email"));
-        temp3.add(emailLabel);
-
-        emailBox = new JTextField(30);
+        emailPanel.add(emailLabel);
+        emailBox = new JTextField(31);
         emailBox.addActionListener(this);
-        temp3.add(emailBox);
+        emailPanel.add(emailBox);
+        temp.add(emailPanel);
 
-        temp.add(temp3);
-
-        //add phone field
-        JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(1,4,gridBuffer1,gridBuffer2));
-        //temp4.setLayout(new FlowLayout(FlowLayout.LEFT));
-
+        //add phone
+        JPanel phonePanel = new JPanel();
+        phonePanel.setLayout(new GridLayout(2,0,0,0));
+        // phonePanel.setBorder(new EmptyBorder(80, 0, 80, 0) );
         JLabel phoneLabel = new JLabel(messages.getString("phone"));
-        temp4.add(phoneLabel);
+        phonePanel.add(phoneLabel);
 
+        JPanel phoneInputPanel = new JPanel();
+        phoneInputPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        //phonePanel.add(new JLabel());
+        //phonePanel.add(new JLabel());
+        JLabel phonePlus = new JLabel("+");
+
+        phoneInputPanel.add(phonePlus);
         phoneBox1 = new JTextField(3);
         phoneBox1.addActionListener(this);
-        temp4.add(phoneBox1);
+        phoneBox1.setSize(new Dimension(0,0));
 
-        phoneBox2 = new JTextField(3);
-        phoneBox2.addActionListener(this);
-        temp4.add(phoneBox2);
-
-        phoneBox3 = new JTextField(4);
-        phoneBox3.addActionListener(this);
-        temp4.add(phoneBox3);
-
-        temp.add(temp4);
-
-        //Add credential field
-        JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
-        //temp5.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel credentialPanel = new JLabel(messages.getString("credential"));
-        temp5.add(credentialPanel);
-
-        String[] creds = new String[2];
-        creds[0] = messages.getString("administrator");
-        creds[1] = messages.getString("user");
-        credentialBox = new JComboBox(creds);
-        credentialBox.setSelectedIndex(0);
-        credentialBox.addActionListener(this);
-        temp5.add(credentialBox);
-
-        temp.add(temp5);
+        phoneInputPanel.add(phoneBox1);
+        phoneBox2 = new JTextField(20);
+        //phoneBox2.setPreferredSize(new Dimension(800,20));
+        phoneInputPanel.add(phoneBox2);
+        phonePanel.add(phoneInputPanel);
+        temp.add(phonePanel);
 
         //Add password Field
         JPanel temp6 = new JPanel();
-        temp6.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
+        temp6.setLayout(new GridLayout(2,0,0,0));
         //temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel passwordPanel = new JLabel(messages.getString("password"));
@@ -178,6 +166,61 @@ public class WorkerView extends View{
 
         temp.add(temp6);
 
+        //Add date Field
+        JPanel dateTemp = new JPanel();
+        temp6.setLayout(new GridLayout(2,0,0,0));
+        //temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        JLabel datePanel = new JLabel(messages.getString("dateOfInitialReg"));
+        temp6.add(datePanel);
+
+        dateTemp.add(getDatePicker());
+
+        temp.add(dateTemp);
+
+        //add credential field and status field
+
+        JPanel credPanel = new JPanel();
+        credPanel.setLayout(new GridLayout(2,2,10,0));
+        JLabel credentialLabel = new JLabel(messages.getString("credential"));
+        credPanel.add(credentialLabel);
+        JLabel statusLabel = new JLabel(messages.getString("status"));
+        credPanel.add(statusLabel);
+
+        String[] creds = new String[2];
+        creds[0] = messages.getString("administrator");
+        creds[1] = messages.getString("user");
+        credentialBox = new JComboBox(creds);
+        credentialBox.setSelectedIndex(0);
+        credentialBox.addActionListener(this);
+        credPanel.add(credentialBox);
+
+        String[] choices = new String[2];
+        choices[0] = messages.getString("active");
+        choices[1] = messages.getString("inactive");
+        statusBox = new JComboBox(choices);
+        statusBox.setSelectedIndex(0);
+        statusBox.addActionListener(this);
+        credPanel.add(statusBox);
+
+        temp.add(credPanel);
+
+
+        //add notes section
+        JPanel noteLabelPanel = new JPanel();
+        noteLabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JLabel notesLabel = new JLabel(messages.getString("notes"));
+        noteLabelPanel.add(notesLabel);
+
+        JPanel notePanel = new JPanel();
+        notePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        notesArea = new JTextArea(null,5,35);
+        notePanel.add(notesArea);
+
+        temp.add(noteLabelPanel);
+        temp.add(notePanel);
+
+        /*
         //Add Date of initial registration field
         JPanel temp7 = new JPanel();
         temp7.setLayout(new GridLayout(1, 4, gridBuffer1, gridBuffer2));
@@ -197,41 +240,11 @@ public class WorkerView extends View{
         regDateBox3 = new JTextField(4);
         regDateBox3.addActionListener(this);
         temp7.add(regDateBox3);
+*/
+        main.add(temp, BorderLayout.CENTER);
+        main.add(empty1,BorderLayout.EAST);
 
-        temp.add(temp7);
-
-        //Add notes field
-        JPanel temp8 = new JPanel();
-        temp8.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
-        //temp8.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel notesLabel = new JLabel(messages.getString("notes"));
-        temp8.add(notesLabel);
-
-        notesArea = new JTextArea(null,5,20);
-        temp8.add(notesArea);
-
-        temp.add(temp8);
-
-        //add Status box
-        JPanel temp9 = new JPanel();
-        temp9.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
-        //temp9.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel statusLabel = new JLabel(messages.getString("status"));
-        temp9.add(statusLabel);
-
-        String[] choices = new String[2];
-        choices[0] = messages.getString("active");
-        choices[1] = messages.getString("inactive");
-        statusBox = new JComboBox(choices);
-        statusBox.setSelectedIndex(0);
-        statusBox.addActionListener(this);
-        temp9.add(statusBox);
-
-        temp.add(temp9);
-
-        return temp;
+        return main;
     }
     private JPanel createNavigationButtons()
     {
@@ -251,7 +264,7 @@ public class WorkerView extends View{
     //-------------------------------------------------------------
     public void populateFields()
     {
-        //set date fields based on the locale*****
+        /*//set date fields based on the locale*****
         if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
         {
             regDateBox1.setText("dd");
@@ -264,7 +277,7 @@ public class WorkerView extends View{
         regDateBox3.setText("yyyy");
 
         // userid.setText("");
-        //password.setText("");
+        //password.setText("");*/
     }
     public void processAction(EventObject e) {
 
@@ -280,7 +293,7 @@ public class WorkerView extends View{
             String phone2Entered = phoneBox2.getText();
             String phone3Entered = phoneBox3.getText();
             String phoneEntered = phone1Entered + "-" + phone2Entered + "-" + phone3Entered;
-            String credEntered = (String)credentialBox.getSelectedItem();
+            String credEntered = DBContentStrategy.getCredentialValue(credentialBox.getSelectedIndex());
 
             char[] passwordValueEntered = passwordBox.getPassword();
             String passwordEntered = new String(passwordValueEntered);
@@ -308,7 +321,7 @@ public class WorkerView extends View{
             String regDateEntered = regDateYearEntered + "-" + regDateMonthEntered + "-" + regDateDayEntered;
 
             String notesEntered = notesArea.getText();
-            String statusEntered = (String)statusBox.getSelectedItem();
+            String statusEntered = DBContentStrategy.getStatusValue(statusBox.getSelectedIndex());
 
             if((workerIdEntered == null) || (workerIdEntered.length() == 0))
             {
@@ -437,6 +450,7 @@ public class WorkerView extends View{
         props.setProperty("firstName", values[0]);
         props.setProperty("lastName", values[1]);
         props.setProperty("phoneNumber", values[2]);
+        System.out.println(values[2]); //test
         props.setProperty("emailAddress", values[3]);
         props.setProperty("credential", values[4]);
         props.setProperty("password", values[5]);
