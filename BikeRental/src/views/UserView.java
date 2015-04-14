@@ -19,7 +19,9 @@ import javax.swing.border.EmptyBorder;
 
 // project imports
 import impres.impresario.IModel;
+import models.DBContentStrategy;
 import models.LocaleStore;
+import org.jdatepicker.impl.JDatePickerImpl;
 
 public class UserView extends View{
 //
@@ -36,8 +38,10 @@ public class UserView extends View{
     private JTextArea notesArea;
     private JComboBox userTypeBox;
     private JComboBox statBox;
-    private JButton submit;
-    private JButton done;
+
+    private JDatePickerImpl memExpireDatePicker;
+    private JDatePickerImpl regDatePicker;
+
     private JPanel temp;
 
     // For showing error message
@@ -150,32 +154,21 @@ public class UserView extends View{
         JPanel temp7 = new JPanel();
         JPanel temp7a = new JPanel();
         temp7.setLayout(new GridLayout(2, 1, 0, 0));
-        temp7a.setLayout(new GridLayout(1,3,0,0));
         JLabel memExpireLabel = new JLabel(messages.getString("membershipExpire"));
-        memExpireDateBox1 = new JTextField(2);
-        memExpireDateBox2 = new JTextField(2);
-        memExpireDateBox3 = new JTextField(4);
         temp7.add(memExpireLabel);
-        temp7a.add(memExpireDateBox1);
-        temp7a.add(memExpireDateBox2);
-        temp7a.add(memExpireDateBox3);
-        temp7.add(temp7a);
+        memExpireDatePicker = getDatePicker();
+        temp7.add(memExpireDatePicker);
         tempSetup.add(temp7);
 
 
         JPanel temp8 = new JPanel();
-        JPanel temp8a = new JPanel();
         temp8.setLayout(new GridLayout(2,1,0,0));
-        temp8a.setLayout(new GridLayout(1,3,0,0));
+
         JLabel registrationDateLabel = new JLabel(messages.getString("dateOfInitialReg"));
-        regDateBox1 = new JTextField(2);
-        regDateBox2 = new JTextField(2);
-        regDateBox3 = new JTextField(4);
+        regDatePicker = getDatePicker();
         temp8.add(registrationDateLabel);
-        temp8a.add(regDateBox1);
-        temp8a.add(regDateBox2);
-        temp8a.add(regDateBox3);
-        temp8.add(temp8a);
+
+        temp8.add(regDatePicker);
         tempSetup.add(temp8);
 
 
@@ -225,52 +218,10 @@ public class UserView extends View{
         temp.add(tempMain);
         return temp;
     }
-
-    // Create the navigation buttons
-    //-------------------------------------------------------------
-    private JPanel createNavigationButtons()
-    {
-
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        submit = new JButton(messages.getString("submit"));
-        submit.addActionListener(this);
-        temp1.add(submit);
-        //temp1.add(submit);
-        //temp1.add(done);
-        temp.add(temp1);
-
-        JPanel temp2 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JLabel empty = new JLabel();
-        temp2.add(empty);
-        temp.add(temp2);
-
-
-        JPanel temp3 = new JPanel();
-        temp3.setLayout(new FlowLayout(FlowLayout.LEFT));
-        done = new JButton(messages.getString("back"));
-        done.addActionListener(this);
-        temp3.add(done);
-        temp.add(temp3);
-        //temp1.add(submit);
-        //temp1.add(done);
-        //temp.add(temp1);
-
-        //JPanel temp6 = new JPanel();
-        //temp6.setLayout(new FlowLayout(FlowLayout.CENTER));
-        //statusLog = new MessageView("");
-        //temp6.add(statusLog);
-        //temp.add(createStatusLog("     "));
-
-        return temp;
-
-    }
     //-------------------------------------------------------------
     public void populateFields()
     {
-        //set date fields based on the locale*****
+        /*//set date fields based on the locale*****
 
         if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
         {
@@ -288,7 +239,7 @@ public class UserView extends View{
         memExpireDateBox3.setText("yyyy");
         regDateBox3.setText("yyyy");
         //userid.setText("");
-        //password.setText("");
+        //password.setText("");*/
     }
 
     // IMPRESARIO: Note how we use this method name instead of 'actionPerformed()'
@@ -301,7 +252,7 @@ public class UserView extends View{
     //-------------------------------------------------------------
     public void processAction(EventObject evt)
     {
-        String memExpireDateDayEntered = "";
+        /*String memExpireDateDayEntered = "";
         String memExpireDateMonthEntered = "";
         String memExpireDateYearEntered = "";
         String regDateDayEntered = "";
@@ -324,70 +275,62 @@ public class UserView extends View{
         }
         memExpireDateYearEntered = memExpireDateBox3.getText();
         regDateYearEntered = regDateBox3.getText();
-        //clearErrorMessage();
-        String firstName,lastName,phoneNumber,emailAddress,userType,
-                memExpireDate, memRegistrationDateDay,memRegistrationDateMonth,memRegistrationDateYear,statusUpdateDate, notes;
-        String[] values = new String[12];
-        values[0] = firstNameBox.getText();
-        values[1] = lastNameBox.getText();
-        values[2] = phoneBox1.getText()+phoneBox2.getText();
-        values[3] = emailBox.getText();
-        values[4] = ""+userTypeBox.getSelectedItem();
-        values[5] = memExpireDateDayEntered;
-        values[6] = memExpireDateMonthEntered;
-        values[7] = memExpireDateYearEntered;
-        values[8] = regDateDayEntered;
-        values[9] = regDateMonthEntered;
-        values[10] = regDateYearEntered;
-        values[11] = notesArea.getText();
+        //clearErrorMessage();*/
+        Date regDate = (Date) regDatePicker.getModel().getValue();
+        Date memExpireDate = (Date) regDatePicker.getModel().getValue();
+            //Strin firstName,lastName,phoneNumber,emailAddress,userType,
+            //        memExpireDate, memRegistrationDateDay,memRegistrationDateMonth,memRegistrationDateYear,statusUpdateDate, notes;
+            String[] values = new String[9];
+            values[0] = firstNameBox.getText();
+            values[1] = lastNameBox.getText();
+            values[2] = phoneBox1.getText() + phoneBox2.getText();
+            values[3] = emailBox.getText();
+            values[4] = DBContentStrategy.getUserTypeValue(userTypeBox.getSelectedIndex());
+            values[7] = notesArea.getText();
+            values[8] = DBContentStrategy.getStatusValue(statBox.getSelectedIndex());
 
-        // DEBUG: System.out.println("UserView.actionPerformed()");
-        if(evt.getSource() == done)
-        {
-            //Librarian librarian = new Librarian();
-            myModel.stateChangeRequest("Done", null);
-        }
-        else if(evt.getSource() == submit){
-            if (values[0].length() == 0)
-            {
-                displayErrorMessage(messages.getString("enterFirstNameError"));
-                firstNameBox.requestFocus();
-            }
-            else if (values[1].length() == 0)
-            {
-                displayErrorMessage(messages.getString("enterLastNameError"));
-                lastNameBox.requestFocus();
-            }
-            else if (values[2].length() == 0 || phoneBox1.getText().length() != 3
-                        || phoneBox2.getText().length() != 3 )
-            {
-                displayErrorMessage(messages.getString("phoneFormatError"));
-                phoneBox1.requestFocus();
-            }
-            else if ((phoneBox1.getText().matches("^\\d+$")!=true) || (phoneBox2.getText().matches("^\\d+$")!=true))
-            {
-                displayErrorMessage(messages.getString("phoneNumericalError"));
-                phoneBox1.requestFocus();
-            }
-            else if (values[3].length() == 0)
-            {
-                displayErrorMessage(messages.getString("enterEmailError"));
-                emailBox.requestFocus();
-            }
-            else if (values[4].length() == 0)
-            {
-                displayErrorMessage(messages.getString("userTypeError"));
-                userTypeBox.requestFocus();
-            }
-           // else if (values[5].length() == 0)
-            //{
-            //    displayErrorMessage(messages.getString("membershipExpireError"));
-            //    memExpireBox.requestFocus();
-           // }
+            // DEBUG: System.out.println("UserView.actionPerformed()");
+            if (evt.getSource() == done) {
+                //Librarian librarian = new Librarian();
+                myModel.stateChangeRequest("Done", null);
+            } else if (evt.getSource() == submit) {
+                if (values[0].length() == 0) {
+                    displayErrorMessage(messages.getString("enterFirstNameError"));
+                    firstNameBox.requestFocus();
+                } else if (values[1].length() == 0) {
+                    displayErrorMessage(messages.getString("enterLastNameError"));
+                    lastNameBox.requestFocus();
+                } else if (values[2].length() == 0 || phoneBox1.getText().length() != 3
+                        || phoneBox2.getText().length() != 3) {
+                    displayErrorMessage(messages.getString("phoneFormatError"));
+                    phoneBox1.requestFocus();
+                } else if ((phoneBox1.getText().matches("^\\d+$") != true) || (phoneBox2.getText().matches("^\\d+$") != true)) {
+                    displayErrorMessage(messages.getString("phoneNumericalError"));
+                    phoneBox1.requestFocus();
+                } else if (values[3].length() == 0) {
+                    displayErrorMessage(messages.getString("enterEmailError"));
+                    emailBox.requestFocus();
+                } else if (values[4].length() == 0) {
+                    displayErrorMessage(messages.getString("userTypeError"));
+                    userTypeBox.requestFocus();
+                }
+                else if(regDate == null)
+                {
+                    displayErrorMessage(messages.getString("selectRegDateError"));
+                }
+                else if(memExpireDate == null)
+                {
+                    displayErrorMessage(messages.getString("selectMemExpireDateError"));
+                }
+                // else if (values[5].length() == 0)
+                //{
+                //    displayErrorMessage(messages.getString("membershipExpireError"));
+                //    memExpireBox.requestFocus();
+                // }
 
 
-         //***************************************************
-            else if (values[5].length() == 0)
+                //***************************************************
+            /*else if (values[5].length() == 0)
             {
                 displayErrorMessage(messages.getString("memExpireDateError"));// check bundle
                 memExpireDateBox1.requestFocus();
@@ -479,12 +422,13 @@ public class UserView extends View{
             {
                 displayErrorMessage(messages.getString("regDateDayRangeError"));
                 regDateBox1.requestFocus();
+            }*/
+                else {
+                    values[5] = dateFormatter.format(regDate);
+                    values[6] = dateFormatter.format(memExpireDate);
+                    processUser(values);
+                }
             }
-            else
-            {
-                processUser(values);
-            }
-        }
     }
 
     /**
@@ -500,16 +444,17 @@ public class UserView extends View{
         props.setProperty("phoneNumber", values[2]);
         props.setProperty("emailAddress", values[3]);
         props.setProperty("userType", values[4]);
-        props.setProperty("dateOfMembershipExpired", values[7] + "-" +  values[6] + "-" +  values[5] );
-        props.setProperty("dateOfMembershipReg", values[10] + "-" +  values[9] + "-" +  values[8] );
-        props.setProperty("status",""+statBox.getSelectedItem());
+        props.setProperty("dateOfMembershipExpired", values[6] );
+        props.setProperty("dateOfMembershipReg", values[5] );
+        props.setProperty("notes", values[7]);
+        props.setProperty("status",values[8]);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String dateString = dateFormat.format(date);
 
         props.setProperty("dateStatusUpdated",dateString);
-        props.setProperty("notes", values[9]);
+
 
         myModel.stateChangeRequest("ProcessInsertion", props);
     }

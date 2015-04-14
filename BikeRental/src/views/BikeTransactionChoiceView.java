@@ -104,7 +104,7 @@ public class BikeTransactionChoiceView extends View
 
     // Create the navigation buttons
     //-------------------------------------------------------------
-    private JPanel createNavigationButtons()
+    protected JPanel createNavigationButtons()
     {
         String workerCred = (String) myModel.getState("Credential");
         String workerTest = "Administrator";
@@ -305,6 +305,6 @@ public class BikeTransactionChoiceView extends View
     }
 
     private boolean checkWorkerAdminStatus(){
-        return workerCred.equals("Administrator");
+        return workerCred.equals("administrator");
     }
 }

@@ -23,8 +23,8 @@ public class VehicleView extends View
     private JComboBox<String> physicalCondition;
     private JComboBox<String> status;
 
-    private JButton submitButton;
-    private JButton doneButton;
+    //private JButton submitButton;
+    //private JButton doneButton;
 
     public VehicleView(IModel vehicle)
     {
@@ -196,8 +196,8 @@ public class VehicleView extends View
         tempMain.add(empty1,BorderLayout.EAST);
         return tempMain;
     }
-
-    private JPanel createNavigationButtons()
+//Put this in super class -RJ
+    /*private JPanel createNavigationButtons()
     {
         JPanel temp = new JPanel();		// default FlowLayout is fine
         FlowLayout f1 = new FlowLayout(FlowLayout.CENTER);
@@ -215,7 +215,7 @@ public class VehicleView extends View
         temp.add(doneButton);
 
         return temp;
-    }
+    }*/
     public void populateFields()
     {
         //Not really needed for vehicles unless otherwise noted
@@ -225,7 +225,7 @@ public class VehicleView extends View
     {
         //clearErrorMessage();
 
-        if(e.getSource() == submitButton)
+        if(e.getSource() == submit)
         {
             String makeText = make.getText();
             String modelNumberText = modelNumber.getText();
@@ -297,7 +297,7 @@ public class VehicleView extends View
             }
         }
         else
-        if(e.getSource() == doneButton)
+        if(e.getSource() == done)
         {
             processDone();
         }

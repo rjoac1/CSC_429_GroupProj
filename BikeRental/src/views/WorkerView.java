@@ -5,23 +5,20 @@ package views;
  */
 
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Properties;
 import java.util.EventObject;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.*;
 
 import impres.impresario.IModel;
 import models.DBContentStrategy;
-import models.LocaleStore;
+import org.jdatepicker.impl.JDatePickerImpl;
 
 public class WorkerView extends View{
 
@@ -36,8 +33,10 @@ public class WorkerView extends View{
     private JTextField regDateBox1, regDateBox2, regDateBox3;
     private JTextArea notesArea;
     private JComboBox statusBox;
-    private JButton submit;
-    private JButton done;
+
+    private JDatePickerImpl regDatePicker;
+    //private JButton submit;
+    //private JButton done;
 
     public WorkerView(IModel clerk)
     {
@@ -168,13 +167,18 @@ public class WorkerView extends View{
 
         //Add date Field
         JPanel dateTemp = new JPanel();
-        temp6.setLayout(new GridLayout(2,0,0,0));
+        dateTemp.setLayout(new GridLayout(2,0,0,0));
         //temp6.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel datePanel = new JLabel(messages.getString("dateOfInitialReg"));
-        temp6.add(datePanel);
+        dateTemp.add(datePanel);
 
-        dateTemp.add(getDatePicker());
+        JPanel dateTemp1 = new JPanel();
+        dateTemp1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        regDatePicker = getDatePicker();
+        dateTemp1.add(regDatePicker);
+
+        dateTemp.add(dateTemp1);
 
         temp.add(dateTemp);
 
@@ -220,46 +224,10 @@ public class WorkerView extends View{
         temp.add(noteLabelPanel);
         temp.add(notePanel);
 
-        /*
-        //Add Date of initial registration field
-        JPanel temp7 = new JPanel();
-        temp7.setLayout(new GridLayout(1, 4, gridBuffer1, gridBuffer2));
-        //temp7.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel dateOfInitialRegPanel = new JLabel(messages.getString("dateOfInitialReg"));
-        temp7.add(dateOfInitialRegPanel);
-
-        regDateBox1 = new JTextField(2);
-        regDateBox1.addActionListener(this);
-        temp7.add(regDateBox1);
-
-        regDateBox2 = new JTextField(2);
-        regDateBox2.addActionListener(this);
-        temp7.add(regDateBox2);
-
-        regDateBox3 = new JTextField(4);
-        regDateBox3.addActionListener(this);
-        temp7.add(regDateBox3);
-*/
         main.add(temp, BorderLayout.CENTER);
         main.add(empty1,BorderLayout.EAST);
 
         return main;
-    }
-    private JPanel createNavigationButtons()
-    {
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        done = new JButton(messages.getString("cancel"));
-        done.addActionListener(this);
-
-        submit = new JButton(messages.getString("submit"));
-        submit.addActionListener(this);
-
-        temp1.add(submit);
-        temp1.add(done);
-        return temp1;
     }
     //-------------------------------------------------------------
     public void populateFields()
@@ -291,34 +259,17 @@ public class WorkerView extends View{
             String emailEntered = emailBox.getText();
             String phone1Entered = phoneBox1.getText();
             String phone2Entered = phoneBox2.getText();
-            String phone3Entered = phoneBox3.getText();
-            String phoneEntered = phone1Entered + "-" + phone2Entered + "-" + phone3Entered;
+            String phoneEntered = "+(" + phone1Entered + ") - " + phone2Entered;
             String credEntered = DBContentStrategy.getCredentialValue(credentialBox.getSelectedIndex());
 
             char[] passwordValueEntered = passwordBox.getPassword();
             String passwordEntered = new String(passwordValueEntered);
-
             for (int cnt = 0; cnt < passwordValueEntered.length; cnt++)
             {
                 passwordValueEntered[cnt] = 0;
             }
 
-            String regDateMonthEntered = "";
-            String regDateDayEntered = "";
-
-            if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
-            {
-                regDateDayEntered = regDateBox1.getText();
-                regDateMonthEntered = regDateBox2.getText();
-            }
-            else{
-                regDateMonthEntered = regDateBox1.getText();
-                regDateDayEntered = regDateBox2.getText();
-            }
-
-            String regDateYearEntered = regDateBox3.getText();
-
-            String regDateEntered = regDateYearEntered + "-" + regDateMonthEntered + "-" + regDateDayEntered;
+            Date selectedDate = (Date) regDatePicker.getModel().getValue();
 
             String notesEntered = notesArea.getText();
             String statusEntered = DBContentStrategy.getStatusValue(statusBox.getSelectedIndex());
@@ -353,22 +304,17 @@ public class WorkerView extends View{
                 displayErrorMessage(messages.getString("enterEmailError"));
                 emailBox.requestFocus();
             }
-            else if((phone1Entered.length() == 0) || phone1Entered.length() > 3)
+            else if((phone1Entered.length() == 0) || phone1Entered.length() > 5)
             {
                 displayErrorMessage(messages.getString("phoneFormatError"));
                 phoneBox1.requestFocus();
             }
-            else if((phone2Entered.length() == 0) || phone2Entered.length() > 3)
+            else if((phone2Entered.length() == 0) || phone2Entered.length() > 11)
             {
                 displayErrorMessage(messages.getString("phoneFormatError"));
                 phoneBox2.requestFocus();
             }
-            else if((phone3Entered.length() == 0) || phone3Entered.length() > 4)
-            {
-                displayErrorMessage(messages.getString("phoneFormatError"));
-                phoneBox3.requestFocus();
-            }
-            else if ((phone1Entered.matches("^\\d+$")!=true) || (phone2Entered.matches("^\\d+$")!=true) || (phone3Entered.matches("^\\d+$") != true))
+            else if ((phone1Entered.matches("^\\d+$")!=true) || (phone2Entered.matches("^\\d+$")!=true))
             {
                 displayErrorMessage(messages.getString("phoneNumericalError"));
                 phoneBox1.requestFocus();
@@ -379,43 +325,13 @@ public class WorkerView extends View{
                 passwordBox.setText("");
                 passwordBox.requestFocus();
             }
-            else if((regDateDayEntered.length() == 0) || (regDateMonthEntered.length() == 0) || (regDateYearEntered.length() == 0))
+            else if(selectedDate == null)
             {
-                displayErrorMessage(messages.getString("regDateError"));
-                regDateBox1.requestFocus();
-            }
-            else if((regDateYearEntered.matches("^\\d+$") != true) || (regDateMonthEntered.matches("^\\d+$") != true) || (regDateDayEntered.matches("^\\d+$") != true))
-            {
-                displayErrorMessage(messages.getString("regDateNumericalError"));
-                regDateBox1.requestFocus();
-            }
-            else if(regDateYearEntered.length() > 4)
-            {
-                displayErrorMessage(messages.getString("regDateYearLengthError"));
-                regDateBox3.requestFocus();
-            }
-            else if(regDateMonthEntered.length() > 2)
-            {
-                displayErrorMessage(messages.getString("regDateMonthLengthError"));
-                regDateBox2.requestFocus();
-            }
-            else if(regDateDayEntered.length() > 2)
-            {
-                displayErrorMessage(messages.getString("regDateDayLengthError"));
-                regDateBox1.requestFocus();
-            }
-            else if((Integer.parseInt(regDateMonthEntered) < 1) || (Integer.parseInt(regDateMonthEntered) > 12))
-            {
-                displayErrorMessage(messages.getString("regDateMonthRangeError"));
-                regDateBox2.requestFocus();
-            }
-            else if((Integer.parseInt(regDateDayEntered) < 1) || (Integer.parseInt(regDateDayEntered) > 31))
-            {
-                displayErrorMessage(messages.getString("regDateDayRangeError"));
-                regDateBox1.requestFocus();
+                displayErrorMessage(messages.getString("selectRegDateError"));
             }
             else
             {
+                String dateEntered = dateFormatter.format(selectedDate);
                 String[] values = new String[11];
                 values[0] = firstNameEntered;
                 values[1] = lastNameEntered;
@@ -423,13 +339,13 @@ public class WorkerView extends View{
                 values[3] = phoneEntered;
                 values[4] = credEntered;
                 values[5] = passwordEntered;
-                values[6] = regDateEntered;
+                values[6] = dateEntered;
                 values[7] = notesEntered;
                 values[8] = statusEntered;
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = new Date();
-                String dateString = dateFormat.format(date);
+                Date d = new Date();
+                String dateString = dateFormat.format(d);
                 values[9] = dateString;
                 values[10] = workerIdEntered;
 

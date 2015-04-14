@@ -126,7 +126,7 @@ public class LoginView extends View
 
     // Create the navigation buttons
     //-------------------------------------------------------------
-    private JPanel createNavigationButtons()
+    protected JPanel createNavigationButtons()
     {
         JPanel temp = new JPanel();		// default FlowLayout is fine
         FlowLayout f1 = new FlowLayout(FlowLayout.CENTER);

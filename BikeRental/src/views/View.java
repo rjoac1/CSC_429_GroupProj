@@ -33,6 +33,8 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import models.LocaleStore;
+
 
 //==============================================================
 public abstract class View extends JPanel
@@ -44,7 +46,10 @@ public abstract class View extends JPanel
     protected ResourceBundle messages;
     protected MessageView statusLog;
     protected String subTitleText = "";
-    protected JDatePickerImpl datePicker;
+
+    //protected JDatePickerImpl datePicker;
+    protected String datePattern = "yyyy-MM-dd";
+    protected SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
 
     final protected int gridBuffer1 = 2;
     final protected int gridBuffer2 = 2;
@@ -57,6 +62,9 @@ public abstract class View extends JPanel
 
     protected Font myFont = new Font("Helvetica", Font.BOLD, 20);
     protected Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
+
+    protected JButton submit;
+    protected JButton done;
 
     // forward declaration
     protected abstract void processAction(EventObject evt);
@@ -119,11 +127,41 @@ public abstract class View extends JPanel
 
         return temp;
     }
-
-    protected JPanel getDatePicker()
+    protected JPanel createNavigationButtons()
     {
         JPanel temp = new JPanel();
+        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
+
+        JPanel temp1 = new JPanel();
+        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        submit = new JButton(messages.getString("submit"));
+        submit.addActionListener(this);
+        temp1.add(submit);
+        //temp1.add(submit);
+        //temp1.add(done);
+        temp.add(temp1);
+
+        JPanel temp2 = new JPanel();
+        temp1.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JLabel empty = new JLabel();
+        temp2.add(empty);
+        temp.add(temp2);
+
+
+        JPanel temp3 = new JPanel();
+        temp3.setLayout(new FlowLayout(FlowLayout.LEFT));
+        done = new JButton(messages.getString("back"));
+        done.addActionListener(this);
+        temp3.add(done);
+        temp.add(temp3);
+
+        return temp;
+    }
+
+    protected JDatePickerImpl getDatePicker()
+    {
         UtilDateModel model = new UtilDateModel();
         //model.setDate(20,04,2014);
         // Need this...
@@ -131,13 +169,16 @@ public abstract class View extends JPanel
         p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");
+
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+        datePanel.setLocale(LocaleStore.getLocale().getLocaleObject());
         // Don't know about the formatter, but there it is...
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
-        temp.add(datePicker);
+        datePicker.setLocale(LocaleStore.getLocale().getLocaleObject());
 
-        return temp;
+        //System.out.println(datePicker.getLocale()); //test
+        return datePicker;
     }
 
     // process events generated from our GUI components
@@ -396,7 +437,7 @@ public abstract class View extends JPanel
     }
     public void displayErrorMessage(String message)
     {
-        JOptionPane.showMessageDialog(this, message, "Fast Trax", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Fast Trax", JOptionPane.PLAIN_MESSAGE);
     }
     public void displayMessage(String message)
     {
