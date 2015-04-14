@@ -51,8 +51,7 @@ public class BikeTransactionChoiceView extends View
         super(clerk, "BikeTransactionChoiceView");
         subTitleText = "transChoiceSubTitle";
         //Get and store the current workers credential status
-        workerCred = (String) myModel.getState("Credential");
-        workerCred = workerCred.trim();
+        getWorkerAdminStatus();
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));	// vertical
@@ -81,7 +80,7 @@ public class BikeTransactionChoiceView extends View
         String workerGreetingLastName = (String) myModel.getState("LastName");
         String workerGreetingFirstName = (String) myModel.getState("FirstName");
         String workerGreetingId = (String) myModel.getState("WorkerId");
-        String workerGreetingCredentials = (String) myModel.getState("Credential");
+        String workerGreetingCredentials = messages.getString((String) myModel.getState("Credential"));
 
 
         Object[] messageArguments = {
@@ -337,10 +336,10 @@ public class BikeTransactionChoiceView extends View
         } else if (e.getSource() == addUserButton) {
             myModel.stateChangeRequest("AddUser", null);
         } else if (e.getSource() == addWorkerButton) {
-            if(workerCred.equals("Administrator")){ myModel.stateChangeRequest("AddWorker", null); }
+            if(checkWorkerAdminStatus()){ myModel.stateChangeRequest("AddWorker", null); }
             else{displayErrorMessage(messages.getString("requireAdminCred"));}
         } else if (e.getSource() == addBikeButton) {
-            if(workerCred.equals("Administrator")){ myModel.stateChangeRequest("AddBike", null); }
+            if (checkWorkerAdminStatus()){ myModel.stateChangeRequest("AddBike", null); }
             else{displayErrorMessage(messages.getString("requireAdminCred"));}
         }
         else if (e.getSource() == logoutButton) {
@@ -366,5 +365,15 @@ public class BikeTransactionChoiceView extends View
             // display the passed text
             displayErrorMessage((String)value);
         }
+    }
+
+    private void getWorkerAdminStatus(){
+        workerCred = (String) myModel.getState("Credential");
+        workerCred = workerCred.trim();
+    }
+
+    private boolean checkWorkerAdminStatus(){
+        //return workerCred.equals("Administrator");
+        return (workerCred.equals("administrator") || workerCred.equals("Administrator"));
     }
 }
