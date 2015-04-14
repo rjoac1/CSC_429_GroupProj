@@ -46,8 +46,14 @@ public abstract class View extends JPanel
     protected String subTitleText = "";
     protected JDatePickerImpl datePicker;
 
-    final protected int gridBuffer1 = 5;
-    final protected int gridBuffer2 = 5;
+    final protected int gridBuffer1 = 2;
+    final protected int gridBuffer2 = 2;
+    final protected int gridBuffer3 = 10;
+    final protected int gridBuffer4 = 0;
+
+    final protected int eastWestBufferParam1 = 60;
+    final protected int eastWestBufferParam2 = 0;
+
 
     protected Font myFont = new Font("Helvetica", Font.BOLD, 20);
     protected Font myFont2 = new Font("Helvetica", Font.BOLD, 15);

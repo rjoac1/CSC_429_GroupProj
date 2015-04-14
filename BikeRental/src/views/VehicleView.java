@@ -10,7 +10,6 @@ import javax.swing.*;
 //project imports
 import impres.impresario.IModel;
 
-/**Class containing Librarian View for Library System application*/
 //==============================================================
 public class VehicleView extends View
 {
@@ -43,6 +42,7 @@ public class VehicleView extends View
         //add(createStatusLog("                          "));
 
         populateFields();
+        myModel.subscribe("UpdateStatusMessage", this);
     }
     public void paint(Graphics g)
     {
@@ -56,10 +56,22 @@ public class VehicleView extends View
         //setLayout for panel
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
-        //data entry Fields
-        //Make
+        JPanel tempMain = new JPanel();
+        tempMain.setLayout(new BorderLayout());
+
+        JPanel tempSetup = new JPanel();
+        tempSetup.setLayout(new BoxLayout(tempSetup, BoxLayout.Y_AXIS));
+        // tempSetup.setBorder(new EmptyBorder(0, 0, 0, 0) );
+        JPanel empty = new JPanel();
+        empty.setPreferredSize(new Dimension(eastWestBufferParam1, eastWestBufferParam2));
+
+        JPanel empty1 = new JPanel();
+        empty1.setPreferredSize(new Dimension(eastWestBufferParam1, eastWestBufferParam2));
+        tempMain.add(empty, BorderLayout.WEST);
+
+        //
         JPanel temp1 = new JPanel();
-        temp1.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp1.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
         JLabel makeLabel = new JLabel(messages.getString("VehicleMake"));
         temp1.add(makeLabel);
@@ -72,7 +84,7 @@ public class VehicleView extends View
 
         //Model Number
         JPanel temp2 = new JPanel();
-        temp2.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp2.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
         JLabel modelNumLabel = new JLabel(messages.getString("VehicleModelNum"));
         temp2.add(modelNumLabel);
@@ -85,7 +97,7 @@ public class VehicleView extends View
 
         //Serial Number
         JPanel temp3 = new JPanel();
-        temp3.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp3.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
         JLabel serialNumLabel = new JLabel(messages.getString("VehicleSerialNum"));
         temp3.add(serialNumLabel);
@@ -96,9 +108,9 @@ public class VehicleView extends View
 
         temp.add(temp3);
 
-        //Color
+        //Color -mw move?
         JPanel temp4 = new JPanel();
-        temp4.setLayout(new GridLayout(2, 1, gridBuffer1, gridBuffer2));
+        temp4.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
         JLabel colorLabel = new JLabel(messages.getString("VehicleColor"));
         temp4.add(colorLabel);
@@ -122,7 +134,7 @@ public class VehicleView extends View
 
         //Description
         JPanel temp5 = new JPanel();
-        temp5.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp5.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
         JLabel descriptionLabel = new JLabel(messages.getString("VehicleDescription"));
         temp5.add(descriptionLabel);
@@ -135,7 +147,7 @@ public class VehicleView extends View
 
         //Location
         JPanel temp6 = new JPanel();
-        temp6.setLayout(new GridLayout(2,1,gridBuffer1,gridBuffer2));
+        temp6.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
         JLabel locationLabel = new JLabel(messages.getString("VehicleLocation"));
         temp6.add(locationLabel);
@@ -148,7 +160,7 @@ public class VehicleView extends View
 
         //Physical Condition
         JPanel temp7 = new JPanel();
-        temp7.setLayout(new GridLayout(1,2,gridBuffer1,gridBuffer2));
+        temp7.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
         JLabel conditionLabel = new JLabel(messages.getString("VehiclePhysicalCondition"));
         temp7.add(conditionLabel);
@@ -167,7 +179,7 @@ public class VehicleView extends View
 
         //Status
         JPanel temp8 = new JPanel();
-        temp8.setLayout(new GridLayout(1, 2, gridBuffer1, gridBuffer2));
+        temp8.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
         JLabel statusLabel = new JLabel(messages.getString("VehicleStatus"));
         temp8.add(statusLabel);
@@ -180,15 +192,16 @@ public class VehicleView extends View
         temp8.add(status);
 
         temp.add(temp8);
-
-        return temp;
+        tempMain.add(temp, BorderLayout.CENTER);
+        tempMain.add(empty1,BorderLayout.EAST);
+        return tempMain;
     }
 
     private JPanel createNavigationButtons()
     {
         JPanel temp = new JPanel();		// default FlowLayout is fine
         FlowLayout f1 = new FlowLayout(FlowLayout.CENTER);
-        f1.setVgap(1);
+        f1.setVgap(10);
         f1.setHgap(25);
         temp.setLayout(f1);
 
@@ -197,7 +210,7 @@ public class VehicleView extends View
         submitButton.addActionListener(this);
         temp.add(submitButton);
 
-        doneButton = new JButton(messages.getString("cancel"));
+        doneButton = new JButton(messages.getString("back"));
         doneButton.addActionListener(this);
         temp.add(doneButton);
 

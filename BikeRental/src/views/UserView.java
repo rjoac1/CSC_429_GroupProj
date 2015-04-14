@@ -1,6 +1,6 @@
 package views;
 
-
+//System imports
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.*;
@@ -88,10 +88,10 @@ public class UserView extends View{
         tempSetup.setLayout(new BoxLayout(tempSetup, BoxLayout.Y_AXIS));
        // tempSetup.setBorder(new EmptyBorder(0, 0, 0, 0) );
         JPanel empty = new JPanel();
-        empty.setPreferredSize(new Dimension(60, 0));
+        empty.setPreferredSize(new Dimension(eastWestBufferParam1, eastWestBufferParam2));
 
         JPanel empty1 = new JPanel();
-        empty1.setPreferredSize(new Dimension(60, 0));
+        empty1.setPreferredSize(new Dimension(eastWestBufferParam1, eastWestBufferParam2));
         tempMain.add(empty,BorderLayout.WEST);
 
         //add first name
@@ -100,6 +100,7 @@ public class UserView extends View{
        // namePanel.setBorder(new EmptyBorder(80, 0,80, 0) );
         JLabel firstName = new JLabel(messages.getString("firstName"));
         namePanel.add(firstName);
+
         //add last name
         JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
         namePanel.add(lastNameLabel);
@@ -270,6 +271,7 @@ public class UserView extends View{
     public void populateFields()
     {
         //set date fields based on the locale*****
+
         if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
         {
             memExpireDateBox1.setText("dd");
