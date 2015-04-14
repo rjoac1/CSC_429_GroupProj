@@ -133,6 +133,7 @@ public abstract class ModelBase extends EntityBase
             if(persistentState.getProperty(idField) != null)
             {
                 boolean flag = checkIfExists(persistentState.getProperty(idField));
+                System.out.println(flag); //test
                 Object[] messageArguments = {
                         myTableName,
                         idField,
