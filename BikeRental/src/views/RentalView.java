@@ -23,7 +23,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 public class RentalView extends View{
 
     // GUI stuff
-    private JTextField vehicleIdBox;
+    private JComboBox<String> availableVehicles;
     private JTextField renterIDBox;
     //private JTextField checkoutWorkerBox;
 
@@ -58,57 +58,46 @@ public class RentalView extends View{
 
     private JPanel createDataEntryFields()
     {
-        JPanel main = new JPanel();
-        main.setLayout(new BorderLayout());
-
-        //Create blank JPanels for side bars
-        JPanel empty = new JPanel();
-        empty.setPreferredSize(new Dimension(60, 0));
-
-        JPanel empty1 = new JPanel();
-        empty1.setPreferredSize(new Dimension(60, 0));
-
-        main.add(empty,BorderLayout.WEST);
-
         JPanel temp = new JPanel();
-        //temp.setLayout(new GridBagLayout());
-        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
+        temp.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(8,8,8,8);
 
-        //WorkerId Field
-        JPanel temp0 = new JPanel();
-        temp0.setLayout(new GridLayout(2,0,0,0));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        JLabel vehicleIdLabel = new JLabel(messages.getString("vehicleID"));
+        temp.add(vehicleIdLabel, c);
 
-        JLabel workerIdLabel = new JLabel(messages.getString("workerId"));
-        temp0.add(workerIdLabel);
+        String avail [];
+        avail = new String[3];
+        avail[0] = "1";
+        avail[1] = "2";
+        avail[2] = "3";
 
-        vehicleIdBox = new JTextField(25);
-        vehicleIdBox.addActionListener(this);
-        temp0.add(vehicleIdBox);
+        c.insets = new Insets(0,8,8,8);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 2;
+        availableVehicles = new JComboBox<String>(avail);
+        availableVehicles.addActionListener(this);
+        temp.add(availableVehicles, c);
 
-        temp.add(temp0);
-        //First Name Field
-        JPanel temp1 = new JPanel();
-        temp1.setLayout(new GridLayout(2,2,10,0));   // changed layout style to be more like userview -mw
+        c.insets = new Insets(8,8,8,8);
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 2;
+        JLabel userIdLabel = new JLabel(messages.getString("userId"));
+        temp.add(userIdLabel, c);
 
-
-        JLabel firstNameLabel = new JLabel(messages.getString("firstName"));
-        temp1.add(firstNameLabel);
-
-        JLabel lastNameLabel = new JLabel(messages.getString("lastName"));
-        temp1.add(lastNameLabel);
-
+        c.insets = new Insets(0,8,8,8);
+        c.gridx = 0;
+        c.gridy = 3;
         renterIDBox = new JTextField(15);
         renterIDBox.addActionListener(this);
-        temp1.add(renterIDBox);
+        temp.add(renterIDBox, c);
 
-        //checkoutWorkerBox = new JTextField(15);
-        //checkoutWorkerBox.addActionListener(this);
-        //temp1.add(checkoutWorkerBox);
-
-        temp.add(temp1);
-        main.add(temp);
-        main.add(empty,BorderLayout.EAST);
-        return main;
+        return temp;
     }
     //-------------------------------------------------------------
     public void populateFields()
@@ -121,7 +110,7 @@ public class RentalView extends View{
 
         if(e.getSource() == submit)
         {
-            String vehicleIDEntered = vehicleIdBox.getText();
+            String vehicleIDEntered = (String)availableVehicles.getSelectedItem();
             String renterIDEntered = renterIDBox.getText();
             //String checkoutWorkerEntered = checkoutWorkerBox.getText();
 
@@ -130,16 +119,16 @@ public class RentalView extends View{
             if((vehicleIDEntered == null) || (vehicleIDEntered.length() == 0))
             {
                 displayErrorMessage(messages.getString("enterVehicleIdError"));
-                vehicleIdBox.requestFocus();
+                availableVehicles.requestFocus();
             }
-            else if ((vehicleIDEntered.matches("^\\d+$")!=true))
+            /*else if ((vehicleIDEntered.matches("^\\d+$")!=true))
             {
                 displayErrorMessage(messages.getString("workerIdNumericalError"));
-                vehicleIdBox.requestFocus();
-            }
+                availableVehicles.requestFocus();
+            }*/
             else if((renterIDEntered == null) || (renterIDEntered.length() == 0))
             {
-                displayErrorMessage(messages.getString("enterFirstNameError"));
+                displayErrorMessage(messages.getString("enterWorkerIdError"));
                 renterIDBox.requestFocus();
             }
             else

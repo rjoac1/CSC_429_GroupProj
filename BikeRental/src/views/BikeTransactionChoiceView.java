@@ -2,8 +2,6 @@
 package views;
 
 import java.awt.*;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -122,11 +120,9 @@ public class BikeTransactionChoiceView extends View
         rr.add(checkoutButton);
         rr.add(checkinButton);
 
-        choicePanel.add(new JSeparator(SwingConstants.VERTICAL));
-
         c.gridx=0;
         c.gridy=0;
-        c.insets = new Insets(10, 10, 0, 0);
+        c.insets = new Insets(10, 10, 5, 5);
         choicePanel.add(rr, c);
 
         final JPanel addButtons = new JPanel();
@@ -145,6 +141,7 @@ public class BikeTransactionChoiceView extends View
 
         c.gridx=0;
         c.gridy=1;
+        c.insets = new Insets(10, 10, 5, 5);
         choicePanel.add(addButtons, c);
 
         final JPanel modButtons = new JPanel();
@@ -163,6 +160,7 @@ public class BikeTransactionChoiceView extends View
 
         c.gridx=0;
         c.gridy=2;
+        c.insets = new Insets(10, 10, 5, 5);
         choicePanel.add(modButtons, c);
 
         logoutButton = new JButton(messages.getString("logout"));
