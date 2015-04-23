@@ -128,10 +128,10 @@ public class Clerk implements IView, IModel, ISlideShow
                     }
                 }
                 break;
-            /*case "Rent":
+            case "Rent":
                 createNewRental();
                 break;
-            case "Return":
+            /*case "Return":
                 CreateAndShowSearchRentalsView();
                 break;
             case "ProcessReturn":

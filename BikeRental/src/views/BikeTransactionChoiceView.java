@@ -332,7 +332,7 @@ public class BikeTransactionChoiceView extends View
         if (e.getSource() == checkinButton) {
             //myModel.stateChangeRequest("Checkin", null);
         } else if (e.getSource() == checkoutButton) {
-            //myModel.stateChangeRequest("Checkout", null);
+            myModel.stateChangeRequest("Rent", null);
         } else if (e.getSource() == addUserButton) {
             myModel.stateChangeRequest("AddUser", null);
         } else if (e.getSource() == addWorkerButton) {

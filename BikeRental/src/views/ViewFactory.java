@@ -27,6 +27,9 @@ public class ViewFactory {
         {
             return new VehicleView(model);
         }
+        else if(viewName.equals("rentalView") == true){
+            return new RentalView(model);
+        }
         else
             return null;
     }
