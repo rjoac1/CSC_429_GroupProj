@@ -128,11 +128,14 @@ public class Clerk implements IView, IModel, ISlideShow
                     }
                 }
                 break;
-            /*case "Checkin":
-                processCheckin();
+            /*case "Rent":
+                createNewRental();
                 break;
-            case "Checkout":
-                processCheckout();
+            case "Return":
+                CreateAndShowSearchRentalsView();
+                break;
+            case "ProcessReturn":
+                processReturn((String) value);
                 break;*/
             case "AddUser":
                 createNewUser();
@@ -190,24 +193,31 @@ public class Clerk implements IView, IModel, ISlideShow
         }
     }
 
-    public void createNewUser()
+    private void createNewUser()
     {
         User user = new User();
         user.subscribe("EndTransaction", this);
         user.stateChangeRequest("ShowDataEntryView", "");
     }
-    public void createNewWorker()
+    private void createNewWorker()
     {
         Worker worker = new Worker();
         worker.subscribe("EndTransaction", this);
         worker.stateChangeRequest("ShowDataEntryView", "");
     }
-    public void createNewBike()
+    private void createNewBike()
     {
         Vehicle bike = new Vehicle();
         bike.subscribe("EndTransaction", this);
         bike.stateChangeRequest("ShowDataEntryView", "");
     }
+    private void createNewRental()
+    {
+        Rental rental = new Rental();
+        rental.subscribe("EndTransaction", this);
+        rental.stateChangeRequest("ShowDataEntryView", "");
+    }
+
 
     private void createAndShowLoginView()
     {
@@ -247,6 +257,10 @@ public class Clerk implements IView, IModel, ISlideShow
         {
             swapToView(localView);
         }
+    }
+    private void ProcessReturn()
+    {
+
     }
 
     //Abstract Methods

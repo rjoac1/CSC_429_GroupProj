@@ -22,7 +22,7 @@ public class Rental extends ModelBase{
         super(myTableName);
 
         setDependencies();
-         persistentState = new Properties();
+        persistentState = new Properties();
     }
 
     public Rental(String userID)throws InvalidPrimaryKeyException{
@@ -59,11 +59,9 @@ public class Rental extends ModelBase{
         v.addElement(persistentState.getProperty("dateRented"));
         v.addElement(persistentState.getProperty("timeRented"));
         v.addElement(persistentState.getProperty("dateDue"));
-        v.addElement(persistentState.getProperty("timeRented"));
-        v.addElement(persistentState.getProperty("dateDue"));
         v.addElement(persistentState.getProperty("timeDue"));
         v.addElement(persistentState.getProperty("dateReturned"));
-        v.addElement(persistentState.getProperty("TimeReturned"));
+        v.addElement(persistentState.getProperty("timeReturned"));
         v.addElement(persistentState.getProperty("checkoutWorkerID"));
         v.addElement(persistentState.getProperty("checkinWorkerID"));
         return v;
