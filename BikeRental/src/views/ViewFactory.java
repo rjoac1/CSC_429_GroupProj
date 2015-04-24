@@ -27,6 +27,12 @@ public class ViewFactory {
         {
             return new VehicleView(model);
         }
+        else if(viewName.equals("RentalView")){
+            return new RentalView(model);
+        }
+        else if(viewName.equals("RentalCollectionView")){
+            return new RentalCollectionView(model);
+        }
         else
             return null;
     }

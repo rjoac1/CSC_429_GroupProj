@@ -1,5 +1,8 @@
 package models;
 
+import impres.exception.InvalidPrimaryKeyException;
+
+import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
@@ -23,40 +26,34 @@ public class RentalCollection extends ModelBase{
     }
     //Methods
     //---------------------------------
-    public Vector findPatronsOlderThan(String date) throws Exception
+    public Vector findActiveRentals() throws InvalidPrimaryKeyException
     {
-        if (date.matches("\\d{4}-\\d{2}-\\d{2}") == false)
+        String query = "SELECT * FROM " + myTableName + " WHERE (dateReturned = '')";
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        if(allDataRetrieved != null)
         {
-            throw new Exception ("INPUT ERROR: Date not of the correct format.");
+            for(int cnt = 0; cnt < allDataRetrieved.size();cnt++)
+            {
+                Properties nextRentalData = (Properties)allDataRetrieved.elementAt(cnt);
+
+                Rental rental = new Rental(nextRentalData);
+
+                if(rental != null)
+                {
+                    addRental(rental);
+                }
+            }
         }
         else
         {
-            String query = "SELECT * FROM " + myTableName + " WHERE (dateOfBirth < '"+ date +"')";
+            //System.out.println("No patrons older than " + date + " found in database");
+            throw new InvalidPrimaryKeyException(messages.getString("noActiveRentalsFound"));
 
-            Vector allDataRetrieved = getSelectQueryResult(query);
-
-            if(allDataRetrieved != null)
-            {
-                for(int cnt = 0; cnt < allDataRetrieved.size();cnt++)
-                {
-                    Properties nextPatronData = (Properties)allDataRetrieved.elementAt(cnt);
-
-                    Patron patron = new Patron(nextPatronData);
-
-                    if(patron != null)
-                    {
-                        addPatron(patron);
-                    }
-                }
-            }
-            else
-            {
-                System.out.println("No patrons older than " + date + " found in database");
-                //throw new InvalidPrimaryKeyException("No accounts for customer : " + accountHolderId + ". Name : " + cust.getState("Name"));
-            }
 
         }
-        return patrons;
+        return rentals;
     }
     //----------------------------------------------------------------------------------
     private void addRental(Rental a)
@@ -64,12 +61,41 @@ public class RentalCollection extends ModelBase{
         //users.add(u);
         rentals.add(a);
     }
-    public String getMyTableName()
-    {
-        return myTableName;
-    }
     public String getViewName(){
         return "RentalCollectionView";
+    }
+
+    @Override
+    public Object getState(String key) {
+        if (key.equals("Rentals"))
+            return rentals;
+        else
+        if (key.equals("RentalList"))
+            return this;
+        else if (key.equals("UpdateStatusMessage"))
+        {
+            return updateStatusMessage;
+        }
+        return persistentState.getProperty(key);
+        //return null;
+    }
+    @Override
+    public void stateChangeRequest(String key, Object value)
+    {
+        switch(key)
+        {
+            case "ProcessReturn":
+                processReturn((Rental) value);
+                break;
+            case "ShowDataEntryView":
+                createAndShowDataEntryView();
+                break;
+        }
+        myRegistry.updateSubscribers(key, this);
+    }
+    private void processReturn(Rental r)
+    {
+        r.setReturned();
     }
 
     @Override

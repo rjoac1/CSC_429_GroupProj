@@ -426,11 +426,6 @@ public abstract class View extends JPanel
         return valToReturn;
 
     }
-    protected JPanel createStatusLog(String initialMessage)
-    {
-        statusLog = new MessageView(initialMessage);
-        return statusLog;
-    }
     public void clearErrorMessage()
     {
         statusLog.clearErrorMessage();

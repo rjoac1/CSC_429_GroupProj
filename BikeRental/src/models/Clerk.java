@@ -37,6 +37,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
     private String loginErrorMessage = "";
     private String transactionErrorMessage = "";
+    private String findRentalsErrorMessage = "";
 
     //Used in log out process
     private boolean loginChange = false;
@@ -68,6 +69,10 @@ public class Clerk implements IView, IModel, ISlideShow
         if (key.equals("LoginError") == true)
         {
             return loginErrorMessage;
+        }
+        else if(key.equals("NoRentalsFoundError"))
+        {
+            return findRentalsErrorMessage;
         }
         else
         if (key.equals("TransactionError") == true)
@@ -128,15 +133,12 @@ public class Clerk implements IView, IModel, ISlideShow
                     }
                 }
                 break;
-            /*case "Rent":
+            case "Rent":
                 createNewRental();
                 break;
             case "Return":
-                CreateAndShowSearchRentalsView();
+                processReturn();
                 break;
-            case "ProcessReturn":
-                processReturn((String) value);
-                break;*/
             case "AddUser":
                 createNewUser();
                 break;
@@ -216,6 +218,19 @@ public class Clerk implements IView, IModel, ISlideShow
         Rental rental = new Rental();
         rental.subscribe("EndTransaction", this);
         rental.stateChangeRequest("ShowDataEntryView", "");
+    }
+    private void processReturn()
+    {
+        try {
+            RentalCollection rc = new RentalCollection();
+            rc.findActiveRentals();
+            rc.subscribe("EndTransaction", this);
+            rc.stateChangeRequest("ShowDataEntryView", "");
+        }
+        catch(InvalidPrimaryKeyException e)
+        {
+            findRentalsErrorMessage = e.getMessage();
+        }
     }
 
 

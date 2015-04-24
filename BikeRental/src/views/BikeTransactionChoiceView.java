@@ -34,8 +34,8 @@ public class BikeTransactionChoiceView extends View
     private JButton fndmodWorkerButton = null;
     private JButton fndmodBikeButton = null;
 
-    private JButton checkoutButton = null;
-    private JButton checkinButton = null;
+    private JButton rentButton = null;
+    private JButton returnButton = null;
 
     private JButton logoutButton = null;
 
@@ -71,6 +71,7 @@ public class BikeTransactionChoiceView extends View
         populateFields();
 
         myModel.subscribe("TransactionError", this);
+        myModel.subscribe("NoRentalsFoundError",this);
     }
 
     protected JPanel createWelcomeMessage() {
@@ -113,14 +114,14 @@ public class BikeTransactionChoiceView extends View
 
         final JPanel rr = new JPanel();
 
-        checkoutButton = new JButton(messages.getString("checkoutButton"));
-        checkoutButton.addActionListener(this);
+        rentButton = new JButton(messages.getString("checkoutButton"));
+        rentButton.addActionListener(this);
 
-        checkinButton = new JButton(messages.getString("checkinButton"));
-        checkinButton.addActionListener(this);
+        returnButton = new JButton(messages.getString("checkinButton"));
+        returnButton.addActionListener(this);
 
-        rr.add(checkoutButton);
-        rr.add(checkinButton);
+        rr.add(rentButton);
+        rr.add(returnButton);
 
         choicePanel.add(new JSeparator(SwingConstants.VERTICAL));
 
@@ -194,22 +195,22 @@ public class BikeTransactionChoiceView extends View
         gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
         panel.setLayout(gbl_panel);
 
-        checkinButton = new JButton(messages.getString("checkinButton"));
-        checkinButton.addActionListener(this);
+        returnButton = new JButton(messages.getString("returnButton"));
+        returnButton.addActionListener(this);
         final GridBagConstraints gbc_btnCheckin = new GridBagConstraints();
         gbc_btnCheckin.anchor = GridBagConstraints.NORTHWEST;
         gbc_btnCheckin.insets = new Insets(0, 0, 0, 5);
         gbc_btnCheckin.gridx = 2;
         gbc_btnCheckin.gridy = 1;
-        panel.add(checkinButton, gbc_btnCheckin);
+        panel.add(returnButton, gbc_btnCheckin);
 
-        checkoutButton = new JButton(messages.getString("checkoutButton"));
-        checkoutButton.addActionListener(this);
+        rentButton = new JButton(messages.getString("rentButton"));
+        rentButton.addActionListener(this);
         final GridBagConstraints gbc_btnCheckout = new GridBagConstraints();
         gbc_btnCheckout.anchor = GridBagConstraints.NORTHWEST;
         gbc_btnCheckout.gridx = 3;
         gbc_btnCheckout.gridy = 1;
-        panel.add(checkoutButton, gbc_btnCheckout);
+        panel.add(rentButton, gbc_btnCheckout);
 
         //declare adding panel
         final JPanel panel_1 = new JPanel();
@@ -329,10 +330,10 @@ public class BikeTransactionChoiceView extends View
 
         //clearErrorMessage();
 
-        if (e.getSource() == checkinButton) {
-            //myModel.stateChangeRequest("Checkin", null);
-        } else if (e.getSource() == checkoutButton) {
-            //myModel.stateChangeRequest("Checkout", null);
+        if (e.getSource() == returnButton) {
+            myModel.stateChangeRequest("Return", null);
+        } else if (e.getSource() == rentButton) {
+            myModel.stateChangeRequest("Rent", null);
         } else if (e.getSource() == addUserButton) {
             myModel.stateChangeRequest("AddUser", null);
         } else if (e.getSource() == addWorkerButton) {
@@ -361,6 +362,11 @@ public class BikeTransactionChoiceView extends View
     public void updateState(String key, Object value)
     {
         if (key.equals("TransactionError") == true)
+        {
+            // display the passed text
+            displayErrorMessage((String)value);
+        }
+        else if (key.equals("NoRentalsFoundError") == true)
         {
             // display the passed text
             displayErrorMessage((String)value);
