@@ -331,20 +331,6 @@ public class VehicleView extends View
     {
         myModel.stateChangeRequest("ProcessInsertion", props);
     }
-
-    public void updateState(String key, Object value)
-    {
-        switch(key)
-        {
-            case "UpdateStatusMessage":
-                displayErrorMessage((String)value);
-                break;
-            default:
-                //clearErrorMessage();
-                break;
-
-        }
-    }
     private void processDone()
     {
         myModel.stateChangeRequest("Done", null);

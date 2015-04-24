@@ -5,6 +5,9 @@ package models;
 
 import impres.exception.InvalidPrimaryKeyException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
@@ -71,7 +74,7 @@ public class Rental extends ModelBase{
     {
         return "rentalID";
     }
-    public String getViewName(){ return "rentalView"; }
+    public String getViewName(){ return "RentalView"; }
     public boolean checkIfExists(String id)
     {
         try {
@@ -85,8 +88,14 @@ public class Rental extends ModelBase{
             return false;
         }
     }
-    public void setReturned()
+    public void setReturned(String workerId)
     {
-        //persistentState.setProperty("","");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = new Date();
+        String dateString = dateFormat.format(d);
+        persistentState.setProperty("dateReturned",dateString);
+        persistentState.setProperty("checkinWorkerID", workerId);
+
+        update();
     }
 }

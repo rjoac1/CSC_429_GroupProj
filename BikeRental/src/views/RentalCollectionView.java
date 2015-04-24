@@ -105,12 +105,6 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
     }
 
     //--------------------------------------------------------------------------
-    public void updateState(String key, Object value)
-    {
-
-    }
-
-    //--------------------------------------------------------------------------
     protected void processAction(EventObject evt)
     {
         if(evt.getSource() == done)

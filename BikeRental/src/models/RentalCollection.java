@@ -15,14 +15,16 @@ public class RentalCollection extends ModelBase{
     private static final String myTableName = "Rental";
 
     private Vector rentals;
+    private Worker mWorker;
     //GUI Components
 
     //Constructor
     //--------------------------------
-    public RentalCollection()
+    public RentalCollection(Worker myWorker)
     {
         super(myTableName);
         rentals = new Vector();
+        mWorker = myWorker;
     }
     //Methods
     //---------------------------------
@@ -85,7 +87,7 @@ public class RentalCollection extends ModelBase{
         switch(key)
         {
             case "ProcessReturn":
-                processReturn((Rental) value);
+                processReturn((String) value);
                 break;
             case "ShowDataEntryView":
                 createAndShowDataEntryView();
@@ -93,9 +95,19 @@ public class RentalCollection extends ModelBase{
         }
         myRegistry.updateSubscribers(key, this);
     }
-    private void processReturn(Rental r)
+    private void processReturn(String s)
     {
-        r.setReturned();
+        try{
+            Rental r = new Rental(s);
+            r.setReturned((String)mWorker.getState("workerId"));
+
+
+            updateStatusMessage = messages.getString("returnSuccessful");
+        }
+        catch(Exception e) {
+            e.getMessage();
+        }
+
     }
 
     @Override

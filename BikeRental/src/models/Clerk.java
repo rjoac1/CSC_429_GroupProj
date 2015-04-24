@@ -222,7 +222,7 @@ public class Clerk implements IView, IModel, ISlideShow
     private void processReturn()
     {
         try {
-            RentalCollection rc = new RentalCollection();
+            RentalCollection rc = new RentalCollection(myWorker);
             rc.findActiveRentals();
             rc.subscribe("EndTransaction", this);
             rc.stateChangeRequest("ShowDataEntryView", "");

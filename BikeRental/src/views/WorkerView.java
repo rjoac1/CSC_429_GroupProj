@@ -438,16 +438,5 @@ public class WorkerView extends View{
     {
         myModel.stateChangeRequest("Done", null);
     }
-    public void updateState(String key, Object value)
-    {
-        switch(key)
-        {
-            case "UpdateStatusMessage":
-                displayErrorMessage((String)value);
-                break;
-            default:
-                //clearErrorMessage();
-                break;
-        }
-    }
+
 }

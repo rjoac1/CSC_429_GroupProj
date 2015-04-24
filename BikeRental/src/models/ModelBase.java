@@ -24,6 +24,7 @@ public abstract class ModelBase extends EntityBase
 
     protected final String myTableName;
     protected String updateStatusMessage = "";
+    protected String updateStatusMessageError = "";
     protected Properties dependencies;
     protected ResourceBundle messages = LocaleStore.getLocale().getResourceBundle();
 
@@ -179,7 +180,7 @@ public abstract class ModelBase extends EntityBase
             formatter.setLocale(LocaleStore.getLocale().getLocaleObject());
 
             formatter.applyPattern(messages.getString("errorInstallingEntity"));
-            updateStatusMessage = formatter.format(messageArguments);
+            updateStatusMessageError = formatter.format(messageArguments);
         }
     }
 
@@ -222,6 +223,10 @@ public abstract class ModelBase extends EntityBase
         {
             return updateStatusMessage;
         }
+        else if (key.equals("UpdateStatusMessageError") == true)
+        {
+            return updateStatusMessageError;
+        }
         return persistentState.getProperty(key);
     }
 
@@ -237,6 +242,7 @@ public abstract class ModelBase extends EntityBase
     {
         dependencies = new Properties();
         dependencies.setProperty("Done", "EndTransaction");
+        dependencies.setProperty("ProcessInsertion", "UpdateStatusMessageError");
         dependencies.setProperty("ProcessInsertion", "UpdateStatusMessage");
 
         myRegistry.setDependencies(dependencies);
