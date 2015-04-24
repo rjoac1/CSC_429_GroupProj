@@ -25,7 +25,6 @@ public class Worker extends ModelBase
     public Worker()
     {
         super(myTableName);
-        setDependencies();
     }
 
     public Worker(String workerId) throws InvalidPrimaryKeyException {

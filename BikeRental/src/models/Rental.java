@@ -57,11 +57,11 @@ public class Rental extends ModelBase{
         v.addElement(persistentState.getProperty("vehicleID"));
         v.addElement(persistentState.getProperty("renterID"));
         v.addElement(persistentState.getProperty("dateRented"));
-        v.addElement(persistentState.getProperty("timeRented"));
+        //v.addElement(persistentState.getProperty("timeRented"));
         v.addElement(persistentState.getProperty("dateDue"));
-        v.addElement(persistentState.getProperty("timeDue"));
+        //v.addElement(persistentState.getProperty("timeDue"));
         v.addElement(persistentState.getProperty("dateReturned"));
-        v.addElement(persistentState.getProperty("timeReturned"));
+        //v.addElement(persistentState.getProperty("timeReturned"));
         v.addElement(persistentState.getProperty("checkoutWorkerID"));
         v.addElement(persistentState.getProperty("checkinWorkerID"));
         return v;
@@ -84,5 +84,9 @@ public class Rental extends ModelBase{
             //System.out.println(ex.getMessage()); //test
             return false;
         }
+    }
+    public void setReturned()
+    {
+        //persistentState.setProperty("","");
     }
 }

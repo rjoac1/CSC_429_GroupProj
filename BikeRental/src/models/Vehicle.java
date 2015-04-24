@@ -23,7 +23,6 @@ public class Vehicle extends ModelBase
     public Vehicle()
     {
         super(myTableName);
-        setDependencies();
     }
 
     public Vehicle(String vehicleID) throws InvalidPrimaryKeyException

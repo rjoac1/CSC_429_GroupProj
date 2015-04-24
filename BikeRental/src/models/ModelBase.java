@@ -31,6 +31,7 @@ public abstract class ModelBase extends EntityBase
         super(tableName);
         myTableName = tableName;
         mySchema = getSchemaInfo(myTableName);
+        setDependencies();
     }
 
     protected void initFromQuery(final String id) throws InvalidPrimaryKeyException {
