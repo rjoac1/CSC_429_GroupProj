@@ -1,5 +1,6 @@
 package views;
-
+import java.awt.Color;
+import java.awt.Component;
 //System imports
 import java.awt.*;
 import java.text.DateFormat;
@@ -150,6 +151,7 @@ public class VehicleView extends View
         temp6.add(statusLabel);
 
         String colorArr [] = new String[10];
+
         colorArr[0] = messages.getString("red");
         colorArr[1] = messages.getString("blue");
         colorArr[2] = messages.getString("green");
@@ -349,5 +351,6 @@ public class VehicleView extends View
     {
         myModel.stateChangeRequest("Done", null);
     }
+
 }
 
