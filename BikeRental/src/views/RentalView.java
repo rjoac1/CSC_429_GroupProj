@@ -165,35 +165,22 @@ public class RentalView extends View{
     public void processInsertion(String[] values)
     {
         Properties props = new Properties();
-        props.setProperty("rentalID", values[0]);
-        props.setProperty("vehicleID", values[1]);
-        props.setProperty("renterID", values[2]);
+        props.setProperty("vehicleID", values[0]);
+        props.setProperty("renterID", values[1]);
         //System.out.println(values[2]); //test
-        props.setProperty("dateRented", values[3]);
-        props.setProperty("timeRented", values[4]);
-        props.setProperty("dateDue", values[5]);
-        props.setProperty("timeDue", values[6]);
-        props.setProperty("dateReturned", values[7]);
-        props.setProperty("timeReturned", values[8]);
-        props.setProperty("checkoutWorkerID", values[9]);
-        props.setProperty("checkinWorkerID", values[10]);
+        props.setProperty("dateRented", values[2]);
+        props.setProperty("timeRented", values[3]);
+        props.setProperty("dateDue", values[4]);
+        props.setProperty("timeDue", values[5]);
+        props.setProperty("dateReturned", values[6]);
+        props.setProperty("timeReturned", values[7]);
+        props.setProperty("checkoutWorkerID", values[8]);
+        props.setProperty("checkinWorkerID", values[9]);
 
         myModel.stateChangeRequest("ProcessInsertion", props);
     }
     public void processDone()
     {
         myModel.stateChangeRequest("Done", null);
-    }
-    public void updateState(String key, Object value)
-    {
-        switch(key)
-        {
-            case "UpdateStatusMessage":
-                displayErrorMessage((String)value);
-                break;
-            default:
-                //clearErrorMessage();
-                break;
-        }
     }
 }

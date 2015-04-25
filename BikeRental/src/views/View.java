@@ -83,6 +83,7 @@ public abstract class View extends JPanel
         myRegistry = new ControlRegistry(classname);
 
         myModel.subscribe("UpdateStatusMessage", this);
+        myModel.subscribe("UpdateStatusMessageError", this);
     }
 
     protected JPanel createTitle()
@@ -179,6 +180,21 @@ public abstract class View extends JPanel
 
         //System.out.println(datePicker.getLocale()); //test
         return datePicker;
+    }
+    public void updateState(String key, Object value)
+    {
+        switch(key)
+        {
+            case "UpdateStatusMessage":
+                displayMessage((String)value);
+                break;
+            case "UpdateStatusMessageError":
+                displayErrorMessage((String)value);
+                break;
+            default:
+                //clearErrorMessage();
+                break;
+        }
     }
 
     // process events generated from our GUI components
@@ -426,13 +442,9 @@ public abstract class View extends JPanel
         return valToReturn;
 
     }
-    public void clearErrorMessage()
-    {
-        statusLog.clearErrorMessage();
-    }
     public void displayErrorMessage(String message)
     {
-        JOptionPane.showMessageDialog(this, message, "Fast Trax", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Fast Trax", JOptionPane.ERROR_MESSAGE);
     }
     public void displayMessage(String message)
     {

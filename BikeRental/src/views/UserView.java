@@ -478,21 +478,5 @@ public class UserView extends View{
 
         myModel.stateChangeRequest("ProcessInsertion", props);
     }
-
-    //---------------------------------------------------------
-    public void updateState(String key, Object value)
-    {
-        // STEP 6: Be sure to finish the end of the 'perturbation'
-        // by indicating how the view state gets updated.
-        if (key.equals("UpdateStatusMessage") == true)
-        {            // display the passed text
-            displayErrorMessage((String)value);
-        }
-        else
-        {
-           // clearErrorMessage();
-        }
-
-    }
 }
 
