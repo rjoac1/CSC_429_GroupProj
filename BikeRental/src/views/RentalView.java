@@ -70,10 +70,7 @@ public class RentalView extends View{
         temp.add(vehicleIdLabel, c);
 
         String avail [];
-        avail = new String[3];
-        avail[0] = "1";
-        avail[1] = "2";
-        avail[2] = "3";
+        avail = (String[]) myModel.getState("VehicleIDs");
 
         c.insets = new Insets(0,8,8,8);
         c.gridx = 0;
@@ -133,17 +130,18 @@ public class RentalView extends View{
             }
             else
             {
+                DateLabelFormatter dateFormater = new DateLabelFormatter();
                 //String dateEntered = dateFormatter.format(selectedDate);
                 String[] values = new String[11];
                 values[0] = vehicleIDEntered;
                 values[1] = renterIDEntered;
-                values[2] = ""; //date rented
-                values[3] = ""; //time rented
-                values[4] = ""; //date due
-                values[5] = ""; //time due
+                values[2] = dateFormater.getCurrentDate(); //date rented
+                values[3] = dateFormater.getCurrentTime(); //time rented
+                values[4] = dateFormater.getTomorrowDate(); //date due
+                values[5] = "12:00:00"; //time due
                 values[6] = ""; //date returned
                 values[7] = ""; //time returned
-                values[8] = ""; //checkout worker
+                values[8] = (String) myModel.getState("workerId"); //checkout worker
 
 
                 //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

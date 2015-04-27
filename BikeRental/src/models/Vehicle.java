@@ -100,5 +100,7 @@ public class Vehicle extends ModelBase
         }
     }
 
+    public String getVehicleID(){ return this.persistentState.getProperty("vehicleID"); }
+
 }
 
