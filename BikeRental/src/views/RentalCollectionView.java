@@ -77,7 +77,8 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
         entries.setLayout(new BoxLayout(entries, BoxLayout.Y_AXIS));
 
         JPanel tablePan = new JPanel();
-        tablePan.setLayout(new FlowLayout(FlowLayout.CENTER));
+        //tablePan.setLayout(new FlowLayout(FlowLayout.CENTER));
+        tablePan.setLayout(new GridLayout(1,1));
 
         TableModel myData = new RentalTableModel(rentalVector);
 
@@ -85,12 +86,15 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
         tableOfRentals.addMouseListener(this);
         tableOfRentals.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        tableOfRentals.setPreferredScrollableViewportSize(new Dimension(500, 100));
+
+        tableOfRentals.setPreferredScrollableViewportSize(new Dimension(1000, 100));
+        tableOfRentals.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         TableColumn column;
         for(int i = 0; i < myData.getColumnCount(); i++)
         {
             column = tableOfRentals.getColumnModel().getColumn(i);
+
             column.setPreferredWidth(100);
         }
         // Renter First Name
@@ -124,8 +128,8 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
             Vector selectedRental = (Vector)rentalVector.elementAt(selectedIndex);
 
             myModel.stateChangeRequest("ProcessReturn", selectedRental.elementAt(0));
+            myModel.stateChangeRequest("Done", null);
 
-            tableOfRentals.revalidate();
         }
     }
     private void processDone()
