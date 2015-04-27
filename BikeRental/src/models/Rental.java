@@ -17,15 +17,16 @@ import java.util.Vector;
 
 public class Rental extends ModelBase{
     private static final String myTableName = "Rental";
-    private String updateStatusMessage = "";
-    protected Properties dependencies;
-
-    public Rental()
+    private VehicleCatalog vehicleCatalog;
+    private Worker currentWorker;
+    public Rental(Worker mWorker)
     {
         super(myTableName);
 
         setDependencies();
         persistentState = new Properties();
+        vehicleCatalog = new VehicleCatalog();
+        currentWorker = mWorker;
     }
 
     public Rental(String userID)throws InvalidPrimaryKeyException{
@@ -60,11 +61,11 @@ public class Rental extends ModelBase{
         v.addElement(persistentState.getProperty("vehicleID"));
         v.addElement(persistentState.getProperty("renterID"));
         v.addElement(persistentState.getProperty("dateRented"));
-        //v.addElement(persistentState.getProperty("timeRented"));
+        v.addElement(persistentState.getProperty("timeRented"));
         v.addElement(persistentState.getProperty("dateDue"));
-        //v.addElement(persistentState.getProperty("timeDue"));
+        v.addElement(persistentState.getProperty("timeDue"));
         v.addElement(persistentState.getProperty("dateReturned"));
-        //v.addElement(persistentState.getProperty("timeReturned"));
+        v.addElement(persistentState.getProperty("timeReturned"));
         v.addElement(persistentState.getProperty("checkoutWorkerID"));
         v.addElement(persistentState.getProperty("checkinWorkerID"));
         return v;
@@ -74,6 +75,23 @@ public class Rental extends ModelBase{
     {
         return "rentalID";
     }
+
+    @Override
+    public Object getState(String key) {
+        if (key.equals("VehicleIDs")) {
+            return vehicleCatalog.getState("VehicleIDs");
+        }
+        else if (key.equals("workerId")){
+            return (String) currentWorker.getState("workerId");
+        }
+        else if (key.equals("UpdateStatusMessage"))
+        {
+            return updateStatusMessage;
+        }
+        return persistentState.getProperty(key);
+        //return null;
+    }
+
     public String getViewName(){ return "RentalView"; }
     public boolean checkIfExists(String id)
     {
@@ -97,5 +115,9 @@ public class Rental extends ModelBase{
         persistentState.setProperty("checkinWorkerID", workerId);
 
         update();
+    }
+
+    public String[] getBikes(){
+        return (String[]) vehicleCatalog.getState("VehicleIDs");
     }
 }

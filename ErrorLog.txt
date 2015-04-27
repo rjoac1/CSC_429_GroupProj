@@ -27,3 +27,5 @@
 [4/14/15 11:17 AM]|User|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1364: Field 'dateStatusUpdated' doesn't have a default value>
 [4/14/15 1:38 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column '800000000sqladmin' in 'where clause'>
 [4/14/15 1:47 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column '800000000sqladmin' in 'where clause'>
+[4/26/15 8:03 PM]|VehicleCollection|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'status' in 'where clause'>
+[4/26/15 8:04 PM]|VehicleCollection|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1241: Operand should contain 1 column(s)>

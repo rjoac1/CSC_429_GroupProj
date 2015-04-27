@@ -215,7 +215,7 @@ public class Clerk implements IView, IModel, ISlideShow
     }
     private void createNewRental()
     {
-        Rental rental = new Rental();
+        Rental rental = new Rental(myWorker);
         rental.subscribe("EndTransaction", this);
         rental.stateChangeRequest("ShowDataEntryView", "");
     }
