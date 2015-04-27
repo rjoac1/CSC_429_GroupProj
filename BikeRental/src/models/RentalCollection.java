@@ -100,12 +100,11 @@ public class RentalCollection extends ModelBase{
         try{
             Rental r = new Rental(s);
             r.setReturned((String)mWorker.getState("workerId"));
-
-
             updateStatusMessage = messages.getString("returnSuccessful");
         }
         catch(Exception e) {
             e.getMessage();
+            updateStatusMessage = messages.getString("returnUnSuccessful");
         }
 
     }

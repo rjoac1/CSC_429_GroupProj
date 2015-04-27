@@ -315,32 +315,32 @@ public class UserView extends View{
                 myModel.stateChangeRequest("Done", null);
             } else if (evt.getSource() == submit) {
                 if (values[0].length() == 0) {
-                    displayErrorMessage(messages.getString("enterFirstNameError"));
+                    displayMessage(messages.getString("enterFirstNameError"));
                     firstNameBox.requestFocus();
                 } else if (values[1].length() == 0) {
-                    displayErrorMessage(messages.getString("enterLastNameError"));
+                    displayMessage(messages.getString("enterLastNameError"));
                     lastNameBox.requestFocus();
                 } else if (values[2].length() == 0 || phoneBox1.getText().length() > 5
                         || phoneBox2.getText().length() > 11 ) {
-                    displayErrorMessage(messages.getString("phoneFormatError"));
+                    displayMessage(messages.getString("phoneFormatError"));
                     phoneBox1.requestFocus();
                 } else if ((phoneBox1.getText().matches("^\\d+$") != true) || (phoneBox2.getText().matches("^\\d+$") != true)) {
-                    displayErrorMessage(messages.getString("phoneNumericalError"));
+                    displayMessage(messages.getString("phoneNumericalError"));
                     phoneBox1.requestFocus();
                 } else if (values[3].length() == 0) {
-                    displayErrorMessage(messages.getString("enterEmailError"));
+                    displayMessage(messages.getString("enterEmailError"));
                     emailBox.requestFocus();
                 } else if (values[4].length() == 0) {
-                    displayErrorMessage(messages.getString("userTypeError"));
+                    displayMessage(messages.getString("userTypeError"));
                     userTypeBox.requestFocus();
                 }
                 else if(regDate == null)
                 {
-                    displayErrorMessage(messages.getString("selectRegDateError"));
+                    displayMessage(messages.getString("selectRegDateError"));
                 }
                 else if(memExpireDate == null)
                 {
-                    displayErrorMessage(messages.getString("selectMemExpireDateError"));
+                    displayMessage(messages.getString("selectMemExpireDateError"));
                 }
                 // else if (values[5].length() == 0)
                 //{

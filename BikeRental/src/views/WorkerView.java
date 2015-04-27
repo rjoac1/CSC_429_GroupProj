@@ -332,58 +332,58 @@ public class WorkerView extends View{
 
             if((workerIdEntered == null) || (workerIdEntered.length() == 0))
             {
-                displayErrorMessage(messages.getString("enterWorkerIdError"));
+                displayMessage(messages.getString("enterWorkerIdError"));
                 workerIdBox.requestFocus();
             }
             else if ((workerIdEntered.matches("^\\d+$")!=true))
             {
-                displayErrorMessage(messages.getString("workerIdNumericalError"));
+                displayMessage(messages.getString("workerIdNumericalError"));
                 workerIdBox.requestFocus();
             }
             else if ((workerIdEntered.length() != 9))
             {
-                displayErrorMessage(messages.getString("workerIdRangeError"));
+                displayMessage(messages.getString("workerIdRangeError"));
                 workerIdBox.requestFocus();
             }
             else if((firstNameEntered == null) || (firstNameEntered.length() == 0))
             {
-                displayErrorMessage(messages.getString("enterFirstNameError"));
+                displayMessage(messages.getString("enterFirstNameError"));
                 firstNameBox.requestFocus();
             }
             else if((lastNameEntered == null) || (lastNameEntered.length() == 0))
             {
-                displayErrorMessage(messages.getString("enterLastNameError"));
+                displayMessage(messages.getString("enterLastNameError"));
                 lastNameBox.requestFocus();
             }
             else if((emailEntered == null) || (emailEntered.length() == 0))
             {
-                displayErrorMessage(messages.getString("enterEmailError"));
+                displayMessage(messages.getString("enterEmailError"));
                 emailBox.requestFocus();
             }
             else if((phone1Entered.length() == 0) || phone1Entered.length() > 5)
             {
-                displayErrorMessage(messages.getString("phoneFormatError"));
+                displayMessage(messages.getString("phoneFormatError"));
                 phoneBox1.requestFocus();
             }
             else if((phone2Entered.length() == 0) || phone2Entered.length() > 11)
             {
-                displayErrorMessage(messages.getString("phoneFormatError"));
+                displayMessage(messages.getString("phoneFormatError"));
                 phoneBox2.requestFocus();
             }
             else if ((phone1Entered.matches("^\\d+$")!=true) || (phone2Entered.matches("^\\d+$")!=true))
             {
-                displayErrorMessage(messages.getString("phoneNumericalError"));
+                displayMessage(messages.getString("phoneNumericalError"));
                 phoneBox1.requestFocus();
             }
             else if((passwordEntered == null) || (passwordEntered.length() == 0))
             {
-                displayErrorMessage(messages.getString("enterPasswordError"));
+                displayMessage(messages.getString("enterPasswordError"));
                 passwordBox.setText("");
                 passwordBox.requestFocus();
             }
             else if(selectedDate == null)
             {
-                displayErrorMessage(messages.getString("selectRegDateError"));
+                displayMessage(messages.getString("selectRegDateError"));
             }
             else
             {

@@ -115,7 +115,7 @@ public class RentalView extends View{
 
             if((vehicleIDEntered == null) || (vehicleIDEntered.length() == 0))
             {
-                displayErrorMessage(messages.getString("enterVehicleIdError"));
+                displayMessage(messages.getString("enterVehicleIdError"));
                 availableVehicles.requestFocus();
             }
             /*else if ((vehicleIDEntered.matches("^\\d+$")!=true))
@@ -125,7 +125,7 @@ public class RentalView extends View{
             }*/
             else if((renterIDEntered == null) || (renterIDEntered.length() == 0))
             {
-                displayErrorMessage(messages.getString("enterWorkerIdError"));
+                displayMessage(messages.getString("enterWorkerIdError"));
                 renterIDBox.requestFocus();
             }
             else
