@@ -188,9 +188,6 @@ public abstract class View extends JPanel
             case "UpdateStatusMessage":
                 displayMessage((String)value);
                 break;
-            case "UpdateStatusMessageError":
-                displayErrorMessage((String)value);
-                break;
             default:
                 //clearErrorMessage();
                 break;
@@ -442,9 +439,9 @@ public abstract class View extends JPanel
         return valToReturn;
 
     }
-    public void displayErrorMessage(String message)
+    public void paint(Graphics g)
     {
-        JOptionPane.showMessageDialog(this, message, "Fast Trax", JOptionPane.ERROR_MESSAGE);
+        super.paint(g);
     }
     public void displayMessage(String message)
     {

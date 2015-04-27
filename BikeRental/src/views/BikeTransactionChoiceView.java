@@ -336,10 +336,10 @@ public class BikeTransactionChoiceView extends View
             myModel.stateChangeRequest("AddUser", null);
         } else if (e.getSource() == addWorkerButton) {
             if(checkWorkerAdminStatus()){ myModel.stateChangeRequest("AddWorker", null); }
-            else{displayErrorMessage(messages.getString("requireAdminCred"));}
+            else{displayMessage(messages.getString("requireAdminCred"));}
         } else if (e.getSource() == addBikeButton) {
             if (checkWorkerAdminStatus()){ myModel.stateChangeRequest("AddBike", null); }
-            else{displayErrorMessage(messages.getString("requireAdminCred"));}
+            else{displayMessage(messages.getString("requireAdminCred"));}
         }
         else if (e.getSource() == logoutButton) {
             processLogout();
@@ -362,12 +362,12 @@ public class BikeTransactionChoiceView extends View
         if (key.equals("TransactionError") == true)
         {
             // display the passed text
-            displayErrorMessage((String)value);
+            displayMessage((String)value);
         }
         else if (key.equals("NoRentalsFoundError") == true)
         {
             // display the passed text
-            displayErrorMessage((String)value);
+            displayMessage((String)value);
         }
     }
 

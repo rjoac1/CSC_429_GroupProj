@@ -266,22 +266,22 @@ public class VehicleView extends View
 
             if((makeText == null) || (makeText.length() == 0))
             {
-                displayErrorMessage(messages.getString("VehicleMakeError"));
+                displayMessage(messages.getString("VehicleMakeError"));
                 make.requestFocus();
             }
             else if((modelNumberText == null) || (modelNumberText.length() == 0))
             {
-                displayErrorMessage(messages.getString("VehicleModelNumError"));
+                displayMessage(messages.getString("VehicleModelNumError"));
                 modelNumber.requestFocus();
             }
             else if((serialNumberText == null) || (serialNumberText.length() == 0))
             {
-                displayErrorMessage(messages.getString("VehicleSerialNumError"));
+                displayMessage(messages.getString("VehicleSerialNumError"));
                 serialNumber.requestFocus();
             }
             else if((colorText == null) || (colorText.length() == 0))
             {
-                displayErrorMessage(messages.getString("VehicleColorError"));
+                displayMessage(messages.getString("VehicleColorError"));
                 color.requestFocus();
             }/*
             else if((descriptionText == null) || (descriptionText.length() == 0))
@@ -291,7 +291,7 @@ public class VehicleView extends View
             }*/
             else if((locationText == null) || (locationText.length() == 0))
             {
-                displayErrorMessage(messages.getString("VehicleLocationError"));
+                displayMessage(messages.getString("VehicleLocationError"));
                 location.requestFocus();
             }/*
             else if((physicalConditionText == null) || (physicalConditionText.length() == 0))

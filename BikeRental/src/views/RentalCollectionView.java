@@ -124,6 +124,8 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
             Vector selectedRental = (Vector)rentalVector.elementAt(selectedIndex);
 
             myModel.stateChangeRequest("ProcessReturn", selectedRental.elementAt(0));
+
+            tableOfRentals.revalidate();
         }
     }
     private void processDone()

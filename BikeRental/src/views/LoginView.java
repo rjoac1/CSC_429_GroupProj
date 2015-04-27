@@ -169,7 +169,7 @@ public class LoginView extends View
 
         if ((useridEntered == null) || (useridEntered.length() == 0))
         {
-            displayErrorMessage(messages.getString("enterUserIDErrorMessage"));
+            displayMessage(messages.getString("enterUserIDErrorMessage"));
             userid.requestFocus();
         }
         else
@@ -214,7 +214,7 @@ public class LoginView extends View
         if (key.equals("LoginError") == true && !value.equals(""))
         {
             // display the passed text
-            displayErrorMessage((String)value);
+            displayMessage((String)value);
         }
 
     }
