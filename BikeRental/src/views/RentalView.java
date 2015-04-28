@@ -4,11 +4,7 @@ package views;
  * Created by Ryan on 4/2/2015.
  */
 
-import java.awt.FlowLayout;
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
 import java.util.EventObject;
 import javax.swing.BoxLayout;
@@ -17,10 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.*;
 
 import impres.impresario.IModel;
-import models.DBContentStrategy;
-import org.jdatepicker.impl.JDatePickerImpl;
 
-public class RentalView extends View{
+public class RentalView extends View {
 
     // GUI stuff
     private JComboBox<String> availableVehicles;

@@ -52,10 +52,17 @@ public abstract class View extends JPanel
         Boolean validate(String content);
     }
 
-//    @FunctionalInterface
-//    protected interface InvalidParameterHandler {
-//        void handle(JComponent c, String s, Boolean focus);
-//    }
+    @FunctionalInterface
+    protected interface InvalidParameterHandler {
+        void handle(JComponent c, String s, Boolean focus);
+    }
+
+    static final protected InvalidParameterHandler errorHandler =
+            (v, s, focus) -> {
+                v.setBorder(BorderFactory.createLineBorder(Color.RED));
+                if (focus)
+                    v.requestFocus();
+            };
 
     protected class SubmitWrapper {
         public final String propertyName;
@@ -69,6 +76,24 @@ public abstract class View extends JPanel
             validator = v;
             control = ctl;
             getter = get;
+            if (control != null)
+                setupOnTheFlyValidation();
+        }
+
+        void setupOnTheFlyValidation() {
+            control.addFocusListener(new FocusListener() {
+                @Override
+                public void focusGained(FocusEvent e) {}
+
+                @Override
+                public void focusLost(FocusEvent e) {
+                    final String content = getter.get(control);
+                    if (!validator.validate(content))
+                        errorHandler.handle(control, content, false);
+                    else
+                        control.setBorder(UIManager.getBorder("TextField.border"));
+                }
+            });
         }
     }
 
@@ -158,6 +183,7 @@ public abstract class View extends JPanel
             System.err.println(i.propertyName);
             final String s = i.getter.get(i.control);
             if (!i.validator.validate(s)) {
+                errorHandler.handle(i.control, i.propertyName, false);
                 value = null;
             }
             if (value != null && s != null) {
