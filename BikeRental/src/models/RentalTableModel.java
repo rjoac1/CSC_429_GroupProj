@@ -9,44 +9,30 @@ import java.util.Vector;
 public class RentalTableModel extends TableModelBase {
 
     private ResourceBundle messages = LocaleStore.getLocale().getResourceBundle();
+    private String[] mColumnNames;
 
-    public RentalTableModel(Vector rentalData)
-    {
+    public RentalTableModel(Vector rentalData) {
         super(rentalData);
+        mColumnNames = new String[] {
+                messages.getString("rentalID"),
+                messages.getString("vehicleID"),
+                messages.getString("renterID"),
+                messages.getString("dateRented"),
+                messages.getString("timeRented"),
+                messages.getString("dateDue"),
+                messages.getString("timeDue"),
+                messages.getString("checkinWorkerID"),
+                messages.getString("checkoutWorkerID")
+        };
     }
 
     @Override
     public int getColumnCount() {
-        return 8;
+        return mColumnNames.length;
     }
 
     @Override
-    public String getColumnName(int columnIndex)
-    {
-        if(columnIndex == 0)
-            return messages.getString("rentalID");
-        else
-        if(columnIndex == 1)
-            return messages.getString("vehicleID");
-        else
-        if(columnIndex == 2)
-            return messages.getString("renterID");
-        else
-        if(columnIndex == 3)
-            return messages.getString("dateRented");
-        else
-        if(columnIndex == 4)
-            return messages.getString("dateDue");
-        else
-        if(columnIndex == 5)
-            return messages.getString("dateReturned");
-        else
-        if(columnIndex == 6)
-            return messages.getString("checkoutWorkerID");
-        else
-        if(columnIndex == 7)
-            return messages.getString("checkinWorkerID");
-        else
-            return "??";
+    public String getColumnName(int columnIndex) {
+        return mColumnNames[columnIndex];
     }
 }
