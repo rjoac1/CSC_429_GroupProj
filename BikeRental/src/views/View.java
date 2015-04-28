@@ -28,7 +28,6 @@ import impres.impresario.IView;
 import impres.impresario.IModel;
 import impres.impresario.IControl;
 import impres.impresario.ControlRegistry;
-import models.DBContentStrategy;
 import models.LocaleStore;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -36,33 +35,13 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import utils.EmailValidator;
-import utils.EmailValidator;
 
 
 //==============================================================
 public abstract class View extends JPanel
         implements IView, IControl, ActionListener, FocusListener
 {
-    // private data
-    protected MainFrame mainFrame;
-    protected IModel myModel;
-    protected ControlRegistry myRegistry;
-    protected ResourceBundle messages;
-    protected MessageView statusLog;
-    protected String subTitleText = "";
-
-    //protected JDatePickerImpl datePicker;
-    protected String datePattern = "yyyy-MM-dd";
-    protected SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
-
-    final protected int gridBuffer1 = 2;
-    final protected int gridBuffer2 = 2;
-    final protected int gridBuffer3 = 10;
-    final protected int gridBuffer4 = 0;
-
-    final protected int eastWestBufferParam1 = 60;
-    final protected int eastWestBufferParam2 = 0;
-
+    // Static Datas
     @FunctionalInterface
     protected interface Getter {
         String get(JComponent ctrl);
@@ -73,60 +52,16 @@ public abstract class View extends JPanel
         Boolean validate(String content);
     }
 
-    @FunctionalInterface
-    protected interface InvalidParameterHandler {
-        void handle(JComponent c, String s, Boolean focus);
-    }
-
-    protected Getter textGetter = (ctrl) -> ((JTextField)ctrl).getText();
-
-    protected Getter comboGetter = (v) -> {
-        int value = ((JComboBox)v).getSelectedIndex();
-        return DBContentStrategy.getUserTypeValue(value);
-    };
-
-        // (!) Worse complexity is O(n log n), but it should be on rather small list
-    //        if (value == null) return null;
-    //        for (String key : Collections.list(messages.getKeys())) {
-    //            final String s = messages.getString(key);
-    //            if (s.equals(value)) {
-    //                return key;
-    //            }
-    //        }
-
-    protected  Getter textAreaGetter = (v) -> ((JTextArea)v).getText();
-
-    static private final String mDbDateFormat = "yyyy-MM-dd";
-    protected Getter dateNowGetter = (v) ->
-            new SimpleDateFormat(mDbDateFormat).format(new Date());
-    protected Getter dateGetter = (v) -> {
-        // TODO: ajouter la gestion des dates fr (conversion vers une date us)
-        final Date date = (Date)((JDatePicker)v).getModel().getValue();
-        if (date == null) return "";
-        String value = date.toString();
-        System.err.println("Date value\t" + value);
-        return value;
-    };
-
-    protected Validator empty = (s) ->
-            (s != null && s.length() > 0);
-    protected Validator phoneNumber = (s) ->
-            (s != null && s.length() >= 9 && s.length() <= 11
-                    && s.matches("[0-9]+")
-            );
-    protected Validator countryCode = (s) ->
-            (s != null && s.length() >= 1 && s.length() <= 4
-                    && s.matches("[0-9]+"));
-    protected Validator emailValidator = (s) ->
-            (s != null && EmailValidator.validate(s));
-    protected Validator ok = (s) -> true;
+//    @FunctionalInterface
+//    protected interface InvalidParameterHandler {
+//        void handle(JComponent c, String s, Boolean focus);
+//    }
 
     protected class SubmitWrapper {
         public final String propertyName;
         public final JComponent control;
         public final Getter getter;
         public final Validator validator;
-//        public final InvalidParameterHandler handler;
 
         public SubmitWrapper(String name, JComponent ctl, Getter get,
                              Validator v) {
@@ -135,19 +70,62 @@ public abstract class View extends JPanel
             control = ctl;
             getter = get;
         }
-
     }
 
-    protected void populateComboxBox(JComboBox c, String[] keys) {
-        Arrays.asList(keys).stream().map(
-                (s) -> new ComboxItem(s)
-        ).forEach((i) -> c.addItem(i));
-    }
+    // Components contents getter
+    static protected Getter textGetter =
+            (ctrl) -> ((JTextField)ctrl).getText();
+
+    static final protected Getter comboGetter = (v) -> {
+        ComboxItem value = (ComboxItem)((JComboBox<ComboxItem>)v).getSelectedItem();
+        return value.getKey();
+    };
+
+    static final protected  Getter textAreaGetter =
+            (v) -> ((JTextArea)v).getText();
+
+    static protected String datePattern = "yyyy-MM-dd";
+    static protected SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
+
+    static protected Getter dateNowGetter = (v) ->
+            dateFormatter.format(new Date());
+
+    static protected Getter dateGetter = (v) -> {
+        final Date date = (Date)((JDatePicker)v).getModel().getValue();
+        return date == null ? "" : dateFormatter.format(date);
+    };
+
+    // Validators
+    static final protected Validator empty = (s) ->
+            s != null && s.length() > 0;
+    static final protected Validator phoneNumberValidator = (s) ->
+            s != null && s.length() >= 9 && s.length() <= 11
+                    && s.matches("[0-9]+");
+    static final protected Validator countryCodeValidator = (s) ->
+            s != null && s.length() >= 1 && s.length() <= 4
+                    && s.matches("[0-9]+");
+    static final protected Validator emailValidator = (s) ->
+            s != null && EmailValidator.validate(s);
+    static final protected Validator ok = (s) -> true;
+
+    // protected datas
+    protected IModel myModel;
+    protected ControlRegistry myRegistry;
+    protected ResourceBundle messages;
+    protected String subTitleText = "";
+
+    final protected int gridBuffer1 = 2;
+    final protected int gridBuffer2 = 2;
+    final protected int gridBuffer3 = 10;
+    final protected int gridBuffer4 = 0;
+
+    final protected int eastWestBufferParam1 = 60;
+    final protected int eastWestBufferParam2 = 0;
 
     final protected List<SubmitWrapper> mSubmitWrapper = new ArrayList<>();
 
-    protected Font myFont = new Font("Helvetica", Font.BOLD, 20);
-    protected Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
+    final protected Font myFont = new Font("Helvetica", Font.BOLD, 20);
+    final protected Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
 
     protected JButton submit;
     protected JButton done;
@@ -156,27 +134,30 @@ public abstract class View extends JPanel
     protected abstract void processAction(EventObject evt);
     //protected abstract JPanel createSubTitle();
 
-    // GUI components
-
-
     // Class constructor
     //----------------------------------------------------------
-    public View(IModel model, String classname)
+    public View(final IModel model, final String className)
     {
         myModel = model;
         messages = LocaleStore.getLocale().getResourceBundle();
-        myRegistry = new ControlRegistry(classname);
+        myRegistry = new ControlRegistry(className);
 
         myModel.subscribe("UpdateStatusMessage", this);
         myModel.subscribe("UpdateStatusMessageError", this);
     }
 
+    protected void populateComboxBox(JComboBox<ComboxItem> c,
+                                     String[] keys) {
+        Arrays.stream(keys).map(ComboxItem::new)
+                .forEach(c::addItem);
+    }
+
     protected Properties getProperties() {
         Properties value = new Properties();
         for (SubmitWrapper i : mSubmitWrapper) {
+            System.err.println(i.propertyName);
             final String s = i.getter.get(i.control);
             if (!i.validator.validate(s)) {
-                System.err.println("TODO: add handling of error");
                 value = null;
             }
             if (value != null && s != null) {
@@ -186,8 +167,7 @@ public abstract class View extends JPanel
         return value;
     }
 
-    protected JPanel createTitle()
-    {
+    protected JPanel createTitle() {
         JPanel temp = new JPanel();
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
@@ -217,8 +197,7 @@ public abstract class View extends JPanel
 
     //Create SubTitle
     //-------------------------------------------------------------
-    protected JPanel createSubTitle()
-    {
+    protected JPanel createSubTitle() {
         JPanel temp = new JPanel();
         temp.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -228,8 +207,8 @@ public abstract class View extends JPanel
 
         return temp;
     }
-    protected JPanel createNavigationButtons()
-    {
+
+    protected JPanel createNavigationButtons() {
         JPanel temp = new JPanel();
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
@@ -281,10 +260,8 @@ public abstract class View extends JPanel
         //System.out.println(datePicker.getLocale()); //test
         return datePicker;
     }
-    public void updateState(String key, Object value)
-    {
-        switch(key)
-        {
+    public void updateState(String key, Object value) {
+        switch(key) {
             case "UpdateStatusMessage":
                 displayMessage((String)value);
                 break;
@@ -296,8 +273,7 @@ public abstract class View extends JPanel
 
     // process events generated from our GUI components
     //-------------------------------------------------------------
-    public void actionPerformed(ActionEvent evt)
-    {
+    public void actionPerformed(ActionEvent evt) {
         // DEBUG: System.out.println("View.actionPerformed(): " + evt.toString());
 
         processAction(evt);
@@ -305,8 +281,7 @@ public abstract class View extends JPanel
 
     // Same as hitting return in a field, fire postStateChange
     //----------------------------------------------------------
-    public void focusLost(FocusEvent evt)
-    {
+    public void focusLost(FocusEvent evt) {
         // DEBUG: System.out.println("CustomerView.focusLost()");
         // ignore temporary events
         if(evt.isTemporary() == true)
@@ -318,29 +293,25 @@ public abstract class View extends JPanel
 
     // ignore gaining focus, we don't care
     //----------------------------------------------------------
-    public void focusGained(FocusEvent evt)
-    {
+    public void focusGained(FocusEvent evt) {
         // placeholder
     }
 
     //----------------------------------------------------------
-    public void setRegistry(ControlRegistry registry)
-    {
+    public void setRegistry(ControlRegistry registry) {
         myRegistry = registry;
     }
 
     // Allow models to register for state updates
     //----------------------------------------------------------
-    public void subscribe(String key,  IModel subscriber)
-    {
+    public void subscribe(String key,  IModel subscriber) {
         myRegistry.subscribe(key, subscriber);
     }
 
 
     // Allow models to unregister for state updates
     //----------------------------------------------------------
-    public void unSubscribe(String key, IModel subscriber)
-    {
+    public void unSubscribe(String key, IModel subscriber) {
         myRegistry.unSubscribe(key, subscriber);
     }
 
@@ -529,8 +500,7 @@ public abstract class View extends JPanel
     }
 
     //----------------------------------------------------------
-    protected String convertToDefaultDateFormat(Date theDate)
-    {
+    protected String convertToDefaultDateFormat(Date theDate) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -539,13 +509,15 @@ public abstract class View extends JPanel
         return valToReturn;
 
     }
-    public void paint(Graphics g)
-    {
+
+    @Override
+    public void paint(Graphics g) {
         super.paint(g);
     }
-    public void displayMessage(String message)
-    {
-        JOptionPane.showMessageDialog(this, message, "Fast Trax", JOptionPane.PLAIN_MESSAGE);
+
+    public void displayMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Fast Trax",
+                JOptionPane.PLAIN_MESSAGE);
     }
 }
 

@@ -6,9 +6,7 @@ package views;
 
 import java.awt.FlowLayout;
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.EventObject;
 import javax.swing.BoxLayout;
@@ -17,29 +15,23 @@ import javax.swing.JLabel;
 import javax.swing.*;
 
 import impres.impresario.IModel;
-import models.DBContentStrategy;
 import org.jdatepicker.impl.JDatePickerImpl;
 
-public class WorkerView extends View{
+public class WorkerView extends View {
 
     // GUI stuff
     private JTextField workerIdBox;
     private JTextField firstNameBox;
     private JTextField lastNameBox;
-    private JTextField phoneBox1,phoneBox2,phoneBox3;
+    private JTextField countryCodeBox, phoneNumberBox;
     private JTextField emailBox;
-    private JComboBox<String> credentialBox;
+    private JComboBox<ComboxItem> credentialBox;
+    private JComboBox<ComboxItem> statusBox;
     private JPasswordField passwordBox;
-    private JTextField regDateBox1, regDateBox2, regDateBox3;
     private JTextArea notesArea;
-    private JComboBox statusBox;
-
     private JDatePickerImpl regDatePicker;
-    //private JButton submit;
-    //private JButton done;
 
-    public WorkerView(IModel clerk)
-    {
+    public WorkerView(IModel clerk) {
         super(clerk, "WorkerView");
         subTitleText = "AddWorkerTitle";
 
@@ -51,20 +43,27 @@ public class WorkerView extends View{
         add(createDataEntryFields());
         add(createNavigationButtons());
 
-        //add(createStatusLog("                          "));
-
-        populateFields();
-
+        mSubmitWrapper.addAll(Arrays.asList(
+                new SubmitWrapper("firstName", firstNameBox, textGetter, empty),
+                new SubmitWrapper("workerId", workerIdBox, textGetter, empty),
+                new SubmitWrapper("lastName", lastNameBox, textGetter, empty),
+                new SubmitWrapper("phoneNumber", phoneNumberBox, textGetter, phoneNumberValidator),
+                new SubmitWrapper("countryCode", countryCodeBox, textGetter, countryCodeValidator),
+                new SubmitWrapper("emailAddress", emailBox, textGetter, emailValidator),
+                new SubmitWrapper("status", statusBox, comboGetter, empty),
+                new SubmitWrapper("credential", credentialBox, comboGetter, empty),
+                new SubmitWrapper("password", passwordBox, textGetter, empty),
+                new SubmitWrapper("dateOfInitialReg", regDatePicker, dateGetter, empty),
+                new SubmitWrapper("notes", notesArea, textAreaGetter, ok),
+                new SubmitWrapper("dateStatusUpdated", null, dateNowGetter, ok)));
     }
 
-    public void paint(Graphics g)
-    {
+    @Override
+    public void paint(Graphics g) {
         super.paint(g);
     }
 
-
-    private JPanel createDataEntryFields()
-    {
+    private JPanel createDataEntryFields() {
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
 
@@ -139,14 +138,14 @@ public class WorkerView extends View{
         JLabel phonePlus = new JLabel("+");
 
         phoneInputPanel.add(phonePlus);
-        phoneBox1 = new JTextField(3);
-        phoneBox1.addActionListener(this);
-        phoneBox1.setSize(new Dimension(0,0));
+        countryCodeBox = new JTextField(3);
+        countryCodeBox.addActionListener(this);
+        countryCodeBox.setSize(new Dimension(0,0));
 
-        phoneInputPanel.add(phoneBox1);
-        phoneBox2 = new JTextField(20);
-        //phoneBox2.setPreferredSize(new Dimension(800,20));
-        phoneInputPanel.add(phoneBox2);
+        phoneInputPanel.add(countryCodeBox);
+        phoneNumberBox = new JTextField(20);
+        //phoneNumberBox.setPreferredSize(new Dimension(800,20));
+        phoneInputPanel.add(phoneNumberBox);
         phonePanel.add(phoneInputPanel);
         temp.add(phonePanel);
 */
@@ -176,18 +175,15 @@ public class WorkerView extends View{
         JLabel statusLabel = new JLabel(messages.getString("status"));
         credPanel.add(statusLabel);
 
-        String[] creds = new String[2];
-        creds[0] = messages.getString("administrator");
-        creds[1] = messages.getString("user");
-        credentialBox = new JComboBox(creds);
+        credentialBox = new JComboBox<>();
+        populateComboxBox(credentialBox, new String[]{"administrator", "user"});
+
         credentialBox.setSelectedIndex(0);
         credentialBox.addActionListener(this);
         credPanel.add(credentialBox);
 
-        String[] choices = new String[2];
-        choices[0] = messages.getString("active");
-        choices[1] = messages.getString("inactive");
-        statusBox = new JComboBox(choices);
+        statusBox = new JComboBox<>();
+        populateComboxBox(statusBox, new String[]{"active", "inactive"});
         statusBox.setSelectedIndex(0);
         statusBox.addActionListener(this);
         credPanel.add(statusBox);
@@ -226,14 +222,13 @@ public class WorkerView extends View{
         JLabel phonePlus = new JLabel("+");
 
         phoneInputPanel.add(phonePlus);
-        phoneBox1 = new JTextField(3);
-        phoneBox1.addActionListener(this);
-        phoneBox1.setSize(new Dimension(0,0));
+        countryCodeBox = new JTextField(3);
+        countryCodeBox.addActionListener(this);
+        countryCodeBox.setSize(new Dimension(0, 0));
 
-        phoneInputPanel.add(phoneBox1);
-        phoneBox2 = new JTextField(20);
-        //phoneBox2.setPreferredSize(new Dimension(800,20));
-        phoneInputPanel.add(phoneBox2);
+        phoneInputPanel.add(countryCodeBox);
+        phoneNumberBox = new JTextField(20);
+        phoneInputPanel.add(phoneNumberBox);
         phonePanel.add(phoneInputPanel);
         temp.add(phonePanel);
 
@@ -285,157 +280,24 @@ public class WorkerView extends View{
 
         return main;
     }
-    //-------------------------------------------------------------
-    public void populateFields()
-    {
-        /*//set date fields based on the locale*****
-        if(LocaleStore.getLocale().getLang().equals("fr") && LocaleStore.getLocale().getCountry().equals("FR"))
-        {
-            regDateBox1.setText("dd");
-            regDateBox2.setText("mm");
-        }
-        else{
-            regDateBox1.setText("mm");
-            regDateBox2.setText("dd");
-        }
-        regDateBox3.setText("yyyy");
 
-        // userid.setText("");
-        //password.setText("");*/
-    }
+    @Override
     public void processAction(EventObject e) {
-
-        //clearErrorMessage();
-
-        if(e.getSource() == submit)
-        {
-            String workerIdEntered = workerIdBox.getText();
-            String firstNameEntered = firstNameBox.getText();
-            String lastNameEntered = lastNameBox.getText();
-            String emailEntered = emailBox.getText();
-            String phone1Entered = phoneBox1.getText();
-            String phone2Entered = phoneBox2.getText();
-            String phoneEntered = "+(" + phone1Entered + ") - " + phone2Entered;
-            String credEntered = DBContentStrategy.getCredentialValue(credentialBox.getSelectedIndex());
-
-            char[] passwordValueEntered = passwordBox.getPassword();
-            String passwordEntered = new String(passwordValueEntered);
-            for (int cnt = 0; cnt < passwordValueEntered.length; cnt++)
-            {
-                passwordValueEntered[cnt] = 0;
-            }
-
-            Date selectedDate = (Date) regDatePicker.getModel().getValue();
-
-            String notesEntered = notesArea.getText();
-            String statusEntered = DBContentStrategy.getStatusValue(statusBox.getSelectedIndex());
-
-            if((workerIdEntered == null) || (workerIdEntered.length() == 0))
-            {
-                displayMessage(messages.getString("enterWorkerIdError"));
-                workerIdBox.requestFocus();
-            }
-            else if ((workerIdEntered.matches("^\\d+$")!=true))
-            {
-                displayMessage(messages.getString("workerIdNumericalError"));
-                workerIdBox.requestFocus();
-            }
-            else if ((workerIdEntered.length() != 9))
-            {
-                displayMessage(messages.getString("workerIdRangeError"));
-                workerIdBox.requestFocus();
-            }
-            else if((firstNameEntered == null) || (firstNameEntered.length() == 0))
-            {
-                displayMessage(messages.getString("enterFirstNameError"));
-                firstNameBox.requestFocus();
-            }
-            else if((lastNameEntered == null) || (lastNameEntered.length() == 0))
-            {
-                displayMessage(messages.getString("enterLastNameError"));
-                lastNameBox.requestFocus();
-            }
-            else if((emailEntered == null) || (emailEntered.length() == 0))
-            {
-                displayMessage(messages.getString("enterEmailError"));
-                emailBox.requestFocus();
-            }
-            else if((phone1Entered.length() == 0) || phone1Entered.length() > 5)
-            {
-                displayMessage(messages.getString("phoneFormatError"));
-                phoneBox1.requestFocus();
-            }
-            else if((phone2Entered.length() == 0) || phone2Entered.length() > 11)
-            {
-                displayMessage(messages.getString("phoneFormatError"));
-                phoneBox2.requestFocus();
-            }
-            else if ((phone1Entered.matches("^\\d+$")!=true) || (phone2Entered.matches("^\\d+$")!=true))
-            {
-                displayMessage(messages.getString("phoneNumericalError"));
-                phoneBox1.requestFocus();
-            }
-            else if((passwordEntered == null) || (passwordEntered.length() == 0))
-            {
-                displayMessage(messages.getString("enterPasswordError"));
-                passwordBox.setText("");
-                passwordBox.requestFocus();
-            }
-            else if(selectedDate == null)
-            {
-                displayMessage(messages.getString("selectRegDateError"));
-            }
-            else
-            {
-                String dateEntered = dateFormatter.format(selectedDate);
-                String[] values = new String[11];
-                values[0] = firstNameEntered;
-                values[1] = lastNameEntered;
-                values[2] = emailEntered;
-                values[3] = phoneEntered;
-                values[4] = credEntered;
-                values[5] = passwordEntered;
-                values[6] = dateEntered;
-                values[7] = notesEntered;
-                values[8] = statusEntered;
-
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date d = new Date();
-                String dateString = dateFormat.format(d);
-                values[9] = dateString;
-                values[10] = workerIdEntered;
-
-                processInsertion(values);
-            }
-        }
-        else
-        if(e.getSource() == done)
-        {
+        if (e.getSource() == done) {
             processDone();
+        } else if (e.getSource() == submit) {
+            processInsertion();
+
         }
-
-
     }
-    public void processInsertion(String[] values)
-    {
-        Properties props = new Properties();
-        props.setProperty("firstName", values[0]);
-        props.setProperty("lastName", values[1]);
-        props.setProperty("phoneNumber", values[2]);
-        System.out.println(values[2]); //test
-        props.setProperty("emailAddress", values[3]);
-        props.setProperty("credential", values[4]);
-        props.setProperty("password", values[5]);
-        props.setProperty("dateOfInitialReg", values[6]);
-        props.setProperty("notes", values[7]);
-        props.setProperty("status", values[8]);
-        props.setProperty("dateStatusUpdated", values[9]);
-        props.setProperty("workerId", values[10]);
 
+    public void processInsertion() {
+        Properties props = getProperties();
+        System.err.println(props);
         myModel.stateChangeRequest("ProcessInsertion", props);
     }
-    public void processDone()
-    {
+
+    public void processDone() {
         myModel.stateChangeRequest("Done", null);
     }
 

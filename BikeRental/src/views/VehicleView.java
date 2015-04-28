@@ -1,35 +1,26 @@
 package views;
-import java.awt.Color;
-import java.awt.Component;
+
 //System imports
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 
 //project imports
 import impres.impresario.IModel;
-import models.DBContentStrategy;
 
-//==============================================================
-public class VehicleView extends View
-{
+
+public class VehicleView extends View {
     //GUI Stuff
     private JTextField make;
     private JTextField modelNumber;
     private JTextField serialNumber;
-    private JComboBox color;
     private JTextField description;
     private JTextField location;
-    private JComboBox<String> physicalCondition;
-    private JComboBox<String> status;
+    private JComboBox<ComboxItem> physicalCondition;
+    private JComboBox<ComboxItem> color;
+    private JComboBox<ComboxItem> status;
 
-    //private JButton submitButton;
-    //private JButton doneButton;
-
-    public VehicleView(IModel vehicle)
-    {
+    public VehicleView(IModel vehicle) {
         super(vehicle, "VehicleView");
         subTitleText = "AddVehicleTitle";
         // set the layout for this panel
@@ -40,22 +31,29 @@ public class VehicleView extends View
         add(createDataEntryFields());
         add(createNavigationButtons());
 
-        //error message area
-        //add(createStatusLog("                          "));
-
         populateFields();
         myModel.subscribe("UpdateStatusMessage", this);
+        mSubmitWrapper.addAll(Arrays.asList(
+                new SubmitWrapper("make", make, textGetter, empty),
+                new SubmitWrapper("modelNumber", modelNumber, textGetter, empty),
+                new SubmitWrapper("serialNumber", serialNumber, textGetter, empty),
+                new SubmitWrapper("color", color, comboGetter, empty),
+                new SubmitWrapper("location", location, textGetter, empty),
+                new SubmitWrapper("description", description, textGetter, ok),
+                new SubmitWrapper("physicalCondition", physicalCondition, comboGetter, empty),
+                new SubmitWrapper("status", status, comboGetter, empty),
+                new SubmitWrapper("dateStatusUpdated", null, dateNowGetter, ok)
+        ));
+
     }
-    public void paint(Graphics g)
-    {
+
+    @Override
+    public void paint(Graphics g) {
         super.paint(g);
     }
 
-
-    private JPanel createDataEntryFields()
-    {
+    private JPanel createDataEntryFields() {
         JPanel temp = new JPanel();
-        //setLayout for panel
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
 
         JPanel tempMain = new JPanel();
@@ -63,7 +61,6 @@ public class VehicleView extends View
 
         JPanel tempSetup = new JPanel();
         tempSetup.setLayout(new BoxLayout(tempSetup, BoxLayout.Y_AXIS));
-        // tempSetup.setBorder(new EmptyBorder(0, 0, 0, 0) );
         JPanel empty = new JPanel();
         empty.setPreferredSize(new Dimension(eastWestBufferParam1, eastWestBufferParam2));
 
@@ -71,7 +68,6 @@ public class VehicleView extends View
         empty1.setPreferredSize(new Dimension(eastWestBufferParam1, eastWestBufferParam2));
         tempMain.add(empty, BorderLayout.WEST);
 
-        //
         JPanel temp1 = new JPanel();
         temp1.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
 
@@ -109,8 +105,6 @@ public class VehicleView extends View
         temp3.add(serialNumber);
 
         temp.add(temp3);
-
-
 
         //Description
         JPanel temp4 = new JPanel();
@@ -150,191 +144,53 @@ public class VehicleView extends View
         temp6.add(conditionLabel);
         temp6.add(statusLabel);
 
-        String colorArr [] = new String[10];
-
-        colorArr[0] = messages.getString("red");
-        colorArr[1] = messages.getString("blue");
-        colorArr[2] = messages.getString("green");
-        colorArr[3] = messages.getString("yellow");
-        colorArr[4] = messages.getString("black");
-        colorArr[5] = messages.getString("white");
-        colorArr[6] = messages.getString("gray");
-        colorArr[7] = messages.getString("pink");
-        colorArr[8] = messages.getString("purple");
-        colorArr[9] = messages.getString("orange");
-        color = new JComboBox(colorArr);
+        color = new JComboBox<>();
+        populateComboxBox(color, new String[] {
+                "red", "blue", "green", "yellow", "black", "white",
+                "gray", "pink", "purple", "orange"
+        });
         color.addActionListener(this);
         temp6.add(color);
 
-        String[] conditions = new String[4];
-        conditions[0] = messages.getString("mint");
-        conditions[1] = messages.getString("good");
-        conditions[2] = messages.getString("satisfactory");
-        conditions[3] = messages.getString("poor");
-        physicalCondition = new JComboBox(conditions);
+        physicalCondition = new JComboBox<>();
+        populateComboxBox(physicalCondition, new String[] {
+                "mint", "good", "satisfactory", "poor"
+        });
         physicalCondition.setSelectedIndex(0);
         physicalCondition.addActionListener(this);
         temp6.add(physicalCondition);
 
-        String[] statusText = new String[2];
-        statusText[0] = messages.getString("active");
-        statusText[1] = messages.getString("inactive");
-        status = new JComboBox(statusText);
+        status = new JComboBox<>();
+        populateComboxBox(status, new String[] {"active", "inactive"});
         status.setSelectedIndex(0);
         status.addActionListener(this);
         temp6.add(status);
 
         temp.add(temp6);
-        /*
-        //Physical Condition
-        JPanel temp7 = new JPanel();
-        temp7.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
-
-
-
-        String[] conditions = new String[4];
-        conditions[0] = messages.getString("mint");
-        conditions[1] = messages.getString("good");
-        conditions[2] = messages.getString("satisfactory");
-        conditions[3] = messages.getString("poor");
-        physicalCondition = new JComboBox(conditions);
-        physicalCondition.setSelectedIndex(0);
-        physicalCondition.addActionListener(this);
-        temp7.add(physicalCondition);
-
-        temp.add(temp7);
-
-        //Status
-        JPanel temp8 = new JPanel();
-        temp8.setLayout(new GridLayout(gridBuffer1, gridBuffer2, gridBuffer3, gridBuffer4));
-
-
-        String[] statusText = new String[2];
-        statusText[0] = messages.getString("active");
-        statusText[1] = messages.getString("inactive");
-        status = new JComboBox(statusText);
-        status.setSelectedIndex(0);
-        status.addActionListener(this);
-        temp8.add(status);
-
-        temp.add(temp8);
-        */
         tempMain.add(temp, BorderLayout.CENTER);
         tempMain.add(empty1,BorderLayout.EAST);
         return tempMain;
     }
-//Put this in super class -RJ
-    /*private JPanel createNavigationButtons()
-    {
-        JPanel temp = new JPanel();		// default FlowLayout is fine
-        FlowLayout f1 = new FlowLayout(FlowLayout.CENTER);
-        f1.setVgap(10);
-        f1.setHgap(25);
-        temp.setLayout(f1);
 
-        // create the buttons, listen for events, add them to the panel
-        submitButton = new JButton(messages.getString("submit"));
-        submitButton.addActionListener(this);
-        temp.add(submitButton);
-
-        doneButton = new JButton(messages.getString("back"));
-        doneButton.addActionListener(this);
-        temp.add(doneButton);
-
-        return temp;
-    }*/
-    public void populateFields()
-    {
+    public void populateFields() {
         //Not really needed for vehicles unless otherwise noted
     }
 
-    public void processAction(EventObject e)
-    {
-        //clearErrorMessage();
-
-        if(e.getSource() == submit)
-        {
-            String makeText = make.getText();
-            String modelNumberText = modelNumber.getText();
-            String serialNumberText = serialNumber.getText();
-            String colorText = DBContentStrategy.getVehicleColorValue(color.getSelectedIndex());
-            String descriptionText = description.getText();
-            String locationText = location.getText();
-            String physicalConditionText = DBContentStrategy.getPhysicalConditionValue(physicalCondition.getSelectedIndex());
-            String statusText = DBContentStrategy.getStatusValue(status.getSelectedIndex());
-
-
-            if((makeText == null) || (makeText.length() == 0))
-            {
-                displayMessage(messages.getString("VehicleMakeError"));
-                make.requestFocus();
-            }
-            else if((modelNumberText == null) || (modelNumberText.length() == 0))
-            {
-                displayMessage(messages.getString("VehicleModelNumError"));
-                modelNumber.requestFocus();
-            }
-            else if((serialNumberText == null) || (serialNumberText.length() == 0))
-            {
-                displayMessage(messages.getString("VehicleSerialNumError"));
-                serialNumber.requestFocus();
-            }
-            else if((colorText == null) || (colorText.length() == 0))
-            {
-                displayMessage(messages.getString("VehicleColorError"));
-                color.requestFocus();
-            }/*
-            else if((descriptionText == null) || (descriptionText.length() == 0))
-            {
-                displayErrorMessage(messages.getString("VehicleDescriptionError"));
-                description.requestFocus();
-            }*/
-            else if((locationText == null) || (locationText.length() == 0))
-            {
-                displayMessage(messages.getString("VehicleLocationError"));
-                location.requestFocus();
-            }/*
-            else if((physicalConditionText == null) || (physicalConditionText.length() == 0))
-            {
-                displayErrorMessage(messages.getString("VehicleModelNumError"));
-                displayErrorMessage("Please enter a physical condition");
-            }
-            else if((statusText == null) || (statusText.length() == 0))
-            {
-                displayErrorMessage(messages.getString("VehicleStatusError"));
-                status.requestFocus();
-            }*/
-            else
-            {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = new Date();
-                String dateString = dateFormat.format(date);
-
-                Properties props = new Properties();
-                props.setProperty("make", makeText);
-                props.setProperty("modelNumber", modelNumberText);
-                props.setProperty("serialNumber", serialNumberText);
-                props.setProperty("color", colorText);
-                props.setProperty("description", descriptionText);
-                props.setProperty("location", locationText);
-                props.setProperty("physicalCondition", physicalConditionText);
-                props.setProperty("status", statusText);
-                props.setProperty("dateStatusUpdated", dateString);
-                processInsertionOfNewVehicle(props);
-            }
-        }
-        else
-        if(e.getSource() == done)
-        {
+    public void processAction(EventObject e) {
+        if (e.getSource() == submit) {
+            processInsertionOfNewVehicle();
+        } else if (e.getSource() == done) {
             processDone();
         }
     }
-    private void processInsertionOfNewVehicle(Properties props)
-    {
-        myModel.stateChangeRequest("ProcessInsertion", props);
+
+    private void processInsertionOfNewVehicle() {
+        final Properties props = getProperties();
+        if (props != null)
+            myModel.stateChangeRequest("ProcessInsertion", props);
     }
-    private void processDone()
-    {
+
+    private void processDone() {
         myModel.stateChangeRequest("Done", null);
     }
 

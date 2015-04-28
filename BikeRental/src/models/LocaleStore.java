@@ -15,7 +15,7 @@ public class LocaleStore {
     private final String lang;
     private final String country;
 
-    static private LocaleStore mStaticInstance;
+    static private LocaleStore mStaticInstance = new LocaleStore();;
 
     private LocaleStore() {
         PropertyFile mProps = new PropertyFile("userConfig.ini");
@@ -35,17 +35,14 @@ public class LocaleStore {
     }
 
     static public LocaleStore getLocale() {
-        if (mStaticInstance == null) {
-            mStaticInstance = new LocaleStore();
-        }
         return mStaticInstance;
     }
-    public String getLang()
-    {
+
+    public String getLang() {
         return lang;
     }
-    public String getCountry()
-    {
+
+    public String getCountry() {
         return country;
     }
 }
