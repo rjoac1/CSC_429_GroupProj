@@ -170,6 +170,7 @@ public class RentalView extends View {
         props.setProperty("checkinWorkerID", values[9]);
 
         myModel.stateChangeRequest("ProcessInsertion", props);
+        processDone();
     }
     public void processDone()
     {
