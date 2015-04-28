@@ -5,7 +5,8 @@ package models;
  */
 public class DBContentStrategy {
     private static final String[] status = {"Active", "Inactive"};
-    private static final String[] vehicleColor = {"Red", "Blue", "Green", "Yellow", "Black", "White", "Gray", "Pink","Purple", "Orange"};
+    private static final String[] vehicleColor = {"Red", "Blue", "Green",
+            "Yellow", "Black", "White", "Gray", "Pink","Purple", "Orange"};
     private static final String[] credentials = {"Administrator", "User"};
     private static final String[] userType = {"Student", "Faculty"};
     private static final String[] physicalCondition = {"Mint", "Good", "Satisfactory", "Poor"};

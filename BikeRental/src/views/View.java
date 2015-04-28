@@ -20,20 +20,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 // project imports
 import impres.impresario.IView;
 import impres.impresario.IModel;
 import impres.impresario.IControl;
 import impres.impresario.ControlRegistry;
+import models.DBContentStrategy;
 import models.LocaleStore;
+import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import models.LocaleStore;
+import utils.EmailValidator;
+import utils.EmailValidator;
 
 
 //==============================================================
@@ -60,6 +63,88 @@ public abstract class View extends JPanel
     final protected int eastWestBufferParam1 = 60;
     final protected int eastWestBufferParam2 = 0;
 
+    @FunctionalInterface
+    protected interface Getter {
+        String get(JComponent ctrl);
+    }
+
+    @FunctionalInterface
+    protected interface Validator {
+        Boolean validate(String content);
+    }
+
+    @FunctionalInterface
+    protected interface InvalidParameterHandler {
+        void handle(JComponent c, String s, Boolean focus);
+    }
+
+    protected Getter textGetter = (ctrl) -> ((JTextField)ctrl).getText();
+
+    protected Getter comboGetter = (v) -> {
+        int value = ((JComboBox)v).getSelectedIndex();
+        return DBContentStrategy.getUserTypeValue(value);
+    };
+
+        // (!) Worse complexity is O(n log n), but it should be on rather small list
+    //        if (value == null) return null;
+    //        for (String key : Collections.list(messages.getKeys())) {
+    //            final String s = messages.getString(key);
+    //            if (s.equals(value)) {
+    //                return key;
+    //            }
+    //        }
+
+    protected  Getter textAreaGetter = (v) -> ((JTextArea)v).getText();
+
+    static private final String mDbDateFormat = "yyyy-MM-dd";
+    protected Getter dateNowGetter = (v) ->
+            new SimpleDateFormat(mDbDateFormat).format(new Date());
+    protected Getter dateGetter = (v) -> {
+        // TODO: ajouter la gestion des dates fr (conversion vers une date us)
+        final Date date = (Date)((JDatePicker)v).getModel().getValue();
+        if (date == null) return "";
+        String value = date.toString();
+        System.err.println("Date value\t" + value);
+        return value;
+    };
+
+    protected Validator empty = (s) ->
+            (s != null && s.length() > 0);
+    protected Validator phoneNumber = (s) ->
+            (s != null && s.length() >= 9 && s.length() <= 11
+                    && s.matches("[0-9]+")
+            );
+    protected Validator countryCode = (s) ->
+            (s != null && s.length() >= 1 && s.length() <= 4
+                    && s.matches("[0-9]+"));
+    protected Validator emailValidator = (s) ->
+            (s != null && EmailValidator.validate(s));
+    protected Validator ok = (s) -> true;
+
+    protected class SubmitWrapper {
+        public final String propertyName;
+        public final JComponent control;
+        public final Getter getter;
+        public final Validator validator;
+//        public final InvalidParameterHandler handler;
+
+        public SubmitWrapper(String name, JComponent ctl, Getter get,
+                             Validator v) {
+            propertyName = name;
+            validator = v;
+            control = ctl;
+            getter = get;
+        }
+
+    }
+
+    protected void populateComboxBox(JComboBox c, String[] keys) {
+        Arrays.asList(keys).stream().map(
+                (s) -> new ComboxItem(s)
+        ).forEach((i) -> c.addItem(i));
+    }
+
+    final protected List<SubmitWrapper> mSubmitWrapper = new ArrayList<>();
 
     protected Font myFont = new Font("Helvetica", Font.BOLD, 20);
     protected Font myFont2 = new Font("Helvetica", Font.BOLD, 15);
@@ -84,6 +169,21 @@ public abstract class View extends JPanel
 
         myModel.subscribe("UpdateStatusMessage", this);
         myModel.subscribe("UpdateStatusMessageError", this);
+    }
+
+    protected Properties getProperties() {
+        Properties value = new Properties();
+        for (SubmitWrapper i : mSubmitWrapper) {
+            final String s = i.getter.get(i.control);
+            if (!i.validator.validate(s)) {
+                System.err.println("TODO: add handling of error");
+                value = null;
+            }
+            if (value != null && s != null) {
+                value.setProperty(i.propertyName, s);
+            }
+        }
+        return value;
     }
 
     protected JPanel createTitle()
