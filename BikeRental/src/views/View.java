@@ -266,15 +266,14 @@ public abstract class View extends JPanel
         return temp;
     }
 
-    protected JDatePickerImpl getDatePicker()
-    {
+    protected JDatePickerImpl getDatePicker() {
         UtilDateModel model = new UtilDateModel();
         //model.setDate(20,04,2014);
         // Need this...
         Properties p = new Properties();
-        p.put("text.today", "Today");
-        p.put("text.month", "Month");
-        p.put("text.year", "Year");
+        p.put("text.today", messages.getString("today"));
+        p.put("text.month", messages.getString("month"));
+        p.put("text.year", messages.getString("year"));
 
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datePanel.setLocale(LocaleStore.getLocale().getLocaleObject());
@@ -283,9 +282,10 @@ public abstract class View extends JPanel
 
         datePicker.setLocale(LocaleStore.getLocale().getLocaleObject());
 
-        //System.out.println(datePicker.getLocale()); //test
+        System.out.println(datePicker.getLocale()); //test
         return datePicker;
     }
+
     public void updateState(String key, Object value) {
         switch(key) {
             case "UpdateStatusMessage":

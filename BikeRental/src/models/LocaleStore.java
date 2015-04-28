@@ -15,7 +15,7 @@ public class LocaleStore {
     private final String lang;
     private final String country;
 
-    static private LocaleStore mStaticInstance = new LocaleStore();;
+    static private LocaleStore mStaticInstance = new LocaleStore();
 
     private LocaleStore() {
         PropertyFile mProps = new PropertyFile("userConfig.ini");
@@ -23,6 +23,7 @@ public class LocaleStore {
         lang = mProps.getProperty("language");
 
         mLocale = new Locale(lang, country);
+        Locale.setDefault(mLocale);
         mResourceBundle = ResourceBundle.getBundle("MessagesBundle", mLocale);
     }
 
