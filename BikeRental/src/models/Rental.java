@@ -4,6 +4,7 @@ package models;
 // system imports
 
 import impres.exception.InvalidPrimaryKeyException;
+import views.DateLabelFormatter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -108,12 +109,12 @@ public class Rental extends ModelBase{
     }
     public void setReturned(String workerId)
     {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date d = new Date();
-        String dateString = dateFormat.format(d);
+        DateLabelFormatter dates = new DateLabelFormatter();
+        String dateString = dates.getCurrentDate();
+        String timeString = dates.getCurrentTime();
         persistentState.setProperty("dateReturned",dateString);
+        persistentState.setProperty("timeReturned",timeString);
         persistentState.setProperty("checkinWorkerID", workerId);
-
         update();
     }
 
