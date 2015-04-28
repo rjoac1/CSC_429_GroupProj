@@ -214,11 +214,20 @@ public class UserView extends View{
     }
 
     @Override
-    public void processAction(EventObject evt) {
+    public void processAction(EventObject e) {
+        if (e.getSource() == submit) {
+            processInsertionOfNewUser();
+        } else if (e.getSource() == done) {
+            processDone();
+        }
+    }
+    private void processInsertionOfNewUser() {
         final Properties props = getProperties();
-        System.err.println(props);
-        // if (props != null)
-        //     myModel.stateChangeRequest("ProcessInsertion", props);
+        if (props != null)
+            myModel.stateChangeRequest("ProcessInsertion", props);
+    }
+    private void processDone() {
+        myModel.stateChangeRequest("Done", null);
     }
 
 }
