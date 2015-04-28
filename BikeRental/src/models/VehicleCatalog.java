@@ -45,8 +45,7 @@ public class VehicleCatalog extends ModelBase
                 }
             }
         }
-
-
+        sortVehiclesByID();
         setDependencies();
     }
 
@@ -81,6 +80,23 @@ public class VehicleCatalog extends ModelBase
         catch (InvalidPrimaryKeyException ex) {
             //System.out.println(ex.getMessage()); //test
             return false;
+        }
+    }
+
+    private void sortVehiclesByID() {
+        String temp;
+        boolean swapMade = true;
+        while (swapMade) {
+            swapMade = false;
+            for (int i = 0; i < (availableBikeIDs.length - 1); i++) {
+                if ((availableBikeIDs[i].length() > availableBikeIDs[i+1].length()) ||
+                        (availableBikeIDs[i].length() == availableBikeIDs[i+1].length() && (availableBikeIDs[i].compareTo(availableBikeIDs[i + 1]) > 0))) {
+                    temp = availableBikeIDs[i + 1];
+                    availableBikeIDs[i + 1] = availableBikeIDs[i];
+                    availableBikeIDs[i] = temp;
+                    swapMade = true;
+                }
+            }
         }
     }
 }
