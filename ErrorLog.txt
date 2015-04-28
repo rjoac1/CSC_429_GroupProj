@@ -29,3 +29,7 @@
 [4/14/15 1:47 PM]|Worker|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column '800000000sqladmin' in 'where clause'>
 [4/26/15 8:03 PM]|VehicleCollection|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'status' in 'where clause'>
 [4/26/15 8:04 PM]|VehicleCollection|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1241: Operand should contain 1 column(s)>
+[4/27/15 9:26 PM]|VehicleCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SORT BY VehicleId ASC' at line 1>
+[4/27/15 9:26 PM]|VehicleCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SORT BY VehicleId ASC' at line 1>
+[4/27/15 9:28 PM]|VehicleCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SORT BY VehicleId ASC' at line 1>
+[4/27/15 9:28 PM]|VehicleCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SORT BY VehicleId ASC' at line 1>
