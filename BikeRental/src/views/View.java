@@ -57,11 +57,9 @@ public abstract class View extends JPanel
         void handle(JComponent c, String s, Boolean focus);
     }
 
+    // FIXME
     static final protected InvalidParameterHandler errorHandler =
             (v, s, focus) -> {
-                v.setBorder(BorderFactory.createLineBorder(Color.RED));
-                if (focus)
-                    v.requestFocus();
             };
 
     protected class SubmitWrapper {
@@ -77,24 +75,9 @@ public abstract class View extends JPanel
             control = ctl;
             getter = get;
             if (control != null)
-                setupOnTheFlyValidation();
+                control.setInputVerifier(new ValidateInput(v, get, name + "Error"));
         }
 
-        void setupOnTheFlyValidation() {
-            control.addFocusListener(new FocusListener() {
-                @Override
-                public void focusGained(FocusEvent e) {}
-
-                @Override
-                public void focusLost(FocusEvent e) {
-                    final String content = getter.get(control);
-                    if (!validator.validate(content))
-                        errorHandler.handle(control, content, false);
-                    else
-                        control.setBorder(UIManager.getBorder("TextField.border"));
-                }
-            });
-        }
     }
 
     // Components contents getter
@@ -268,8 +251,10 @@ public abstract class View extends JPanel
 
     protected JDatePickerImpl getDatePicker() {
         UtilDateModel model = new UtilDateModel();
+
         //model.setDate(20,04,2014);
         // Need this...
+
         Properties p = new Properties();
         p.put("text.today", messages.getString("today"));
         p.put("text.month", messages.getString("month"));
@@ -277,12 +262,12 @@ public abstract class View extends JPanel
 
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datePanel.setLocale(LocaleStore.getLocale().getLocaleObject());
+
         // Don't know about the formatter, but there it is...
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
         datePicker.setLocale(LocaleStore.getLocale().getLocaleObject());
 
-        System.out.println(datePicker.getLocale()); //test
         return datePicker;
     }
 
@@ -410,62 +395,62 @@ public abstract class View extends JPanel
     //----------------------------------------------------------
     protected int mapMonthNameToIndex(String monthName)
     {
-        if (monthName.equals("January") == true)
+        if (monthName.equals("January"))
         {
             return Calendar.JANUARY;
         }
         else
-        if (monthName.equals("February") == true)
+        if (monthName.equals("February"))
         {
             return Calendar.FEBRUARY;
         }
         else
-        if (monthName.equals("March") == true)
+        if (monthName.equals("March"))
         {
             return Calendar.MARCH;
         }
         else
-        if (monthName.equals("April") == true)
+        if (monthName.equals("April"))
         {
             return Calendar.APRIL;
         }
         else
-        if (monthName.equals("May") == true)
+        if (monthName.equals("May"))
         {
             return Calendar.MAY;
         }
         else
-        if (monthName.equals("June") == true)
+        if (monthName.equals("June"))
         {
             return Calendar.JUNE;
         }
         else
-        if (monthName.equals("July") == true)
+        if (monthName.equals("July"))
         {
             return Calendar.JULY;
         }
         else
-        if (monthName.equals("August") == true)
+        if (monthName.equals("August"))
         {
             return Calendar.AUGUST;
         }
         else
-        if (monthName.equals("September") == true)
+        if (monthName.equals("September"))
         {
             return Calendar.SEPTEMBER;
         }
         else
-        if (monthName.equals("October") == true)
+        if (monthName.equals("October"))
         {
             return Calendar.OCTOBER;
         }
         else
-        if (monthName.equals("November") == true)
+        if (monthName.equals("November"))
         {
             return Calendar.NOVEMBER;
         }
         else
-        if (monthName.equals("December") == true)
+        if (monthName.equals("December"))
         {
             return Calendar.DECEMBER;
         }
