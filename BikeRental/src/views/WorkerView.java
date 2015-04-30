@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.*;
 
+import impres.exception.InvalidPrimaryKeyException;
 import impres.impresario.IModel;
+import models.Worker;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 public class WorkerView extends View {
@@ -56,11 +58,14 @@ public class WorkerView extends View {
                 new SubmitWrapper("dateOfInitialReg", regDatePicker, dateGetter, empty),
                 new SubmitWrapper("notes", notesArea, textAreaGetter, ok),
                 new SubmitWrapper("dateStatusUpdated", null, dateNowGetter, ok)));
-    }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+//        try {
+//            Worker u = new Worker("800000000");
+//            populateFields(u.getProperties());
+//        }  catch (InvalidPrimaryKeyException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     private JPanel createDataEntryFields() {

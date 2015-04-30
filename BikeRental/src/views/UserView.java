@@ -12,7 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.*;
 
 // project imports
+import exceptions.InvalidPrimaryKeyToFormatException;
+import impres.exception.InvalidPrimaryKeyException;
 import impres.impresario.IModel;
+import models.User;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 public class UserView extends View{
@@ -53,13 +56,6 @@ public class UserView extends View{
             new SubmitWrapper("notes", notesArea, textAreaGetter, ok),
             new SubmitWrapper("dateStatusUpdated", null, dateNowGetter, ok)
         ));
-    }
-
-    // Overide the paint method to ensure we can set the focus when made visible
-    //-------------------------------------------------------------
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
     }
 
     // Create the main data entry fields

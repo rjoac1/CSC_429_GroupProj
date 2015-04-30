@@ -26,6 +26,10 @@ public class RentalTableModel extends TableModelBase {
         };
     }
 
+    public ResourceBundle getMessages() {
+        return messages;
+    }
+
     @Override
     public int getColumnCount() {
         return mColumnNames.length;
