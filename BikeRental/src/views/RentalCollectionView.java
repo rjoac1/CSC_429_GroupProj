@@ -20,10 +20,12 @@ import java.util.Vector;
  * Created by Ryan on 4/23/2015.
  */
 //==============================================================================
-public class RentalCollectionView extends View implements ActionListener, MouseListener
-{
+public class RentalCollectionView extends View implements ActionListener, MouseListener {
     protected JTable tableOfRentals;
     protected Vector rentalVector;
+
+    protected JButton mSearchBtn;
+    protected JTextField mSearchField;
 
     //--------------------------------------------------------------------------
     public RentalCollectionView(IModel wsc)
@@ -58,7 +60,7 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
             Vector entryList = (Vector)rentalCollection.getState("Rentals");
             Enumeration entries = entryList.elements();
 
-            while (entries.hasMoreElements() == true)
+            while (entries.hasMoreElements())
             {
                 Rental nextRental = (Rental)entries.nextElement();
                 Vector view = nextRental.getEntryListView();
@@ -68,9 +70,11 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
             }
         }
         catch (Exception e) {//SQLException e) {
-            // Need to handle this exception
+            // TODO: Need to handle this exception
+            e.printStackTrace();
         }
     }
+
     protected JPanel createDataEntryFields()
     {
         JPanel entries = new JPanel();
@@ -91,10 +95,8 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
         tableOfRentals.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         TableColumn column;
-        for(int i = 0; i < myData.getColumnCount(); i++)
-        {
+        for (int i = 0; i < myData.getColumnCount(); i++) {
             column = tableOfRentals.getColumnModel().getColumn(i);
-
             column.setPreferredWidth(100);
         }
         // Renter First Name
@@ -105,23 +107,32 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
         tablePan.add(scrollPane);
 
         entries.add(tablePan);
+        mSearchBtn = new JButton("Search");
+        entries.add(mSearchBtn);
+        mSearchField = new JTextField();
+
         return entries;
     }
 
     //--------------------------------------------------------------------------
     protected void processAction(EventObject evt)
     {
-        if(evt.getSource() == done)
-        {
+        if(evt.getSource() == done) {
             processDone();
         }
-        else if(evt.getSource() == submit)
-        {
+        else if(evt.getSource() == submit) {
             processRentalSelected();
         }
+        else if (evt.getSource() == mSearchBtn) {
+            processSearch();
+        }
     }
-    protected void processRentalSelected()
-    {
+
+    private void processSearch() {
+
+    }
+
+    protected void processRentalSelected() {
         int selectedIndex = tableOfRentals.getSelectedRow();
         if(selectedIndex >= 0)
         {
@@ -132,10 +143,11 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
 
         }
     }
-    private void processDone()
-    {
+
+    private void processDone() {
         myModel.stateChangeRequest("Done", null);
     }
+
     //--------------------------------------------------------------------------
     public void mouseClicked(MouseEvent click)
     {
@@ -144,6 +156,7 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
             processRentalSelected();
         }
     }
+
     //----------- These are not used ------------------------------
     public void mousePressed(MouseEvent click) {}
     public void mouseExited(MouseEvent arg0) {}
