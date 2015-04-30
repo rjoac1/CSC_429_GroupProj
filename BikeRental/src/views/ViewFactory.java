@@ -33,6 +33,15 @@ public class ViewFactory {
         else if(viewName.equals("RentalCollectionView")){
             return new RentalCollectionView(model);
         }
+        else if(viewName.equals("SearchUserView")){
+            return new SearchView(model,"User");
+        }
+        else if(viewName.equals("SearchWorkerView")){
+            return new SearchView(model,"Worker");
+        }
+        else if(viewName.equals("SearchBikeView")){
+            return new SearchView(model,"Bike");
+        }
         else
             return null;
     }

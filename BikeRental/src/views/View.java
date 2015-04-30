@@ -151,7 +151,7 @@ public abstract class View extends JPanel
         myRegistry = new ControlRegistry(className);
 
         myModel.subscribe("UpdateStatusMessage", this);
-        myModel.subscribe("UpdateStatusMessageError", this);
+        //myModel.subscribe("UpdateStatusMessageError", this);
     }
 
     protected void populateComboxBox(JComboBox<ComboxItem> c,

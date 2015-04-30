@@ -340,6 +340,19 @@ public class BikeTransactionChoiceView extends View
         } else if (e.getSource() == addBikeButton) {
             if (checkWorkerAdminStatus()){ myModel.stateChangeRequest("AddBike", null); }
             else{displayMessage(messages.getString("requireAdminCred"));}
+        } else if (e.getSource() == fndmodUserButton)
+        {
+            myModel.stateChangeRequest("fndModUser", null);
+        }else if (e.getSource() == fndmodWorkerButton)
+        {
+            if (checkWorkerAdminStatus()) {
+                myModel.stateChangeRequest("fndModWorker", null); }
+            else{displayMessage(messages.getString("requireAdminCred"));}
+        }else if (e.getSource() == fndmodBikeButton)
+        {
+            if (checkWorkerAdminStatus()) {
+                myModel.stateChangeRequest("fndModBike", null); }
+            else{displayMessage(messages.getString("requireAdminCred"));}
         }
         else if (e.getSource() == logoutButton) {
             processLogout();

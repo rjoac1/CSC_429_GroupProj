@@ -148,15 +148,21 @@ public class Clerk implements IView, IModel, ISlideShow
             case "AddBike":
                 createNewBike();
                 break;
-            /*case "FndModUser":
-                fndModUser();
-                break;
+            case "FndModUser":
+                createSearchView("UserSearchView");
             case "FndModWorker":
-                fndModWorker();
-                break;
+                createSearchView("WorkerSearchView");
             case "FndModBike":
-                fndModBike();
-                break;*/
+                createSearchView("BikeSearchView");
+            case "ModifyUser":
+                modifyUser((String) value);
+                break;
+            case "ModifyWorker":
+                modifyWorker((String) value);
+                break;
+            case "ModifyBike":
+                modifyBike((String) value);
+                break;
             case "EndTransaction":
                 createAndShowBikeTransactionChoiceView();
                 break;
@@ -219,6 +225,42 @@ public class Clerk implements IView, IModel, ISlideShow
         rental.subscribe("EndTransaction", this);
         rental.stateChangeRequest("ShowDataEntryView", "");
     }
+    private void modifyUser(String id)
+    {
+        try{
+            User user = new User(id);
+            user.subscribe("EndTransaction", this);
+            user.stateChangeRequest("ShowDataEntryView", "");
+        }
+        catch(InvalidPrimaryKeyException e)
+        {
+            transactionErrorMessage = e.getMessage();
+        }
+    }
+    private void modifyWorker(String id)
+    {
+        try{
+            Worker worker = new Worker(id);
+            worker.subscribe("EndTransaction", this);
+            worker.stateChangeRequest("ShowDataEntryView", "");
+        }
+        catch(InvalidPrimaryKeyException e)
+        {
+            transactionErrorMessage = e.getMessage();
+        }
+    }
+    private void modifyBike(String id)
+    {
+        try{
+            Vehicle vehicle = new Vehicle(id);
+            vehicle.subscribe("EndTransaction", this);
+            vehicle.stateChangeRequest("ShowDataEntryView", "");
+        }
+        catch(InvalidPrimaryKeyException e)
+        {
+            transactionErrorMessage = e.getMessage();
+        }
+    }
     private void processReturn()
     {
         try {
@@ -233,7 +275,26 @@ public class Clerk implements IView, IModel, ISlideShow
         }
     }
 
+    private void createSearchView(String viewName)
+    {
+        View localView = (View)myViews.get(viewName);
 
+        if(localView == null)
+        {
+            //create initial view
+            localView = ViewFactory.createView(viewName, this); //Use View Factory
+
+            myViews.put(viewName, localView);
+
+            //Make view visible by installing it into the frame
+            myFrame.getContentPane().add(localView);//just the main panel in this case
+            myFrame.pack();
+        }
+        else
+        {
+            swapToView(localView);
+        }
+    }
     private void createAndShowLoginView()
     {
         View localView = (View)myViews.get("LoginView");
