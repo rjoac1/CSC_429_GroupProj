@@ -340,6 +340,8 @@ public class BikeTransactionChoiceView extends View
         } else if (e.getSource() == addBikeButton) {
             if (checkWorkerAdminStatus()){ myModel.stateChangeRequest("AddBike", null); }
             else{displayMessage(messages.getString("requireAdminCred"));}
+        }else if(e.getSource()== fndmodUserButton){
+            myModel.stateChangeRequest("SearchView", null);
         }
         else if (e.getSource() == logoutButton) {
             processLogout();
