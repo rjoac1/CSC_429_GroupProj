@@ -120,6 +120,7 @@ public class Clerk implements IView, IModel, ISlideShow
         else
             return "";
     }
+
     public void stateChangeRequest(String key, Object value) {
         // STEP 4: Write the sCR method component for the key you
         // just set up dependencies for
@@ -151,14 +152,20 @@ public class Clerk implements IView, IModel, ISlideShow
                 createNewBike();
                 break;
             case "FndModUser":
-                createSearchView();
-                break;
-           /* case "FndModWorker":
-                fndModWorker();
-                break;
+                createSearchView("UserSearchView");
+            case "FndModWorker":
+                createSearchView("WorkerSearchView");
             case "FndModBike":
-                fndModBike();
-                break;*/
+                createSearchView("BikeSearchView");
+            case "ModifyUser":
+                modifyUser((String) value);
+                break;
+            case "ModifyWorker":
+                modifyWorker((String) value);
+                break;
+            case "ModifyBike":
+                modifyBike((String) value);
+                break;
             case "EndTransaction":
                 createAndShowBikeTransactionChoiceView();
                 break;
@@ -171,8 +178,7 @@ public class Clerk implements IView, IModel, ISlideShow
         myRegistry.updateSubscribers(key, this);
     }
 
-    public void updateState(String key, Object value)
-    {
+    public void updateState(String key, Object value) {
         // DEBUG System.out.println("Teller.updateState: key: " + key);
 
         stateChangeRequest(key, value);
@@ -181,8 +187,7 @@ public class Clerk implements IView, IModel, ISlideShow
     /*
     Login Worker corresponding to worker Id and password
      */
-    public boolean loginWorker(Properties props)
-    {
+    public boolean loginWorker(Properties props) {
         try {
             myWorker = new Worker(props);
             return true;
@@ -197,12 +202,18 @@ public class Clerk implements IView, IModel, ISlideShow
         }
     }
 
-    private void createNewUser()
-    {
+//    private <T extends ModelBase> void createNewModel() {
+//        T v = new T();
+//        v.subscribe("EndTransaction", this);
+//        v.stateChangeRequest("ShowDataEntryView", "");
+//    }
+
+    private void createNewUser() {
         User user = new User();
         user.subscribe("EndTransaction", this);
         user.stateChangeRequest("ShowDataEntryView", "");
     }
+
     private void createNewWorker()
     {
         Worker worker = new Worker();
@@ -221,6 +232,43 @@ public class Clerk implements IView, IModel, ISlideShow
         rental.subscribe("EndTransaction", this);
         rental.stateChangeRequest("ShowDataEntryView", "");
     }
+    private void modifyUser(String id)
+    {
+        try{
+            User user = new User(id);
+            user.subscribe("EndTransaction", this);
+            user.stateChangeRequest("ShowDataEntryView", "");
+        }
+        catch(InvalidPrimaryKeyException e)
+        {
+            transactionErrorMessage = e.getMessage();
+        }
+    }
+    private void modifyWorker(String id)
+    {
+        try{
+            Worker worker = new Worker(id);
+            worker.subscribe("EndTransaction", this);
+            worker.stateChangeRequest("ShowDataEntryView", "");
+        }
+        catch(InvalidPrimaryKeyException e)
+        {
+            transactionErrorMessage = e.getMessage();
+        }
+    }
+    private void modifyBike(String id)
+    {
+        try{
+            Vehicle vehicle = new Vehicle(id);
+            vehicle.subscribe("EndTransaction", this);
+            vehicle.stateChangeRequest("ShowDataEntryView", "");
+        }
+        catch(InvalidPrimaryKeyException e)
+        {
+            transactionErrorMessage = e.getMessage();
+        }
+    }
+
     private void processReturn()
     {
         try {
@@ -235,7 +283,26 @@ public class Clerk implements IView, IModel, ISlideShow
         }
     }
 
+    private void createSearchView(String viewName)
+    {
+        View localView = (View)myViews.get(viewName);
 
+        if(localView == null)
+        {
+            //create initial view
+            localView = ViewFactory.createView(viewName, this); //Use View Factory
+
+            myViews.put(viewName, localView);
+
+            //Make view visible by installing it into the frame
+            myFrame.getContentPane().add(localView);//just the main panel in this case
+            myFrame.pack();
+        }
+        else
+        {
+            swapToView(localView);
+        }
+    }
     private void createAndShowLoginView()
     {
         View localView = (View)myViews.get("LoginView");

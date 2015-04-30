@@ -171,7 +171,7 @@ public abstract class View extends JPanel
         myRegistry = new ControlRegistry(className);
 
         myModel.subscribe("UpdateStatusMessage", this);
-        myModel.subscribe("UpdateStatusMessageError", this);
+        //myModel.subscribe("UpdateStatusMessageError", this);
     }
 
     public void populateFields(Properties p) {
