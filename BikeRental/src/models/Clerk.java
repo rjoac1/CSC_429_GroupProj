@@ -57,6 +57,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
         createAndShowLoginView();
     }
+
     private void setDependencies()
     {
         dependencies = new Properties();
@@ -64,6 +65,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
         myRegistry.setDependencies(dependencies);
     }
+
     public Object getState(String key)
     {
         if (key.equals("LoginError") == true)
@@ -118,6 +120,7 @@ public class Clerk implements IView, IModel, ISlideShow
         else
             return "";
     }
+
     public void stateChangeRequest(String key, Object value) {
         // STEP 4: Write the sCR method component for the key you
         // just set up dependencies for
@@ -169,8 +172,7 @@ public class Clerk implements IView, IModel, ISlideShow
         myRegistry.updateSubscribers(key, this);
     }
 
-    public void updateState(String key, Object value)
-    {
+    public void updateState(String key, Object value) {
         // DEBUG System.out.println("Teller.updateState: key: " + key);
 
         stateChangeRequest(key, value);
@@ -179,8 +181,7 @@ public class Clerk implements IView, IModel, ISlideShow
     /*
     Login Worker corresponding to worker Id and password
      */
-    public boolean loginWorker(Properties props)
-    {
+    public boolean loginWorker(Properties props) {
         try {
             myWorker = new Worker(props);
             return true;
@@ -195,12 +196,18 @@ public class Clerk implements IView, IModel, ISlideShow
         }
     }
 
-    private void createNewUser()
-    {
+//    private <T extends ModelBase> void createNewModel() {
+//        T v = new T();
+//        v.subscribe("EndTransaction", this);
+//        v.stateChangeRequest("ShowDataEntryView", "");
+//    }
+
+    private void createNewUser() {
         User user = new User();
         user.subscribe("EndTransaction", this);
         user.stateChangeRequest("ShowDataEntryView", "");
     }
+
     private void createNewWorker()
     {
         Worker worker = new Worker();
@@ -219,6 +226,7 @@ public class Clerk implements IView, IModel, ISlideShow
         rental.subscribe("EndTransaction", this);
         rental.stateChangeRequest("ShowDataEntryView", "");
     }
+
     private void processReturn()
     {
         try {
