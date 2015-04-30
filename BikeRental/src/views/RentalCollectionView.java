@@ -81,8 +81,7 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
         entries.setLayout(new BoxLayout(entries, BoxLayout.Y_AXIS));
 
         JPanel tablePan = new JPanel();
-        //tablePan.setLayout(new FlowLayout(FlowLayout.CENTER));
-        tablePan.setLayout(new GridLayout(1,1));
+        tablePan.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         TableModel myData = new RentalTableModel(rentalVector);
 
