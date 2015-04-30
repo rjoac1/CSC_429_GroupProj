@@ -31,8 +31,6 @@ public class VehicleView extends View {
         add(createDataEntryFields());
         add(createNavigationButtons());
 
-        myModel.subscribe("UpdateStatusMessage", this);
-
         mSubmitWrapper.addAll(Arrays.asList(
                 new SubmitWrapper("make", make, textGetter, empty),
                 new SubmitWrapper("modelNumber", modelNumber, textGetter, empty),
