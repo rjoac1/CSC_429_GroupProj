@@ -172,6 +172,7 @@ public class RentalView extends View {
         myModel.stateChangeRequest("ProcessInsertion", props);
         processDone();
     }
+
     public void processDone()
     {
         myModel.stateChangeRequest("Done", null);

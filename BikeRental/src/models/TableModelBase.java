@@ -11,9 +11,12 @@ public abstract class TableModelBase extends AbstractTableModel implements Table
 {
     private Vector myState;
 
-    public TableModelBase(Vector rentalData)
-    {
+    public TableModelBase(Vector rentalData) {
         myState = rentalData;
+    }
+
+    public void filter(String name, String value) {
+
     }
 
     //--------------------------------------------------------------------------

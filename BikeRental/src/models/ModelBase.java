@@ -27,11 +27,15 @@ public abstract class ModelBase extends EntityBase
     protected Properties dependencies;
     protected ResourceBundle messages = LocaleStore.getLocale().getResourceBundle();
 
-    ModelBase(final String tableName) {
+    protected ModelBase(final String tableName) {
         super(tableName);
         myTableName = tableName;
         mySchema = getSchemaInfo(myTableName);
         setDependencies();
+    }
+
+    public Properties getProperties() {
+        return persistentState;
     }
 
     protected void initFromQuery(final String id) throws InvalidPrimaryKeyException {

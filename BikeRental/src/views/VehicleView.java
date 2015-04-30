@@ -45,11 +45,6 @@ public class VehicleView extends View {
 
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-    }
-
     private JPanel createDataEntryFields() {
         JPanel temp = new JPanel();
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
@@ -168,10 +163,6 @@ public class VehicleView extends View {
         tempMain.add(temp, BorderLayout.CENTER);
         tempMain.add(empty1,BorderLayout.EAST);
         return tempMain;
-    }
-
-    public void populateFields() {
-        //Not really needed for vehicles unless otherwise noted
     }
 
     public void processAction(EventObject e) {

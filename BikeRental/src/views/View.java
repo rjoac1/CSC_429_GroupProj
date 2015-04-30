@@ -14,6 +14,7 @@ package views;
 
 // system imports
 import java.awt.*;
+import java.text.ParseException;
 import java.util.*;
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -57,6 +58,11 @@ public abstract class View extends JPanel
         void handle(JComponent c, String s, Boolean focus);
     }
 
+    @FunctionalInterface
+    protected interface Setter {
+        void set(JComponent j, String value);
+    }
+
     // FIXME
     static final protected InvalidParameterHandler errorHandler =
             (v, s, focus) -> {
@@ -67,6 +73,7 @@ public abstract class View extends JPanel
         public final JComponent control;
         public final Getter getter;
         public final Validator validator;
+//        public final Setter set;
 
         public SubmitWrapper(String name, JComponent ctl, Getter get,
                              Validator v) {
@@ -74,6 +81,7 @@ public abstract class View extends JPanel
             validator = v;
             control = ctl;
             getter = get;
+//            set = s;
             if (control != null)
                 control.setInputVerifier(new ValidateInput(v, get, name + "Error"));
         }
@@ -83,12 +91,10 @@ public abstract class View extends JPanel
     // Components contents getter
     static protected Getter textGetter =
             (ctrl) -> ((JTextField)ctrl).getText();
-
     static final protected Getter comboGetter = (v) -> {
         ComboxItem value = (ComboxItem)((JComboBox<ComboxItem>)v).getSelectedItem();
         return value.getKey();
     };
-
     static final protected  Getter textAreaGetter =
             (v) -> ((JTextArea)v).getText();
 
@@ -101,6 +107,20 @@ public abstract class View extends JPanel
     static protected Getter dateGetter = (v) -> {
         final Date date = (Date)((JDatePicker)v).getModel().getValue();
         return date == null ? "" : dateFormatter.format(date);
+    };
+
+    static protected Setter textSetter = (ctrl, value) ->((JTextField)ctrl).setText(value);
+    static protected Setter comboSetter = (ctrl, value) ->
+        ((JComboBox<ComboxItem>)ctrl).setSelectedItem(new ComboxItem(value));
+    static protected Setter textAreaSetter = (ctrl, value) -> ((JTextArea)ctrl).setText(value);
+    static protected Setter dateSetter = (ctrl, value) -> {
+        try {
+            Date date = new SimpleDateFormat(datePattern).parse(value);
+            ((JDatePicker)ctrl).getModel().setDate(date.getDay(), date.getMonth(), date.getYear());
+        } catch (ParseException e) {
+            System.err.println(e);
+            e.printStackTrace();
+        }
     };
 
     // Validators
@@ -154,6 +174,22 @@ public abstract class View extends JPanel
         //myModel.subscribe("UpdateStatusMessageError", this);
     }
 
+    public void populateFields(Properties p) {
+        for (SubmitWrapper i: mSubmitWrapper) {
+            final String content = p.getProperty(i.propertyName);
+            if (i.control instanceof JTextArea)
+                textAreaSetter.set(i.control, content);
+            else if (i.control instanceof JTextField)
+                textSetter.set(i.control, content);
+            else if (i.control instanceof JComboBox)
+                comboSetter.set(i.control, content);
+            else if (i.control instanceof JDatePicker)
+                dateSetter.set(i.control, content);
+            else if (i.control != null)
+                throw new RuntimeException("Unknown Jcomponent " + i.control.toString());
+        }
+    }
+
     protected void populateComboxBox(JComboBox<ComboxItem> c,
                                      String[] keys) {
         Arrays.stream(keys).map(ComboxItem::new)
@@ -197,7 +233,7 @@ public abstract class View extends JPanel
         temp.add(temp2);
 
         JPanel subTitle = createSubTitle();
-        if(subTitle!=null) {
+        if (subTitle != null) {
             temp.add(createSubTitle());
         }
 
