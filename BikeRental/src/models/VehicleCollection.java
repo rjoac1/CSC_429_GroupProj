@@ -2,8 +2,10 @@ package models;
 
 import impres.exception.InvalidPrimaryKeyException;
 
+import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 /**
  * Created by Max on 4/26/2015.
@@ -12,100 +14,60 @@ public class VehicleCollection extends ModelBase{
 
     private static final String myTableName = "Rental";
 
-    private Vector vehicles;
-    //GUI Components
+    private List<Vehicle> vehicles;
 
     //Constructor
     //--------------------------------
-    public VehicleCollection()
-    {
+    public VehicleCollection() {
         super(myTableName);
         try {
-            vehicles = findAvailableVehicles();
-        }catch (InvalidPrimaryKeyException e){}
+            findAvailableVehicles();
+        }
+        catch (InvalidPrimaryKeyException e){
+            e.printStackTrace();
+        }
     }
+
     //Methods
     //---------------------------------
-    public Vector findAvailableVehicles() throws InvalidPrimaryKeyException
-    {
+    public void findAvailableVehicles() throws InvalidPrimaryKeyException {
         String query = "SELECT * FROM " + myTableName + " WHERE " +
                 "vehicleId not in (select * From Rental Where dateReturned = '')" +
                 " and status = 'Active'";
 
-        Vector allDataRetrieved = getSelectQueryResult(query);
-
-        if(allDataRetrieved != null)
-        {
-            for(int cnt = 0; cnt < allDataRetrieved.size();cnt++)
-            {
-                Properties nextVehicleData = (Properties)allDataRetrieved.elementAt(cnt);
-
-                Vehicle vehicle = new Vehicle(nextVehicleData);
-
-                if(vehicle != null)
-                {
-                    addVehicle(vehicle);
-                }
-            }
-        }
-        else
-        {
-            //System.out.println("No patrons older than " + date + " found in database");
+        Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+        if (allDataRetrieved == null)
             throw new InvalidPrimaryKeyException(messages.getString("noAvailableBikesFound"));
 
+        vehicles = allDataRetrieved.stream().map(Vehicle::new).collect(Collectors.toList());
+    }
 
-        }
-        return vehicles;
-    }
-    //----------------------------------------------------------------------------------
-    private void addVehicle(Vehicle a)
-    {
-        //users.add(u);
-        vehicles.add(a);
-    }
     public String getViewName(){
         return "VehicleCollectionView";
     }
 
     @Override
     public Object getState(String key) {
-        if (key.equals("Vehicles"))
-            return vehicles;
-        else
-        if (key.equals("VehicleList"))
-            return this;
-        else if (key.equals("VehicleIDs")){ return  getAvailableIDs();}
-        else if (key.equals("UpdateStatusMessage"))
-        {
-            return updateStatusMessage;
+        switch (key) {
+            case "Vehicles":
+                return vehicles;
+            case "VehicleList":
+                return this;
+            case "VehicleIDs":
+                return getAvailableIDs();
+            case "UpdateStatusMessage":
+                return updateStatusMessage;
         }
         return persistentState.getProperty(key);
-        //return null;
-    }
-    @Override
-    public void stateChangeRequest(String key, Object value)
-    {
-        /*
-        switch(key)
-        {
-            case "ProcessReturn":
-                processReturn((String) value);
-                break;
-            case "ShowDataEntryView":
-                createAndShowDataEntryView();
-                break;
-        }
-        myRegistry.updateSubscribers(key, this);
-        */
     }
 
-    public String[] getAvailableIDs(){
-        String[] ids = new String[vehicles.size()];
-        for(int i = 0; i < vehicles.size(); i++){
-            Vehicle v = (Vehicle) vehicles.elementAt(i);
-            ids[i] = v.getVehicleID();
-        }
-        return ids;
+    @Override
+    public void stateChangeRequest(final String key, final Object value) {
+    }
+
+    public List<String> getAvailableIDs(){
+        return vehicles.stream().map(Vehicle::getVehicleID)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -114,7 +76,7 @@ public class VehicleCollection extends ModelBase{
     }
 
     @Override
-    public boolean checkIfExists(String idToQuery) {
+    public Boolean checkIfExists(String idToQuery) {
         return false;
     }
 }

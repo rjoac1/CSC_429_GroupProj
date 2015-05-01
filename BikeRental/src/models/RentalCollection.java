@@ -2,8 +2,6 @@ package models;
 
 import impres.exception.InvalidPrimaryKeyException;
 
-import java.text.MessageFormat;
-import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -14,21 +12,20 @@ public class RentalCollection extends ModelBase {
 
     private static final String myTableName = "Rental";
 
-    private Vector rentals;
+    private Vector<Rental> rentals;
     private Worker mWorker;
-    //GUI Components
 
     //Constructor
     //--------------------------------
     public RentalCollection(Worker myWorker) {
         super(myTableName);
-        rentals = new Vector();
+        rentals = new Vector<>();
         mWorker = myWorker;
     }
 
     //Methods
     //---------------------------------
-    public Vector findActiveRentals() throws InvalidPrimaryKeyException {
+    public Vector<Rental> findActiveRentals() throws InvalidPrimaryKeyException {
         String query = "SELECT * FROM " + myTableName + " WHERE (dateReturned = '')";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
@@ -38,28 +35,26 @@ public class RentalCollection extends ModelBase {
         return rentals;
     }
 
+    @Override
     public String getViewName(){
         return "RentalCollectionView";
     }
 
     @Override
     public Object getState(String key) {
-        if (key.equals("Rentals"))
-            return rentals;
-        else
-        if (key.equals("RentalList"))
-            return this;
-        else if (key.equals("UpdateStatusMessage"))
-        {
-            return updateStatusMessage;
+        switch (key) {
+            case "Rentals":
+                return rentals;
+            case "RentalList":
+                return this;
+            case "UpdateStatusMessage":
+                return updateStatusMessage;
         }
         return persistentState.getProperty(key);
-        //return null;
     }
 
     @Override
-    public void stateChangeRequest(String key, Object value)
-    {
+    public void stateChangeRequest(String key, Object value) {
         switch(key)
         {
             case "ProcessReturn":
@@ -72,9 +67,8 @@ public class RentalCollection extends ModelBase {
         myRegistry.updateSubscribers(key, this);
     }
 
-    private void processReturn(String s)
-    {
-        try{
+    private void processReturn(String s) {
+        try {
             Rental r = new Rental(s);
             r.setReturned((String)mWorker.getState("workerId"));
             updateStatusMessage = messages.getString("returnSuccessful");
@@ -92,7 +86,7 @@ public class RentalCollection extends ModelBase {
     }
 
     @Override
-    public boolean checkIfExists(String idToQuery) {
+    public Boolean checkIfExists(String idToQuery) {
         return false;
     }
 }

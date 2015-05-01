@@ -22,33 +22,30 @@ public class Worker extends ModelBase
 
     //Constructor
     //-----------------------------------------------------
-    public Worker()
-    {
+    public Worker() {
         super(myTableName);
     }
 
-    public Worker(String workerId) throws InvalidPrimaryKeyException {
+    public Worker(final String workerId) throws InvalidPrimaryKeyException {
         super(myTableName);
         initFromQuery(workerId);
     }
 
     //Constructor for logging in worker.
     //----------------------------------------------------------------------
-    public Worker(Properties props) throws InvalidPrimaryKeyException, PasswordMismatchException
-    {
+    public Worker(final Properties props)
+            throws InvalidPrimaryKeyException, PasswordMismatchException {
         super(myTableName);
 
-        String idToQuery = props.getProperty("ID");
+        final String idToQuery = props.getProperty("ID");
         initFromQuery(idToQuery);
 
         //Verify Password for login
-        String password = props.getProperty("Password");
-        String accountPassword = persistentState.getProperty("password");
-        if (accountPassword != null)
-        {
+        final String password = props.getProperty("Password");
+        final String accountPassword = persistentState.getProperty("password");
+        if (accountPassword != null) {
             boolean passwordCheck = accountPassword.equals(password);
-            if (passwordCheck == false)
-            {
+            if (passwordCheck) {
                 throw new PasswordMismatchException(messages.getString("passwordMismatchError"));
             }
         }
@@ -58,37 +55,12 @@ public class Worker extends ModelBase
         }
     }
 
-    public Vector getEntryListView()
-    {
-        Vector v = new Vector();
-
-        v.addElement(persistentState.getProperty("workerId"));
-        v.addElement(persistentState.getProperty("firstName"));
-        v.addElement(persistentState.getProperty("lastName"));
-        v.addElement(persistentState.getProperty("emailAddress"));
-        v.addElement(persistentState.getProperty("credential"));
-        v.addElement(persistentState.getProperty("dateOfInitialReg"));
-        v.addElement(persistentState.getProperty("notes"));
-        v.addElement(persistentState.getProperty("status"));
-        v.addElement(persistentState.getProperty("dateStatusUpdated"));
-        return v;
-    }
-
-    public String getIdFieldName()
-    {
+    public String getIdFieldName() {
         return "workerId";
     }
-    public String getViewName(){ return "WorkerView"; }
-    public boolean checkIfExists(String id)
-    {
-        try {
-            Worker worker = new Worker(id);
-            return true;
-        }
-        catch (InvalidPrimaryKeyException ex) {
-            //System.out.println(ex.getMessage()); //test
-            return false;
-        }
+
+    public String getViewName() {
+        return "WorkerView";
     }
 }
 
