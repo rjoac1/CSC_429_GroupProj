@@ -111,11 +111,7 @@ public abstract class ModelBase extends EntityBase
             String idField = getIdFieldName();
             if (persistentState.getProperty(idField) != null) {
                 boolean flag = checkIfExists(persistentState.getProperty(idField));
-                String[] messageArguments = {
-                        myTableName,
-                        idField,
-                        persistentState.getProperty(idField)
-                };
+                String[] messageArguments = {myTableName, idField, persistentState.getProperty(idField)};
                 if (flag) {
                     insertPersistentState(mySchema, persistentState);
                     updateStatusMessage = makeMessage("entityInsertedSuccessfully", messageArguments);
@@ -130,13 +126,8 @@ public abstract class ModelBase extends EntityBase
             else {
                 Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty(idField, id.toString());
-
-                String[] messageArguments = {
-                        myTableName,
-                        idField,
-                        persistentState.getProperty(idField)
-                };
-                updateStatusMessage = makeMessage("entityInsertedSuccessfully", messageArguments);
+                updateStatusMessage = makeMessage("entityInsertedSuccessfully",
+                        myTableName, idField, persistentState.getProperty(idField));
             }
         }
         catch (SQLException ex) {
@@ -160,12 +151,9 @@ public abstract class ModelBase extends EntityBase
         String viewName = getViewName();
         View localView = (View)myViews.get(viewName);
 
-        if(localView == null)
-        {
+        if(localView == null) {
             localView = ViewFactory.createView(viewName, this);
-
             myViews.put(viewName, localView);
-
             swapToView(localView);
         }
         else

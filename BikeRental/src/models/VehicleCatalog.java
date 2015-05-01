@@ -4,11 +4,8 @@ package models;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//project imports
 
-
-public class VehicleCatalog extends ModelBase
-{
+public class VehicleCatalog extends ModelBase {
 
     private static final String myTableName = "Vehicle";	//name of database table
     private final List<String> availableBikeIDs;

@@ -36,7 +36,7 @@ public class RentalCollection extends ModelBase {
     }
 
     @Override
-    public String getViewName(){
+    public String getViewName() {
         return "RentalCollectionView";
     }
 
