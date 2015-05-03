@@ -14,9 +14,6 @@ package models;
 // specify the package
 
 // system imports
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Hashtable;
 import java.util.Properties;
 import javax.swing.JFrame;

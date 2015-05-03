@@ -3,14 +3,12 @@ package models;
 import impres.exception.InvalidPrimaryKeyException;
 
 import java.util.List;
-import java.util.Properties;
-import java.util.Vector;
 import java.util.stream.Collectors;
 
 /**
  * Created by Max on 4/26/2015.
  */
-public class VehicleCollection extends ModelBase{
+public class VehicleCollection extends CatalogBase<Vehicle> {
 
     private static final String myTableName = "Rental";
 
@@ -19,7 +17,7 @@ public class VehicleCollection extends ModelBase{
     //Constructor
     //--------------------------------
     public VehicleCollection() {
-        super(myTableName);
+        super(myTableName, Vehicle.class);
         try {
             findAvailableVehicles();
         }
@@ -34,12 +32,7 @@ public class VehicleCollection extends ModelBase{
         String query = "SELECT * FROM " + myTableName + " WHERE " +
                 "vehicleId not in (select * From Rental Where dateReturned = '')" +
                 " and status = 'Active'";
-
-        Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
-        if (allDataRetrieved == null)
-            throw new InvalidPrimaryKeyException(messages.getString("noAvailableBikesFound"));
-
-        vehicles = allDataRetrieved.stream().map(Vehicle::new).collect(Collectors.toList());
+        vehicles = getDatasFromQuery(query);
     }
 
     public String getViewName(){

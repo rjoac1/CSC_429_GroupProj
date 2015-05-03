@@ -185,8 +185,7 @@ public abstract class ModelBase extends EntityBase
     }
 
     public Vector<String> getEntryListView() {
-        return new Vector<>(
-                persistentState.stringPropertyNames().stream()
+        return new Vector<>(persistentState.stringPropertyNames().stream()
                         .map(persistentState::getProperty)
                         .collect(Collectors.toList())
         );
