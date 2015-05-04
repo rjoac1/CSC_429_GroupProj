@@ -151,12 +151,15 @@ public class Clerk implements IView, IModel, ISlideShow
             case "AddBike":
                 createNewBike();
                 break;
-            case "FndModUser":
+            case "fndModUser":
                 createSearchView("UserSearchView");
-            case "FndModWorker":
+                break;
+            case "fndModWorker":
                 createSearchView("WorkerSearchView");
-            case "FndModBike":
+                break;
+            case "fndModBike":
                 createSearchView("BikeSearchView");
+                break;
             case "ModifyUser":
                 modifyUser((String) value);
                 break;
@@ -286,17 +289,11 @@ public class Clerk implements IView, IModel, ISlideShow
     private void createSearchView(String viewName)
     {
         View localView = (View)myViews.get(viewName);
-
+        //System.out.println(localView);
         if(localView == null)
         {
-            //create initial view
             localView = ViewFactory.createView(viewName, this); //Use View Factory
-
-            myViews.put(viewName, localView);
-
-            //Make view visible by installing it into the frame
-            myFrame.getContentPane().add(localView);//just the main panel in this case
-            myFrame.pack();
+            swapToView(localView);
         }
         else
         {

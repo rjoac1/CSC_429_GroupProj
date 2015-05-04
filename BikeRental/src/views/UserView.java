@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.*;
 
 // project imports
-import exceptions.InvalidPrimaryKeyToFormatException;
+//import exceptions.InvalidPrimaryKeyToFormatException;
 import impres.exception.InvalidPrimaryKeyException;
 import impres.impresario.IModel;
 import models.User;
