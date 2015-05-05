@@ -36,8 +36,8 @@ public class SearchView extends View
 {
     //private MainFrame mainFrame;
     // GUI stuff
-    private JTextField userid;
-    private JPasswordField password;
+    private JLabel searchTypeLabel;
+    private JTextField searchKeyBox;
     private JButton submitButton;
     String entityType = "";
 
@@ -86,8 +86,7 @@ public class SearchView extends View
     //-------------------------------------------------------------
     private JPanel createDataEntryFields()
     {
-        System.out.println("HELLO");
-
+        //System.out.println("HELLO");
         JPanel temp = new JPanel();
 
         // set the layout for this panel
@@ -97,26 +96,26 @@ public class SearchView extends View
         JPanel temp1 = new JPanel();
         temp1.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        JLabel useridLabel;
+
         System.out.println(entityType);
         if(entityType == "User" || entityType == "Worker")
-            useridLabel = new JLabel(messages.getString("BannerID"));
+            searchTypeLabel = new JLabel(messages.getString("BannerID"));
         else
-            useridLabel = new JLabel(messages.getString("vehicleID"));
+            searchTypeLabel = new JLabel(messages.getString("vehicleID"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(4, 6, 0, 4);
-        temp1.add(useridLabel, c);
+        temp1.add(searchTypeLabel, c);
 
 
-        userid = new JTextField(20);
-        userid.addActionListener(this);
+        searchKeyBox = new JTextField(20);
+        searchKeyBox.addActionListener(this);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(0, 4, 4, 4);
-        temp1.add(userid,c);
+        temp1.add(searchKeyBox,c);
 
         temp.add(temp1);
 
@@ -125,7 +124,7 @@ public class SearchView extends View
 
     public void processAction(EventObject e) {
         if (e.getSource() == submit) {
-           //processInsertionOfNewUser();
+            validateInput();
         } else if (e.getSource() == done) {
             processDone();
         }
@@ -144,10 +143,32 @@ public class SearchView extends View
         if (key.equals("SearchError") == true && !value.equals(""))
         {
             // display the passed text
-            displayMessage((String)value);
+            displayMessage((String) value);
         }
 
     }
+
+    private void validateInput(){
+        if(searchKeyBox.getText() == null ||searchKeyBox.getText() == "" ){
+            //displayMessage();     -mw need Victor to show me how he handles error messages now
+        }
+        else{ processSubmit(); }
+    }
+
+    public void processSubmit(){
+        switch (entityType){
+            case "User":
+                myModel.stateChangeRequest("ModifyUser",searchKeyBox.getText() );
+                break;
+            case "Worker":
+                myModel.stateChangeRequest("ModifyWorker",searchKeyBox.getText() );
+                break;
+            case "Vehicle":
+                myModel.stateChangeRequest("ModifyBike",searchKeyBox.getText() );
+                break;
+        }
+    }
+
     public void processDone()
     {
         myModel.stateChangeRequest("EndTransaction", null);

@@ -40,7 +40,7 @@ public class ViewFactory {
             return new SearchView(model,"Worker");
         }
         else if(viewName.equals("BikeSearchView")){
-            return new SearchView(model,"Bike");
+            return new SearchView(model,"Vehicle");
         }
         else
             return null;
