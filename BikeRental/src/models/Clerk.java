@@ -240,6 +240,7 @@ public class Clerk implements IView, IModel, ISlideShow
     }
     private void modifyUser(String id)
     {
+        String message = "";
         try{
             User user = new User(id);
             user.subscribe("EndTransaction", this);
@@ -247,11 +248,13 @@ public class Clerk implements IView, IModel, ISlideShow
         }
         catch(InvalidPrimaryKeyException e)
         {
-            transactionErrorMessage = e.getMessage();
+            message = e.getMessage();
         }
+        transactionErrorMessage = message;
     }
     private void modifyWorker(String id)
     {
+        String message = "";
         try{
             Worker worker = new Worker(id);
             worker.subscribe("EndTransaction", this);
@@ -259,11 +262,13 @@ public class Clerk implements IView, IModel, ISlideShow
         }
         catch(InvalidPrimaryKeyException e)
         {
-            transactionErrorMessage = e.getMessage();
+            message = e.getMessage();
         }
+        transactionErrorMessage = message;
     }
     private void modifyBike(String id)
     {
+        String message = "";
         try{
             Vehicle vehicle = new Vehicle(id);
             vehicle.subscribe("EndTransaction", this);
@@ -271,8 +276,9 @@ public class Clerk implements IView, IModel, ISlideShow
         }
         catch(InvalidPrimaryKeyException e)
         {
-            transactionErrorMessage = e.getMessage();
+            message = e.getMessage();
         }
+        transactionErrorMessage = message;
     }
 
     private void processReturn()
