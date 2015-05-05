@@ -30,10 +30,10 @@ public class Vehicle extends ModelBase
     }
 
     //-----------------------------------------------------------------------------------
-    public static int compare(Vehicle a, Vehicle b) {
+    public static boolean equals(Vehicle a, Vehicle b) {
         String aNum = (String)a.getState("vehicleID");
         String bNum = (String)b.getState("vehicleID");
-        return aNum.compareTo(bNum);
+        return aNum.equals(bNum);
     }
 
     public String getIdFieldName() {

@@ -22,7 +22,7 @@ import java.util.Vector;
 //==============================================================================
 public class RentalCollectionView extends View implements ActionListener, MouseListener {
     protected JTable tableOfRentals;
-    protected Vector rentalVector;
+    protected Vector<Vector<String>> rentalVector;
 
     protected JButton mSearchBtn;
     protected JTextField mSearchField;
@@ -35,7 +35,7 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        rentalVector = new Vector();
+        rentalVector = new Vector<>();
 
         add(createTitle());
         add(createDataEntryFields());
@@ -57,17 +57,8 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
         {
             RentalCollection rentalCollection = (RentalCollection)myModel.getState("RentalList");
 
-            Vector entryList = (Vector)rentalCollection.getState("Rentals");
-            Enumeration entries = entryList.elements();
-
-            while (entries.hasMoreElements())
-            {
-                Rental nextRental = (Rental)entries.nextElement();
-                Vector view = nextRental.getEntryListView();
-
-                // add this list entry to the list
-                rentalVector.add(view);
-            }
+            Vector<Rental> entryList = (Vector<Rental>)rentalCollection.getState("Rentals");
+            entryList.stream().forEach((e) -> rentalVector.add(e.getEntryListView()));
         }
         catch (Exception e) {//SQLException e) {
             // TODO: Need to handle this exception

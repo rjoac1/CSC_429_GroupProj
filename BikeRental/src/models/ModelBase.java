@@ -69,7 +69,7 @@ public abstract class ModelBase extends EntityBase
         String query = "SELECT * FROM " + myTableName + " WHERE (" + idName + " = " + id + ")";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
-        if (allDataRetrieved == null || allDataRetrieved.size() != 0) {
+        if (allDataRetrieved == null || allDataRetrieved.size() != 1) {
             throw new InvalidPrimaryKeyException(makeMessage("entityNotFoundError", myTableName));
         }
         else if (allDataRetrieved.size() > 1) {
@@ -149,17 +149,15 @@ public abstract class ModelBase extends EntityBase
 
     public void createAndShowDataEntryView() {
         String viewName = getViewName();
-        View localView = (View)myViews.get(viewName);
+        View localView = myViews.get(viewName);
 
-        if(localView == null) {
+        if (localView == null) {
             localView = ViewFactory.createView(viewName, this);
             myViews.put(viewName, localView);
             swapToView(localView);
         }
         else
-        {
             swapToView(localView);
-        }
     }
 
     public Object getState(String key) {

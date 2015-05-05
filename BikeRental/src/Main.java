@@ -20,10 +20,6 @@ import java.awt.*;
 
 public class Main
 {
-    private Clerk myClerk;
-
-    /*Main frame of the application*/
-    private MainFrame mainFrame;
 
 
     /*Constructor for this class, main application object*/
@@ -31,10 +27,9 @@ public class Main
     public Main(String[] args)
     {
         // Create the top-level container (main frame) and add contents to it.
-        mainFrame = MainFrame.getInstance("Bike Rental System v1.0");
-        try
-        {
-            myClerk = new Clerk();
+        MainFrame mainFrame = MainFrame.getInstance("Bike Rental System v1.0");
+        try {
+            new Clerk();
         }
         catch(Exception exc)
         {

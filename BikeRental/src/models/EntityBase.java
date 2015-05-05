@@ -27,6 +27,7 @@ import impres.impresario.IView;
 import impres.impresario.ISlideShow;
 import impres.event.Event;
 import views.MainFrame;
+import views.View;
 import views.WindowPosition;
 
 
@@ -41,7 +42,7 @@ public abstract class EntityBase extends Persistable
     protected Properties persistentState;	// the field names and values from the database
     private String myTableName;				// the name of our database table
 
-    protected Hashtable myViews;
+    protected Hashtable<String, View> myViews;
     protected JFrame myFrame;
 
     protected Properties mySchema;
@@ -56,7 +57,7 @@ public abstract class EntityBase extends Persistable
     protected EntityBase(String tablename)
     {
         myFrame = MainFrame.getInstance();
-        myViews = new Hashtable();
+        myViews = new Hashtable<>();
 
         // save our table name for later
         myTableName = tablename;

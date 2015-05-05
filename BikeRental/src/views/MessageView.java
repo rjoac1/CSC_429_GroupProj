@@ -14,19 +14,13 @@ package views;
 // specify the package
 
 // system imports
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 // project imports
 
@@ -37,8 +31,8 @@ public class MessageView extends JPanel
     // GUI elements
     private JLabel statusLog;
 
-    private final int statusLogHeight = 30;
-    private final int statusLogWidth = 60;
+    static private final int statusLogHeight = 30;
+    static private final int statusLogWidth = 60;
 
 
     // Class constructor

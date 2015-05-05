@@ -32,7 +32,7 @@ public class Clerk implements IView, IModel, ISlideShow
     private Worker myWorker;
 
     //GUI Components
-    private Hashtable myViews;
+    private Hashtable<String, View> myViews;
     private JFrame myFrame;
 
     private String loginErrorMessage = "";
@@ -45,14 +45,9 @@ public class Clerk implements IView, IModel, ISlideShow
     public Clerk()
     {
         myFrame = MainFrame.getInstance();
-        myViews = new Hashtable();
+        myViews = new Hashtable<>();
         myRegistry = new ModelRegistry("Clerk");
 
-        if(myRegistry == null)
-        {
-            new Event(Event.getLeafLevelClassName(this), "Teller",
-                    "Could not instantiate Registry", Event.ERROR);
-        }
         setDependencies();
 
         createAndShowLoginView();
@@ -68,7 +63,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
     public Object getState(String key)
     {
-        if (key.equals("LoginError") == true)
+        if (key.equals("LoginError"))
         {
             return loginErrorMessage;
         }
@@ -77,11 +72,11 @@ public class Clerk implements IView, IModel, ISlideShow
             return findRentalsErrorMessage;
         }
         else
-        if (key.equals("TransactionError") == true)
+        if (key.equals("TransactionError"))
         {
             return transactionErrorMessage;
         }
-        else if (key.equals("LastName") == true)
+        else if (key.equals("LastName"))
         {
             if (myWorker != null)
             {
@@ -90,7 +85,7 @@ public class Clerk implements IView, IModel, ISlideShow
             else
                 return "Undefined";
         }
-        else if (key.equals("FirstName") == true)
+        else if (key.equals("FirstName"))
         {
             if (myWorker != null)
             {
@@ -99,7 +94,7 @@ public class Clerk implements IView, IModel, ISlideShow
             else
                 return "Undefined";
         }
-        else if (key.equals("WorkerId") == true)
+        else if (key.equals("WorkerId"))
         {
             if (myWorker != null)
             {
@@ -108,7 +103,7 @@ public class Clerk implements IView, IModel, ISlideShow
             else
                 return "Undefined";
         }
-        else if (key.equals("Credential") == true)
+        else if (key.equals("Credential"))
         {
             if (myWorker != null)
             {
@@ -131,7 +126,7 @@ public class Clerk implements IView, IModel, ISlideShow
                     loginErrorMessage = "";
 
                     boolean flag = loginWorker((Properties) value);
-                    if (flag == true) {
+                    if (flag) {
                         createAndShowBikeTransactionChoiceView();
                     }
                 }
@@ -285,7 +280,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
     private void createSearchView(String viewName)
     {
-        View localView = (View)myViews.get(viewName);
+        View localView = myViews.get(viewName);
 
         if(localView == null)
         {
@@ -305,7 +300,7 @@ public class Clerk implements IView, IModel, ISlideShow
     }
     private void createAndShowLoginView()
     {
-        View localView = (View)myViews.get("LoginView");
+        View localView = myViews.get("LoginView");
 
         if(localView == null)
         {
@@ -326,9 +321,9 @@ public class Clerk implements IView, IModel, ISlideShow
 
     private void createAndShowBikeTransactionChoiceView()
     {
-        View localView = (View)myViews.get("BikeTransactionChoiceView");
+        View localView = myViews.get("BikeTransactionChoiceView");
 
-        if(localView == null || loginChange == true)
+        if(localView == null || loginChange)
         {
             //create initial view
             localView = ViewFactory.createView("BikeTransactionChoiceView", this); //Use View Factory
@@ -342,6 +337,7 @@ public class Clerk implements IView, IModel, ISlideShow
             swapToView(localView);
         }
     }
+
     private void ProcessReturn()
     {
 

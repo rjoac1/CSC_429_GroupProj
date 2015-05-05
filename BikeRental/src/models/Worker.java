@@ -1,19 +1,12 @@
 package models;
 
 //system imports
-import java.sql.SQLException;
-import java.util.Vector;
 import java.util.Properties;
-import java.util.Enumeration;
 
 //project imports
 import impres.exception.InvalidPrimaryKeyException;
 import impres.exception.PasswordMismatchException;
 
-import impres.impresario.*;
-
-import views.View;
-import views.ViewFactory;
 
 //=========================================
 public class Worker extends ModelBase
@@ -45,7 +38,7 @@ public class Worker extends ModelBase
         final String accountPassword = persistentState.getProperty("password");
         if (accountPassword != null) {
             boolean passwordCheck = accountPassword.equals(password);
-            if (passwordCheck) {
+            if (!passwordCheck) {
                 throw new PasswordMismatchException(messages.getString("passwordMismatchError"));
             }
         }

@@ -59,12 +59,12 @@ public class WorkerView extends View {
                 new SubmitWrapper("notes", notesArea, textAreaGetter, ok),
                 new SubmitWrapper("dateStatusUpdated", null, dateNowGetter, ok)));
 
-//        try {
-//            Worker u = new Worker("800000000");
-//            populateFields(u.getProperties());
-//        }  catch (InvalidPrimaryKeyException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Worker u = new Worker("800000000");
+            populateFields(u.getProperties());
+        }  catch (InvalidPrimaryKeyException e) {
+            e.printStackTrace();
+        }
 
     }
 

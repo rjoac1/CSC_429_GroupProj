@@ -3,7 +3,6 @@ package views;
 
 // system imports
 import java.awt.*;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.util.*;
 import javax.swing.BoxLayout;
@@ -12,14 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.text.NumberFormat;
 
 // project imports
 import impres.impresario.IModel;
-import models.LocaleStore;
 
 /** The class containing the Teller View  for the ATM application */
 //==============================================================
@@ -29,7 +23,6 @@ public class LoginView extends View
     // GUI stuff
     private JTextField userid;
     private JPasswordField password;
-    private JButton submitButton;
 
     // For showing error message
     //private MessageView statusLog;
@@ -138,7 +131,7 @@ public class LoginView extends View
         temp.setLayout(f1);
 
         // create the buttons, listen for events, add them to the panel
-        submitButton = new JButton(messages.getString("login"));
+        JButton submitButton = new JButton(messages.getString("login"));
         submitButton.addActionListener(this);
         temp.add(submitButton);
 
@@ -211,7 +204,7 @@ public class LoginView extends View
     {
         // STEP 6: Be sure to finish the end of the 'perturbation'
         // by indicating how the view state gets updated.
-        if (key.equals("LoginError") == true && !value.equals(""))
+        if (key.equals("LoginError") && !value.equals(""))
         {
             // display the passed text
             displayMessage((String)value);

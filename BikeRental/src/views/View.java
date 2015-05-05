@@ -331,7 +331,7 @@ public abstract class View extends JPanel
     public void focusLost(FocusEvent evt) {
         // DEBUG: System.out.println("CustomerView.focusLost()");
         // ignore temporary events
-        if(evt.isTemporary() == true)
+        if (evt.isTemporary())
             return;
 
         processAction(evt);

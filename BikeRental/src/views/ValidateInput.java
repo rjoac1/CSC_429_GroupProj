@@ -1,6 +1,5 @@
 package views;
 
-import com.sun.deploy.ui.UIFactory;
 import models.LocaleStore;
 
 import javax.swing.*;

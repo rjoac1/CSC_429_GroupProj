@@ -17,11 +17,6 @@ import models.LocaleStore;
 //==============================================================
 public class BikeTransactionChoiceView extends View
 {
-    private MainFrame mainFrame;
-    // other private data
-    private final int labelWidth = 120;
-    private final int labelHeight = 25;
-
     // GUI components
 
     private JButton addUserButton = null;
@@ -37,7 +32,6 @@ public class BikeTransactionChoiceView extends View
 
     private JButton logoutButton = null;
 
-    private MessageView statusLog;
     private String workerCred = "";
 
     //resource bundle for internationalization
@@ -63,8 +57,8 @@ public class BikeTransactionChoiceView extends View
 
         //add(createStatusLog("             "));
 
-        mainFrame = MainFrame.getInstance(messages.getString("titleLine"));
-
+        // MainFrame mainFrame =
+        MainFrame.getInstance(messages.getString("titleLine"));
 
         populateFields();
 
@@ -99,7 +93,7 @@ public class BikeTransactionChoiceView extends View
         lbl3.setFont(myFont2);
         temp.add(lbl3);
         return temp;
-    };
+    }
 
 
     // Create the navigation buttons
@@ -372,16 +366,22 @@ public class BikeTransactionChoiceView extends View
     //---------------------------------------------------------
     public void updateState(String key, Object value)
     {
-        if (key.equals("TransactionError") == true)
-        {
-            // display the passed text
-            displayMessage((String)value);
+        switch (key) {
+            case "TransactionError":
+            case "NoRentalsFoundError":
+                displayMessage((String)value);
+                break;
         }
-        else if (key.equals("NoRentalsFoundError") == true)
-        {
-            // display the passed text
-            displayMessage((String)value);
-        }
+//        if (key.equals("TransactionError"))
+//        {
+//            // display the passed text
+//            displayMessage((String)value);
+//        }
+//        else if (key.equals("NoRentalsFoundError"))
+//        {
+//            // display the passed text
+//            displayMessage((String)value);
+//        }
     }
 
     private void getWorkerAdminStatus(){
