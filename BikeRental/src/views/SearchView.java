@@ -118,7 +118,6 @@ public class SearchView extends View
 
 
         searchKeyBox = new JTextField(20);
-        searchKeyBox.setText("");
         searchKeyBox.addActionListener(this);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -158,12 +157,22 @@ public class SearchView extends View
     }
 
     private void validateInput(){
-        if(searchKeyBox.getText() == null ||searchKeyBox.getText() == "" ){
-            System.out.println("Text: (" + searchKeyBox.getText() + ")");
-            //displayMessage();     -mw need Victor to show me how he handles error messages now
+        if(searchKeyBox.getText() == null || searchKeyBox.getText().equals("")){
+            switch(entityType)
+            {
+                case "User":
+                    displayMessage(messages.getString("enterUserIDErrorMessage"));
+                    break;
+                case "Worker":
+                    displayMessage(messages.getString("workerIdError"));
+                    break;
+                case "Vehicle":
+                    displayMessage(messages.getString("vehicleIdError"));
+                    break;
+            }
         }
         else{
-            //processSubmit();
+            processSubmit();
         }
     }
 
