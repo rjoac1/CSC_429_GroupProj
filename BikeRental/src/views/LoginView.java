@@ -59,6 +59,12 @@ public class LoginView extends View
         populateFields();
 
         // STEP 0: Be sure you tell your model what keys you are interested in
+
+    }
+
+    @Override
+    public void manageSubscriptions()
+    {
         myModel.subscribe("LoginError", this);
     }
 

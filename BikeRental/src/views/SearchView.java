@@ -50,8 +50,19 @@ public class SearchView extends View
     {
 
         super(clerk, "SearchView");
-        subTitleText = "Search View";
         this.entityType = entityType;
+        switch(entityType)
+        {
+            case "User":
+                subTitleText = "SearchUserTitle";
+                break;
+            case "Worker":
+                subTitleText = "SearchWorkerTitle";
+                break;
+            case "Vehicle":
+                subTitleText = "SearchVehicleTitle";
+                break;
+        }
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -64,7 +75,12 @@ public class SearchView extends View
         //populateFields();
 
         // STEP 0: Be sure you tell your model what keys you are interested in
-        myModel.subscribe("SearchError", this);
+
+    }
+    @Override
+    public void manageSubscriptions()
+    {
+        myModel.subscribe("TransactionError", this);
     }
 
     // Overide the paint method to ensure we can set the focus when made visible
@@ -74,14 +90,6 @@ public class SearchView extends View
         super.paint(g);
         //userid.requestFocus();
     }
-
-    // Create the labels and fields
-    //-------------------------------------------------------------
-    protected JPanel createSubTitle()
-    {
-        return null;
-    }
-
     // Create the main data entry fields
     //-------------------------------------------------------------
     private JPanel createDataEntryFields()
@@ -110,6 +118,7 @@ public class SearchView extends View
 
 
         searchKeyBox = new JTextField(20);
+        searchKeyBox.setText("");
         searchKeyBox.addActionListener(this);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -140,7 +149,7 @@ public class SearchView extends View
     {
         // STEP 6: Be sure to finish the end of the 'perturbation'
         // by indicating how the view state gets updated.
-        if (key.equals("SearchError") == true && !value.equals(""))
+        if (key.equals("TransactionError") == true && !value.equals(""))
         {
             // display the passed text
             displayMessage((String) value);
@@ -150,9 +159,12 @@ public class SearchView extends View
 
     private void validateInput(){
         if(searchKeyBox.getText() == null ||searchKeyBox.getText() == "" ){
+            System.out.println("Text: (" + searchKeyBox.getText() + ")");
             //displayMessage();     -mw need Victor to show me how he handles error messages now
         }
-        else{ processSubmit(); }
+        else{
+            //processSubmit();
+        }
     }
 
     public void processSubmit(){

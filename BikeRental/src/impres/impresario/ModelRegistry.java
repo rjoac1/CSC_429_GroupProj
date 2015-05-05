@@ -108,6 +108,7 @@ public class ModelRegistry extends Registry
 
 		// now update all the subscribers to the changed key
 		final StringList propertyList = new StringList(key  + "," + myDependencies.getProperty(key));
+        System.out.println(myDependencies);
 
 		while (propertyList.hasMoreElements() == true)
 		{
