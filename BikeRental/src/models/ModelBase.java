@@ -242,9 +242,9 @@ public abstract class ModelBase extends EntityBase
         dependencies = new Properties();
         dependencies.setProperty("Done", "EndTransaction");
         dependencies.setProperty("ProcessReturn", "UpdateStatusMessage");
-        dependencies.setProperty("ProcessInsertion", "UpdateStatusMessageError");
+        //dependencies.setProperty("ProcessInsertion", "UpdateStatusMessageError");
         dependencies.setProperty("ProcessInsertion", "UpdateStatusMessage");
-        dependencies.setProperty("ProcessReturn", "UpdateStatusMessage");
+        //dependencies.setProperty("ProcessReturn", "UpdateStatusMessage");
 
         myRegistry.setDependencies(dependencies);
     }

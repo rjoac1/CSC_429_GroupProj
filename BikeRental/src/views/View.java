@@ -170,8 +170,12 @@ public abstract class View extends JPanel
         messages = LocaleStore.getLocale().getResourceBundle();
         myRegistry = new ControlRegistry(className);
 
-        myModel.subscribe("UpdateStatusMessage", this);
+        manageSubscriptions();
         //myModel.subscribe("UpdateStatusMessageError", this);
+    }
+    public void manageSubscriptions()
+    {
+        myModel.subscribe("UpdateStatusMessage", this);
     }
 
     public void populateFields(Properties p) {
@@ -563,8 +567,10 @@ public abstract class View extends JPanel
     }
 
     public void displayMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Fast Trax",
-                JOptionPane.PLAIN_MESSAGE);
+        if(message != null && message != "") {
+            JOptionPane.showMessageDialog(this, message, "Fast Trax",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
     }
 }
 

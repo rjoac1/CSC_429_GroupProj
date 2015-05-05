@@ -62,6 +62,9 @@ public class Clerk implements IView, IModel, ISlideShow
     {
         dependencies = new Properties();
         dependencies.setProperty("Login", "LoginError");
+        dependencies.setProperty("ModifyUser", "TransactionError");
+        dependencies.setProperty("ModifyWorker", "TransactionError");
+        dependencies.setProperty("ModifyBike", "TransactionError");
 
         myRegistry.setDependencies(dependencies);
     }
