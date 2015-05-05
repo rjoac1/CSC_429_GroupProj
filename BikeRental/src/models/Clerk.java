@@ -244,7 +244,7 @@ public class Clerk implements IView, IModel, ISlideShow
         try{
             User user = new User(id);
             user.subscribe("EndTransaction", this);
-            user.stateChangeRequest("ShowDataEntryView", "");
+            user.stateChangeRequest("ShowDataEntryViewWithValues", "");
         }
         catch(InvalidPrimaryKeyException e)
         {
@@ -258,7 +258,7 @@ public class Clerk implements IView, IModel, ISlideShow
         try{
             Worker worker = new Worker(id);
             worker.subscribe("EndTransaction", this);
-            worker.stateChangeRequest("ShowDataEntryView", "");
+            worker.stateChangeRequest("ShowDataEntryViewWithValues", "");
         }
         catch(InvalidPrimaryKeyException e)
         {
@@ -272,7 +272,7 @@ public class Clerk implements IView, IModel, ISlideShow
         try{
             Vehicle vehicle = new Vehicle(id);
             vehicle.subscribe("EndTransaction", this);
-            vehicle.stateChangeRequest("ShowDataEntryView", "");
+            vehicle.stateChangeRequest("ShowDataEntryViewWithValues", "");
         }
         catch(InvalidPrimaryKeyException e)
         {

@@ -66,7 +66,7 @@ public class RentalCollection extends ModelBase {
                 processReturn((String) value);
                 break;
             case "ShowDataEntryView":
-                createAndShowDataEntryView();
+                createAndShowDataEntryView(false);
                 break;
         }
         myRegistry.updateSubscribers(key, this);

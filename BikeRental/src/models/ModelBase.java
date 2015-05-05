@@ -195,13 +195,16 @@ public abstract class ModelBase extends EntityBase
                 processInsertion((Properties) value);
                 break;
             case "ShowDataEntryView":
-                createAndShowDataEntryView();
+                createAndShowDataEntryView(false);
+                break;
+            case "ShowDataEntryViewWithValues":
+                createAndShowDataEntryView(true);
                 break;
         }
         myRegistry.updateSubscribers(key, this);
     }
 
-    public void createAndShowDataEntryView()
+    public void createAndShowDataEntryView(Boolean fillValues)
     {
         String viewName = getViewName();
         View localView = (View)myViews.get(viewName);
@@ -216,6 +219,10 @@ public abstract class ModelBase extends EntityBase
         }
         else
         {
+            if(fillValues)
+            {
+                localView.populateFields(persistentState);
+            }
             swapToView(localView);
         }
     }
