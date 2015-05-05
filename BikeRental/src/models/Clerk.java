@@ -296,6 +296,7 @@ public class Clerk implements IView, IModel, ISlideShow
         if(localView == null)
         {
             localView = ViewFactory.createView(viewName, this); //Use View Factory
+            myViews.put(viewName, localView);
             swapToView(localView);
         }
         else

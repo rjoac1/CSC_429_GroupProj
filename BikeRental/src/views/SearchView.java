@@ -152,18 +152,18 @@ public class SearchView extends View
         if (key.equals("TransactionError") == true && !value.equals(""))
         {
             // display the passed text
-            displayMessage((String) value);
+            displayMessage((String)value);
         }
 
     }
 
     private void validateInput(){
         if(searchKeyBox.getText() == null ||searchKeyBox.getText() == "" ){
-            System.out.println("Text: (" + searchKeyBox.getText() + ")");
-            //displayMessage();     -mw need Victor to show me how he handles error messages now
+//            System.out.println("Text: (" + searchKeyBox.getText() + ")");
+            displayMessage("toto");    // -mw need Victor to show me how he handles error messages now
         }
         else{
-            //processSubmit();
+            processSubmit();
         }
     }
 
