@@ -190,6 +190,7 @@ public abstract class ModelBase extends EntityBase
 
     public void stateChangeRequest(String key, Object value)
     {
+        System.err.println("stateChangeRequest\t" + key);
         switch(key)
         {
             case "ProcessInsertion":
@@ -215,6 +216,7 @@ public abstract class ModelBase extends EntityBase
             myViews.put(viewName, localView);
         }
         if (fillValues) {
+            System.err.println("pourquoi");
             localView.populateFields(persistentState);
         }
         swapToView(localView);
