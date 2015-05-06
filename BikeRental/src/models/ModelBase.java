@@ -204,27 +204,22 @@ public abstract class ModelBase extends EntityBase
         myRegistry.updateSubscribers(key, this);
     }
 
-    public void createAndShowDataEntryView(Boolean fillValues)
-    {
+    public void createAndShowDataEntryView(Boolean fillValues) {
         String viewName = getViewName();
-        View localView = (View)myViews.get(viewName);
+        View localView = (View) myViews.get(viewName);
+        System.err.println("createAndShowDataEntryView");
+        System.err.println("fillValues\t" + fillValues);
 
-        if(localView == null)
-        {
+        if (localView == null) {
             localView = ViewFactory.createView(viewName, this);
 
             myViews.put(viewName, localView);
-
-            swapToView(localView);
         }
-        else
-        {
-            if(fillValues)
-            {
-                localView.populateFields(persistentState);
-            }
-            swapToView(localView);
+        System.err.println("persistentState\t" + persistentState.toString());
+        if (fillValues) {
+            localView.populateFields(persistentState);
         }
+        swapToView(localView);
     }
 
     public Object getState(String key)
