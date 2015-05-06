@@ -130,7 +130,11 @@ public class ModelRegistry extends Registry
 			if(tempObj instanceof Vector)
 			{
 				// get the list of elements
-				final Enumeration subscriberList = ((Vector)tempObj).elements();
+				final Enumeration subscriberList =((Vector)tempObj).elements();
+                System.err.println(subscriberList);
+                System.err.println(key);
+                for (Object i: ((Vector)tempObj))
+                    System.err.println(i);
 				while(subscriberList.hasMoreElements() == true)
 				{
 					// extract each subscriber

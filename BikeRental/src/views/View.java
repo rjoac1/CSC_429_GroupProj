@@ -166,6 +166,7 @@ public abstract class View extends JPanel
     //----------------------------------------------------------
     public View(final IModel model, final String className)
     {
+        System.err.println(model);
         myModel = model;
         messages = LocaleStore.getLocale().getResourceBundle();
         myRegistry = new ControlRegistry(className);

@@ -240,39 +240,45 @@ public class Clerk implements IView, IModel, ISlideShow
     }
     private void modifyUser(String id)
     {
+        String message = "";
         try{
             User user = new User(id);
             user.subscribe("EndTransaction", this);
-            user.stateChangeRequest("ShowDataEntryView", "");
+            user.stateChangeRequest("ShowDataEntryViewWithValues", "");
         }
         catch(InvalidPrimaryKeyException e)
         {
-            transactionErrorMessage = e.getMessage();
+            message = e.getMessage();
         }
+        transactionErrorMessage = message;
     }
     private void modifyWorker(String id)
     {
+        String message = "";
         try{
             Worker worker = new Worker(id);
             worker.subscribe("EndTransaction", this);
-            worker.stateChangeRequest("ShowDataEntryView", "");
+            worker.stateChangeRequest("ShowDataEntryViewWithValues", "");
         }
         catch(InvalidPrimaryKeyException e)
         {
-            transactionErrorMessage = e.getMessage();
+            message = e.getMessage();
         }
+        transactionErrorMessage = message;
     }
     private void modifyBike(String id)
     {
+        String message = "";
         try{
             Vehicle vehicle = new Vehicle(id);
             vehicle.subscribe("EndTransaction", this);
-            vehicle.stateChangeRequest("ShowDataEntryView", "");
+            vehicle.stateChangeRequest("ShowDataEntryViewWithValues", "");
         }
         catch(InvalidPrimaryKeyException e)
         {
-            transactionErrorMessage = e.getMessage();
+            message = e.getMessage();
         }
+        transactionErrorMessage = message;
     }
 
     private void processReturn()
@@ -296,6 +302,7 @@ public class Clerk implements IView, IModel, ISlideShow
         if(localView == null)
         {
             localView = ViewFactory.createView(viewName, this); //Use View Factory
+            myViews.put(viewName, localView);
             swapToView(localView);
         }
         else
@@ -342,11 +349,6 @@ public class Clerk implements IView, IModel, ISlideShow
             swapToView(localView);
         }
     }
-    private void ProcessReturn()
-    {
-
-    }
-
     //Abstract Methods
     /** Unregister previously registered objects. */
     //----------------------------------------------------------

@@ -38,7 +38,6 @@ public class SearchView extends View
     // GUI stuff
     private JLabel searchTypeLabel;
     private JTextField searchKeyBox;
-    private JButton submitButton;
     String entityType = "";
 
     // For showing error message
@@ -72,7 +71,7 @@ public class SearchView extends View
        add(createNavigationButtons());
 
 
-        //populateFields();
+        populateFields(null);
 
         // STEP 0: Be sure you tell your model what keys you are interested in
 
@@ -80,7 +79,14 @@ public class SearchView extends View
     @Override
     public void manageSubscriptions()
     {
+        myModel.unSubscribe("TransactionError", this);
         myModel.subscribe("TransactionError", this);
+    }
+
+    @Override
+    public void populateFields(Properties p)
+    {
+        searchKeyBox.setText("");
     }
 
     // Overide the paint method to ensure we can set the focus when made visible
@@ -151,15 +157,15 @@ public class SearchView extends View
         if (key.equals("TransactionError") == true && !value.equals(""))
         {
             // display the passed text
-            displayMessage((String) value);
+            displayMessage((String)value);
+            searchKeyBox.setText("");
         }
 
     }
 
     private void validateInput(){
-        if(searchKeyBox.getText() == null || searchKeyBox.getText().equals("")){
-            switch(entityType)
-            {
+        if (searchKeyBox.getText() == null || searchKeyBox.getText().equals("")){
+            switch (entityType) {
                 case "User":
                     displayMessage(messages.getString("enterUserIDErrorMessage"));
                     break;
@@ -179,19 +185,23 @@ public class SearchView extends View
     public void processSubmit(){
         switch (entityType){
             case "User":
-                myModel.stateChangeRequest("ModifyUser",searchKeyBox.getText() );
+                myModel.stateChangeRequest("ModifyUser", searchKeyBox.getText());
+                searchKeyBox.setText("");
                 break;
             case "Worker":
-                myModel.stateChangeRequest("ModifyWorker",searchKeyBox.getText() );
+                myModel.stateChangeRequest("ModifyWorker", searchKeyBox.getText());
+                searchKeyBox.setText("");
                 break;
             case "Vehicle":
-                myModel.stateChangeRequest("ModifyBike",searchKeyBox.getText() );
+                myModel.stateChangeRequest("ModifyBike",searchKeyBox.getText());
+                searchKeyBox.setText("");
                 break;
         }
     }
 
     public void processDone()
     {
+        searchKeyBox.setText("");
         myModel.stateChangeRequest("EndTransaction", null);
     }
 
