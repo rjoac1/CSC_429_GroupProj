@@ -11,21 +11,21 @@ public class ViewFactory {
         {
             return new LoginView(model);
         }
-        else if(viewName.equals("WorkerView") == true)
-        {
-            return new WorkerView(model);
-        }
         else if(viewName.equals("BikeTransactionChoiceView") == true)
         {
             return new BikeTransactionChoiceView(model);
         }
-		else if(viewName.equals("UserView") == true)
+		else if(viewName.equals("NewUserView") == true)
 		{
-			return new UserView(model);
+			return new UserView(model, "InsertUsers" );
 		}
-        else if(viewName.equals("VehicleView") == true)
+        else if(viewName.equals("NewWorkerView") == true)
         {
-            return new VehicleView(model);
+            return new WorkerView(model, "AddWorkerTitle");
+        }
+        else if(viewName.equals("NewVehicleView") == true)
+        {
+            return new VehicleView(model,"AddVehicleTitle" );
         }
         else if(viewName.equals("RentalView")){
             return new RentalView(model);
@@ -41,6 +41,15 @@ public class ViewFactory {
         }
         else if(viewName.equals("BikeSearchView")){
             return new SearchView(model,"Vehicle");
+        }
+        else if(viewName.equals("ModifyUserView") == true){
+            return new UserView(model, "ModifyUsers" );
+        }
+        else if(viewName.equals("ModifyWorkerView") == true){
+            return new UserView(model, "ModifyWorker" );
+        }
+        else if(viewName.equals("ModifyVehicleView") == true) {
+            return new UserView(model, "ModifyVehicle");
         }
         else
             return null;

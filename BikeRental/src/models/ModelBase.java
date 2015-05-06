@@ -23,6 +23,7 @@ public abstract class ModelBase extends EntityBase
     implements IView, IModel, ISlideShow {
 
     protected final String myTableName;
+    protected String subTitleText;
     protected String updateStatusMessage = "";
     protected Properties dependencies;
     protected ResourceBundle messages = LocaleStore.getLocale().getResourceBundle();
@@ -258,4 +259,6 @@ public abstract class ModelBase extends EntityBase
     abstract public String getIdFieldName();
     abstract public String getViewName();
     abstract public boolean checkIfExists(String idToQuery);
+
+    public String getSubTitleText(){ return subTitleText;}
 }

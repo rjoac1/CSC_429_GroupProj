@@ -16,6 +16,7 @@ import javax.swing.*;
 import impres.exception.InvalidPrimaryKeyException;
 import impres.impresario.IModel;
 import models.User;
+import models.Clerk;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 public class UserView extends View{
@@ -31,9 +32,10 @@ public class UserView extends View{
     private JDatePickerImpl memExpireDatePicker;
     private JDatePickerImpl regDatePicker;
 
-    public UserView(IModel clerk) {
+    public UserView(IModel clerk, String subTitle) {
         super(clerk, "UserView");
-        subTitleText = "InsertUsers";
+
+        subTitleText = subTitle; //-mw
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
