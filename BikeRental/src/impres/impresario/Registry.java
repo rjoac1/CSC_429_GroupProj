@@ -80,8 +80,8 @@ public abstract class Registry
 			{
 				// SANDEEP: FIRST CHECK IF subscriber IS ALREADY IN THIS Vector. IF SO, DON'T ADD subscriber
 				// add this object to the existing list - i.e.,
-				// if (((Vector)tempObj).contains(subcriber) == false)
-				((Vector)tempObj).addElement(subscriber);
+				if (((Vector)tempObj).contains(subscriber) == false)
+                    ((Vector)tempObj).addElement(subscriber);
 			}
 			else // if not a Vector, must be a single subscriber so convert to a list
 			{

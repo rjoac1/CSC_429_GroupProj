@@ -349,11 +349,6 @@ public class Clerk implements IView, IModel, ISlideShow
             swapToView(localView);
         }
     }
-    private void ProcessReturn()
-    {
-
-    }
-
     //Abstract Methods
     /** Unregister previously registered objects. */
     //----------------------------------------------------------
