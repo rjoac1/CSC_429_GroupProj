@@ -119,7 +119,7 @@ public class RentalView extends View {
             }*/
             else if((renterIDEntered == null) || (renterIDEntered.length() == 0))
             {
-                displayMessage(messages.getString("enterWorkerIdError"));
+                displayMessage(messages.getString("enterUserError"));
                 renterIDBox.requestFocus();
             }
             else

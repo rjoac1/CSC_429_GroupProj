@@ -20,9 +20,9 @@ public class VehicleView extends View {
     private JComboBox<ComboxItem> color;
     private JComboBox<ComboxItem> status;
 
-    public VehicleView(IModel vehicle) {
+    public VehicleView(IModel vehicle, String subTitle) {
         super(vehicle, "VehicleView");
-        subTitleText = "AddVehicleTitle";
+        subTitleText = subTitle;        //"AddVehicleTitle";
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

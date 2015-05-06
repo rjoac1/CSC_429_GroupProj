@@ -25,10 +25,12 @@ public class Worker extends ModelBase
     public Worker()
     {
         super(myTableName);
+        subTitleText = "AddWorkerTitle";
     }
 
     public Worker(String workerId) throws InvalidPrimaryKeyException {
         super(myTableName);
+        subTitleText = "ModifyWorker";
         initFromQuery(workerId);
     }
 
@@ -78,7 +80,12 @@ public class Worker extends ModelBase
     {
         return "workerId";
     }
-    public String getViewName(){ return "WorkerView"; }
+
+    public String getViewName() {
+        if (subTitleText == "AddWorkerTitle") { return "NewWorkerView"; }
+        else if (subTitleText == "ModifyWorker") { return "ModifyWorkerView"; }
+        else{ return "";}
+    }
     public boolean checkIfExists(String id)
     {
         try {

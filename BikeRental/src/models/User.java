@@ -22,10 +22,13 @@ public class User extends ModelBase{
 
     public User() {
         super(myTableName);
+        subTitleText = "InsertUsers";
+        persistentState = new Properties();
     }
 
     public User(String userID)throws InvalidPrimaryKeyException{
         super(myTableName);
+        subTitleText = "ModifyUsers";
         initFromQuery(userID);
     }
 
@@ -70,7 +73,14 @@ public class User extends ModelBase{
     {
         return "userId";
     }
-    public String getViewName(){ return "UserView"; }
+
+    public String getViewName(){
+        if(subTitleText == "InsertUsers")
+            return "NewUserView";
+        else if(subTitleText == "ModifyUsers")
+            return "ModifyUserView";
+        else { return ""; }
+    }
     public boolean checkIfExists(String id)
     {
         try {

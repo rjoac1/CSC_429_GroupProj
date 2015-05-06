@@ -33,9 +33,9 @@ public class WorkerView extends View {
     private JTextArea notesArea;
     private JDatePickerImpl regDatePicker;
 
-    public WorkerView(IModel clerk) {
+    public WorkerView(IModel clerk, String subTitle) {
         super(clerk, "WorkerView");
-        subTitleText = "AddWorkerTitle";
+        subTitleText = subTitle;
 
         // set the layout for this panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

@@ -23,11 +23,13 @@ public class Vehicle extends ModelBase
     public Vehicle()
     {
         super(myTableName);
+        subTitleText = "AddVehicleTitle";
     }
 
     public Vehicle(String vehicleID) throws InvalidPrimaryKeyException
     {
         super(myTableName);
+        subTitleText = "ModifyVehicle";
         initFromQuery(vehicleID);
     }
 
@@ -86,12 +88,18 @@ public class Vehicle extends ModelBase
         return "vehicleId";
     }
 
-    public String getViewName(){ return "VehicleView"; }
+    public String getViewName(){
+        if(subTitleText == "AddVehicleTitle")
+            return "NewVehicleView";
+        else if(subTitleText == "ModifyVehicle")
+            return "ModifyVehicleView";
+        else { return ""; }
+        }
 
     public boolean checkIfExists(String id)
     {
         try {
-            Vehicle vehcile = new Vehicle(id);
+            Vehicle vehicle = new Vehicle(id);
             return true;
         }
         catch (InvalidPrimaryKeyException ex) {
