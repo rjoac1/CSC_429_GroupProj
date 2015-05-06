@@ -173,8 +173,4 @@ public class RentalView extends View {
         processDone();
     }
 
-    public void processDone()
-    {
-        myModel.stateChangeRequest("Done", null);
-    }
 }

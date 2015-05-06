@@ -143,10 +143,6 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
         }
     }
 
-    private void processDone() {
-        myModel.stateChangeRequest("Done", null);
-    }
-
     //--------------------------------------------------------------------------
     public void mouseClicked(MouseEvent click)
     {

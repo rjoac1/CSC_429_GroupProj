@@ -20,17 +20,15 @@ public class User extends ModelBase{
     private String updateStatusMessage = "";
     protected Properties dependencies;
 
-    public User()
-    {
+    public User() {
         super(myTableName);
-        persistentState = new Properties();
     }
 
     public User(String userID)throws InvalidPrimaryKeyException{
         super(myTableName);
         initFromQuery(userID);
-
     }
+
     //----------------------------------------------------------
     public User(Properties props)
     {

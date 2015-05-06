@@ -207,15 +207,12 @@ public abstract class ModelBase extends EntityBase
     public void createAndShowDataEntryView(Boolean fillValues) {
         String viewName = getViewName();
         View localView = (View) myViews.get(viewName);
-        System.err.println("createAndShowDataEntryView");
-        System.err.println("fillValues\t" + fillValues);
 
         if (localView == null) {
             localView = ViewFactory.createView(viewName, this);
 
             myViews.put(viewName, localView);
         }
-        System.err.println("persistentState\t" + persistentState.toString());
         if (fillValues) {
             localView.populateFields(persistentState);
         }

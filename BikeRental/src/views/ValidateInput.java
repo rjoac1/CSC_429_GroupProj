@@ -46,6 +46,10 @@ public class ValidateInput extends InputVerifier {
         return value;
     }
 
+    public void hidePopup() {
+        mPopup.setVisible(false);
+    }
+
     private void initPopup() {
         Color color = new Color(243, 255, 159);
         mPopup.getContentPane().setLayout(new FlowLayout());

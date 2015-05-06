@@ -310,6 +310,7 @@ public class Clerk implements IView, IModel, ISlideShow
             swapToView(localView);
         }
     }
+
     private void createAndShowLoginView()
     {
         View localView = (View)myViews.get("LoginView");

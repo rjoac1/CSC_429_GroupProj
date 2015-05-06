@@ -224,9 +224,6 @@ public class UserView extends View{
             myModel.stateChangeRequest("ProcessInsertion", props);
     }
 
-    private void processDone() {
-        myModel.stateChangeRequest("Done", null);
-    }
 
 }
 

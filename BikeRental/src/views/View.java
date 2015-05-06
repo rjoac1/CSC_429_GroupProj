@@ -81,7 +81,6 @@ public abstract class View extends JPanel
             validator = v;
             control = ctl;
             getter = get;
-//            set = s;
             if (control != null)
                 control.setInputVerifier(new ValidateInput(v, get, name + "Error"));
         }
@@ -116,7 +115,19 @@ public abstract class View extends JPanel
     static protected Setter dateSetter = (ctrl, value) -> {
         try {
             Date date = new SimpleDateFormat(datePattern).parse(value);
-            ((JDatePicker)ctrl).getModel().setDate(date.getDay(), date.getMonth(), date.getYear());
+            System.err.println(date);
+            System.err.println(datePattern);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+
+            ((JDatePicker)ctrl).getModel().setDay(day);
+            ((JDatePicker)ctrl).getModel().addMonth(month);
+            ((JDatePicker)ctrl).getModel().setYear(year);
+
+            ((JDatePicker)ctrl).getModel().setSelected(true);
         } catch (ParseException e) {
             System.err.println(e);
             e.printStackTrace();
@@ -174,9 +185,12 @@ public abstract class View extends JPanel
         manageSubscriptions();
         //myModel.subscribe("UpdateStatusMessageError", this);
     }
+
     public void manageSubscriptions()
     {
         myModel.subscribe("UpdateStatusMessage", this);
+        myModel.subscribe("TransactionError", this);
+        myModel.subscribe("NoRentalsFoundError",this);
     }
 
     public void populateFields(Properties p) {
@@ -207,6 +221,7 @@ public abstract class View extends JPanel
             System.err.println(i.propertyName);
             final String s = i.getter.get(i.control);
             if (!i.validator.validate(s)) {
+                i.control.getInputVerifier().verify(i.control);
                 errorHandler.handle(i.control, i.propertyName, false);
                 value = null;
             }
@@ -215,6 +230,13 @@ public abstract class View extends JPanel
             }
         }
         return value;
+    }
+
+    public void hideAllPopups() {
+        for (SubmitWrapper i : mSubmitWrapper) {
+            if (i.control != null)
+                ((ValidateInput)i.control.getInputVerifier()).hidePopup();
+        }
     }
 
     protected JPanel createTitle() {
@@ -549,6 +571,11 @@ public abstract class View extends JPanel
         }
 
         return true;
+    }
+
+    protected void processDone() {
+        myModel.stateChangeRequest("Done", null);
+        hideAllPopups();
     }
 
     //----------------------------------------------------------

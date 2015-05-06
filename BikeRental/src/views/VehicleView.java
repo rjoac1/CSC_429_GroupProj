@@ -179,9 +179,5 @@ public class VehicleView extends View {
             myModel.stateChangeRequest("ProcessInsertion", props);
     }
 
-    private void processDone() {
-        myModel.stateChangeRequest("Done", null);
-    }
-
 }
 

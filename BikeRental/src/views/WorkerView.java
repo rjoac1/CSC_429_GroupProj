@@ -303,8 +303,4 @@ public class WorkerView extends View {
             myModel.stateChangeRequest("ProcessInsertion", props);
     }
 
-    public void processDone() {
-        myModel.stateChangeRequest("Done", null);
-    }
-
 }

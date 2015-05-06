@@ -189,8 +189,8 @@ public class SearchView extends View
         }
     }
 
-    public void processDone()
-    {
+    @Override
+    protected void processDone() {
         myModel.stateChangeRequest("EndTransaction", null);
     }
 
