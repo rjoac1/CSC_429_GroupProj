@@ -4,6 +4,7 @@ import com.sun.deploy.ui.UIFactory;
 import models.LocaleStore;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 
 /**
@@ -37,10 +38,12 @@ public class ValidateInput extends InputVerifier {
             mPopup.setLocation(point.x - (int) cDim.getWidth() / 2,
                     point.y + (int) cDim.getHeight() / 2);
             mPopup.pack();
-            input.setBorder(BorderFactory.createLineBorder(Color.RED));
+            if (input instanceof JTextComponent)
+                input.setBorder(BorderFactory.createLineBorder(Color.RED));
             mPopup.setVisible(true);
         } else {
-            input.setBorder(UIManager.getBorder("TextField.border"));
+            if (input instanceof JTextComponent)
+                input.setBorder(UIManager.getBorder("TextField.border"));
             mPopup.setVisible(false);
         }
         return value;

@@ -115,23 +115,17 @@ public abstract class View extends JPanel
     static protected Setter dateSetter = (ctrl, value) -> {
         try {
             Date date = new SimpleDateFormat(datePattern).parse(value);
-            System.err.println(date);
-            System.err.println(value);
-            System.err.println(datePattern);
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DAY_OF_MONTH);
-            System.err.println(year);
 
             ((JDatePicker)ctrl).getModel().setDay(day);
             ((JDatePicker)ctrl).getModel().setMonth(month);
             ((JDatePicker)ctrl).getModel().setYear(year);
-
             ((JDatePicker)ctrl).getModel().setSelected(true);
         } catch (ParseException e) {
-            System.err.println(e);
             e.printStackTrace();
         }
     };
