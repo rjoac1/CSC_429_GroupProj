@@ -4,6 +4,7 @@ package models;
 // system imports
 
 import impres.exception.InvalidPrimaryKeyException;
+import impres.exception.NoBikesAvailableException;
 import views.DateLabelFormatter;
 
 import java.text.DateFormat;
@@ -20,13 +21,18 @@ public class Rental extends ModelBase{
     private static final String myTableName = "Rental";
     private VehicleCatalog vehicleCatalog;
     private Worker currentWorker;
-    public Rental(Worker mWorker)
+    public Rental(Worker mWorker) throws NoBikesAvailableException
     {
         super(myTableName);
 
         setDependencies();
         persistentState = new Properties();
         vehicleCatalog = new VehicleCatalog();
+        String[] vehicles = (String[])vehicleCatalog.getState("VehicleIDs");
+        if(vehicles.length == 0)
+        {
+            throw new NoBikesAvailableException(messages.getString("NoBikesAvailableToRentError"));
+        }
         currentWorker = mWorker;
     }
 
@@ -65,10 +71,10 @@ public class Rental extends ModelBase{
         v.addElement(persistentState.getProperty("timeRented"));
         v.addElement(persistentState.getProperty("dateDue"));
         v.addElement(persistentState.getProperty("timeDue"));
-        v.addElement(persistentState.getProperty("dateReturned"));
-        v.addElement(persistentState.getProperty("timeReturned"));
+        //v.addElement(persistentState.getProperty("dateReturned"));
+        //v.addElement(persistentState.getProperty("timeReturned"));
         v.addElement(persistentState.getProperty("checkoutWorkerID"));
-        v.addElement(persistentState.getProperty("checkinWorkerID"));
+        //v.addElement(persistentState.getProperty("checkinWorkerID"));
         return v;
     }
 
@@ -83,7 +89,7 @@ public class Rental extends ModelBase{
             return vehicleCatalog.getState("VehicleIDs");
         }
         else if (key.equals("workerId")){
-            return (String) currentWorker.getState("workerId");
+            return currentWorker.getState("workerId");
         }
         else if (key.equals("UpdateStatusMessage"))
         {
