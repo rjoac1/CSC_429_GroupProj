@@ -7,25 +7,25 @@ public class ViewFactory {
 
     public static View createView(String viewName, IModel model)
     {
-        if(viewName.equals("LoginView") == true)
+        if(viewName.equals("LoginView"))
         {
             return new LoginView(model);
         }
-        else if(viewName.equals("BikeTransactionChoiceView") == true)
+        else if(viewName.equals("BikeTransactionChoiceView"))
         {
             return new BikeTransactionChoiceView(model);
         }
-		else if(viewName.equals("NewUserView") == true)
+		else if(viewName.equals("NewUserView"))
 		{
 			return new UserView(model, "InsertUsers" );
 		}
-        else if(viewName.equals("NewWorkerView") == true)
+        else if(viewName.equals("NewWorkerView"))
         {
             return new WorkerView(model, "AddWorkerTitle");
         }
-        else if(viewName.equals("NewVehicleView") == true)
+        else if(viewName.equals("NewVehicleView"))
         {
-            return new VehicleView(model,"AddVehicleTitle" );
+            return new VehicleView(model,"AddVehicleTitle");
         }
         else if(viewName.equals("RentalView")){
             return new RentalView(model);
@@ -42,13 +42,13 @@ public class ViewFactory {
         else if(viewName.equals("BikeSearchView")){
             return new SearchView(model,"Vehicle");
         }
-        else if(viewName.equals("ModifyUserView") == true){
+        else if(viewName.equals("ModifyUserView")) {
             return new UserView(model, "ModifyUsers" );
         }
-        else if(viewName.equals("ModifyWorkerView") == true){
+        else if(viewName.equals("ModifyWorkerView")) {
             return new WorkerView(model, "ModifyWorker");
         }
-        else if(viewName.equals("ModifyVehicleView") == true) {
+        else if(viewName.equals("ModifyVehicleView")) {
             return new VehicleView(model, "ModifyVehicle");
         }
         else

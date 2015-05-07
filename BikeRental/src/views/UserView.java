@@ -3,6 +3,8 @@ package views;
 
 import java.awt.FlowLayout;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.EventObject;
@@ -45,6 +47,12 @@ public class UserView extends View{
         add(createDataEntryFields());
         add(createNavigationButtons());
 
+        regDatePicker.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.err.println("pourquoi");
+            }
+        });
         mSubmitWrapper.addAll(Arrays.asList(
             new SubmitWrapper("firstName", firstNameBox, textGetter, empty),
             new SubmitWrapper("lastName", lastNameBox, textGetter, empty),

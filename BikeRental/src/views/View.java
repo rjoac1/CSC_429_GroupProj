@@ -81,8 +81,13 @@ public abstract class View extends JPanel
             validator = v;
             control = ctl;
             getter = get;
+            ValidateInput validator = new ValidateInput(v, get, name + "Error");
+            if (control instanceof JDatePicker)
+                ((JDatePicker) control).addActionListener(
+                        (e) -> validator.verify(control)
+                );
             if (control != null)
-                control.setInputVerifier(new ValidateInput(v, get, name + "Error"));
+                control.setInputVerifier(validator);
         }
 
     }
@@ -173,7 +178,6 @@ public abstract class View extends JPanel
     //----------------------------------------------------------
     public View(final IModel model, final String className)
     {
-        System.err.println(model);
         myModel = model;
         messages = LocaleStore.getLocale().getResourceBundle();
         myRegistry = new ControlRegistry(className);
@@ -190,10 +194,8 @@ public abstract class View extends JPanel
     }
 
     public void populateFields(Properties p) {
-        System.err.println(p);
         for (SubmitWrapper i: mSubmitWrapper) {
             final String content = p.getProperty(i.propertyName);
-            System.err.println(i.propertyName + "\t" + content);
             if (content == null) continue;
             if (i.control instanceof JTextArea)
                 textAreaSetter.set(i.control, content);
@@ -217,7 +219,6 @@ public abstract class View extends JPanel
     protected Properties getProperties() {
         Properties value = new Properties();
         for (SubmitWrapper i : mSubmitWrapper) {
-            System.err.println(i.propertyName);
             final String s = i.getter.get(i.control);
             if (!i.validator.validate(s)) {
                 i.control.getInputVerifier().verify(i.control);

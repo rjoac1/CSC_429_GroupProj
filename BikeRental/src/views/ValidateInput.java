@@ -15,6 +15,7 @@ public class ValidateInput extends InputVerifier {
     private final View.Getter mGetter;
     private final JDialog mPopup;
     private final JLabel mMessage;
+    private final String mMessageError;
 
     public ValidateInput(final View.Validator v,
                          final View.Getter getter,
@@ -23,6 +24,7 @@ public class ValidateInput extends InputVerifier {
         mGetter = getter;
         mPopup = new JDialog(MainFrame.getInstance());
         mMessage = new JLabel(LocaleStore.getLocale().getResourceBundle().getString(message));
+        mMessageError = message;
         initPopup();
     }
 
@@ -40,7 +42,9 @@ public class ValidateInput extends InputVerifier {
             mPopup.pack();
             if (input instanceof JTextComponent)
                 input.setBorder(BorderFactory.createLineBorder(Color.RED));
-            mPopup.setVisible(true);
+            System.err.println("message\t" + mMessageError);
+            if (!mMessageError.equals("countryCodeError"))
+                mPopup.setVisible(true);
         } else {
             if (input instanceof JTextComponent)
                 input.setBorder(UIManager.getBorder("TextField.border"));
