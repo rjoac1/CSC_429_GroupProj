@@ -77,7 +77,14 @@ public class RentalCollection extends ModelBase {
         try{
             Rental r = new Rental(s);
             r.setReturned((String)mWorker.getState("workerId"));
-            updateStatusMessage = messages.getString("returnSuccessful");
+
+            Object[] messageArguments = {
+                    r.persistentState.getProperty("vehicleID")
+            };
+            formatter.applyPattern(messages.getString("rentalReturnedSuccessfully"));
+            updateStatusMessage = formatter.format(messageArguments);
+
+            //updateStatusMessage = messages.getString("returnSuccessful");
         }
         catch(Exception e) {
             e.getMessage();

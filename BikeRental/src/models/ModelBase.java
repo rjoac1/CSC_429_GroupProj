@@ -27,12 +27,15 @@ public abstract class ModelBase extends EntityBase
     protected String updateStatusMessage = "";
     protected Properties dependencies;
     protected ResourceBundle messages = LocaleStore.getLocale().getResourceBundle();
+    MessageFormat formatter = new MessageFormat("");
+
 
     protected ModelBase(final String tableName) {
         super(tableName);
         myTableName = tableName;
         mySchema = getSchemaInfo(myTableName);
         setDependencies();
+        formatter.setLocale(LocaleStore.getLocale().getLocaleObject());
     }
 
     public Properties getProperties() {
@@ -133,8 +136,7 @@ public abstract class ModelBase extends EntityBase
         try
         {
             String idField = getIdFieldName();
-            MessageFormat formatter = new MessageFormat("");
-            formatter.setLocale(LocaleStore.getLocale().getLocaleObject());
+
             String message = "";
             if(persistentState.getProperty(idField) != null)
             {

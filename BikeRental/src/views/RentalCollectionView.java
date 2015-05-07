@@ -6,8 +6,11 @@ import models.RentalCollection;
 import models.RentalTableModel;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -23,6 +26,9 @@ import java.util.Vector;
 public class RentalCollectionView extends View implements ActionListener, MouseListener {
     protected JTable tableOfRentals;
     protected Vector rentalVector;
+
+    private TableRowSorter<TableModel> rowSorter;
+    private JTextField jtfFilter;
 
     protected JButton mSearchBtn;
     protected JTextField mSearchField;
@@ -80,6 +86,13 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
         JPanel entries = new JPanel();
         entries.setLayout(new BoxLayout(entries, BoxLayout.Y_AXIS));
 
+        JPanel searchPanel = new JPanel();
+        searchPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        searchPanel.add(new JLabel(messages.getString("filterInstructionsLabel")));
+        jtfFilter = new JTextField(20);
+        searchPanel.add(jtfFilter);
+        entries.add(searchPanel);
+
         JPanel tablePan = new JPanel();
         tablePan.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -98,6 +111,38 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
             column = tableOfRentals.getColumnModel().getColumn(i);
             column.setPreferredWidth(100);
         }
+        //Attempting to add search functionality
+        rowSorter = new TableRowSorter<>(tableOfRentals.getModel());
+        tableOfRentals.setRowSorter(rowSorter);
+        jtfFilter.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = jtfFilter.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text,1));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = jtfFilter.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text,1));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+
         // Renter First Name
 
         //tablePan.add(tableOfAccounts);
@@ -105,10 +150,13 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
         JScrollPane scrollPane = new JScrollPane(tableOfRentals);
         tablePan.add(scrollPane);
 
+
+
+
+
+
         entries.add(tablePan);
-        mSearchBtn = new JButton("Search");
-        entries.add(mSearchBtn);
-        mSearchField = new JTextField();
+
 
         return entries;
     }
@@ -120,21 +168,20 @@ public class RentalCollectionView extends View implements ActionListener, MouseL
             processDone();
         }
         else if(evt.getSource() == submit) {
+            System.out.println(tableOfRentals.getSelectedRow());
             processRentalSelected();
         }
-        else if (evt.getSource() == mSearchBtn) {
-            processSearch();
-        }
-    }
-
-    private void processSearch() {
-
     }
 
     protected void processRentalSelected() {
         int selectedIndex = tableOfRentals.getSelectedRow();
-        if(selectedIndex >= 0)
+        if(selectedIndex<0)
         {
+            displayMessage(messages.getString("rentalNotSelectedError"));
+        }
+        else
+        {
+            selectedIndex = tableOfRentals.convertRowIndexToModel(selectedIndex);
             Vector selectedRental = (Vector)rentalVector.elementAt(selectedIndex);
 
             myModel.stateChangeRequest("ProcessReturn", selectedRental.elementAt(0));
