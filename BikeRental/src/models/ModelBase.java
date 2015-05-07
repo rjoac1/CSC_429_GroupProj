@@ -43,6 +43,7 @@ public abstract class ModelBase extends EntityBase
 
         String idName = getIdFieldName();
         String query = "SELECT * FROM " + myTableName + " WHERE (" + idName + " = " + id + ")";
+        System.err.println(query);
 
         Vector allDataRetrieved = getSelectQueryResult(query);
 

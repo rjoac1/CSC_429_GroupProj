@@ -46,10 +46,10 @@ public class ViewFactory {
             return new UserView(model, "ModifyUsers" );
         }
         else if(viewName.equals("ModifyWorkerView") == true){
-            return new UserView(model, "ModifyWorker" );
+            return new WorkerView(model, "ModifyWorker");
         }
         else if(viewName.equals("ModifyVehicleView") == true) {
-            return new UserView(model, "ModifyVehicle");
+            return new VehicleView(model, "ModifyVehicle");
         }
         else
             return null;

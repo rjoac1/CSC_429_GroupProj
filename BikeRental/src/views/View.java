@@ -190,8 +190,11 @@ public abstract class View extends JPanel
     }
 
     public void populateFields(Properties p) {
+        System.err.println(p);
         for (SubmitWrapper i: mSubmitWrapper) {
             final String content = p.getProperty(i.propertyName);
+            System.err.println(i.propertyName + "\t" + content);
+            if (content == null) continue;
             if (i.control instanceof JTextArea)
                 textAreaSetter.set(i.control, content);
             else if (i.control instanceof JTextField)

@@ -47,8 +47,8 @@ public class SearchView extends View
     //----------------------------------------------------------
     public SearchView(IModel clerk, String entityType)
     {
-
         super(clerk, "SearchView");
+        System.err.println(entityType);
         this.entityType = entityType;
         switch(entityType)
         {
