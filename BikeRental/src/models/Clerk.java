@@ -67,6 +67,7 @@ public class Clerk implements IView, IModel, ISlideShow
         dependencies.setProperty("ModifyWorker", "TransactionError");
         dependencies.setProperty("ModifyBike", "TransactionError");
         dependencies.setProperty("Rent","TransactionError");
+        dependencies.setProperty("Return","TransactionError");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -302,7 +303,7 @@ public class Clerk implements IView, IModel, ISlideShow
         }
         catch(InvalidPrimaryKeyException e)
         {
-            findRentalsErrorMessage = e.getMessage();
+            transactionErrorMessage = e.getMessage();
         }
     }
 
