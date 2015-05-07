@@ -299,8 +299,10 @@ public class WorkerView extends View {
     public void processInsertion() {
         Properties props = getProperties();
         System.err.println(props);
-        if (props != null)
+        if (props != null) {
             myModel.stateChangeRequest("ProcessInsertion", props);
+            processDone();
+        }
     }
 
 }
