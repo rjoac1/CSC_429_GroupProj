@@ -66,8 +66,6 @@ public class BikeTransactionChoiceView extends View
         mainFrame = MainFrame.getInstance(messages.getString("titleLine"));
 
 
-        populateFields();
-
         //myModel.subscribe("TransactionError", this);
         //myModel.subscribe("NoRentalsFoundError",this);
     }
@@ -313,12 +311,6 @@ public class BikeTransactionChoiceView extends View
         final JPanel panel_4 = new JPanel();
         value.add(panel_4);
         return value;*/
-    }
-
-    //-------------------------------------------------------------
-    public void populateFields()
-    {
-
     }
 
     // process events generated from our GUI components

@@ -45,15 +45,10 @@ public class Clerk implements IView, IModel, ISlideShow
 
     public Clerk()
     {
+        System.err.println("new Clerk");
         myFrame = MainFrame.getInstance();
         myViews = new Hashtable();
         myRegistry = new ModelRegistry("Clerk");
-
-        if(myRegistry == null)
-        {
-            new Event(Event.getLeafLevelClassName(this), "Teller",
-                    "Could not instantiate Registry", Event.ERROR);
-        }
         setDependencies();
 
         createAndShowLoginView();
@@ -61,6 +56,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
     private void setDependencies()
     {
+        if (dependencies != null) return;
         dependencies = new Properties();
         dependencies.setProperty("Login", "LoginError");
         dependencies.setProperty("ModifyUser", "TransactionError");
@@ -180,7 +176,6 @@ public class Clerk implements IView, IModel, ISlideShow
                 break;
             case "Logout":
                 myWorker = null;
-                loginChange = true;
                 createAndShowLoginView();
                 break;
         }
@@ -350,19 +345,15 @@ public class Clerk implements IView, IModel, ISlideShow
     {
         View localView = (View)myViews.get("BikeTransactionChoiceView");
 
-        if(localView == null || loginChange == true)
+        if (localView == null)
         {
             //create initial view
             localView = ViewFactory.createView("BikeTransactionChoiceView", this); //Use View Factory
 
             myViews.put("BikeTransactionChoiceView", localView);
 
-            swapToView(localView);
         }
-        else
-        {
-            swapToView(localView);
-        }
+        swapToView(localView);
     }
     //Abstract Methods
     /** Unregister previously registered objects. */
