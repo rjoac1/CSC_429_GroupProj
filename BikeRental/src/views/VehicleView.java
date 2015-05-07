@@ -175,8 +175,10 @@ public class VehicleView extends View {
 
     private void processInsertionOfNewVehicle() {
         final Properties props = getProperties();
-        if (props != null)
+        if (props != null) {
             myModel.stateChangeRequest("ProcessInsertion", props);
+            processDone();
+        }
     }
 
 }

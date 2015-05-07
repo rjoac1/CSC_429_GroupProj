@@ -236,7 +236,7 @@ public class Clerk implements IView, IModel, ISlideShow
     {
         Rental rental = new Rental(myWorker);
         rental.subscribe("EndTransaction", this);
-        rental.stateChangeRequest("ShowDataEntryViewV", "");
+        rental.stateChangeRequest("ShowDataEntryView", "");
     }
     private void modifyUser(String id)
     {

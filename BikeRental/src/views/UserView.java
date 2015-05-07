@@ -223,7 +223,11 @@ public class UserView extends View{
     private void processInsertionOfNewUser() {
         final Properties props = getProperties();
         if (props != null)
+        {
             myModel.stateChangeRequest("ProcessInsertion", props);
+            processDone();
+        }
+
     }
 
 
