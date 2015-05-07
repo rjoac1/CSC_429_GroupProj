@@ -295,6 +295,7 @@ public class Clerk implements IView, IModel, ISlideShow
 
     private void processReturn()
     {
+        String message = "";
         try {
             RentalCollection rc = new RentalCollection(myWorker);
             rc.findActiveRentals();
@@ -303,8 +304,9 @@ public class Clerk implements IView, IModel, ISlideShow
         }
         catch(InvalidPrimaryKeyException e)
         {
-            transactionErrorMessage = e.getMessage();
+            message = e.getMessage();
         }
+        transactionErrorMessage = message;
     }
 
     private void createSearchView(String viewName)

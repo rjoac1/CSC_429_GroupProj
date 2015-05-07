@@ -71,10 +71,10 @@ public class Rental extends ModelBase{
         v.addElement(persistentState.getProperty("timeRented"));
         v.addElement(persistentState.getProperty("dateDue"));
         v.addElement(persistentState.getProperty("timeDue"));
-        v.addElement(persistentState.getProperty("dateReturned"));
-        v.addElement(persistentState.getProperty("timeReturned"));
+        //v.addElement(persistentState.getProperty("dateReturned"));
+        //v.addElement(persistentState.getProperty("timeReturned"));
         v.addElement(persistentState.getProperty("checkoutWorkerID"));
-        v.addElement(persistentState.getProperty("checkinWorkerID"));
+        //v.addElement(persistentState.getProperty("checkinWorkerID"));
         return v;
     }
 
@@ -89,7 +89,7 @@ public class Rental extends ModelBase{
             return vehicleCatalog.getState("VehicleIDs");
         }
         else if (key.equals("workerId")){
-            return (String) currentWorker.getState("workerId");
+            return currentWorker.getState("workerId");
         }
         else if (key.equals("UpdateStatusMessage"))
         {

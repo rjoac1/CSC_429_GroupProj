@@ -21,7 +21,7 @@ public class RentalTableModel extends TableModelBase {
                 messages.getString("timeRented"),
                 messages.getString("dateDue"),
                 messages.getString("timeDue"),
-                messages.getString("checkinWorkerID"),
+                //messages.getString("checkinWorkerID"),
                 messages.getString("checkoutWorkerID")
         };
     }
