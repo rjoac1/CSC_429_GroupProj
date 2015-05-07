@@ -186,7 +186,7 @@ public abstract class View extends JPanel
     {
         myModel.subscribe("UpdateStatusMessage", this);
         myModel.subscribe("TransactionError", this);
-        myModel.subscribe("NoRentalsFoundError",this);
+        //myModel.subscribe("NoRentalsFoundError",this);
     }
 
     public void populateFields(Properties p) {
@@ -336,6 +336,9 @@ public abstract class View extends JPanel
     public void updateState(String key, Object value) {
         switch(key) {
             case "UpdateStatusMessage":
+                displayMessage((String)value);
+                break;
+            case "NoRen":
                 displayMessage((String)value);
                 break;
             default:

@@ -4,6 +4,7 @@ package models;
 // system imports
 
 import impres.exception.InvalidPrimaryKeyException;
+import impres.exception.NoBikesAvailableException;
 import views.DateLabelFormatter;
 
 import java.text.DateFormat;
@@ -20,13 +21,18 @@ public class Rental extends ModelBase{
     private static final String myTableName = "Rental";
     private VehicleCatalog vehicleCatalog;
     private Worker currentWorker;
-    public Rental(Worker mWorker)
+    public Rental(Worker mWorker) throws NoBikesAvailableException
     {
         super(myTableName);
 
         setDependencies();
         persistentState = new Properties();
         vehicleCatalog = new VehicleCatalog();
+        String[] vehicles = (String[])vehicleCatalog.getState("VehicleIDs");
+        if(vehicles.length == 0)
+        {
+            throw new NoBikesAvailableException(messages.getString("NoBikesAvailableToRentError"));
+        }
         currentWorker = mWorker;
     }
 

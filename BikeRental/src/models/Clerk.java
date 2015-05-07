@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 //project imports
+import impres.exception.NoBikesAvailableException;
 import impres.impresario.IModel;
 import impres.impresario.ISlideShow;
 import impres.impresario.IView;
@@ -65,6 +66,7 @@ public class Clerk implements IView, IModel, ISlideShow
         dependencies.setProperty("ModifyUser", "TransactionError");
         dependencies.setProperty("ModifyWorker", "TransactionError");
         dependencies.setProperty("ModifyBike", "TransactionError");
+        dependencies.setProperty("Rent","TransactionError");
 
         myRegistry.setDependencies(dependencies);
     }
@@ -234,9 +236,18 @@ public class Clerk implements IView, IModel, ISlideShow
     }
     private void createNewRental()
     {
-        Rental rental = new Rental(myWorker);
-        rental.subscribe("EndTransaction", this);
-        rental.stateChangeRequest("ShowDataEntryView", "");
+        String message = "";
+        try{
+            Rental rental = new Rental(myWorker);
+            rental.subscribe("EndTransaction", this);
+            rental.stateChangeRequest("ShowDataEntryView", "");
+        }
+        catch(NoBikesAvailableException e)
+        {
+            message = e.getMessage();
+        }
+        transactionErrorMessage = message;
+
     }
     private void modifyUser(String id)
     {

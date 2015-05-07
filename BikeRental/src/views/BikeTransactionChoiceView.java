@@ -69,7 +69,7 @@ public class BikeTransactionChoiceView extends View
         populateFields();
 
         //myModel.subscribe("TransactionError", this);
-        //myModel.subscribe("NoRentalsFoundError",this);
+        myModel.subscribe("NoRentalsFoundError",this);
     }
 
     protected JPanel createWelcomeMessage() {
