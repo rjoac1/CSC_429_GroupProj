@@ -112,9 +112,11 @@ public class SearchView extends View
         GridBagConstraints c = new GridBagConstraints();
 
         System.out.println(entityType);
-        if(entityType == "User" || entityType == "Worker")
+        if(entityType == "User")
             searchTypeLabel = new JLabel(messages.getString("BannerID"));
-        else
+        else if(entityType == "Worker")
+            searchTypeLabel = new JLabel(messages.getString("workerId"));
+        else if (entityType == "Vehicle")
             searchTypeLabel = new JLabel(messages.getString("vehicleID"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
