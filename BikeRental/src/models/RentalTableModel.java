@@ -13,6 +13,7 @@ public class RentalTableModel extends TableModelBase {
 
     public RentalTableModel(Vector rentalData) {
         super(rentalData);
+        System.err.println(rentalData);
         mColumnNames = new String[] {
                 messages.getString("rentalID"),
                 messages.getString("vehicleID"),

@@ -2,6 +2,12 @@ package models;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import static java.text.DateFormat.*;
+
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -9,14 +15,13 @@ import java.util.Vector;
  */
 public abstract class TableModelBase extends AbstractTableModel implements TableModel
 {
+    static protected String datePattern = "yyyy-MM-dd";
+    static protected SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
+
     private Vector myState;
 
     public TableModelBase(Vector rentalData) {
         myState = rentalData;
-    }
-
-    public void filter(String name, String value) {
-
     }
 
     //--------------------------------------------------------------------------
@@ -29,9 +34,22 @@ public abstract class TableModelBase extends AbstractTableModel implements Table
     }
 
     //--------------------------------------------------------------------------
-    public Object getValueAt(int rowIndex, int columnIndex)
-    {
+    public Object getValueAt(int rowIndex, int columnIndex) {
         Vector entity = (Vector)myState.elementAt(rowIndex);
+//        if (entity.elementAt(columnIndex) is)
+        if (columnIndex == 3 || columnIndex == 5) {
+            try {
+                DateFormat f = DateFormat.getDateInstance(SHORT, LocaleStore.getLocale().getLocaleObject());
+                String s = (String)entity.elementAt(columnIndex);
+                Date d = dateFormatter.parse(s);
+                String value = f.format(d);
+                System.err.println(value);
+                return value;
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
         return "    " + entity.elementAt(columnIndex);
     }
 
