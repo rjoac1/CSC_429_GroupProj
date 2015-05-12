@@ -136,6 +136,7 @@ public abstract class ModelBase extends EntityBase
         try
         {
             String idField = getIdFieldName();
+            idField = LocaleStore.getLocale().getResourceBundle().getString(idField);
 
             String message = "";
             if(persistentState.getProperty(idField) != null)
@@ -143,7 +144,7 @@ public abstract class ModelBase extends EntityBase
                 boolean flag = checkIfExists(persistentState.getProperty(idField));
                 System.out.println(flag); //test
                 Object[] messageArguments = {
-                        myTableName,
+                        "",
                         idField,
                         persistentState.getProperty(idField)
                 };
@@ -170,7 +171,7 @@ public abstract class ModelBase extends EntityBase
                 persistentState.setProperty(idField, "" + id.intValue());
 
                 Object[] messageArguments = {
-                        myTableName,
+                        "",
                         idField,
                         persistentState.getProperty(idField)
                 };
