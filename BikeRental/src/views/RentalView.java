@@ -78,7 +78,7 @@ public class RentalView extends View {
         c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 2;
-        JLabel userIdLabel = new JLabel(messages.getString("userId"));
+        JLabel userIdLabel = new JLabel(messages.getString("BannerID"));
         temp.add(userIdLabel, c);
 
         c.insets = new Insets(0,8,8,8);
