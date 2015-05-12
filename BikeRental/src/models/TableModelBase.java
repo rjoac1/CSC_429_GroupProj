@@ -43,7 +43,6 @@ public abstract class TableModelBase extends AbstractTableModel implements Table
                 String s = (String)entity.elementAt(columnIndex);
                 Date d = dateFormatter.parse(s);
                 String value = f.format(d);
-                System.err.println(value);
                 return value;
             } catch (ParseException e) {
                 e.printStackTrace();

@@ -87,7 +87,7 @@ public class RentalCollection extends ModelBase {
             //updateStatusMessage = messages.getString("returnSuccessful");
         }
         catch(Exception e) {
-            e.getMessage();
+            e.printStackTrace();
             updateStatusMessage = messages.getString("returnUnSuccessful");
         }
 
