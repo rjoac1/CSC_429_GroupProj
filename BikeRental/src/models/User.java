@@ -55,7 +55,7 @@ public class User extends ModelBase{
     public Vector getEntryListView()
     {
         Vector v = new Vector();
-        v.addElement(persistentState.getProperty("userID"));
+        v.addElement(persistentState.getProperty("userId"));
         v.addElement(persistentState.getProperty("firstName"));
         v.addElement(persistentState.getProperty("lastName"));
         v.addElement(persistentState.getProperty("phoneNumber"));

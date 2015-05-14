@@ -108,6 +108,9 @@ public abstract class ModelBase extends EntityBase
     protected void processInsertion(Properties props)
     {
         setValues(props);
+        System.out.println("id key expected - " + getIdFieldName());
+        System.out.println("id value  - " + persistentState.getProperty(getIdFieldName()));
+        System.out.println("id key expected - ");
         update();
     }
 
@@ -119,10 +122,15 @@ public abstract class ModelBase extends EntityBase
             String nextKey = (String)allKeys.nextElement();
             String nextValue = props.getProperty(nextKey);
 
+            System.out.println("[ " + nextKey + " = " + nextValue + " ]");
+
             if(nextValue != null)
             {
                 persistentState.setProperty(nextKey, nextValue);
             }
+        }
+        if(persistentState.getProperty(getIdFieldName()) == null) {
+            System.out.println("there is no id for this object");
         }
     }
 
@@ -135,18 +143,22 @@ public abstract class ModelBase extends EntityBase
     {
         try
         {
+            /*  this isn't doing anything -mw
             String idField = getIdFieldName();
+            System.out.println("pre-local - " + idField);
             idField = LocaleStore.getLocale().getResourceBundle().getString(idField);
+            System.out.println("postlocal - " + idField);
+            */
 
             String message = "";
-            if(persistentState.getProperty(idField) != null)
+            if(persistentState.getProperty(getIdFieldName()) != null)
             {
-                boolean flag = checkIfExists(persistentState.getProperty(idField));
+                System.out.println("I Am not null");
+                boolean flag = checkIfExists(persistentState.getProperty(getIdFieldName()));
                 System.out.println(flag); //test
                 Object[] messageArguments = {
-                        "",
-                        idField,
-                        persistentState.getProperty(idField)
+                        getIdFieldName(),
+                        persistentState.getProperty(getIdFieldName())
                 };
                 if (flag == false)
                 {
@@ -156,7 +168,7 @@ public abstract class ModelBase extends EntityBase
                 }
                 else {
                     Properties whereClause = new Properties();
-                    whereClause.setProperty(idField, persistentState.getProperty(idField));
+                    whereClause.setProperty(getIdFieldName(), persistentState.getProperty(getIdFieldName()));
                     updatePersistentState(mySchema, persistentState, whereClause);
                     formatter.applyPattern(messages.getString("entityUpdatedSuccessfully"));
                     message = formatter.format(messageArguments);
@@ -167,13 +179,13 @@ public abstract class ModelBase extends EntityBase
             }
             else
             {
+                System.out.println("I Am null");
                 Integer id = insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty(idField, "" + id.intValue());
+                persistentState.setProperty(getIdFieldName(), "" + id.intValue());
 
                 Object[] messageArguments = {
-                        "",
-                        idField,
-                        persistentState.getProperty(idField)
+                        getIdFieldName(),
+                        persistentState.getProperty(getIdFieldName())
                 };
                 formatter.applyPattern(messages.getString("entityInsertedSuccessfully"));
                 updateStatusMessage = formatter.format(messageArguments);
@@ -264,4 +276,8 @@ public abstract class ModelBase extends EntityBase
     abstract public boolean checkIfExists(String idToQuery);
 
     public String getSubTitleText(){ return subTitleText;}
+
+    public String getIdValue(){
+        return persistentState.getProperty(this.getIdFieldName());
+    }
 }

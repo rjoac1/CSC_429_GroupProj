@@ -22,6 +22,10 @@ public class DBContentStrategy {
             "Mint", "Good", "Satisfactory", "Poor"
     };
 
+    private static final String[] location = {
+            "Seymour College Union", "Welcome Center", "McFarlane", "Mortimer", "Benedict"
+    };
+
     public static String getStatusValue(int i) {
         return status[i];
     }
@@ -41,5 +45,7 @@ public class DBContentStrategy {
     public static String getPhysicalConditionValue(int i) {
         return physicalCondition[i];
     }
+
+    public static String getLocationValue(int i){ return location[i]; }
 
 }

@@ -22,7 +22,7 @@ public class VehicleCatalog extends ModelBase
     {
         super(myTableName);
         String query = "SELECT VehicleId FROM " + myTableName + " WHERE " +
-                "vehicleId not in (select vehicleID From Rental Where dateReturned = '')" +
+                "vehicleId not in (select vehicleId From Rental Where dateReturned = '')" +
                 " and status = 'Active'";
         /*
         select VehicleId from Vehicle where vehicleId not in(

@@ -15,7 +15,7 @@ public class VehicleView extends View {
     private JTextField modelNumber;
     private JTextField serialNumber;
     private JTextField description;
-    private JTextField location;
+    private JComboBox<ComboxItem> location;
     private JComboBox<ComboxItem> physicalCondition;
     private JComboBox<ComboxItem> color;
     private JComboBox<ComboxItem> status;
@@ -36,7 +36,7 @@ public class VehicleView extends View {
                 new SubmitWrapper("modelNumber", modelNumber, textGetter, empty),
                 new SubmitWrapper("serialNumber", serialNumber, textGetter, empty),
                 new SubmitWrapper("color", color, comboGetter, empty),
-                new SubmitWrapper("location", location, textGetter, empty),
+                new SubmitWrapper("location", location, comboGetter, empty),
                 new SubmitWrapper("description", description, textGetter, ok),
                 new SubmitWrapper("physicalCondition", physicalCondition, comboGetter, empty),
                 new SubmitWrapper("status", status, comboGetter, empty),
@@ -119,7 +119,10 @@ public class VehicleView extends View {
         JLabel locationLabel = new JLabel(messages.getString("VehicleLocation"));
         temp5.add(locationLabel);
 
-        location = new JTextField(35);
+        location = new JComboBox<>();
+        populateComboxBox(location, new String[]{
+                "location1", "location2", "location3", "location4", "location5"
+        });
         location.addActionListener(this);
         temp5.add(location);
 

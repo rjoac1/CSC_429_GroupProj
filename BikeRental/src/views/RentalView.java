@@ -19,11 +19,6 @@ public class RentalView extends View {
     // GUI stuff
     private JComboBox<String> availableVehicles;
     private JTextField renterIDBox;
-    //private JTextField checkoutWorkerBox;
-
-    //private JDatePickerImpl regDatePicker;
-    //private JButton submit;
-    //private JButton done;
 
     public RentalView(IModel clerk)
     {

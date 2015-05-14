@@ -17,6 +17,8 @@ public class Vehicle extends ModelBase
 {
 
     private static final String myTableName = "Vehicle";	//name of database table
+    private String updateStatusMessage = "";
+    protected Properties dependencies;
 
     //Constructor
     //-----------------------------------------------------
@@ -24,6 +26,7 @@ public class Vehicle extends ModelBase
     {
         super(myTableName);
         subTitleText = "AddVehicleTitle";
+        persistentState = new Properties();
     }
 
     public Vehicle(String vehicleID) throws InvalidPrimaryKeyException
@@ -40,9 +43,7 @@ public class Vehicle extends ModelBase
         super(myTableName);
 
         setDependencies();
-
         persistentState = new Properties();
-
         Enumeration allKeys = props.propertyNames();
         while(allKeys.hasMoreElements() == true)
         {
@@ -59,8 +60,7 @@ public class Vehicle extends ModelBase
     public Vector getEntryListView()
     {
         Vector v = new Vector();
-
-        v.addElement(persistentState.getProperty("vehicleID"));
+        v.addElement(persistentState.getProperty("vehicleId"));
         v.addElement(persistentState.getProperty("make"));
         v.addElement(persistentState.getProperty("modelNumber"));
         v.addElement(persistentState.getProperty("serialNumber"));
@@ -77,8 +77,8 @@ public class Vehicle extends ModelBase
     //-----------------------------------------------------------------------------------
     public static int compare(Vehicle a, Vehicle b)
     {
-        String aNum = (String)a.getState("vehicleID");
-        String bNum = (String)b.getState("vehicleID");
+        String aNum = (String)a.getState("vehicleId");
+        String bNum = (String)b.getState("vehicleId");
 
         return aNum.compareTo(bNum);
     }
@@ -108,7 +108,7 @@ public class Vehicle extends ModelBase
         }
     }
 
-    public String getVehicleID(){ return this.persistentState.getProperty("vehicleID"); }
+    public String getVehicleID(){ return this.persistentState.getProperty("vehicleId"); }
 
 }
 
