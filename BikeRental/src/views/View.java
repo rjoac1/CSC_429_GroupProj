@@ -194,6 +194,7 @@ public abstract class View extends JPanel
     }
 
     public void populateFields(Properties p) {
+        System.out.println("\n\nEntering populate fields:\n");
         for (SubmitWrapper i: mSubmitWrapper) {
             final String content = p.getProperty(i.propertyName);
             if (content == null) continue;
@@ -201,8 +202,12 @@ public abstract class View extends JPanel
                 textAreaSetter.set(i.control, content);
             else if (i.control instanceof JTextField)
                 textSetter.set(i.control, content);
-            else if (i.control instanceof JComboBox)
+            else if (i.control instanceof JComboBox) {
+                System.out.println("Control : " + i.control.toString());
+                System.out.println(i.propertyName.toString());
+                System.out.println("Content : " + content.toString());
                 comboSetter.set(i.control, content);
+            }
             else if (i.control instanceof JDatePicker)
                 dateSetter.set(i.control, content);
             else if (i.control != null)
@@ -212,6 +217,8 @@ public abstract class View extends JPanel
 
     protected void populateComboxBox(JComboBox<ComboxItem> c,
                                      String[] keys) {
+        System.out.println("Populate comboxBox method:\n\n");
+        System.out.println("combox is a " + ComboxItem.class);
         Arrays.stream(keys).map(ComboxItem::new)
                 .forEach(c::addItem);
     }

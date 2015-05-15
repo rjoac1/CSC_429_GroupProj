@@ -17,6 +17,10 @@ public class ComboxItem {
         mMessage = LocaleStore.getLocale().getResourceBundle();
     }
 
+    public boolean compareByComboxItem(String key){
+        return this.mKey.equals(key);
+    }
+
     @Override
     public String toString() {
         return mMessage.getString(mKey);

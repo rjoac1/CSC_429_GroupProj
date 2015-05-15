@@ -23,7 +23,7 @@ public class DBContentStrategy {
     };
 
     private static final String[] location = {
-            "Seymour College Union", "Welcome Center", "McFarlane", "Mortimer", "Benedict"
+            "location1", "location2", "location3", "location4", "location5"
     };
 
     public static String getStatusValue(int i) {
